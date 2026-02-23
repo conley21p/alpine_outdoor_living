@@ -62,7 +62,7 @@ export function ReviewsSection({ reviews = [], previewOnly = false }: ReviewsSec
                 <span key={i}>★</span>
               ))}
             </div>
-            <p className="text-sm leading-relaxed text-gray-700">"{review.quote}"</p>
+            <p className="text-sm leading-relaxed text-gray-700">&ldquo;{review.quote}&rdquo;</p>
             <div className="mt-5 border-t border-gray-100 pt-4">
               <p className="font-bold text-brand-textDark">{review.customerName}</p>
               <p className="mt-1 text-xs font-medium text-gray-500">{review.service || publicConfig.industry}</p>
