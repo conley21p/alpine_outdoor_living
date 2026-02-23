@@ -41,31 +41,35 @@ export function ReviewsSection({ reviews = [], previewOnly = false }: ReviewsSec
   );
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10">
-        <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">What clients are saying</h2>
-        <p className="mt-2 text-base text-gray-600">
+    <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
+      <div className="mb-16 text-center lg:mb-20">
+        <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl">
+          What clients say
+        </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl">
           {reviews.length === 0 
-            ? "These are placeholder testimonials and will be updated with live reviews."
+            ? "Sample testimonials—live reviews coming soon"
             : "Real feedback from our valued customers"
           }
         </p>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {data.map((review, index) => (
           <article 
             key={`${review.customerName}-${index}`} 
-            className="rounded-2xl border border-gray-100 bg-white p-6 shadow-card transition-all hover:shadow-card-hover"
+            className="rounded-2xl bg-brand-bgLight p-8 lg:p-10"
           >
-            <div className="mb-4 flex items-center gap-0.5 text-xl text-brand-primary">
+            <div className="mb-5 flex items-center gap-0.5 text-lg text-brand-textDark">
               {Array.from({ length: review.rating }).map((_, i) => (
                 <span key={i}>★</span>
               ))}
             </div>
-            <p className="text-sm leading-relaxed text-gray-700">&ldquo;{review.quote}&rdquo;</p>
-            <div className="mt-5 border-t border-gray-100 pt-4">
-              <p className="font-bold text-brand-textDark">{review.customerName}</p>
-              <p className="mt-1 text-xs font-medium text-gray-500">{review.service || publicConfig.industry}</p>
+            <p className="text-base leading-relaxed text-brand-textDark lg:text-lg">
+              &ldquo;{review.quote}&rdquo;
+            </p>
+            <div className="mt-6">
+              <p className="font-medium text-brand-textDark">{review.customerName}</p>
+              <p className="mt-1 text-[13px] text-brand-textDark/60">{review.service || publicConfig.industry}</p>
             </div>
           </article>
         ))}

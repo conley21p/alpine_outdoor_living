@@ -11,42 +11,48 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
     : publicConfig.servicesOffered;
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10 flex items-end justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Services</h2>
-          <p className="mt-2 text-base text-gray-600">Professional outdoor services for your property</p>
-        </div>
-        {previewOnly && (
-          <Link href="/services" className="group flex items-center gap-1 text-sm font-bold text-brand-primary transition-colors hover:text-brand-accent">
-            See all
-            <span className="transition-transform group-hover:translate-x-1">→</span>
-          </Link>
-        )}
+    <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
+      <div className="mb-16 text-center lg:mb-20">
+        <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl">
+          Our Services
+        </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl">
+          Professional solutions tailored to your needs
+        </p>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {services.map((service) => (
           <article 
             key={service} 
-            className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-card transition-all hover:shadow-card-hover hover:-translate-y-1"
+            className="group relative overflow-hidden rounded-2xl bg-brand-bgLight p-8 transition-all hover:bg-gray-100 lg:p-10"
           >
-            <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-primary/10 text-xl text-brand-primary transition-colors group-hover:bg-brand-primary group-hover:text-white">
-              ●
-            </div>
-            <h3 className="text-xl font-bold text-brand-textDark">{service}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            <h3 className="text-2xl font-semibold tracking-tight text-brand-textDark lg:text-3xl">
+              {service}
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-brand-textDark/70 lg:text-lg">
               Professional {service.toLowerCase()} delivered with reliable scheduling and high-quality results.
             </p>
             <Link 
               href="/contact" 
-              className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-brand-primary transition-colors hover:text-brand-accent"
+              className="mt-6 inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
             >
-              Get a Quote
+              Get a quote
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </article>
         ))}
       </div>
+      {previewOnly && (
+        <div className="mt-12 text-center">
+          <Link 
+            href="/services" 
+            className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
+          >
+            View all services
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

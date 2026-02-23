@@ -4,44 +4,42 @@ import { ResponsiveSlotImage } from "@/components/website/ResponsiveSlotImage";
 
 export function HeroSection() {
   return (
-    <section className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8 sm:pt-8">
-      <ResponsiveSlotImage
-        slot="homeHero"
-        alt={`${publicConfig.businessName} hero image`}
-        priority
-        className="rounded-3xl overflow-hidden shadow-card-hover"
-        mobileAspectClassName="aspect-[4/5]"
-        desktopAspectClassName="aspect-[16/7]"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
-        <div className="absolute inset-0 flex items-end p-6 sm:items-center sm:p-12 lg:p-16">
-          <div className="max-w-3xl text-white">
-            <p className="mb-3 inline-block rounded-full bg-brand-primary/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur-sm sm:text-sm">
-              {publicConfig.businessCity} • {publicConfig.businessState}
-            </p>
-            <h1 className="text-4xl font-black leading-tight tracking-tight sm:text-6xl lg:text-7xl">
-              {publicConfig.businessName}
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-100 sm:text-xl">
-              {publicConfig.businessTagline}
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-lg bg-brand-primary px-7 py-3.5 text-base font-bold text-white shadow-lg transition-all hover:bg-brand-accent hover:shadow-xl active:scale-95"
-              >
-                Request Service
-              </Link>
-              <Link
-                href="/services"
-                className="inline-flex items-center justify-center rounded-lg border-2 border-white bg-white/10 px-7 py-3.5 text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/20 active:scale-95"
-              >
-                View Services
-              </Link>
-            </div>
-          </div>
+    <section className="relative mx-auto max-w-[90rem] px-6 pt-16 pb-20 lg:px-12 lg:pt-24 lg:pb-32">
+      <div className="mx-auto max-w-4xl text-center">
+        <h1 className="text-5xl font-bold leading-[1.05] tracking-tighter text-brand-textDark sm:text-6xl lg:text-7xl xl:text-8xl">
+          {publicConfig.businessName}
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-xl font-normal leading-relaxed text-brand-textDark/70 sm:text-2xl lg:text-[28px] lg:leading-relaxed">
+          {publicConfig.businessTagline}
+        </p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
+          <Link
+            href="/contact"
+            className="inline-flex min-w-[200px] items-center justify-center rounded-full bg-brand-primary px-8 py-4 text-[17px] font-medium text-white transition-all hover:bg-brand-secondary"
+          >
+            Get Started
+          </Link>
+          <Link
+            href="/services"
+            className="inline-flex min-w-[200px] items-center justify-center text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
+          >
+            Learn more →
+          </Link>
         </div>
-      </ResponsiveSlotImage>
+      </div>
+
+      <div className="mx-auto mt-16 lg:mt-24">
+        <ResponsiveSlotImage
+          slot="homeHero"
+          alt={`${publicConfig.businessName} hero image`}
+          priority
+          className="overflow-hidden rounded-2xl"
+          mobileAspectClassName="aspect-[4/5]"
+          desktopAspectClassName="aspect-[21/9]"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/10" />
+        </ResponsiveSlotImage>
+      </div>
     </section>
   );
 }

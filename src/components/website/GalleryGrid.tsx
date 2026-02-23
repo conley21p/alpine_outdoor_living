@@ -26,51 +26,63 @@ export function GalleryGrid({ images, previewOnly = false }: GalleryGridProps) {
 
   if (displayImages.length === 0) {
     return (
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="mb-6 text-3xl font-black text-brand-textDark sm:text-4xl">Gallery</h2>
-        <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-12 text-center text-gray-600">
-          <p className="text-lg font-medium">Portfolio coming soon — check back soon!</p>
+      <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
+        <div className="text-center">
+          <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl">
+            Gallery
+          </h2>
+          <div className="mx-auto mt-12 max-w-2xl rounded-2xl bg-brand-bgLight p-12 text-center">
+            <p className="text-lg font-normal text-brand-textDark/70">
+              Portfolio coming soon — check back later
+            </p>
+          </div>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10 flex items-end justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Gallery</h2>
-          <p className="mt-2 text-base text-gray-600">Explore our recent projects</p>
-        </div>
-        {previewOnly && (
-          <Link href="/gallery" className="group flex items-center gap-1 text-sm font-bold text-brand-primary transition-colors hover:text-brand-accent">
-            View all
-            <span className="transition-transform group-hover:translate-x-1">→</span>
-          </Link>
-        )}
+    <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
+      <div className="mb-16 text-center lg:mb-20">
+        <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl">
+          Our Work
+        </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl">
+          Explore our recent projects
+        </p>
       </div>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:gap-6">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4">
         {displayImages.map((image, index) => (
           <button
             key={`${image.name}-${index}`}
-            className="group relative overflow-hidden rounded-xl border border-gray-100 shadow-card transition-all hover:shadow-card-hover hover:-translate-y-1"
+            className="group relative overflow-hidden rounded-xl"
             onClick={() => setOpenIndex(index)}
             aria-label={`Open image ${image.name}`}
           >
-            <div className="relative h-52 w-full lg:h-64">
+            <div className="relative h-60 w-full lg:h-80">
               <Image
                 src={image.url}
                 alt={image.name}
                 fill
                 unoptimized
                 sizes="(max-width: 768px) 50vw, 33vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10" />
             </div>
           </button>
         ))}
       </div>
+      {previewOnly && (
+        <div className="mt-12 text-center">
+          <Link 
+            href="/gallery" 
+            className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
+          >
+            View all photos
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </Link>
+        </div>
+      )}
 
       <Lightbox
         open={openIndex >= 0}

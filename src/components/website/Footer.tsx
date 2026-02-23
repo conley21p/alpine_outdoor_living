@@ -11,56 +11,61 @@ const links = [
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-gray-100 bg-black text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:grid-cols-3 sm:px-6 lg:px-8 lg:py-16">
-        <div>
-          <h3 className="mb-4 text-xl font-bold">
-            {publicConfig.businessName}
-          </h3>
-          <p className="text-sm text-gray-300 leading-relaxed">{publicConfig.businessAddress}</p>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            {publicConfig.businessCity}, {publicConfig.businessState}{" "}
-            {publicConfig.businessZip}
-          </p>
-        </div>
-        <div>
-          <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-brand-secondary">
-            Contact
-          </h4>
-          <div className="space-y-2">
-            <a
-              href={`tel:${publicConfig.businessPhone}`}
-              className="block text-sm text-gray-300 transition-colors hover:text-brand-secondary"
-            >
-              {publicConfig.businessPhone}
-            </a>
-            <a
-              href={`mailto:${publicConfig.businessEmail}`}
-              className="block text-sm text-gray-300 transition-colors hover:text-brand-secondary"
-            >
-              {publicConfig.businessEmail}
-            </a>
+    <footer className="mt-32 border-t border-black/10 bg-brand-bgLight">
+      <div className="mx-auto max-w-[90rem] px-6 py-12 lg:px-12 lg:py-16">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="lg:col-span-1">
+            <h3 className="text-[17px] font-semibold text-brand-textDark">
+              {publicConfig.businessName}
+            </h3>
+            <p className="mt-3 text-[13px] leading-relaxed text-brand-textDark/60">
+              {publicConfig.businessAddress}
+              <br />
+              {publicConfig.businessCity}, {publicConfig.businessState} {publicConfig.businessZip}
+            </p>
+          </div>
+          <div>
+            <h4 className="text-[13px] font-medium text-brand-textDark/60">
+              Contact
+            </h4>
+            <div className="mt-3 space-y-2">
+              <a
+                href={`tel:${publicConfig.businessPhone}`}
+                className="block text-[14px] text-brand-textDark transition-opacity hover:opacity-60"
+              >
+                {publicConfig.businessPhone}
+              </a>
+              <a
+                href={`mailto:${publicConfig.businessEmail}`}
+                className="block text-[14px] text-brand-textDark transition-opacity hover:opacity-60"
+              >
+                {publicConfig.businessEmail}
+              </a>
+            </div>
+          </div>
+          <div className="lg:col-span-2">
+            <h4 className="text-[13px] font-medium text-brand-textDark/60">
+              Navigate
+            </h4>
+            <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2">
+              {links.map((link) => (
+                <li key={link.href}>
+                  <Link 
+                    href={link.href} 
+                    className="block text-[14px] text-brand-textDark transition-opacity hover:opacity-60"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <div>
-          <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-brand-secondary">
-            Navigate
-          </h4>
-          <ul className="space-y-2">
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="text-sm text-gray-300 transition-colors hover:text-brand-secondary">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-12 pt-8 border-t border-black/10">
+          <p className="text-[12px] text-brand-textDark/50">
+            © {new Date().getFullYear()} {publicConfig.businessName}. All rights reserved.
+          </p>
         </div>
-      </div>
-      <div className="border-t border-gray-800 px-4 py-6 text-center">
-        <p className="text-xs text-gray-400">
-          © {new Date().getFullYear()} {publicConfig.businessName}. All rights reserved.
-        </p>
       </div>
     </footer>
   );

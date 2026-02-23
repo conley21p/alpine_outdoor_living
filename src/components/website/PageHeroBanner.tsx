@@ -9,22 +9,26 @@ interface PageHeroBannerProps {
 
 export function PageHeroBanner({ slot, title, subtitle }: PageHeroBannerProps) {
   return (
-    <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8 sm:pt-10">
-      <ResponsiveSlotImage
-        slot={slot}
-        alt={`${title} banner image`}
-        className="rounded-3xl overflow-hidden shadow-card-hover"
-        mobileAspectClassName="aspect-[4/5]"
-        desktopAspectClassName="aspect-[3/1]"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
-        <div className="absolute inset-0 flex items-end p-6 sm:items-center sm:p-12">
-          <div className="max-w-3xl text-white">
-            <h1 className="text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">{title}</h1>
-            <p className="mt-4 text-base leading-relaxed text-gray-100 sm:text-lg">{subtitle}</p>
-          </div>
-        </div>
-      </ResponsiveSlotImage>
+    <section className="mx-auto max-w-[90rem] px-6 pt-12 pb-12 lg:px-12 lg:pt-20 lg:pb-16">
+      <div className="text-center">
+        <h1 className="text-5xl font-bold tracking-tighter text-brand-textDark sm:text-6xl lg:text-7xl">
+          {title}
+        </h1>
+        <p className="mx-auto mt-5 max-w-2xl text-xl font-normal text-brand-textDark/70 sm:text-2xl lg:text-[28px] lg:leading-relaxed">
+          {subtitle}
+        </p>
+      </div>
+      <div className="mt-12 lg:mt-16">
+        <ResponsiveSlotImage
+          slot={slot}
+          alt={`${title} banner image`}
+          className="overflow-hidden rounded-2xl"
+          mobileAspectClassName="aspect-[4/5]"
+          desktopAspectClassName="aspect-[21/9]"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/10" />
+        </ResponsiveSlotImage>
+      </div>
     </section>
   );
 }

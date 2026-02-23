@@ -21,63 +21,59 @@ export function Navbar() {
   const [logoError, setLogoError] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3 group">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/5">
+      <div className="mx-auto flex max-w-[90rem] items-center justify-between px-6 py-3 lg:px-12">
+        <Link href="/" className="flex items-center gap-2.5 group -ml-2 px-2 py-1 rounded-lg transition-opacity hover:opacity-70">
           {!logoError ? (
             <Image
               src="/logo.png"
               alt={`${businessName} logo`}
-              width={44}
-              height={44}
-              className="h-11 w-11 rounded-lg object-cover transition-transform group-hover:scale-105"
+              width={32}
+              height={32}
+              className="h-8 w-8 object-cover"
               onError={() => setLogoError(true)}
             />
-          ) : (
-            <div className="max-w-[60vw] truncate rounded-lg bg-brand-primary px-3 py-2 text-sm font-bold text-white">
-              {businessName}
-            </div>
-          )}
-          <div className="hidden text-base font-bold tracking-tight text-brand-textDark sm:block">
+          ) : null}
+          <span className="text-[17px] font-semibold tracking-tight text-brand-textDark">
             {businessName}
-          </div>
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-10 md:flex">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-gray-700 transition-colors hover:text-brand-primary"
+              className="text-[14px] font-normal text-brand-textDark/80 transition-opacity hover:opacity-60"
             >
               {link.label}
             </Link>
           ))}
           <a 
             href={`tel:${businessPhone}`} 
-            className="rounded-lg bg-brand-primary px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-brand-accent hover:shadow-md"
+            className="ml-2 rounded-full bg-brand-primary px-5 py-2 text-[13px] font-medium text-white transition-all hover:bg-brand-secondary"
           >
-            {businessPhone}
+            Call Now
           </a>
         </nav>
 
         <button
           aria-label="Toggle navigation"
           onClick={() => setOpen((prev) => !prev)}
-          className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 md:hidden"
+          className="text-[14px] font-normal text-brand-textDark transition-opacity hover:opacity-60 md:hidden"
         >
           {open ? "Close" : "Menu"}
         </button>
       </div>
 
       {open && (
-        <nav className="border-t border-gray-100 bg-white px-4 py-4 md:hidden">
-          <div className="space-y-1">
+        <nav className="border-t border-black/5 bg-white/95 backdrop-blur-xl px-6 py-4 md:hidden">
+          <div className="space-y-0.5">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-brand-primary"
+                className="block px-4 py-3 text-[15px] font-normal text-brand-textDark transition-opacity hover:opacity-60"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
@@ -85,10 +81,10 @@ export function Navbar() {
             ))}
             <a
               href={`tel:${businessPhone}`}
-              className="block rounded-lg bg-brand-primary px-3 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-accent"
+              className="mt-4 block rounded-full bg-brand-primary px-4 py-3 text-center text-[13px] font-medium text-white transition-all hover:bg-brand-secondary"
               onClick={() => setOpen(false)}
             >
-              {businessPhone}
+              Call Now
             </a>
           </div>
         </nav>
