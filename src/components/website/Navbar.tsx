@@ -13,6 +13,9 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
+const businessName = publicConfig.businessName;
+const businessPhone = publicConfig.businessPhone;
+
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
@@ -24,7 +27,7 @@ export function Navbar() {
           {!logoError ? (
             <Image
               src="/logo.png"
-              alt={`${publicConfig.businessName} logo`}
+              alt={`${businessName} logo`}
               width={44}
               height={44}
               className="h-11 w-11 rounded-lg object-cover transition-transform group-hover:scale-105"
@@ -32,11 +35,11 @@ export function Navbar() {
             />
           ) : (
             <div className="max-w-[60vw] truncate rounded-lg bg-brand-primary px-3 py-2 text-sm font-bold text-white">
-              {publicConfig.businessName}
+              {businessName}
             </div>
           )}
           <div className="hidden text-base font-bold tracking-tight text-brand-textDark sm:block">
-            {publicConfig.businessName}
+            {businessName}
           </div>
         </Link>
 
@@ -51,10 +54,10 @@ export function Navbar() {
             </Link>
           ))}
           <a 
-            href={`tel:${publicConfig.businessPhone}`} 
+            href={`tel:${businessPhone}`} 
             className="rounded-lg bg-brand-primary px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-brand-accent hover:shadow-md"
           >
-            {publicConfig.businessPhone}
+            {businessPhone}
           </a>
         </nav>
 
@@ -81,11 +84,11 @@ export function Navbar() {
               </Link>
             ))}
             <a
-              href={`tel:${publicConfig.businessPhone}`}
+              href={`tel:${businessPhone}`}
               className="block rounded-lg bg-brand-primary px-3 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-accent"
               onClick={() => setOpen(false)}
             >
-              {publicConfig.businessPhone}
+              {businessPhone}
             </a>
           </div>
         </nav>
