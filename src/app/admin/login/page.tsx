@@ -41,19 +41,21 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-brand-bgLight px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-brand-primary/5 to-white px-4">
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-card"
+        className="w-full max-w-md rounded-2xl border border-gray-100 bg-white p-8 shadow-card-hover"
       >
-        <h1 className="text-2xl font-bold text-brand-textDark">Admin Login</h1>
-        <p className="mt-2 text-sm text-slate-600">
-          Sign in to manage {publicConfig.businessName}.
-        </p>
+        <div className="mb-6">
+          <h1 className="text-3xl font-black text-brand-textDark">Admin Login</h1>
+          <p className="mt-2 text-sm text-gray-600">
+            Sign in to manage {publicConfig.businessName}.
+          </p>
+        </div>
 
-        <div className="mt-6 space-y-4">
+        <div className="space-y-5">
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">Email</label>
+            <label className="mb-2 block text-sm font-semibold text-gray-800">Email</label>
             <Input
               type="email"
               value={email}
@@ -62,7 +64,7 @@ export default function AdminLoginPage() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">Password</label>
+            <label className="mb-2 block text-sm font-semibold text-gray-800">Password</label>
             <Input
               type="password"
               value={password}
@@ -70,7 +72,7 @@ export default function AdminLoginPage() {
               required
             />
           </div>
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm font-medium text-red-600">{error}</p>}
           <Button type="submit" disabled={loading} className="w-full">
             {loading ? "Signing in..." : "Sign in"}
           </Button>

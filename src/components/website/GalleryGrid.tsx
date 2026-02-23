@@ -26,42 +26,47 @@ export function GalleryGrid({ images, previewOnly = false }: GalleryGridProps) {
 
   if (displayImages.length === 0) {
     return (
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <h2 className="mb-4 text-2xl font-bold text-brand-textDark">Gallery</h2>
-        <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-600">
-          Portfolio coming soon — check back soon!
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <h2 className="mb-6 text-3xl font-black text-brand-textDark sm:text-4xl">Gallery</h2>
+        <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-12 text-center text-gray-600">
+          <p className="text-lg font-medium">Portfolio coming soon — check back soon!</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <div className="mb-8 flex items-end justify-between gap-4">
-        <h2 className="text-2xl font-bold text-brand-textDark">Gallery</h2>
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mb-10 flex items-end justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Gallery</h2>
+          <p className="mt-2 text-base text-gray-600">Explore our recent projects</p>
+        </div>
         {previewOnly && (
-          <Link href="/gallery" className="text-sm font-semibold text-brand-secondary">
-            View Gallery
+          <Link href="/gallery" className="group flex items-center gap-1 text-sm font-bold text-brand-primary transition-colors hover:text-brand-accent">
+            View all
+            <span className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
         )}
       </div>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:gap-6">
         {displayImages.map((image, index) => (
           <button
             key={`${image.name}-${index}`}
-            className="relative overflow-hidden rounded-lg border border-slate-200"
+            className="group relative overflow-hidden rounded-xl border border-gray-100 shadow-card transition-all hover:shadow-card-hover hover:-translate-y-1"
             onClick={() => setOpenIndex(index)}
             aria-label={`Open image ${image.name}`}
           >
-            <div className="relative h-44 w-full">
+            <div className="relative h-52 w-full lg:h-64">
               <Image
                 src={image.url}
                 alt={image.name}
                 fill
                 unoptimized
                 sizes="(max-width: 768px) 50vw, 33vw"
-                className="object-cover transition hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-110"
               />
+              <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10" />
             </div>
           </button>
         ))}

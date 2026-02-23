@@ -34,13 +34,13 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 md:flex">
+    <div className="min-h-screen bg-gray-50 md:flex">
       <Sidebar />
       <div className="flex-1">
-        <header className="flex items-center justify-end border-b border-slate-200 bg-white px-4 py-3">
+        <header className="flex items-center justify-end border-b border-gray-100 bg-white px-6 py-4 shadow-sm">
           <SignOutButton />
         </header>
-        <main className="p-4 sm:p-6">{children}</main>
+        <main className="p-6 sm:p-8">{children}</main>
       </div>
     </div>
   );

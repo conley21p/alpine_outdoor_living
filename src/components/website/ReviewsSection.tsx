@@ -41,22 +41,32 @@ export function ReviewsSection({ reviews = [], previewOnly = false }: ReviewsSec
   );
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-brand-textDark">What clients are saying</h2>
-        {reviews.length === 0 && (
-          <p className="mt-2 text-sm text-slate-600">
-            These are placeholder testimonials and will be updated with live reviews.
-          </p>
-        )}
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mb-10">
+        <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">What clients are saying</h2>
+        <p className="mt-2 text-base text-gray-600">
+          {reviews.length === 0 
+            ? "These are placeholder testimonials and will be updated with live reviews."
+            : "Real feedback from our valued customers"
+          }
+        </p>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {data.map((review, index) => (
-          <article key={`${review.customerName}-${index}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-card">
-            <p className="mb-3 text-amber-500">{"★".repeat(review.rating)}</p>
-            <p className="text-sm text-slate-700">“{review.quote}”</p>
-            <p className="mt-4 text-sm font-semibold text-brand-textDark">{review.customerName}</p>
-            <p className="text-xs text-slate-500">{review.service || publicConfig.industry}</p>
+          <article 
+            key={`${review.customerName}-${index}`} 
+            className="rounded-2xl border border-gray-100 bg-white p-6 shadow-card transition-all hover:shadow-card-hover"
+          >
+            <div className="mb-4 flex items-center gap-0.5 text-xl text-brand-primary">
+              {Array.from({ length: review.rating }).map((_, i) => (
+                <span key={i}>★</span>
+              ))}
+            </div>
+            <p className="text-sm leading-relaxed text-gray-700">"{review.quote}"</p>
+            <div className="mt-5 border-t border-gray-100 pt-4">
+              <p className="font-bold text-brand-textDark">{review.customerName}</p>
+              <p className="mt-1 text-xs font-medium text-gray-500">{review.service || publicConfig.industry}</p>
+            </div>
           </article>
         ))}
       </div>

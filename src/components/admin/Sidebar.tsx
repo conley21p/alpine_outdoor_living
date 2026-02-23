@@ -20,18 +20,20 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-full border-r border-slate-200 bg-white md:w-64">
-      <div className="p-4 text-lg font-bold text-brand-primary">OpenClaw CRM</div>
-      <nav className="space-y-1 px-3 pb-4">
+    <aside className="w-full border-r border-gray-100 bg-white md:w-64">
+      <div className="border-b border-gray-100 p-5">
+        <h1 className="text-xl font-black text-brand-primary">OpenClaw CRM</h1>
+      </div>
+      <nav className="space-y-1 p-3">
         {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}
             className={cn(
-              "block rounded-lg px-3 py-2 text-sm font-medium transition",
+              "block rounded-lg px-4 py-2.5 text-sm font-semibold transition-all",
               pathname === item.href
-                ? "bg-brand-primary text-white"
-                : "text-slate-700 hover:bg-slate-100",
+                ? "bg-brand-primary text-white shadow-md"
+                : "text-gray-700 hover:bg-gray-50",
             )}
           >
             {item.label}

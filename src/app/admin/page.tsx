@@ -92,21 +92,31 @@ export default async function AdminDashboardPage() {
     (upcomingAppointmentsResult.data ?? []) as DashboardAppointmentRow[];
 
   return (
-    <div className="space-y-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-brand-textDark">Dashboard</h1>
+    <div className="space-y-8">
+      <header className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-3xl font-black text-brand-textDark">Dashboard</h1>
         {pendingPayments > 0 ? (
           <Badge variant="warning">{pendingPayments} pending payment requests</Badge>
         ) : null}
       </header>
 
       {pendingPayments > 0 ? (
-        <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
-          Attention: there are {pendingPayments} payment requests awaiting approval.
+        <div className="rounded-xl border-2 border-amber-200 bg-amber-50 p-5 shadow-modern">
+          <div className="flex items-start gap-3">
+            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-amber-200 text-amber-800">
+              ⚠
+            </div>
+            <div>
+              <p className="font-semibold text-amber-900">Attention Required</p>
+              <p className="text-sm text-amber-800">
+                There are {pendingPayments} payment requests awaiting approval.
+              </p>
+            </div>
+          </div>
         </div>
       ) : null}
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+      <section className="grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
         <StatsCard label="Total Leads (30d)" value={totalLeads} />
         <StatsCard label="New Leads Today" value={newLeadsToday} />
         <StatsCard label="Appointments This Week" value={appointmentsThisWeek} />
@@ -115,52 +125,54 @@ export default async function AdminDashboardPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
-        <article className="rounded-xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-200 px-4 py-3">
-            <h2 className="font-semibold text-brand-textDark">Recent Leads</h2>
+        <article className="rounded-xl border border-gray-100 bg-white shadow-card">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h2 className="text-lg font-bold text-brand-textDark">Recent Leads</h2>
           </div>
           {recentLeads.length === 0 ? (
-            <p className="p-4 text-sm text-slate-600">No leads yet.</p>
+            <p className="p-6 text-center text-sm text-gray-600">No leads yet.</p>
           ) : (
-            <table className="min-w-full text-sm">
-              <thead className="bg-slate-50 text-slate-600">
-                <tr>
-                  <th className="px-4 py-3 text-left font-semibold">Name</th>
-                  <th className="px-4 py-3 text-left font-semibold">Service</th>
-                  <th className="px-4 py-3 text-left font-semibold">Source</th>
-                  <th className="px-4 py-3 text-left font-semibold">Status</th>
-                  <th className="px-4 py-3 text-left font-semibold">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentLeads.map((lead) => {
-                  const contact = Array.isArray(lead.contacts)
-                    ? lead.contacts[0]
-                    : lead.contacts;
-                  const name = [contact?.first_name, contact?.last_name]
-                    .filter(Boolean)
-                    .join(" ");
-                  return (
-                    <LeadRow
-                      key={lead.id}
-                      name={name || "Unknown"}
-                      service={lead.service_needed || ""}
-                      source={lead.source || ""}
-                      status={lead.status}
-                      createdAt={lead.created_at}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-sm">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-gray-600">Name</th>
+                    <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-gray-600">Service</th>
+                    <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-gray-600">Source</th>
+                    <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-gray-600">Status</th>
+                    <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-gray-600">Date</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {recentLeads.map((lead) => {
+                    const contact = Array.isArray(lead.contacts)
+                      ? lead.contacts[0]
+                      : lead.contacts;
+                    const name = [contact?.first_name, contact?.last_name]
+                      .filter(Boolean)
+                      .join(" ");
+                    return (
+                      <LeadRow
+                        key={lead.id}
+                        name={name || "Unknown"}
+                        service={lead.service_needed || ""}
+                        source={lead.source || ""}
+                        status={lead.status}
+                        createdAt={lead.created_at}
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           )}
         </article>
 
         <article>
-          <h2 className="mb-3 font-semibold text-brand-textDark">Upcoming Appointments</h2>
+          <h2 className="mb-4 text-lg font-bold text-brand-textDark">Upcoming Appointments</h2>
           <div className="space-y-3">
             {upcomingAppointments.length === 0 ? (
-              <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600 shadow-sm">
+              <div className="rounded-xl border border-gray-100 bg-white p-6 text-center text-sm text-gray-600 shadow-card">
                 No appointments scheduled for the next 7 days.
               </div>
             ) : (

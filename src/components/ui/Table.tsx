@@ -13,39 +13,41 @@ export function Table({
 }: TableProps) {
   if (rows.length === 0) {
     return (
-      <div className="rounded-lg border border-slate-200 bg-white p-6 text-sm text-slate-600">
+      <div className="rounded-xl border border-gray-100 bg-white p-8 text-center text-sm text-gray-600 shadow-card">
         {emptyMessage}
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
-      <table className="min-w-full divide-y divide-slate-200 text-sm">
-        <thead className="bg-slate-50">
-          <tr>
-            {headers.map((header) => (
-              <th
-                key={header}
-                className="px-4 py-3 text-left font-semibold text-slate-600"
-              >
-                {header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-100">
-          {rows.map((cells, rowIndex) => (
-            <tr key={`row-${rowIndex}`} className="hover:bg-slate-50">
-              {cells.map((cell, cellIndex) => (
-                <td key={`cell-${rowIndex}-${cellIndex}`} className="px-4 py-3">
-                  {cell}
-                </td>
+    <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-card">
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-100 text-sm">
+          <thead className="bg-gray-50">
+            <tr>
+              {headers.map((header) => (
+                <th
+                  key={header}
+                  className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-gray-600"
+                >
+                  {header}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-gray-100 bg-white">
+            {rows.map((cells, rowIndex) => (
+              <tr key={`row-${rowIndex}`} className="transition-colors hover:bg-gray-50">
+                {cells.map((cell, cellIndex) => (
+                  <td key={`cell-${rowIndex}-${cellIndex}`} className="px-5 py-4">
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

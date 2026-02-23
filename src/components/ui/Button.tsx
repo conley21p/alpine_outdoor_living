@@ -10,13 +10,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-brand-primary text-brand-textLight hover:opacity-90 focus-visible:outline-brand-primary",
+    "bg-brand-primary text-white hover:bg-brand-accent hover:shadow-md focus-visible:outline-brand-primary transform active:scale-95",
   secondary:
-    "bg-brand-secondary text-brand-textLight hover:opacity-90 focus-visible:outline-brand-secondary",
+    "bg-brand-secondary text-white hover:bg-brand-primary hover:shadow-md focus-visible:outline-brand-secondary transform active:scale-95",
   ghost:
-    "bg-transparent text-brand-textDark border border-slate-300 hover:bg-slate-50 focus-visible:outline-slate-400",
+    "bg-white text-brand-textDark border border-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-visible:outline-gray-400 transform active:scale-95",
   danger:
-    "bg-red-600 text-white hover:bg-red-700 focus-visible:outline-red-600",
+    "bg-red-600 text-white hover:bg-red-700 hover:shadow-md focus-visible:outline-red-600 transform active:scale-95",
 };
 
 export function Button({
@@ -30,7 +30,7 @@ export function Button({
     <button
       type={type}
       className={cn(
-        "inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+        "inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:transform-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
         variantClasses[variant],
         className,
       )}

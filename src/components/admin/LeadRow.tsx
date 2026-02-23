@@ -19,14 +19,14 @@ interface LeadRowProps {
 
 export function LeadRow({ name, service, source, status, createdAt }: LeadRowProps) {
   return (
-    <tr className="border-b border-slate-100">
-      <td className="px-4 py-3">{name}</td>
-      <td className="px-4 py-3">{service || "—"}</td>
-      <td className="px-4 py-3">{source || "—"}</td>
-      <td className="px-4 py-3">
+    <tr className="transition-colors hover:bg-gray-50">
+      <td className="px-5 py-4 font-medium text-gray-900">{name}</td>
+      <td className="px-5 py-4 text-gray-700">{service || "—"}</td>
+      <td className="px-5 py-4 text-gray-700">{source || "—"}</td>
+      <td className="px-5 py-4">
         <Badge variant={leadStatusVariant[status] || "default"}>{status}</Badge>
       </td>
-      <td className="px-4 py-3">{new Date(createdAt).toLocaleDateString()}</td>
+      <td className="px-5 py-4 text-gray-600">{new Date(createdAt).toLocaleDateString()}</td>
     </tr>
   );
 }

@@ -22,14 +22,14 @@ export function AgentLogEntry({
   status,
 }: AgentLogEntryProps) {
   return (
-    <tr className="border-b border-slate-100">
-      <td className="px-4 py-3 text-xs text-slate-500">
+    <tr className="transition-colors hover:bg-gray-50">
+      <td className="px-5 py-4 text-xs font-medium text-gray-500">
         {new Date(createdAt).toLocaleString()}
       </td>
-      <td className="px-4 py-3 text-sm font-medium">{action}</td>
-      <td className="px-4 py-3 text-sm">{entityType || "general"}</td>
-      <td className="px-4 py-3 text-sm text-slate-700">{description}</td>
-      <td className="px-4 py-3">
+      <td className="px-5 py-4 text-sm font-bold text-gray-900">{action}</td>
+      <td className="px-5 py-4 text-sm text-gray-700">{entityType || "general"}</td>
+      <td className="px-5 py-4 text-sm text-gray-700">{description}</td>
+      <td className="px-5 py-4">
         <Badge variant={statusVariant[status] || "default"}>{status}</Badge>
       </td>
     </tr>
