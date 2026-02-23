@@ -13,8 +13,8 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-const businessName = publicConfig.businessName;
-const businessPhone = publicConfig.businessPhone;
+const businessName = process.env.NEXT_PUBLIC_BUSINESS_NAME || publicConfig.businessName;
+const businessPhone = process.env.NEXT_PUBLIC_BUSINESS_PHONE || publicConfig.businessPhone;
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
