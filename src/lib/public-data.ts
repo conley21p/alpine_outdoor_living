@@ -1,28 +1,29 @@
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import type { GalleryImage } from "@/components/website/GalleryGrid";
 import type { Review } from "@/types";
+import { readdir } from "fs/promises";
+import { join } from "path";
 
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
-    const supabase = getSupabaseAdmin();
-    const { data, error } = await supabase.storage.from("gallery").list("", {
-      limit: 200,
-      offset: 0,
-      sortBy: { column: "created_at", order: "desc" },
-    });
-    if (error || !data) return [];
+    // Read images from local public/images/gallery directory
+    const galleryDir = join(process.cwd(), "public", "images", "gallery");
+    const files = await readdir(galleryDir);
+    
+    const imageFiles = files
+      .filter((file) => 
+        !file.startsWith(".") && 
+        (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".webp"))
+      )
+      .sort((a, b) => a.localeCompare(b));
 
-    return data
-      .filter((item) => !item.name.endsWith("/"))
-      .map((item) => {
-        const { data: urlData } = supabase.storage
-          .from("gallery")
-          .getPublicUrl(item.name);
-        return {
-          name: item.name,
-          url: urlData.publicUrl,
-        };
-      });
+    return imageFiles.map((file) => {
+      const name = file.replace(/\.(jpg|jpeg|png|webp)$/i, "");
+      return {
+        name: name.replace(/[-_]/g, " "),
+        url: `/images/gallery/${file}`,
+      };
+    });
   } catch {
     return [];
   }
@@ -35,6 +36,7 @@ export const getPublishedReviews = async () => {
       .select("*")
       .eq("published", true)
       .order("review_date", { ascending: false });
+
     if (error) return [];
     return (data ?? []) as Review[];
   } catch {
