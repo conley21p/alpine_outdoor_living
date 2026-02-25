@@ -6,20 +6,18 @@ interface ServicesGridProps {
   previewOnly?: boolean;
 }
 
-// Service image mapping - each service has an accurate photo
+// Service image mapping - each service has a unique, accurate photo
 const serviceImages: Record<string, string> = {
-  "Water Features": "/images/gallery/water-features-night.jpg",
+  "Water Features": "/images/gallery/pond-waterfall-night.jpg",
   "Fire Pits": "/images/gallery/stone-fire-pit-night.jpg",
-  "Patios": "/images/gallery/lake-patio-pavers.jpg",
-  "Outdoor Spaces": "/images/gallery/outdoor-living-space.jpg",
+  "Patio/Hardscape": "/images/gallery/outdoor-living-space.jpg",
 };
 
 // Service descriptions
 const serviceDescriptions: Record<string, string> = {
   "Water Features": "Custom ponds, waterfalls, and fountains designed to bring tranquility and beauty to your outdoor space.",
   "Fire Pits": "Beautiful stone and paver fire pits perfect for gathering and extending your outdoor season.",
-  "Patios": "Durable patios, pathways, and hardscapes built with quality pavers and expert craftsmanship.",
-  "Outdoor Spaces": "Complete outdoor living areas including seating, dining, and entertainment spaces tailored to your lifestyle.",
+  "Patio/Hardscape": "Durable patios, pathways, and hardscapes built with quality pavers and expert craftsmanship.",
 };
 
 export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
@@ -37,7 +35,7 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
           Professional outdoor solutions tailored to your needs
         </p>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {services.map((service) => (
           <article 
             key={service} 

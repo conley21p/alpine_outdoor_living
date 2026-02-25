@@ -12,8 +12,8 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-const businessName = process.env.NEXT_PUBLIC_BUSINESS_NAME || publicConfig.businessName;
-const businessPhone = process.env.NEXT_PUBLIC_BUSINESS_PHONE || publicConfig.businessPhone;
+const businessName = publicConfig.businessName;
+const businessPhone = publicConfig.businessPhone;
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -24,17 +24,19 @@ export function Navbar() {
       <div className="mx-auto flex max-w-[90rem] items-center justify-between px-6 py-3 lg:px-12">
         <Link 
           href="/" 
-          className="flex items-center gap-3 group -ml-2 px-2 py-1 rounded-lg transition-opacity hover:opacity-70"
+          className="flex items-center gap-4 group -ml-2 px-2 py-1 rounded-lg transition-opacity hover:opacity-70"
         >
           {!logoError ? (
-            <Image
-              src="/Refreshed-logo.png"
-              alt={`${businessName} logo`}
-              width={80}
-              height={80}
-              className="h-16 w-16 object-contain"
-              onError={() => setLogoError(true)}
-            />
+            <div className="relative w-20 h-20 overflow-hidden rounded-lg">
+              <Image
+                src="/logo.jpg"
+                alt={`${businessName} logo`}
+                fill
+                className="object-contain"
+                onError={() => setLogoError(true)}
+                priority
+              />
+            </div>
           ) : null}
           <span className="text-[17px] font-semibold tracking-tight text-brand-textDark">
             {businessName}
