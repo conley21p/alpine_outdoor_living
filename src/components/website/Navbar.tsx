@@ -28,7 +28,7 @@ export function Navbar() {
         >
           {!logoError ? (
             <Image
-              src="/logo.png"
+              src="/logo.jpg"
               alt={`${businessName} logo`}
               width={48}
               height={48}
