@@ -22,8 +22,17 @@ const serviceDescriptions: Record<string, string> = {
   "Patio/Hardscape": "Durable patios, pathways, and hardscapes built with quality pavers and expert craftsmanship.",
 };
 
+// Service titles for display
+const serviceTitles: Record<string, string> = {
+  "Water Features": "Water Features",
+  "Fire Pits": "Fire Pits",
+  "Patio/Hardscape": "Patio / Hardscape",
+};
+
 export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
-  const services = previewOnly ? publicConfig.servicesOffered.slice(0, 3) : publicConfig.servicesOffered;
+  const services = previewOnly
+    ? publicConfig.servicesOffered.slice(0, 3)
+    : publicConfig.servicesOffered;
 
   return (
     <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
@@ -48,21 +57,25 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 33vw"
+                unoptimized
               />
             </div>
             <div className="p-8 lg:p-10">
               <h3 className="text-2xl font-semibold tracking-tight text-brand-textDark lg:text-3xl">
-                {service}
+                {serviceTitles[service] || service}
               </h3>
               <p className="mt-4 text-base leading-relaxed text-brand-textDark/70 lg:text-lg">
-                {serviceDescriptions[service] || `Professional ${service.toLowerCase()} delivered with high-quality results.`}
+                {serviceDescriptions[service] ||
+                  `Professional ${service.toLowerCase()} delivered with high-quality results.`}
               </p>
               <Link
                 href="/contact"
                 className="mt-6 inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
               >
                 Get a quote
-                <span className="transition-transform group-hover:translate-x-1">→</span>
+                <span className="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
               </Link>
             </div>
           </article>
@@ -75,7 +88,9 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
             className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
           >
             View all services
-            <span className="transition-transform group-hover:translate-x-1">→</span>
+            <span className="transition-transform group-hover:translate-x-1">
+              →
+            </span>
           </Link>
         </div>
       )}
