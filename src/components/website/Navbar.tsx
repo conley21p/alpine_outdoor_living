@@ -30,9 +30,9 @@ export function Navbar() {
             <Image
               src="/logo.jpg"
               alt={`${businessName} logo`}
-              width={48}
-              height={48}
-              className="h-12 w-12 object-contain"
+              width={80}
+              height={80}
+              className="h-16 w-16 object-contain"
               onError={() => setLogoError(true)}
             />
           ) : null}
