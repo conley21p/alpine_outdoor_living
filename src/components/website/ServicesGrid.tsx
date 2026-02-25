@@ -8,7 +8,7 @@ interface ServicesGridProps {
 
 // Service image mapping - each service has an accurate photo
 const serviceImages: Record<string, string> = {
-  "Water Features": "/images/gallery/pond-waterfall-night.jpg",
+  "Water Features": "/images/gallery/water-features-night.jpg",
   "Fire Pits": "/images/gallery/stone-fire-pit-night.jpg",
   "Patio/Hardscape": "/images/gallery/lake-patio-pavers.jpg",
 };
