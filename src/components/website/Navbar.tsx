@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -23,14 +22,17 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/5">
       <div className="mx-auto flex max-w-[90rem] items-center justify-between px-6 py-3 lg:px-12">
-        <Link href="/" className="flex items-center gap-2.5 group -ml-2 px-2 py-1 rounded-lg transition-opacity hover:opacity-70">
+        <Link 
+          href="/" 
+          className="flex items-center gap-3 group -ml-2 px-2 py-1 rounded-lg transition-opacity hover:opacity-70"
+        >
           {!logoError ? (
             <Image
               src="/logo.png"
               alt={`${businessName} logo`}
-              width={32}
-              height={32}
-              className="h-8 w-8 object-cover"
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain"
               onError={() => setLogoError(true)}
             />
           ) : null}
@@ -38,7 +40,6 @@ export function Navbar() {
             {businessName}
           </span>
         </Link>
-
         <nav className="hidden items-center gap-10 md:flex">
           {links.map((link) => (
             <Link
@@ -49,14 +50,13 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <a 
-            href={`tel:${businessPhone}`} 
+          <a
+            href={`tel:${businessPhone}`}
             className="ml-2 rounded-full bg-brand-primary px-5 py-2 text-[13px] font-medium text-white transition-all hover:bg-brand-secondary"
           >
             Call Now
           </a>
         </nav>
-
         <button
           aria-label="Toggle navigation"
           onClick={() => setOpen((prev) => !prev)}
@@ -65,7 +65,6 @@ export function Navbar() {
           {open ? "Close" : "Menu"}
         </button>
       </div>
-
       {open && (
         <nav className="border-t border-black/5 bg-white/95 backdrop-blur-xl px-6 py-4 md:hidden">
           <div className="space-y-0.5">
