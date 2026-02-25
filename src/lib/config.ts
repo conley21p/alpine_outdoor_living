@@ -12,9 +12,9 @@ export const publicConfig = {
   businessZip: "62704",
   businessDescription: "Professional outdoor living spaces including water features, fire pits, and patios.",
 
-  // Exactly 3 services as requested
-  servicesOfferedRaw: "Water Features, Fire Pits, Patio/Hardscape",
-  servicesOffered: ["Water Features", "Fire Pits", "Patio/Hardscape"],
+  // Services offered
+  servicesOfferedRaw: "Water Features, Fire Pits, Patio, Hardscape",
+  servicesOffered: ["Water Features", "Fire Pits", "Patio", "Hardscape"],
 
   industry: "landscaping",
 
@@ -42,6 +42,8 @@ export const publicConfig = {
 
 export type PublicConfig = typeof publicConfig;
 
+export type EmailProvider = "gmail" | "smtp" | "resend";
+
 // Server config - hardcoded values for production
 export const getServerConfig = () => {
   if (typeof window !== "undefined") {
@@ -60,7 +62,7 @@ export const getServerConfig = () => {
     paymentApprovalWebhookSecret: process.env.PAYMENT_APPROVAL_WEBHOOK_SECRET || "",
     paymentNotifyPhone: process.env.PAYMENT_NOTIFY_PHONE || "",
 
-    emailProvider: "gmail" as const,
+    emailProvider: "gmail" as EmailProvider,
     gmail: {
       user: process.env.GMAIL_USER || "",
       appPassword: process.env.GMAIL_APP_PASSWORD || "",

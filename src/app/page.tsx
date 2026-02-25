@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <SiteShell>
       <HeroSection />
-      <ServicesGrid previewOnly />
+      <ServicesGrid />
       <GalleryGrid images={galleryImages} previewOnly />
       
       {/* Contact Section */}

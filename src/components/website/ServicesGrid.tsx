@@ -4,35 +4,33 @@ import Link from "next/link";
 import Image from "next/image";
 import { publicConfig } from "@/lib/config";
 
-interface ServicesGridProps {
-  previewOnly?: boolean;
-}
-
-// Service image mapping - exactly 3 services with unique photos
+// Service image mapping - 4 services with unique photos
 const serviceImages: Record<string, string> = {
   "Water Features": "/images/gallery/Vertical-WaterFeature.png",
   "Fire Pits": "/images/gallery/Firepit.png",
-  "Patio/Hardscape": "/images/gallery/Wide-BackyardLandscaping.png",
+  "Patio": "/images/gallery/Wide-BackyardLandscaping.png",
+  "Hardscape": "/images/gallery/Wide-HouseLandscaping.png",
 };
 
 // Service descriptions
 const serviceDescriptions: Record<string, string> = {
   "Water Features": "Custom ponds, waterfalls, and fountains designed to bring tranquility and beauty to your outdoor space.",
   "Fire Pits": "Beautiful stone and paver fire pits perfect for gathering and extending your outdoor season.",
-  "Patio/Hardscape": "Durable patios, pathways, and hardscapes built with quality pavers and expert craftsmanship.",
+  "Patio": "Professional patio construction with quality pavers and expert craftsmanship for your outdoor living space.",
+  "Hardscape": "Durable pathways, retaining walls, and hardscapes built with quality materials and attention to detail.",
 };
 
 // Service titles for display
 const serviceTitles: Record<string, string> = {
   "Water Features": "Water Features",
   "Fire Pits": "Fire Pits",
-  "Patio/Hardscape": "Patio / Hardscape",
+  "Patio": "Patio",
+  "Hardscape": "Hardscape",
 };
 
-export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
-  const services = previewOnly
-    ? publicConfig.servicesOffered.slice(0, 3)
-    : publicConfig.servicesOffered;
+export function ServicesGrid() {
+  // Always show all services
+  const services = publicConfig.servicesOffered;
 
   return (
     <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
@@ -44,7 +42,7 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
           Professional outdoor solutions tailored to your needs
         </p>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         {services.map((service) => (
           <article
             key={service}
@@ -56,7 +54,7 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
                 alt={`${service} by Alpine Outdoor Living`}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, 25vw"
                 unoptimized
               />
             </div>
@@ -81,19 +79,6 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
           </article>
         ))}
       </div>
-      {previewOnly && (
-        <div className="mt-12 text-center">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
-          >
-            View all services
-            <span className="transition-transform group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
-        </div>
-      )}
     </section>
   );
 }

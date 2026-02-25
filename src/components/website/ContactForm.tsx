@@ -15,7 +15,7 @@ interface ContactFormState {
   message: string;
 }
 
-const initialFormState = (services: string[]): ContactFormState => ({
+const initialFormState = (services: readonly string[]): ContactFormState => ({
   firstName: "",
   lastName: "",
   phone: "",
