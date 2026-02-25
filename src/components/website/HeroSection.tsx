@@ -12,18 +12,12 @@ export function HeroSection() {
         <p className="mx-auto mt-6 max-w-2xl text-xl font-normal leading-relaxed text-brand-textDark/70 sm:text-2xl lg:text-[28px] lg:leading-relaxed">
           {publicConfig.businessTagline}
         </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
+        <div className="mt-8 flex items-center justify-center">
           <Link
             href="/contact"
             className="inline-flex min-w-[200px] items-center justify-center rounded-full bg-brand-primary px-8 py-4 text-[17px] font-medium text-white transition-all hover:bg-brand-secondary"
           >
             Get Started
-          </Link>
-          <Link
-            href="/services"
-            className="inline-flex min-w-[200px] items-center justify-center text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
-          >
-            Learn more →
           </Link>
         </div>
       </div>

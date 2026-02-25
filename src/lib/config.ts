@@ -12,15 +12,15 @@ export const publicConfig = {
   businessZip: "62704",
   businessDescription: "Professional outdoor living spaces including water features, fire pits, and patios.",
   
-  // Exactly 3 services
-  servicesOfferedRaw: "Patio/Hardscape, Fire Pits, Water Features",
-  servicesOffered: ["Patio/Hardscape", "Fire Pits", "Water Features"],
+  // Services offered
+  servicesOfferedRaw: "Water Features, Fire Pits, Patios, Outdoor Spaces",
+  servicesOffered: ["Water Features", "Fire Pits", "Patios", "Outdoor Spaces"],
   
   industry: "landscaping",
   
   // Brand colors
-  brandPrimary: "#2D5F3F",
-  brandSecondary: "#4A7C59",
+  brandPrimary: "#8C9743",
+  brandSecondary: "#A3AC5C",
   brandTextLight: "#FFFFFF",
   brandTextDark: "#0F0F0F",
   brandBgLight: "#F5F5F5",

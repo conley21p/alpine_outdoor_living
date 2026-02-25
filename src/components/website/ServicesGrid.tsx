@@ -10,14 +10,16 @@ interface ServicesGridProps {
 const serviceImages: Record<string, string> = {
   "Water Features": "/images/gallery/water-features-night.jpg",
   "Fire Pits": "/images/gallery/stone-fire-pit-night.jpg",
-  "Patio/Hardscape": "/images/gallery/lake-patio-pavers.jpg",
+  "Patios": "/images/gallery/lake-patio-pavers.jpg",
+  "Outdoor Spaces": "/images/gallery/outdoor-living-space.jpg",
 };
 
 // Service descriptions
 const serviceDescriptions: Record<string, string> = {
   "Water Features": "Custom ponds, waterfalls, and fountains designed to bring tranquility and beauty to your outdoor space.",
   "Fire Pits": "Beautiful stone and paver fire pits perfect for gathering and extending your outdoor season.",
-  "Patio/Hardscape": "Durable patios, pathways, and hardscapes built with quality pavers and expert craftsmanship.",
+  "Patios": "Durable patios, pathways, and hardscapes built with quality pavers and expert craftsmanship.",
+  "Outdoor Spaces": "Complete outdoor living areas including seating, dining, and entertainment spaces tailored to your lifestyle.",
 };
 
 export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
@@ -35,7 +37,7 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
           Professional outdoor solutions tailored to your needs
         </p>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
         {services.map((service) => (
           <article 
             key={service} 
