@@ -6,11 +6,11 @@ interface ServicesGridProps {
   previewOnly?: boolean;
 }
 
-// Service image mapping - each service has an accurate photo
+// Service image mapping - each service has a unique, accurate photo
 const serviceImages: Record<string, string> = {
-  "Water Features": "/images/gallery/water-features-night.jpg",
+  "Water Features": "/images/gallery/pond-waterfall-night.jpg",
   "Fire Pits": "/images/gallery/stone-fire-pit-night.jpg",
-  "Patio/Hardscape": "/images/gallery/lake-patio-pavers.jpg",
+  "Patio/Hardscape": "/images/gallery/outdoor-living-space.jpg",
 };
 
 // Service descriptions
