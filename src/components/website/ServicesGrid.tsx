@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { publicConfig } from "@/lib/config";
@@ -6,12 +8,11 @@ interface ServicesGridProps {
   previewOnly?: boolean;
 }
 
-// Service image mapping - each service has a unique, accurate photo
+// Service image mapping - exactly 3 services with unique photos
 const serviceImages: Record<string, string> = {
-  "Water Features": "/images/gallery/NightWaterFeature.jpg",
-  "Fire Pits": "/images/gallery/firepit.png",
-  "Outdoor Spaces": "/images/gallery/Vertical-WaterFeature.png",
-  "Patios": "/images/gallery/Vertical-FrontHouseEntrance.png",
+  "Water Features": "/images/gallery/Vertical-WaterFeature.png",
+  "Fire Pits": "/images/gallery/Firepit.png",
+  "Patio/Hardscape": "/images/gallery/Wide-BackyardLandscaping.png",
 };
 
 // Service descriptions
@@ -22,9 +23,7 @@ const serviceDescriptions: Record<string, string> = {
 };
 
 export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
-  const services = previewOnly 
-    ? publicConfig.servicesOffered.slice(0, 4) 
-    : publicConfig.servicesOffered;
+  const services = previewOnly ? publicConfig.servicesOffered.slice(0, 3) : publicConfig.servicesOffered;
 
   return (
     <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
@@ -38,13 +37,13 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {services.map((service) => (
-          <article 
-            key={service} 
+          <article
+            key={service}
             className="group relative overflow-hidden rounded-2xl bg-brand-bgLight transition-all hover:bg-gray-100"
           >
             <div className="relative h-48 w-full overflow-hidden">
               <Image
-                src={serviceImages[service] || "/images/hero/patio-pond-night-wide.jpg"}
+                src={serviceImages[service] || "/images/gallery/Firepit.png"}
                 alt={`${service} by Alpine Outdoor Living`}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -56,10 +55,10 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
                 {service}
               </h3>
               <p className="mt-4 text-base leading-relaxed text-brand-textDark/70 lg:text-lg">
-                {serviceDescriptions[service] || `Professional ${service.toLowerCase()} delivered with reliable scheduling and high-quality results.`}
+                {serviceDescriptions[service] || `Professional ${service.toLowerCase()} delivered with high-quality results.`}
               </p>
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="mt-6 inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
               >
                 Get a quote
@@ -69,6 +68,17 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
           </article>
         ))}
       </div>
+      {previewOnly && (
+        <div className="mt-12 text-center">
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
+          >
+            View all services
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

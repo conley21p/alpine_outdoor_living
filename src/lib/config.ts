@@ -11,28 +11,28 @@ export const publicConfig = {
   businessState: "IL",
   businessZip: "62704",
   businessDescription: "Professional outdoor living spaces including water features, fire pits, and patios.",
-  
-  // Services offered
-  servicesOfferedRaw: "Water Features, Fire Pits, Patios, Outdoor Spaces",
-  servicesOffered: ["Water Features", "Fire Pits", "Patios", "Outdoor Spaces"],
-  
+
+  // Exactly 3 services as requested
+  servicesOfferedRaw: "Water Features, Fire Pits, Patio/Hardscape",
+  servicesOffered: ["Water Features", "Fire Pits", "Patio/Hardscape"],
+
   industry: "landscaping",
-  
+
   // Brand colors
   brandPrimary: "#8C9743",
   brandSecondary: "#A3AC5C",
   brandTextLight: "#FFFFFF",
   brandTextDark: "#0F0F0F",
   brandBgLight: "#F5F5F5",
-  
+
   // Site URLs
   siteUrl: "https://alpine-outdoor-living.vercel.app",
   defaultDomain: "alpine-outdoor-living.vercel.app",
-  
+
   // Social media
   instagramHandle: "alpineoutdoorliving_",
   instagramFeaturedPost: "https://www.instagram.com/p/EXAMPLE/", // Update with actual post URL
-  
+
   // Optional integrations (empty if not used)
   googleAnalyticsId: "",
   googleReviewsUrl: "",
@@ -52,14 +52,14 @@ export const getServerConfig = () => {
     // These come from environment (required for security)
     supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || "",
     openclawAgentApiKey: process.env.OPENCLAW_AGENT_API_KEY || "",
-    
+
     // Optional settings
     adminEmail: "alpineoutdooragent@gmail.com",
     nextAuthSecret: process.env.NEXTAUTH_SECRET || "",
     nextAuthUrl: publicConfig.siteUrl,
     paymentApprovalWebhookSecret: process.env.PAYMENT_APPROVAL_WEBHOOK_SECRET || "",
     paymentNotifyPhone: process.env.PAYMENT_NOTIFY_PHONE || "",
-    
+
     emailProvider: "gmail" as const,
     gmail: {
       user: process.env.GMAIL_USER || "",
