@@ -6,23 +6,41 @@ interface ServicesGridProps {
   previewOnly?: boolean;
 }
 
+// Service image mapping - each service has an accurate photo
 const serviceImages: Record<string, string> = {
   "Water Features": "/images/gallery/pond-waterfall-night.jpg",
   "Fire Pits": "/images/gallery/stone-fire-pit-night.jpg",
-  "Patios": "/images/gallery/lake-patio-pavers.jpg",
+  "Patio/Hardscape": "/images/gallery/lake-patio-pavers.jpg",
+};
+
+// Service descriptions
+const serviceDescriptions: Record<string, string> = {
+  "Water Features": "Custom ponds, waterfalls, and fountains designed to bring tranquility and beauty to your outdoor space.",
+  "Fire Pits": "Beautiful stone and paver fire pits perfect for gathering and extending your outdoor season.",
+  "Patio/Hardscape": "Durable patios, pathways, and hardscapes built with quality pavers and expert craftsmanship.",
 };
 
 export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
-  const services = previewOnly ? publicConfig.servicesOffered.slice(0, 3) : publicConfig.servicesOffered;
+  const services = previewOnly 
+    ? publicConfig.servicesOffered.slice(0, 3) 
+    : publicConfig.servicesOffered;
+
   return (
     <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
       <div className="mb-16 text-center lg:mb-20">
-        <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl"> Our Services </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl"> Professional solutions tailored to your needs </p>
+        <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl">
+          Our Services
+        </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl">
+          Professional outdoor solutions tailored to your needs
+        </p>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {services.map((service) => (
-          <article key={service} className="group relative overflow-hidden rounded-2xl bg-brand-bgLight transition-all hover:bg-gray-100">
+          <article 
+            key={service} 
+            className="group relative overflow-hidden rounded-2xl bg-brand-bgLight transition-all hover:bg-gray-100"
+          >
             <div className="relative h-48 w-full overflow-hidden">
               <Image
                 src={serviceImages[service] || "/images/gallery/water-features-night.jpg"}
@@ -33,16 +51,32 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
               />
             </div>
             <div className="p-8 lg:p-10">
-              <h3 className="text-2xl font-semibold tracking-tight text-brand-textDark lg:text-3xl"> {service} </h3>
-              <p className="mt-4 text-base leading-relaxed text-brand-textDark/70 lg:text-lg"> Professional {service.toLowerCase()} delivered with reliable scheduling and high-quality results. </p>
-              <Link href="/contact" className="mt-6 inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"> Get a quote <span className="transition-transform group-hover:translate-x-1">→</span> </Link>
+              <h3 className="text-2xl font-semibold tracking-tight text-brand-textDark lg:text-3xl">
+                {service}
+              </h3>
+              <p className="mt-4 text-base leading-relaxed text-brand-textDark/70 lg:text-lg">
+                {serviceDescriptions[service] || `Professional ${service.toLowerCase()} delivered with reliable scheduling and high-quality results.`}
+              </p>
+              <Link 
+                href="/contact" 
+                className="mt-6 inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
+              >
+                Get a quote
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </Link>
             </div>
           </article>
         ))}
       </div>
       {previewOnly && (
         <div className="mt-12 text-center">
-          <Link href="/services" className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"> View all services <span className="transition-transform group-hover:translate-x-1">→</span> </Link>
+          <Link 
+            href="/services" 
+            className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
+          >
+            View all services
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </Link>
         </div>
       )}
     </section>
