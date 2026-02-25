@@ -1,7 +1,7 @@
 export const siteImageSlots = {
   homeHero: {
     label: "Home hero",
-    desktopSrc: "/images/gallery/water-features-night.jpg",
+    desktopSrc: "/images/hero/patio-pond-night-wide.jpg",
     mobileSrc: "/images/hero/patio-pond-night-vertical.jpg",
   },
   servicesHero: {

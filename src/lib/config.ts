@@ -29,6 +29,10 @@ export const publicConfig = {
   siteUrl: "https://alpine-outdoor-living.vercel.app",
   defaultDomain: "alpine-outdoor-living.vercel.app",
   
+  // Social media
+  instagramHandle: "alpineoutdoorliving_",
+  instagramFeaturedPost: "https://www.instagram.com/p/EXAMPLE/", // Update with actual post URL
+  
   // Optional integrations (empty if not used)
   googleAnalyticsId: "",
   googleReviewsUrl: "",

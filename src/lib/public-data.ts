@@ -3,6 +3,7 @@ import type { GalleryImage } from "@/components/website/GalleryGrid";
 import type { Review } from "@/types";
 import { readdir } from "fs/promises";
 import { join } from "path";
+import { publicConfig } from "@/lib/config";
 
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
@@ -41,5 +42,40 @@ export const getPublishedReviews = async () => {
     return (data ?? []) as Review[];
   } catch {
     return [];
+  }
+};
+
+export interface InstagramPost {
+  thumbnailUrl: string;
+  postUrl: string;
+  authorName: string;
+}
+
+export const getInstagramFeaturedPost = async (): Promise<InstagramPost | null> => {
+  try {
+    const postUrl = publicConfig.instagramFeaturedPost;
+    
+    // Check if it's a valid Instagram URL
+    if (!postUrl || !postUrl.includes('instagram.com')) {
+      return null;
+    }
+
+    // Use Instagram's oEmbed API (free, no auth required)
+    const oembedUrl = `https://graph.instagram.com/oembed?url=${encodeURIComponent(postUrl)}&fields=thumbnail_url`;
+    const response = await fetch(oembedUrl);
+    
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+    
+    return {
+      thumbnailUrl: data.thumbnail_url,
+      postUrl: postUrl,
+      authorName: data.author_name || publicConfig.instagramHandle,
+    };
+  } catch {
+    return null;
   }
 };

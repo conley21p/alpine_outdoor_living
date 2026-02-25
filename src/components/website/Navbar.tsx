@@ -27,9 +27,9 @@ export function Navbar() {
           className="flex items-center gap-4 group -ml-2 px-2 py-1 rounded-lg transition-opacity hover:opacity-70"
         >
           {!logoError ? (
-            <div className="relative w-20 h-20 overflow-hidden rounded-lg">
+            <div className="relative w-10 h-10 overflow-hidden rounded-lg">
               <Image
-                src="/logo.jpg"
+                src="/Refreshed-logo.png"
                 alt={`${businessName} logo`}
                 fill
                 className="object-contain"

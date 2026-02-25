@@ -34,7 +34,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Email</p>
-                <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block font-bold text-brand-primary hover:text-brand-accent">
+                <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block break-all font-bold text-brand-primary hover:text-brand-accent">
                   {publicConfig.businessEmail}
                 </a>
               </div>

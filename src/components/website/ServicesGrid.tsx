@@ -8,9 +8,10 @@ interface ServicesGridProps {
 
 // Service image mapping - each service has a unique, accurate photo
 const serviceImages: Record<string, string> = {
-  "Water Features": "/images/gallery/pond-waterfall-night.jpg",
-  "Fire Pits": "/images/gallery/stone-fire-pit-night.jpg",
-  "Patio/Hardscape": "/images/gallery/outdoor-living-space.jpg",
+  "Water Features": "/images/gallery/NightWaterFeature.jpg",
+  "Fire Pits": "/images/gallery/firepit.png",
+  "Outdoor Spaces": "/images/gallery/Vertical-WaterFeature.png",
+  "Patios": "/images/gallery/Vertical-FrontHouseEntrance.png",
 };
 
 // Service descriptions
@@ -22,7 +23,7 @@ const serviceDescriptions: Record<string, string> = {
 
 export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
   const services = previewOnly 
-    ? publicConfig.servicesOffered.slice(0, 3) 
+    ? publicConfig.servicesOffered.slice(0, 4) 
     : publicConfig.servicesOffered;
 
   return (
@@ -43,7 +44,7 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
           >
             <div className="relative h-48 w-full overflow-hidden">
               <Image
-                src={serviceImages[service] || "/images/gallery/water-features-night.jpg"}
+                src={serviceImages[service] || "/images/hero/patio-pond-night-wide.jpg"}
                 alt={`${service} by Alpine Outdoor Living`}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -68,17 +69,6 @@ export function ServicesGrid({ previewOnly = false }: ServicesGridProps) {
           </article>
         ))}
       </div>
-      {previewOnly && (
-        <div className="mt-12 text-center">
-          <Link 
-            href="/services" 
-            className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
-          >
-            View all services
-            <span className="transition-transform group-hover:translate-x-1">→</span>
-          </Link>
-        </div>
-      )}
     </section>
   );
 }
