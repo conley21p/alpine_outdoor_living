@@ -1,11 +1,6 @@
 import { NextResponse } from "next/server";
-import { getServerConfig, publicConfig } from "@/lib/config";
-import { getSupabaseAdmin } from "@/lib/supabase-admin";
-import {
-  leadAutoResponseTemplate,
-  newLeadNotificationTemplate,
-  sendEmail,
-} from "@/lib/email";
+import { publicConfig } from "@/lib/config";
+import { leadAutoResponseTemplate, newLeadNotificationTemplate, sendEmail, } from "@/lib/email";
 import { writeAgentLog } from "@/lib/agent-log";
 
 interface ContactPayload {
@@ -32,6 +27,7 @@ export async function POST(request: Request) {
     const message = normalize(body.message);
 
     const errors: Record<string, string> = {};
+
     if (!firstName) {
       errors.firstName = "First name is required.";
     }
@@ -46,78 +42,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ errors }, { status: 400 });
     }
 
-    const supabase = getSupabaseAdmin();
-
-    let contactId: string | null = null;
-    if (email) {
-      const { data } = await supabase
-        .from("contacts")
-        .select("id")
-        .eq("email", email)
-        .maybeSingle();
-      const existingContact = (data as { id: string } | null) ?? null;
-      contactId = existingContact?.id ?? null;
-    }
-    if (!contactId && phone) {
-      const { data } = await supabase
-        .from("contacts")
-        .select("id")
-        .eq("phone", phone)
-        .maybeSingle();
-      const existingContact = (data as { id: string } | null) ?? null;
-      contactId = existingContact?.id ?? null;
-    }
-
-    if (contactId) {
-      const { error } = await supabase
-        .from("contacts")
-        .update({
-          first_name: firstName,
-          last_name: lastName || null,
-          phone: phone || null,
-          email: email || null,
-          source: "website_form",
-        })
-        .eq("id", contactId);
-      if (error) throw error;
-    } else {
-      const { data, error } = await supabase
-        .from("contacts")
-        .insert({
-          first_name: firstName,
-          last_name: lastName || null,
-          phone: phone || null,
-          email: email || null,
-          source: "website_form",
-          status: "active",
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
-      contactId = data.id as string;
-    }
-
-    const { data: lead, error: leadError } = await supabase
-      .from("leads")
-      .insert({
-        contact_id: contactId,
-        service_needed: serviceNeeded,
-        preferred_date: preferredDate || null,
-        message: message || null,
-        status: "new",
-        source: "website_form",
-      })
-      .select("id")
-      .single();
-
-    if (leadError) throw leadError;
-    const leadRow = lead as { id: string };
-
-    const { adminEmail } = getServerConfig();
-    const ownerEmail = adminEmail || publicConfig.businessEmail;
     const name = [firstName, lastName].filter(Boolean).join(" ");
-    const crmUrl = `${publicConfig.siteUrl}/admin/leads`;
+    const leadId = `email-${Date.now()}`;
 
+    // Send auto-response to the submitter if they provided email
     if (email) {
       const autoTemplate = leadAutoResponseTemplate({ name: firstName });
       void sendEmail({
@@ -129,6 +57,8 @@ export async function POST(request: Request) {
       }).catch(() => undefined);
     }
 
+    // Send notification email to AlpineOutdoorAgent@gmail.com
+    const ownerEmail = publicConfig.businessEmail; // alpineoutdooragent@gmail.com
     const ownerTemplate = newLeadNotificationTemplate({
       name: name || firstName,
       serviceNeeded,
@@ -136,32 +66,36 @@ export async function POST(request: Request) {
       email,
       preferredDate,
       message,
-      crmUrl,
+      crmUrl: `${publicConfig.siteUrl}/admin/leads`,
     });
-    void sendEmail({
+
+    await sendEmail({
       toEmail: ownerEmail,
       toName: publicConfig.businessName,
       subject: ownerTemplate.subject,
       bodyHtml: ownerTemplate.bodyHtml,
       bodyText: ownerTemplate.bodyText,
-    }).catch(() => undefined);
+    });
 
+    // Log the submission (no database storage)
     await writeAgentLog({
       action: "contact_form_submission",
       entityType: "lead",
-      entityId: leadRow.id,
-      description: `Contact form submitted for ${serviceNeeded}`,
+      entityId: leadId,
+      description: `Contact form submitted for ${serviceNeeded} (email only, no DB storage)`,
       metadata: {
-        contactId,
+        name,
+        phone,
+        email,
+        serviceNeeded,
+        preferredDate,
+        message,
         source: "website_form",
       },
       status: "success",
     });
 
-    return NextResponse.json({
-      success: true,
-      leadId: leadRow.id,
-    });
+    return NextResponse.json({ success: true, leadId });
   } catch (error) {
     console.error("Contact form error", error);
     return NextResponse.json(
