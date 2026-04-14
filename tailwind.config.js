@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         brand: {
           primary: "var(--brand-primary)",
+          "primary-dark": "var(--brand-primary-dark)",
           secondary: "var(--brand-secondary)",
           textLight: "var(--brand-text-light)",
           textDark: "var(--brand-text-dark)",
