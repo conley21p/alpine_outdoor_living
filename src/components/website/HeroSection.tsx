@@ -26,7 +26,10 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           {/* Bottom-Aligned Content Overlay */}
           <div className="absolute inset-0 flex items-end justify-center pb-32 md:pb-40 px-6 text-center z-10">
             <div className="mx-auto max-w-4xl text-white">
-              <p className="mx-auto text-xl font-medium leading-relaxed tracking-tight text-white/90 sm:text-2xl lg:text-3xl">
+              <p className="mx-auto text-xl font-semibold leading-relaxed tracking-tight text-white sm:text-2xl lg:text-3xl">
+                Custom Water Features, Fire Pits, Patios & Outdoor Spaces
+              </p>
+              <p className="mx-auto mt-2 text-lg font-medium leading-relaxed tracking-tight text-white/80 sm:text-xl lg:text-2xl">
                 Proudly servicing Springfield IL
               </p>
               <div className="mt-8 flex items-center justify-center">

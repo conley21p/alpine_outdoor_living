@@ -8,10 +8,10 @@ export const publicConfig = {
   businessDescription: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
   businessTagline: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
   businessPhone: "(217) 503-6851",
-  businessEmail: "conley@alpineoutdoorliving.net",
+  businessEmail: "alpineoutdooragent@gmail.com",
   industry: "Landscape Design & Construction",
   servicesOffered: ["Water Features", "Fire Pits", "Patio", "Hardscape"],
-  
+
   // Branding
   brandPrimary: "#8B9D33",
   brandSecondary: "#C8882A",
