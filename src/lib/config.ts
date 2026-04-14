@@ -13,7 +13,7 @@ export const publicConfig = {
   servicesOffered: ["Water Features", "Fire Pits", "Patio", "Hardscape"],
   
   // Branding
-  brandPrimary: "#1B3A2D",
+  brandPrimary: "#8B9D33",
   brandSecondary: "#C8882A",
   brandTextLight: "#FFFFFF",
   brandTextDark: "#121212",
