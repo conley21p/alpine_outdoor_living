@@ -20,23 +20,26 @@ export interface CloudinaryResource {
 }
 
 /**
- * Fetches all images from a specific folder in Cloudinary.
+ * Fetches all images from a specific folder in Cloudinary using the Resources API.
+ * This is more reliable for simple folder listing than the Search API.
  */
 export async function getImagesInFolder(
   folderPath: string,
   maxResults = 50
 ): Promise<CloudinaryResource[]> {
-  console.log(`[CLOUDINARY] Fetching images from folder: "${folderPath}"`);
+  console.log(`[CLOUDINARY] Listing resources with prefix: "${folderPath}/"`);
   try {
-    const results = await cloudinary.search
-      .expression(`folder:"${folderPath}"/*`) // Ensured quotes for paths with spaces
-      .sort_by("public_id", "asc")
-      .max_results(maxResults)
-      .execute();
+    // Using admin API resources method with prefix filtering
+    const results = await cloudinary.api.resources({
+      type: "upload",
+      prefix: folderPath + "/", // Ensure trailing slash to target folder contents
+      resource_type: "image",
+      max_results: maxResults,
+    });
 
-    console.log(`[CLOUDINARY] Found ${results.resources.length} images in "${folderPath}"`);
+    console.log(`[CLOUDINARY] API returned ${results.resources.length} resources for prefix "${folderPath}/"`);
 
-    return results.resources.map((res: CloudinaryResource) => ({
+    return results.resources.map((res: any) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
       width: res.width,
@@ -45,7 +48,7 @@ export async function getImagesInFolder(
     }));
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error(`[CLOUDINARY ERROR] Folder: "${folderPath}":`, errorMessage);
+    console.error(`[CLOUDINARY ERROR] Folder Listing: "${folderPath}":`, errorMessage);
     return [];
   }
 }
