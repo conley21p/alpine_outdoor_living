@@ -97,7 +97,7 @@ export function ContactForm() {
 
   if (success) {
     return (
-      <div className="rounded-2xl bg-brand-bgLight p-10 lg:p-12">
+      <div className="bg-transparent p-10 lg:p-12">
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand-primary text-2xl text-white">
             ✓
@@ -112,7 +112,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6 rounded-2xl bg-brand-bgLight p-8 lg:p-10">
+    <form onSubmit={onSubmit} className="space-y-6 bg-transparent p-0">
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label className="mb-2 block text-[14px] font-medium text-brand-textDark">First Name *</label>
