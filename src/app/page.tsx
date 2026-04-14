@@ -11,7 +11,7 @@ import {
   getDynamicServices 
 } from "@/lib/public-data";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300; // Cache the page for 5 minutes to prevent Cloudinary rate limits
 
 export default async function Home() {
   const [galleryImages, instagramPost, heroPair, services] = await Promise.all([

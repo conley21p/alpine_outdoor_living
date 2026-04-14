@@ -5,7 +5,7 @@ import { PageHeroBanner } from "@/components/website/PageHeroBanner";
 import { publicConfig } from "@/lib/config";
 import { getGalleryImages, getHeroPair } from "@/lib/public-data";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300; // Cache the page for 5 minutes to prevent Cloudinary rate limits
 
 export default async function GalleryPage() {
   const [images, heroPair] = await Promise.all([
