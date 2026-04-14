@@ -11,7 +11,7 @@ export const siteImageSlots = {
   },
   galleryHero: {
     label: "Gallery hero",
-    desktopSrc: "/images/hero/wide/backyard-oasis-banner.jpg",
+    desktopSrc: "/images/hero/wide/patio-pond-night-wide.jpg",
     mobileSrc: "/images/hero/vert/patio-pond-night-vertical.jpg",
   },
   contactHero: {
