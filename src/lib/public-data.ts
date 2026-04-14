@@ -1,9 +1,17 @@
-import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import type { GalleryImage } from "@/components/website/GalleryGrid";
-import type { Review } from "@/types";
 import { readdir } from "fs/promises";
 import { join } from "path";
 import { publicConfig } from "@/lib/config";
+
+export interface Review {
+  id: string;
+  customer_name: string;
+  rating: number;
+  quote: string;
+  review_date: string;
+  service?: string;
+  published: boolean;
+}
 
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
@@ -30,19 +38,26 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   }
 };
 
-export const getPublishedReviews = async () => {
-  try {
-    const { data, error } = await getSupabaseAdmin()
-      .from("reviews")
-      .select("*")
-      .eq("published", true)
-      .order("review_date", { ascending: false });
-
-    if (error) return [];
-    return (data ?? []) as Review[];
-  } catch {
-    return [];
-  }
+export const getPublishedReviews = async (): Promise<Review[]> => {
+  // Supabase removed - returning static mock reviews
+  return [
+    {
+      id: "mock-1",
+      customer_name: "Sarah Johnson",
+      rating: 5,
+      quote: "Alpine Outdoor Living transformed our backyard into a peaceful oasis. Their attention to detail on our new pond was incredible!",
+      review_date: new Date().toISOString(),
+      published: true,
+    },
+    {
+      id: "mock-2",
+      customer_name: "Mark Thompson",
+      rating: 5,
+      quote: "Professional, reliable, and spectacular results. The fire pit they built is the centerpiece of all our outdoor gatherings.",
+      review_date: new Date().toISOString(),
+      published: true,
+    }
+  ];
 };
 
 export interface InstagramPost {

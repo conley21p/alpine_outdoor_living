@@ -5,7 +5,6 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -19,9 +18,7 @@ export function Footer() {
               {publicConfig.businessName}
             </h3>
             <p className="mt-3 text-[13px] leading-relaxed text-brand-textDark/60">
-              {publicConfig.businessAddress}
-              <br />
-              {publicConfig.businessCity}, {publicConfig.businessState} {publicConfig.businessZip}
+              {publicConfig.businessDescription}
             </p>
           </div>
           <div>

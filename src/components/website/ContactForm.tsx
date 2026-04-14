@@ -61,19 +61,29 @@ export function ContactForm() {
 
     setLoading(true);
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          access_key: "4880cd5b-7e22-4d93-9e8a-84d7c3d8f38d",
+          name: `${form.firstName} ${form.lastName}`.trim(),
+          email: form.email,
+          phone: form.phone,
+          service: form.serviceNeeded,
+          date: form.preferredDate,
+          message: form.message,
+          subject: `New Contact: ${form.serviceNeeded} from ${form.firstName}`,
+          from_name: "Alpine Outdoor Living",
+        }),
       });
 
-      if (!response.ok) {
-        const payload = (await response.json()) as {
-          error?: string;
-          errors?: Record<string, string>;
-        };
-        setFieldErrors(payload.errors || {});
-        setError(payload.error || "Unable to submit your request.");
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        setError(result.message || "Unable to submit your request.");
         return;
       }
 

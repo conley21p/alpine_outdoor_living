@@ -39,19 +39,6 @@ export default function ContactPage() {
                 </a>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary">
-                📍
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Address</p>
-                <p className="mt-1 font-bold text-gray-700">
-                  {publicConfig.businessAddress}
-                  <br />
-                  {publicConfig.businessCity}, {publicConfig.businessState} {publicConfig.businessZip}
-                </p>
-              </div>
-            </div>
           </div>
         </div>
         <div className="sm:col-span-3">

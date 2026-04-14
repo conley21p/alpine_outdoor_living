@@ -2,17 +2,15 @@ import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
 import { GalleryGrid } from "@/components/website/GalleryGrid";
-import { ReviewsSection } from "@/components/website/ReviewsSection";
 import { ContactForm } from "@/components/website/ContactForm";
 import { publicConfig } from "@/lib/config";
-import { getGalleryImages, getPublishedReviews, getInstagramFeaturedPost } from "@/lib/public-data";
+import { getGalleryImages, getInstagramFeaturedPost } from "@/lib/public-data";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [galleryImages, reviews, instagramPost] = await Promise.all([
+  const [galleryImages, instagramPost] = await Promise.all([
     getGalleryImages(),
-    getPublishedReviews(),
     getInstagramFeaturedPost(),
   ]);
 
@@ -49,19 +47,6 @@ export default async function Home() {
                 <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block break-all font-bold text-brand-primary hover:text-brand-accent">
                   {publicConfig.businessEmail}
                 </a>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary">
-                📍
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Address</p>
-                <p className="mt-1 font-bold text-gray-700">
-                  {publicConfig.businessAddress}
-                  <br />
-                  {publicConfig.businessCity}, {publicConfig.businessState} {publicConfig.businessZip}
-                </p>
               </div>
             </div>
           </div>
@@ -119,19 +104,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      {reviews.length > 0 && (
-        <ReviewsSection
-          previewOnly
-          reviews={reviews.map((review) => ({
-            quote: review.quote,
-            customerName: review.customer_name,
-            service: review.service || undefined,
-            rating: review.rating,
-            reviewDate: review.review_date,
-          }))}
-        />
-      )}
     </SiteShell>
   );
 }
