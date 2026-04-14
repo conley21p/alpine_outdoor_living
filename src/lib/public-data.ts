@@ -1,5 +1,16 @@
-import { v2 as cloudinary, getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
+import cloudinary, { getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
 import { publicConfig } from "@/lib/config";
+
+interface CloudinaryFolder {
+  name: string;
+  path: string;
+}
+
+interface CloudinaryRawResource {
+  public_id: string;
+  secure_url: string;
+  format: string;
+}
 
 export interface GalleryImage {
   name: string;
@@ -73,10 +84,10 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
   try {
     // 1. List subfolders of Website/Services
     const folderResult = await cloudinary.api.sub_folders("Website/Services");
-    const serviceFolders = folderResult.folders;
+    const serviceFolders = folderResult.folders as CloudinaryFolder[];
 
     const services = await Promise.all(
-      serviceFolders.map(async (folder: any) => {
+      serviceFolders.map(async (folder: CloudinaryFolder) => {
         const folderPath = folder.path; // e.g. Website/Services/FirePit
         const folderName = folder.name; // e.g. FirePit
 
@@ -99,7 +110,7 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
 
         // 4. Fetch the content of the first .txt file
         let description = "Professional outdoor living solutions crafted with care.";
-        const txtFile = raws.resources.find((r: any) => r.format === "txt" || r.public_id.endsWith(".txt"));
+        const txtFile = raws.resources.find((r: CloudinaryRawResource) => r.format === "txt" || r.public_id.endsWith(".txt"));
         
         if (txtFile) {
           try {
