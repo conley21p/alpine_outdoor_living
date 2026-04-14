@@ -1,28 +1,28 @@
 export const siteImageSlots = {
   homeHero: {
     label: "Home hero",
-    desktopSrc: "/images/hero/wide/patio-pond-night-wide.jpg",
-    mobileSrc: "/images/hero/vert/patio-pond-night-vertical.jpg",
+    desktopSrc: "",
+    mobileSrc: "",
   },
   servicesHero: {
     label: "Services hero",
-    desktopSrc: "/images/hero/wide/patio-pond-night-wide.jpg",
-    mobileSrc: "/images/hero/vert/patio-pond-night-vertical.jpg",
+    desktopSrc: "",
+    mobileSrc: "",
   },
   galleryHero: {
     label: "Gallery hero",
-    desktopSrc: "/images/hero/wide/patio-pond-night-wide.jpg",
-    mobileSrc: "/images/hero/vert/patio-pond-night-vertical.jpg",
+    desktopSrc: "",
+    mobileSrc: "",
   },
   contactHero: {
     label: "Contact hero",
-    desktopSrc: "/images/hero/wide/patio-pond-night-wide.jpg",
-    mobileSrc: "/images/hero/vert/patio-pond-night-vertical.jpg",
+    desktopSrc: "",
+    mobileSrc: "",
   },
   reviewsHero: {
     label: "Reviews hero",
-    desktopSrc: "/images/hero/wide/patio-pond-night-wide.jpg",
-    mobileSrc: "/images/hero/vert/patio-pond-night-vertical.jpg",
+    desktopSrc: "",
+    mobileSrc: "",
   },
 } as const;
 

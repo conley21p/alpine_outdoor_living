@@ -6,10 +6,10 @@ import { publicConfig } from "@/lib/config";
 
 // Service image mapping - 4 services with unique photos
 const serviceImages: Record<string, string> = {
-  "Water Features": "/images/gallery/Vertical-WaterFeature.png",
-  "Fire Pits": "/images/gallery/Firepit.png",
-  "Patio": "/images/gallery/Wide-BackyardLandscaping.png",
-  "Hardscape": "/images/gallery/Wide-HouseLandscaping.png",
+  "Water Features": "",
+  "Fire Pits": "",
+  "Patio": "",
+  "Hardscape": "",
 };
 
 // Service descriptions
@@ -28,9 +28,15 @@ const serviceTitles: Record<string, string> = {
   "Hardscape": "Hardscape",
 };
 
-export function ServicesGrid() {
-  // Always show all services
-  const services = publicConfig.servicesOffered;
+interface ServicesGridProps {
+  initialServiceImages?: Record<string, string>;
+}
+
+export function ServicesGrid({ initialServiceImages = {} }: ServicesGridProps) {
+  // Use the provided images or fall back to standard titles
+  const services = Object.keys(initialServiceImages).length > 0 
+    ? Object.keys(initialServiceImages) 
+    : publicConfig.servicesOffered;
 
   return (
     <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">

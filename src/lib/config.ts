@@ -33,3 +33,27 @@ export const publicConfig = {
 } as const;
 
 export type PublicConfig = typeof publicConfig;
+
+// Server config - hardcoded values for production
+export const getServerConfig = () => {
+  if (typeof window !== "undefined") {
+    throw new Error("Server config cannot be read in the browser.");
+  }
+
+  return {
+    // These come from environment (required for security)
+    openclawAgentApiKey: process.env.OPENCLAW_AGENT_API_KEY || "",
+
+    // Cloudinary credentials
+    cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
+    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY || "",
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
+
+    // Optional settings
+    adminEmail: "alpineoutdooragent@gmail.com",
+    nextAuthSecret: process.env.NEXTAUTH_SECRET || "",
+    nextAuthUrl: publicConfig.siteUrl,
+  };
+};
+
+export type ServerConfig = ReturnType<typeof getServerConfig>;

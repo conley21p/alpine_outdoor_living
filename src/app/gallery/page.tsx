@@ -1,14 +1,17 @@
 import { SiteShell } from "@/components/website/SiteShell";
 import { GalleryGrid } from "@/components/website/GalleryGrid";
 import { ContactForm } from "@/components/website/ContactForm";
-import { getGalleryImages } from "@/lib/public-data";
-import { publicConfig } from "@/lib/config";
 import { PageHeroBanner } from "@/components/website/PageHeroBanner";
+import { publicConfig } from "@/lib/config";
+import { getGalleryImages, getHeroPair } from "@/lib/public-data";
 
 export const dynamic = "force-dynamic";
 
 export default async function GalleryPage() {
-  const images = await getGalleryImages();
+  const [images, heroPair] = await Promise.all([
+    getGalleryImages(),
+    getHeroPair("Home/Website/GalleryHero"),
+  ]);
 
   return (
     <SiteShell>
@@ -16,6 +19,7 @@ export default async function GalleryPage() {
         slot="galleryHero"
         title="Gallery"
         subtitle="Browse recent work and project highlights."
+        heroPair={heroPair}
       />
       <GalleryGrid images={images} />
 

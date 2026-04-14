@@ -1,7 +1,11 @@
-import type { GalleryImage } from "@/components/website/GalleryGrid";
-import { readdir } from "fs/promises";
-import { join } from "path";
+import { getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
 import { publicConfig } from "@/lib/config";
+import type { Review } from "@/types"; // Wait, I removed src/types, let me check where Review is now
+
+export interface GalleryImage {
+  name: string;
+  url: string;
+}
 
 export interface Review {
   id: string;
@@ -13,39 +17,77 @@ export interface Review {
   published: boolean;
 }
 
+/**
+ * Fetches gallery images from Cloudinary Home/Website/Gallery folder.
+ */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
-    // Read images from local public/images/gallery directory
-    const galleryDir = join(process.cwd(), "public", "images", "gallery");
-    const files = await readdir(galleryDir);
-    
-    const imageFiles = files
-      .filter((file) => 
-        !file.startsWith(".") && 
-        (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".webp"))
-      )
-      .sort((a, b) => a.localeCompare(b));
-
-    return imageFiles.map((file) => {
-      const name = file.replace(/\.(jpg|jpeg|png|webp)$/i, "");
-      return {
-        name: name.replace(/[-_]/g, " "),
-        url: `/images/gallery/${file}`,
-      };
-    });
-  } catch {
+    const resources = await getImagesInFolder("Home/Website/Gallery", 25);
+    return resources.map((res) => ({
+      name: res.public_id.split("/").pop() || "Gallery Image",
+      url: res.secure_url,
+    }));
+  } catch (error) {
+    console.error("Error fetching gallery images from Cloudinary:", error);
     return [];
   }
 };
 
+/**
+ * Fetches a random pair of hero images (wide and mobile) from Cloudinary.
+ */
+export const getHeroPair = async (basePath: string) => {
+  try {
+    const [wide, vert] = await Promise.all([
+      getRandomImageInFolder(`${basePath}/Wide`),
+      getRandomImageInFolder(`${basePath}/vert`),
+    ]);
+
+    return {
+      wide: wide?.secure_url || null,
+      vert: vert?.secure_url || null,
+    };
+  } catch (error) {
+    console.error(`Error fetching hero pair for ${basePath}:`, error);
+    return { wide: null, vert: null };
+  }
+};
+
+/**
+ * Fetches representative images for each service category from Cloudinary.
+ */
+export const getServiceImages = async () => {
+  const categories = ["FirePit", "HardScape", "Patio", "Water"];
+  const serviceImages: Record<string, string> = {};
+
+  await Promise.all(
+    categories.map(async (cat) => {
+      const img = await getRandomImageInFolder(`Home/Website/Services/${cat}`);
+      if (img) {
+        // Map the folder name to the UI service name
+        const uiNameMap: Record<string, string> = {
+          FirePit: "Fire Pits",
+          HardScape: "Hardscape",
+          Patio: "Patio",
+          Water: "Water Features",
+        };
+        serviceImages[uiNameMap[cat] || cat] = img.secure_url;
+      }
+    })
+  );
+
+  return serviceImages;
+};
+
 export const getPublishedReviews = async (): Promise<Review[]> => {
-  // Supabase removed - returning static mock reviews
+  // Static mock reviews (previously moved from DB)
   return [
     {
       id: "mock-1",
       customer_name: "Sarah Johnson",
       rating: 5,
-      quote: "Alpine Outdoor Living transformed our backyard into a peaceful oasis. Their attention to detail on our new pond was incredible!",
+      quote:
+        "Alpine Outdoor Living transformed our backyard into a peaceful oasis. Their attention to detail on our new pond was incredible!",
       review_date: new Date().toISOString(),
       published: true,
     },
@@ -53,10 +95,11 @@ export const getPublishedReviews = async (): Promise<Review[]> => {
       id: "mock-2",
       customer_name: "Mark Thompson",
       rating: 5,
-      quote: "Professional, reliable, and spectacular results. The fire pit they built is the centerpiece of all our outdoor gatherings.",
+      quote:
+        "Professional, reliable, and spectacular results. The fire pit they built is the centerpiece of all our outdoor gatherings.",
       review_date: new Date().toISOString(),
       published: true,
-    }
+    },
   ];
 };
 
@@ -69,22 +112,22 @@ export interface InstagramPost {
 export const getInstagramFeaturedPost = async (): Promise<InstagramPost | null> => {
   try {
     const postUrl = publicConfig.instagramFeaturedPost;
-    
-    // Check if it's a valid Instagram URL
-    if (!postUrl || !postUrl.includes('instagram.com')) {
+
+    if (!postUrl || !postUrl.includes("instagram.com")) {
       return null;
     }
 
-    // Use Instagram's oEmbed API (free, no auth required)
-    const oembedUrl = `https://graph.instagram.com/oembed?url=${encodeURIComponent(postUrl)}&fields=thumbnail_url`;
+    const oembedUrl = `https://graph.instagram.com/oembed?url=${encodeURIComponent(
+      postUrl
+    )}&fields=thumbnail_url`;
     const response = await fetch(oembedUrl);
-    
+
     if (!response.ok) {
       return null;
     }
 
     const data = await response.json();
-    
+
     return {
       thumbnailUrl: data.thumbnail_url,
       postUrl: postUrl,

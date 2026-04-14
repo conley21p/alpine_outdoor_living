@@ -4,20 +4,27 @@ import { ServicesGrid } from "@/components/website/ServicesGrid";
 import { GalleryGrid } from "@/components/website/GalleryGrid";
 import { ContactForm } from "@/components/website/ContactForm";
 import { publicConfig } from "@/lib/config";
-import { getGalleryImages, getInstagramFeaturedPost } from "@/lib/public-data";
+import { 
+  getGalleryImages, 
+  getInstagramFeaturedPost,
+  getHeroPair,
+  getServiceImages 
+} from "@/lib/public-data";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [galleryImages, instagramPost] = await Promise.all([
+  const [galleryImages, instagramPost, heroPair, serviceImages] = await Promise.all([
     getGalleryImages(),
     getInstagramFeaturedPost(),
+    getHeroPair("Home/Website/Hero"),
+    getServiceImages(),
   ]);
 
   return (
     <SiteShell>
-      <HeroSection />
-      <ServicesGrid />
+      <HeroSection heroPair={heroPair} />
+      <ServicesGrid initialServiceImages={serviceImages} />
       <GalleryGrid images={galleryImages} previewOnly />
       
       {/* Contact Section */}

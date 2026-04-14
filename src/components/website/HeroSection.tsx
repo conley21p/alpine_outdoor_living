@@ -2,12 +2,18 @@ import Link from "next/link";
 import { publicConfig } from "@/lib/config";
 import { ResponsiveSlotImage } from "@/components/website/ResponsiveSlotImage";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  heroPair?: { wide: string | null; vert: string | null };
+}
+
+export function HeroSection({ heroPair }: HeroSectionProps) {
   return (
     <section className="relative mx-auto max-w-[90rem] px-6 pt-12 pb-20 lg:px-12 lg:pt-16 lg:pb-32">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl shadow-2xl">
         <ResponsiveSlotImage
           slot="homeHero"
+          overrideWide={heroPair?.wide}
+          overrideVert={heroPair?.vert}
           alt={`${publicConfig.businessName} hero image`}
           priority
           mobileAspectClassName="aspect-[4/5]"
