@@ -24,7 +24,7 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           <div className="absolute inset-0 bg-black/30" />
 
           {/* Split Content Overlay */}
-          <div className="absolute inset-0 flex flex-col justify-between py-28 md:py-36 px-6 text-center z-10">
+          <div className="absolute inset-0 flex flex-col justify-between pt-8 md:pt-28 pb-28 md:pb-36 px-6 text-center z-10">
             {/* Top Text */}
             <div className="mx-auto max-w-4xl">
               <p className="mx-auto text-xl font-semibold leading-relaxed tracking-tight text-white sm:text-2xl lg:text-3xl">
