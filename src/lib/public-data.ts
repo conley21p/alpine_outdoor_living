@@ -1,6 +1,5 @@
 import { getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
 import { publicConfig } from "@/lib/config";
-import type { Review } from "@/types"; // Wait, I removed src/types, let me check where Review is now
 
 export interface GalleryImage {
   name: string;
