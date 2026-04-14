@@ -46,7 +46,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                 {service.description}
               </p>
               <Link
-                href="/contact"
+                href={`/?service=${encodeURIComponent(service.title)}#contact`}
                 className="mt-6 inline-flex items-center gap-2 text-[17px] font-medium text-brand-primary transition-opacity hover:opacity-70"
               >
                 Get a quote

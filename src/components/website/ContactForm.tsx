@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState, useEffect } from "react";
 import { publicConfig } from "@/lib/config";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -32,6 +32,16 @@ export function ContactForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const serviceQuery = params.get("service");
+      if (serviceQuery && services.includes(serviceQuery)) {
+        setForm((prev) => ({ ...prev, serviceNeeded: serviceQuery }));
+      }
+    }
+  }, [services]);
 
   const onChange = (field: keyof ContactFormState, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
