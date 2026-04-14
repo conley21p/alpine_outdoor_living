@@ -37,7 +37,7 @@ export function Navbar() {
               />
             </div>
           ) : null}
-          <span className="text-[17px] font-semibold tracking-tight text-brand-textDark">
+          <span className="hidden text-[17px] font-semibold tracking-tight text-brand-textDark md:block">
             {businessName}
           </span>
         </Link>
