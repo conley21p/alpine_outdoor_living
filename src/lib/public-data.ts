@@ -20,6 +20,7 @@ export interface Review {
  * Fetches gallery images from Cloudinary Home/Website/Gallery folder.
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
+  console.log("[DATA] Fetching Gallery images...");
   try {
     const resources = await getImagesInFolder("Home/Website/Gallery", 25);
     return resources.map((res) => ({
@@ -27,7 +28,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
       url: res.secure_url,
     }));
   } catch (error) {
-    console.error("Error fetching gallery images from Cloudinary:", error);
+    console.error("[DATA ERROR] Gallery fetch:", error);
     return [];
   }
 };
@@ -36,6 +37,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
  * Fetches a random pair of hero images (wide and mobile) from Cloudinary.
  */
 export const getHeroPair = async (basePath: string) => {
+  console.log(`[DATA] Fetching Hero pair for: ${basePath}`);
   try {
     const [wide, vert] = await Promise.all([
       getRandomImageInFolder(`${basePath}/Wide`),
@@ -47,7 +49,7 @@ export const getHeroPair = async (basePath: string) => {
       vert: vert?.secure_url || null,
     };
   } catch (error) {
-    console.error(`Error fetching hero pair for ${basePath}:`, error);
+    console.error(`[DATA ERROR] Hero pair for ${basePath}:`, error);
     return { wide: null, vert: null };
   }
 };
@@ -56,6 +58,7 @@ export const getHeroPair = async (basePath: string) => {
  * Fetches representative images for each service category from Cloudinary.
  */
 export const getServiceImages = async () => {
+  console.log("[DATA] Fetching Service category images...");
   const categories = ["FirePit", "HardScape", "Patio", "Water"];
   const serviceImages: Record<string, string> = {};
 
@@ -63,7 +66,6 @@ export const getServiceImages = async () => {
     categories.map(async (cat) => {
       const img = await getRandomImageInFolder(`Home/Website/Services/${cat}`);
       if (img) {
-        // Map the folder name to the UI service name
         const uiNameMap: Record<string, string> = {
           FirePit: "Fire Pits",
           HardScape: "Hardscape",
@@ -79,7 +81,6 @@ export const getServiceImages = async () => {
 };
 
 export const getPublishedReviews = async (): Promise<Review[]> => {
-  // Static mock reviews (previously moved from DB)
   return [
     {
       id: "mock-1",

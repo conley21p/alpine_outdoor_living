@@ -26,22 +26,25 @@ export async function getImagesInFolder(
   folderPath: string,
   maxResults = 50
 ): Promise<CloudinaryResource[]> {
+  console.log(`[CLOUDINARY] Fetching images from folder: "${folderPath}"`);
   try {
     const results = await cloudinary.search
-      .expression(`folder:${folderPath}/*`)
+      .expression(`folder:"${folderPath}"/*`) // Ensured quotes for paths with spaces
       .sort_by("public_id", "asc")
       .max_results(maxResults)
       .execute();
 
-    return results.resources.map((res: CloudinaryResource) => ({
+    console.log(`[CLOUDINARY] Found ${results.resources.length} images in "${folderPath}"`);
+
+    return results.resources.map((res: any) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
       width: res.width,
       height: res.height,
       format: res.format,
     }));
-  } catch (error) {
-    console.error(`Error fetching images from folder ${folderPath}:`, error);
+  } catch (error: any) {
+    console.error(`[CLOUDINARY ERROR] Folder: "${folderPath}":`, error.message || error);
     return [];
   }
 }
@@ -54,12 +57,17 @@ export async function getRandomImageInFolder(
 ): Promise<CloudinaryResource | null> {
   try {
     const images = await getImagesInFolder(folderPath, 50);
-    if (images.length === 0) return null;
+    if (images.length === 0) {
+      console.warn(`[CLOUDINARY] No images found in folder: "${folderPath}"`);
+      return null;
+    }
 
     const randomIndex = Math.floor(Math.random() * images.length);
-    return images[randomIndex];
+    const selected = images[randomIndex];
+    console.log(`[CLOUDINARY] Selected random image: ${selected.public_id}`);
+    return selected;
   } catch (error) {
-    console.error(`Error fetching random image from folder ${folderPath}:`, error);
+    console.error(`[CLOUDINARY ERROR] Random image fetch for "${folderPath}":`, error);
     return null;
   }
 }

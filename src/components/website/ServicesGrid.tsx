@@ -56,7 +56,7 @@ export function ServicesGrid({ initialServiceImages = {} }: ServicesGridProps) {
           >
             <div className="relative h-48 w-full overflow-hidden">
               <Image
-                src={serviceImages[service] || "/images/gallery/Firepit.png"}
+                src={initialServiceImages[service] || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
                 alt={`${service} by Alpine Outdoor Living`}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
