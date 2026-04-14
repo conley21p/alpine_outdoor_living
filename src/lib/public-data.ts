@@ -1,3 +1,4 @@
+/** Cloudinary Dynamic Data Layer - Build Refresh Heartbeat **/
 import cloudinary, { getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
 import { publicConfig } from "@/lib/config";
 
