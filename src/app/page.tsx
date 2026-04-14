@@ -26,7 +26,7 @@ export default async function Home() {
       <HeroSection heroPair={heroPair} />
       <ServicesGrid services={services} />
       {/* Contact Section */}
-      <section className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:grid-cols-5 sm:px-6 lg:px-8 sm:py-16">
+      <section id="contact" className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:grid-cols-5 sm:px-6 lg:px-8 sm:py-16">
         <div className="sm:col-span-2">
           <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Contact Details</h2>
           <p className="mt-4 text-base leading-relaxed text-gray-600">{publicConfig.businessDescription}</p>

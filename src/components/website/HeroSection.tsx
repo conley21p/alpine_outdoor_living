@@ -38,10 +38,10 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
             {/* Bottom Button */}
             <div className="mx-auto">
               <Link
-                href="/contact"
+                href="#contact"
                 className="btn-primary inline-flex min-w-[200px] items-center justify-center px-10 py-5 text-lg font-bold shadow-2xl hover:scale-105"
               >
-                Get Started
+                Contact Us Today
               </Link>
             </div>
           </div>
