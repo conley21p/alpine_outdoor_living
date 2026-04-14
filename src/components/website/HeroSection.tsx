@@ -8,8 +8,8 @@ interface HeroSectionProps {
 
 export function HeroSection({ heroPair }: HeroSectionProps) {
   return (
-    <section className="relative mx-auto max-w-[90rem] px-6 pt-12 pb-20 lg:px-12 lg:pt-16 lg:pb-32">
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl shadow-2xl">
+    <section className="relative w-full overflow-hidden bg-white">
+      <div className="relative w-full">
         <ResponsiveSlotImage
           slot="homeHero"
           overrideWide={heroPair?.wide}
@@ -18,29 +18,30 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           priority
           mobileAspectClassName="aspect-[4/5]"
           desktopAspectClassName="aspect-[21/9]"
+          className="w-full"
         >
           {/* Overlay for legibility */}
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/30" />
 
           {/* Centered Content Overlay */}
           <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
             <div className="mx-auto max-w-4xl text-white">
-              <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-8xl">
-                {publicConfig.businessName}
-              </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/90 sm:text-xl lg:text-2xl lg:leading-relaxed">
-                {publicConfig.businessTagline}
+              <p className="mx-auto text-2xl font-semibold leading-relaxed tracking-tight text-white sm:text-3xl lg:text-4xl">
+                Proudly servicing Springfield IL
               </p>
               <div className="mt-10 flex items-center justify-center">
                 <Link
                   href="/contact"
-                  className="inline-flex min-w-[200px] items-center justify-center rounded-full bg-brand-primary px-10 py-5 text-lg font-bold text-white transition-all hover:bg-brand-primary-dark hover:scale-105 active:scale-95 shadow-lg"
+                  className="btn-primary inline-flex min-w-[200px] items-center justify-center px-10 py-5 text-lg font-bold shadow-2xl hover:scale-105"
                 >
                   Get Started
                 </Link>
               </div>
             </div>
           </div>
+
+          {/* Bottom Fade to White Gradient */}
+          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white via-white/40 to-transparent" />
         </ResponsiveSlotImage>
       </div>
     </section>

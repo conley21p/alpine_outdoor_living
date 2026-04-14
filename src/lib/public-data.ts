@@ -1,4 +1,4 @@
-import { getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
+import { v2 as cloudinary, getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
 import { publicConfig } from "@/lib/config";
 
 export interface GalleryImage {
@@ -16,11 +16,16 @@ export interface Review {
   published: boolean;
 }
 
+export interface ServiceData {
+  title: string;
+  description: string;
+  imageUrl: string;
+}
+
 /**
  * Fetches gallery images from Cloudinary Website/Gallery folder.
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
-  console.log("[DATA] Fetching Gallery images from: Website/Gallery");
   try {
     const resources = await getImagesInFolder("Website/Gallery", 25);
     return resources.map((res) => ({
@@ -37,12 +42,8 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
  * Fetches a random pair of hero images (wide and mobile) from Cloudinary.
  */
 export const getHeroPair = async (basePath: string) => {
-  // Convert Home/Website/Hero -> Website/Hero
   const path = basePath.replace("Home/", "");
-  console.log(`[DATA] Fetching Hero pair for: ${path}`);
-  
   try {
-    // Note: The account has 'Verticial' (with an i) for the home hero
     const mobileFolderName = path.includes("Hero") && !path.includes("Gallery") && !path.includes("Services") 
       ? "Verticial" 
       : "Vertical";
@@ -63,10 +64,74 @@ export const getHeroPair = async (basePath: string) => {
 };
 
 /**
+ * Dynamically fetches services based on Cloudinary folder structure.
+ * Each subfolder of Website/Services is a service.
+ * Each folder should contain a .txt file for the description.
+ */
+export const getDynamicServices = async (): Promise<ServiceData[]> => {
+  console.log("[DATA] Crawling Cloudinary for dynamic services in: Website/Services");
+  try {
+    // 1. List subfolders of Website/Services
+    const folderResult = await cloudinary.api.sub_folders("Website/Services");
+    const serviceFolders = folderResult.folders;
+
+    const services = await Promise.all(
+      serviceFolders.map(async (folder: any) => {
+        const folderPath = folder.path; // e.g. Website/Services/FirePit
+        const folderName = folder.name; // e.g. FirePit
+
+        // 2. Map folder name to a pretty title
+        const prettyTitle = folderName
+          .replace(/([A-Z])/g, ' $1')
+          .trim()
+          .replace("Hard Scape", "Hardscape");
+
+        // 3. Find images and text files in this folder
+        const [images, raws] = await Promise.all([
+          getImagesInFolder(folderPath, 5),
+          cloudinary.api.resources({
+            type: "upload",
+            resource_type: "raw",
+            prefix: folderPath + "/",
+            max_results: 5,
+          })
+        ]);
+
+        // 4. Fetch the content of the first .txt file
+        let description = "Professional outdoor living solutions crafted with care.";
+        const txtFile = raws.resources.find((r: any) => r.format === "txt" || r.public_id.endsWith(".txt"));
+        
+        if (txtFile) {
+          try {
+            const resp = await fetch(txtFile.secure_url);
+            if (resp.ok) {
+              description = await resp.text();
+            }
+          } catch (e) {
+            console.error(`[DATA ERROR] Could not fetch .txt content for ${folderName}:`, e);
+          }
+        }
+
+        return {
+          title: prettyTitle,
+          description: description.trim(),
+          imageUrl: images[0]?.secure_url || "",
+        };
+      })
+    );
+
+    return services.filter(s => s.imageUrl); // Only return services with at least one image
+  } catch (error) {
+    console.error("[DATA ERROR] Dynamic services fetch failed:", error);
+    return [];
+  }
+};
+
+/**
  * Fetches representative images for each service category from Cloudinary.
+ * @deprecated Use getDynamicServices instead
  */
 export const getServiceImages = async () => {
-  console.log("[DATA] Fetching Service category images from: Website/Services");
   const categories = ["FirePit", "HardScape", "Patio", "Water"];
   const serviceImages: Record<string, string> = {};
 
@@ -120,20 +185,14 @@ export interface InstagramPost {
 export const getInstagramFeaturedPost = async (): Promise<InstagramPost | null> => {
   try {
     const postUrl = publicConfig.instagramFeaturedPost;
-
-    if (!postUrl || !postUrl.includes("instagram.com")) {
-      return null;
-    }
+    if (!postUrl || !postUrl.includes("instagram.com")) return null;
 
     const oembedUrl = `https://graph.instagram.com/oembed?url=${encodeURIComponent(
       postUrl
     )}&fields=thumbnail_url`;
     const response = await fetch(oembedUrl);
 
-    if (!response.ok) {
-      return null;
-    }
-
+    if (!response.ok) return null;
     const data = await response.json();
 
     return {

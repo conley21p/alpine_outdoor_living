@@ -3,14 +3,14 @@ import { ServicesGrid } from "@/components/website/ServicesGrid";
 import { ContactForm } from "@/components/website/ContactForm";
 import { publicConfig } from "@/lib/config";
 import { PageHeroBanner } from "@/components/website/PageHeroBanner";
-import { getHeroPair, getServiceImages } from "@/lib/public-data";
+import { getHeroPair, getDynamicServices } from "@/lib/public-data";
 
 export const dynamic = "force-dynamic";
 
 export default async function ServicesPage() {
-  const [heroPair, serviceImages] = await Promise.all([
+  const [heroPair, services] = await Promise.all([
     getHeroPair("Home/Website/ServicesHero"),
-    getServiceImages(),
+    getDynamicServices(),
   ]);
 
   return (
@@ -21,7 +21,7 @@ export default async function ServicesPage() {
         subtitle="Explore our full service catalog and request a quote for the service you need."
         heroPair={heroPair}
       />
-      <ServicesGrid initialServiceImages={serviceImages} />
+      <ServicesGrid services={services} />
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-gray-100 bg-gradient-to-br from-brand-primary/5 to-white p-6 text-center shadow-card sm:p-8">
           <p className="text-lg font-medium text-gray-700">
