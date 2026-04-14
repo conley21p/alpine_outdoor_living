@@ -7,10 +7,11 @@ interface CloudinaryFolder {
   path: string;
 }
 
-interface CloudinaryRawResource {
+interface CloudinaryResource {
   public_id: string;
   secure_url: string;
   format: string;
+  resource_type: string;
 }
 
 export interface GalleryImage {
@@ -104,8 +105,8 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
         });
 
         // 4. Identify the image and the .txt description
-        const imageResource = results.resources.find((r: any) => r.resource_type === "image");
-        const txtResource = results.resources.find((r: any) => 
+        const imageResource = results.resources.find((r: CloudinaryResource) => r.resource_type === "image");
+        const txtResource = results.resources.find((r: CloudinaryResource) => 
           r.resource_type === "raw" && (r.format === "txt" || r.public_id.endsWith(".txt"))
         );
 
