@@ -25,8 +25,6 @@ export default async function Home() {
     <SiteShell>
       <HeroSection heroPair={heroPair} />
       <ServicesGrid services={services} />
-      <GalleryGrid images={galleryImages} previewOnly />
-      
       {/* Contact Section */}
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:grid-cols-5 sm:px-6 lg:px-8 sm:py-16">
         <div className="sm:col-span-2">
@@ -62,6 +60,8 @@ export default async function Home() {
           <ContactForm />
         </div>
       </section>
+
+      <GalleryGrid images={galleryImages} previewOnly />
 
       {/* Instagram Section */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
