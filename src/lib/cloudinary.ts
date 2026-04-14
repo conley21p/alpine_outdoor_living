@@ -11,6 +11,14 @@ cloudinary.config({
   secure: true,
 });
 
+export interface CloudinaryResource {
+  public_id: string;
+  secure_url: string;
+  width: number;
+  height: number;
+  format: string;
+}
+
 /**
  * Fetches all images from a specific folder in Cloudinary using the Asset Folder API.
  * This is the most reliable method for newer Cloudinary accounts.
