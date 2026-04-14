@@ -34,7 +34,7 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
               <div className="mt-10 flex items-center justify-center">
                 <Link
                   href="/contact"
-                  className="inline-flex min-w-[200px] items-center justify-center rounded-full bg-brand-primary px-10 py-5 text-lg font-bold text-white transition-all hover:bg-brand-secondary hover:scale-105 active:scale-95 shadow-lg"
+                  className="inline-flex min-w-[200px] items-center justify-center rounded-full bg-brand-primary px-10 py-5 text-lg font-bold text-white transition-all hover:bg-brand-primary-dark hover:scale-105 active:scale-95 shadow-lg"
                 >
                   Get Started
                 </Link>

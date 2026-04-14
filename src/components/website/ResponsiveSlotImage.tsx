@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { siteImageSlots, type SiteImageSlot } from "@/lib/site-images";
 
@@ -26,6 +28,8 @@ export function ResponsiveSlotImage({
   desktopAspectClassName = "aspect-[21/9]",
   children,
 }: ResponsiveSlotImageProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   // Use overrides if provided, otherwise fallback to slot config
   const slotConfig = slot ? siteImageSlots[slot] : null;
   
@@ -36,6 +40,14 @@ export function ResponsiveSlotImage({
 
   return (
     <div className={cn("relative overflow-hidden", className)}>
+      {/* Loading Glass Overlay */}
+      <div 
+        className={cn(
+          "absolute inset-0 z-20 bg-white/10 backdrop-blur-2xl transition-opacity duration-1000",
+          isLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+        )}
+      />
+
       <div className={cn("relative md:hidden", mobileAspectClassName)}>
         <Image
           src={vertSrc}
@@ -45,6 +57,7 @@ export function ResponsiveSlotImage({
           sizes="100vw"
           className="object-cover"
           unoptimized={wideSrc.includes('cloudinary')}
+          onLoad={() => setIsLoaded(true)}
         />
       </div>
       <div className={cn("relative hidden md:block", desktopAspectClassName)}>
@@ -56,6 +69,7 @@ export function ResponsiveSlotImage({
           sizes="(min-width: 768px) 100vw, 0px"
           className="object-cover"
           unoptimized={wideSrc.includes('cloudinary')}
+          onLoad={() => setIsLoaded(true)}
         />
       </div>
       {children ? <div className="absolute inset-0 z-10">{children}</div> : null}

@@ -53,7 +53,7 @@ export function Navbar() {
           ))}
           <a
             href={`tel:${businessPhone}`}
-            className="ml-2 rounded-full bg-brand-primary px-5 py-2 text-[13px] font-medium text-white transition-all hover:bg-brand-secondary"
+            className="ml-2 rounded-full bg-brand-primary px-5 py-2 text-[13px] font-medium text-white transition-all hover:bg-brand-primary-dark"
           >
             Call Now
           </a>
@@ -81,7 +81,7 @@ export function Navbar() {
             ))}
             <a
               href={`tel:${businessPhone}`}
-              className="mt-4 block rounded-full bg-brand-primary px-4 py-3 text-center text-[13px] font-medium text-white transition-all hover:bg-brand-secondary"
+              className="mt-4 block rounded-full bg-brand-primary px-4 py-3 text-center text-[13px] font-medium text-white transition-all hover:bg-brand-primary-dark"
               onClick={() => setOpen(false)}
             >
               Call Now
