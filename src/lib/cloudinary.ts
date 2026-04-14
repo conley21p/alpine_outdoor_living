@@ -39,7 +39,7 @@ export async function getImagesInFolder(
 
     console.log(`[CLOUDINARY] API returned ${results.resources.length} resources for prefix "${folderPath}/"`);
 
-    return results.resources.map((res: any) => ({
+    return results.resources.map((res: CloudinaryResource) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
       width: res.width,
