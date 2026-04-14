@@ -25,7 +25,7 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           {/* Centered Content Overlay */}
           <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
             <div className="mx-auto max-w-4xl text-white">
-              <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl">
+              <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-8xl">
                 {publicConfig.businessName}
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/90 sm:text-xl lg:text-2xl lg:leading-relaxed">
