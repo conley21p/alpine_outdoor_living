@@ -36,15 +36,16 @@ export async function getImagesInFolder(
 
     console.log(`[CLOUDINARY] Found ${results.resources.length} images in "${folderPath}"`);
 
-    return results.resources.map((res: any) => ({
+    return results.resources.map((res: CloudinaryResource) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
       width: res.width,
       height: res.height,
       format: res.format,
     }));
-  } catch (error: any) {
-    console.error(`[CLOUDINARY ERROR] Folder: "${folderPath}":`, error.message || error);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`[CLOUDINARY ERROR] Folder: "${folderPath}":`, errorMessage);
     return [];
   }
 }

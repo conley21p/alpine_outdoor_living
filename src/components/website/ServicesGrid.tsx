@@ -4,14 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { publicConfig } from "@/lib/config";
 
-// Service image mapping - 4 services with unique photos
-const serviceImages: Record<string, string> = {
-  "Water Features": "",
-  "Fire Pits": "",
-  "Patio": "",
-  "Hardscape": "",
-};
-
 // Service descriptions
 const serviceDescriptions: Record<string, string> = {
   "Water Features": "Custom ponds, waterfalls, and fountains designed to bring tranquility and beauty to your outdoor space.",
