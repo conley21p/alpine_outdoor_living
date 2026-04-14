@@ -17,12 +17,12 @@ export interface Review {
 }
 
 /**
- * Fetches gallery images from Cloudinary Home/Website/Gallery folder.
+ * Fetches gallery images from Cloudinary Website/Gallery folder.
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
-  console.log("[DATA] Fetching Gallery images...");
+  console.log("[DATA] Fetching Gallery images from: Website/Gallery");
   try {
-    const resources = await getImagesInFolder("Home/Website/Gallery", 25);
+    const resources = await getImagesInFolder("Website/Gallery", 25);
     return resources.map((res) => ({
       name: res.public_id.split("/").pop() || "Gallery Image",
       url: res.secure_url,
@@ -37,11 +37,19 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
  * Fetches a random pair of hero images (wide and mobile) from Cloudinary.
  */
 export const getHeroPair = async (basePath: string) => {
-  console.log(`[DATA] Fetching Hero pair for: ${basePath}`);
+  // Convert Home/Website/Hero -> Website/Hero
+  const path = basePath.replace("Home/", "");
+  console.log(`[DATA] Fetching Hero pair for: ${path}`);
+  
   try {
+    // Note: The account has 'Verticial' (with an i) for the home hero
+    const mobileFolderName = path.includes("Hero") && !path.includes("Gallery") && !path.includes("Services") 
+      ? "Verticial" 
+      : "Vertical";
+
     const [wide, vert] = await Promise.all([
-      getRandomImageInFolder(`${basePath}/Wide`),
-      getRandomImageInFolder(`${basePath}/vert`),
+      getRandomImageInFolder(`${path}/Wide`),
+      getRandomImageInFolder(`${path}/${mobileFolderName}`),
     ]);
 
     return {
@@ -49,7 +57,7 @@ export const getHeroPair = async (basePath: string) => {
       vert: vert?.secure_url || null,
     };
   } catch (error) {
-    console.error(`[DATA ERROR] Hero pair for ${basePath}:`, error);
+    console.error(`[DATA ERROR] Hero pair for ${path}:`, error);
     return { wide: null, vert: null };
   }
 };
@@ -58,13 +66,13 @@ export const getHeroPair = async (basePath: string) => {
  * Fetches representative images for each service category from Cloudinary.
  */
 export const getServiceImages = async () => {
-  console.log("[DATA] Fetching Service category images...");
+  console.log("[DATA] Fetching Service category images from: Website/Services");
   const categories = ["FirePit", "HardScape", "Patio", "Water"];
   const serviceImages: Record<string, string> = {};
 
   await Promise.all(
     categories.map(async (cat) => {
-      const img = await getRandomImageInFolder(`Home/Website/Services/${cat}`);
+      const img = await getRandomImageInFolder(`Website/Services/${cat}`);
       if (img) {
         const uiNameMap: Record<string, string> = {
           FirePit: "Fire Pits",

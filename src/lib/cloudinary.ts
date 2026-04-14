@@ -11,33 +11,26 @@ cloudinary.config({
   secure: true,
 });
 
-export interface CloudinaryResource {
-  public_id: string;
-  secure_url: string;
-  width: number;
-  height: number;
-  format: string;
-}
-
 /**
- * Fetches all images from a specific folder in Cloudinary using the Resources API.
- * This is more reliable for simple folder listing than the Search API.
+ * Fetches all images from a specific folder in Cloudinary using the Asset Folder API.
+ * This is the most reliable method for newer Cloudinary accounts.
  */
 export async function getImagesInFolder(
   folderPath: string,
   maxResults = 50
 ): Promise<CloudinaryResource[]> {
-  console.log(`[CLOUDINARY] Listing resources with prefix: "${folderPath}/"`);
+  console.log(`[CLOUDINARY] 📍 Fetching from folder: "${folderPath}"`);
+  console.log(`[CLOUDINARY] 🏷️ Cloud Name: "${config.cloudinaryCloudName || "MISSING"}"`);
+  console.log(`[CLOUDINARY] 🔑 API Key: "${config.cloudinaryApiKey ? "PRESENT" : "MISSING"}"`);
+  console.log(`[CLOUDINARY] 🔒 API Secret: "${config.cloudinaryApiSecret ? "PRESENT" : "MISSING"}"`);
+
   try {
-    // Using admin API resources method with prefix filtering
-    const results = await cloudinary.api.resources({
-      type: "upload",
-      prefix: folderPath + "/", // Ensure trailing slash to target folder contents
-      resource_type: "image",
+    // Using resources_by_asset_folder which works for Dynamic Folder accounts
+    const results = await cloudinary.api.resources_by_asset_folder(folderPath, {
       max_results: maxResults,
     });
 
-    console.log(`[CLOUDINARY] API returned ${results.resources.length} resources for prefix "${folderPath}/"`);
+    console.log(`[CLOUDINARY] ✅ Found ${results.resources.length} resources in "${folderPath}"`);
 
     return results.resources.map((res: CloudinaryResource) => ({
       public_id: res.public_id,
@@ -48,7 +41,7 @@ export async function getImagesInFolder(
     }));
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error(`[CLOUDINARY ERROR] Folder Listing: "${folderPath}":`, errorMessage);
+    console.error(`[CLOUDINARY ERROR] Folder: "${folderPath}":`, errorMessage);
     return [];
   }
 }
@@ -62,14 +55,11 @@ export async function getRandomImageInFolder(
   try {
     const images = await getImagesInFolder(folderPath, 50);
     if (images.length === 0) {
-      console.warn(`[CLOUDINARY] No images found in folder: "${folderPath}"`);
       return null;
     }
 
     const randomIndex = Math.floor(Math.random() * images.length);
-    const selected = images[randomIndex];
-    console.log(`[CLOUDINARY] Selected random image: ${selected.public_id}`);
-    return selected;
+    return images[randomIndex];
   } catch (error) {
     console.error(`[CLOUDINARY ERROR] Random image fetch for "${folderPath}":`, error);
     return null;
