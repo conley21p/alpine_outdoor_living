@@ -23,13 +23,13 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           {/* Overlay for legibility */}
           <div className="absolute inset-0 bg-black/30" />
 
-          {/* Centered Content Overlay */}
-          <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+          {/* Bottom-Aligned Content Overlay */}
+          <div className="absolute inset-0 flex items-end justify-center pb-32 md:pb-40 px-6 text-center z-10">
             <div className="mx-auto max-w-4xl text-white">
-              <p className="mx-auto text-2xl font-semibold leading-relaxed tracking-tight text-white sm:text-3xl lg:text-4xl">
+              <p className="mx-auto text-xl font-medium leading-relaxed tracking-tight text-white/90 sm:text-2xl lg:text-3xl">
                 Proudly servicing Springfield IL
               </p>
-              <div className="mt-10 flex items-center justify-center">
+              <div className="mt-8 flex items-center justify-center">
                 <Link
                   href="/contact"
                   className="btn-primary inline-flex min-w-[200px] items-center justify-center px-10 py-5 text-lg font-bold shadow-2xl hover:scale-105"
@@ -40,8 +40,8 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* Bottom Fade to White Gradient */}
-          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white via-white/40 to-transparent" />
+          {/* Bottom Fade to White Gradient - High visibility */}
+          <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white via-white/80 via-white/20 to-transparent z-0" />
         </ResponsiveSlotImage>
       </div>
     </section>
