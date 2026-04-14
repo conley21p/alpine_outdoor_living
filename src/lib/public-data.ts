@@ -98,26 +98,26 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
           .trim()
           .replace("Hard Scape", "Hardscape");
 
-        // 3. Find images and text files in this folder
-        const [images, raws] = await Promise.all([
-          getImagesInFolder(folderPath, 5),
-          cloudinary.api.resources({
-            type: "upload",
-            resource_type: "raw",
-            prefix: folderPath + "/",
-            max_results: 5,
-          })
-        ]);
+        // 3. Find images and text files in this folder using a single call
+        const results = await cloudinary.api.resources_by_asset_folder(folderPath, {
+          max_results: 50
+        });
 
-        // 4. Fetch the content of the first .txt file
+        // 4. Identify the image and the .txt description
+        const imageResource = results.resources.find((r: any) => r.resource_type === "image");
+        const txtResource = results.resources.find((r: any) => 
+          r.resource_type === "raw" && (r.format === "txt" || r.public_id.endsWith(".txt"))
+        );
+
         let description = "Professional outdoor living solutions crafted with care.";
-        const txtFile = raws.resources.find((r: CloudinaryRawResource) => r.format === "txt" || r.public_id.endsWith(".txt"));
-        
-        if (txtFile) {
+        if (txtResource) {
           try {
-            const resp = await fetch(txtFile.secure_url);
+            const resp = await fetch(txtResource.secure_url);
             if (resp.ok) {
-              description = await resp.text();
+              const textContent = await resp.text();
+              if (textContent && textContent.trim().length > 0) {
+                description = textContent.trim();
+              }
             }
           } catch (e) {
             console.error(`[DATA ERROR] Could not fetch .txt content for ${folderName}:`, e);
@@ -126,8 +126,8 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
 
         return {
           title: prettyTitle,
-          description: description.trim(),
-          imageUrl: images[0]?.secure_url || "",
+          description: description,
+          imageUrl: imageResource?.secure_url || "",
         };
       })
     );
