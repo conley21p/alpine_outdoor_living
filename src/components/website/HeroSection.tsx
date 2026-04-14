@@ -23,23 +23,26 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           {/* Overlay for legibility */}
           <div className="absolute inset-0 bg-black/30" />
 
-          {/* Bottom-Aligned Content Overlay */}
-          <div className="absolute inset-0 flex items-end justify-center pb-32 md:pb-40 px-6 text-center z-10">
-            <div className="mx-auto max-w-4xl text-white">
+          {/* Split Content Overlay */}
+          <div className="absolute inset-0 flex flex-col justify-between py-28 md:py-36 px-6 text-center z-10">
+            {/* Top Text */}
+            <div className="mx-auto max-w-4xl">
               <p className="mx-auto text-xl font-semibold leading-relaxed tracking-tight text-white sm:text-2xl lg:text-3xl">
                 Custom Water Features, Fire Pits, Patios & Outdoor Spaces
               </p>
               <p className="mx-auto mt-2 text-lg font-medium leading-relaxed tracking-tight text-white/80 sm:text-xl lg:text-2xl">
                 Proudly servicing Springfield IL
               </p>
-              <div className="mt-8 flex items-center justify-center">
-                <Link
-                  href="/contact"
-                  className="btn-primary inline-flex min-w-[200px] items-center justify-center px-10 py-5 text-lg font-bold shadow-2xl hover:scale-105"
-                >
-                  Get Started
-                </Link>
-              </div>
+            </div>
+
+            {/* Bottom Button */}
+            <div className="mx-auto">
+              <Link
+                href="/contact"
+                className="btn-primary inline-flex min-w-[200px] items-center justify-center px-10 py-5 text-lg font-bold shadow-2xl hover:scale-105"
+              >
+                Get Started
+              </Link>
             </div>
           </div>
 
