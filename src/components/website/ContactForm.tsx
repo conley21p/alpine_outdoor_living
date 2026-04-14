@@ -26,7 +26,7 @@ const initialFormState = (services: readonly string[]): ContactFormState => ({
 });
 
 export function ContactForm() {
-  const services = useMemo(() => publicConfig.servicesOffered, []);
+  const services = useMemo(() => [...publicConfig.servicesOffered, "Other"], []);
   const [form, setForm] = useState<ContactFormState>(initialFormState(services));
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -43,8 +43,8 @@ export function ContactForm() {
     if (!form.serviceNeeded.trim()) {
       nextErrors.serviceNeeded = "Select a service.";
     }
-    if (!form.phone.trim() && !form.email.trim()) {
-      nextErrors.contact = "Phone or email is required.";
+    if (!form.phone.trim()) {
+      nextErrors.phone = "Phone number is required.";
     }
     return nextErrors;
   };
@@ -73,7 +73,6 @@ export function ContactForm() {
           email: form.email,
           phone: form.phone,
           service: form.serviceNeeded,
-          date: form.preferredDate,
           message: form.message,
           subject: `New Contact: ${form.serviceNeeded} from ${form.firstName}`,
           from_name: "Alpine Outdoor Living",
@@ -133,8 +132,15 @@ export function ContactForm() {
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-[14px] font-medium text-brand-textDark">Phone</label>
-          <Input value={form.phone} onChange={(event) => onChange("phone", event.target.value)} />
+          <label className="mb-2 block text-[14px] font-medium text-brand-textDark">Phone *</label>
+          <Input 
+            value={form.phone} 
+            onChange={(event) => onChange("phone", event.target.value)} 
+            required
+          />
+          {fieldErrors.phone && (
+            <p className="mt-2 text-[13px] text-red-600">{fieldErrors.phone}</p>
+          )}
         </div>
         <div>
           <label className="mb-2 block text-[14px] font-medium text-brand-textDark">Email</label>
@@ -145,35 +151,24 @@ export function ContactForm() {
           />
         </div>
       </div>
-      {fieldErrors.contact && <p className="text-[13px] text-red-600">{fieldErrors.contact}</p>}
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div>
-          <label className="mb-2 block text-[14px] font-medium text-brand-textDark">Service Needed *</label>
-          <select
-            className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-[15px] outline-none transition-all focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 hover:border-black/20"
-            value={form.serviceNeeded}
-            onChange={(event) => onChange("serviceNeeded", event.target.value)}
-            required
-          >
-            {services.map((service) => (
-              <option key={service} value={service}>
-                {service}
-              </option>
-            ))}
-          </select>
-          {fieldErrors.serviceNeeded && (
-            <p className="mt-2 text-[13px] text-red-600">{fieldErrors.serviceNeeded}</p>
-          )}
-        </div>
-        <div>
-          <label className="mb-2 block text-[14px] font-medium text-brand-textDark">Preferred Date</label>
-          <Input
-            type="date"
-            value={form.preferredDate}
-            onChange={(event) => onChange("preferredDate", event.target.value)}
-          />
-        </div>
+      <div>
+        <label className="mb-2 block text-[14px] font-medium text-brand-textDark">Service Needed *</label>
+        <select
+          className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-[15px] outline-none transition-all focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 hover:border-black/20"
+          value={form.serviceNeeded}
+          onChange={(event) => onChange("serviceNeeded", event.target.value)}
+          required
+        >
+          {services.map((service) => (
+            <option key={service} value={service}>
+              {service}
+            </option>
+          ))}
+        </select>
+        {fieldErrors.serviceNeeded && (
+          <p className="mt-2 text-[13px] text-red-600">{fieldErrors.serviceNeeded}</p>
+        )}
       </div>
 
       <div>
