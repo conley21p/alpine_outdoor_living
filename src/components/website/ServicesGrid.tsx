@@ -33,7 +33,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                 src={service.imageUrl || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
                 alt={`${service.title} by Alpine Outdoor Living`}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover transition-transform duration-500"
                 sizes="(max-width: 768px) 100vw, 25vw"
                 unoptimized
               />

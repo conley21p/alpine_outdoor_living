@@ -52,7 +52,7 @@
   }
 
   .glass-card-green {
-    @apply border border-white/30 bg-green-50/40 backdrop-blur-xl shadow-xl transition-all duration-300;
+    @apply border border-white/30 bg-gradient-to-br from-white/40 via-green-50/40 to-white/20 backdrop-blur-xl shadow-xl transition-all duration-300;
   }
 }
 
