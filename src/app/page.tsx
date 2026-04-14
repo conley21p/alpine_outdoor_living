@@ -25,39 +25,42 @@ export default async function Home() {
     <SiteShell>
       <HeroSection heroPair={heroPair} />
       <ServicesGrid services={services} />
-      {/* Contact Section */}
-      <section id="contact" className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:grid-cols-5 sm:px-6 lg:px-8 sm:py-16">
-        <div className="sm:col-span-2">
-          <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Contact Details</h2>
-          <p className="mt-4 text-base leading-relaxed text-gray-600">{publicConfig.businessDescription}</p>
+      <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-gradient-to-t from-white via-white to-green-50/20">
+        <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
+          <div className="sm:col-span-2">
+            <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Contact Details</h2>
+            <p className="mt-4 text-base leading-relaxed text-gray-600">{publicConfig.businessDescription}</p>
 
-          <div className="mt-8 space-y-4 rounded-2xl border border-gray-100 bg-gradient-to-br from-gray-50 to-white p-6 shadow-card">
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary">
-                📞
+            <div className="mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
+                  📞
+                </div>
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Phone</p>
+                  <a href={`tel:${publicConfig.businessPhone}`} className="mt-1 block text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
+                    {publicConfig.businessPhone}
+                  </a>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Phone</p>
-                <a href={`tel:${publicConfig.businessPhone}`} className="mt-1 block font-bold text-brand-primary hover:text-brand-accent">
-                  {publicConfig.businessPhone}
-                </a>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary">
-                ✉️
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Email</p>
-                <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block break-all font-bold text-brand-primary hover:text-brand-accent">
-                  {publicConfig.businessEmail}
-                </a>
+              <div className="flex items-start gap-4 pt-4 border-t border-black/5">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
+                  ✉️
+                </div>
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Email</p>
+                  <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block break-all text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
+                    {publicConfig.businessEmail}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="sm:col-span-3">
-          <ContactForm />
+          <div className="sm:col-span-3">
+            <div className="glass-card-green rounded-3xl p-8 h-full">
+              <ContactForm />
+            </div>
+          </div>
         </div>
       </section>
 

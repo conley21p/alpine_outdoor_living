@@ -46,6 +46,14 @@
   .glass-loading {
     @apply absolute inset-0 z-10 flex items-center justify-center bg-white/30 backdrop-blur-xl transition-opacity duration-700;
   }
+
+  .glass-card {
+    @apply border border-white/20 bg-white/40 backdrop-blur-xl shadow-xl transition-all duration-300;
+  }
+
+  .glass-card-green {
+    @apply border border-white/30 bg-green-50/40 backdrop-blur-xl shadow-xl transition-all duration-300;
+  }
 }
 
 @layer utilities {

@@ -12,21 +12,22 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   if (services.length === 0) return null;
 
   return (
-    <section id="services" className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32 bg-white">
-      <div className="mb-16 text-center lg:mb-20">
-        <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl">
-          Our Services
-        </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl">
-          Professional outdoor solutions tailored to your needs
-        </p>
-      </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-        {services.map((service) => (
-          <article
-            key={service.title}
-            className="group relative overflow-hidden rounded-2xl bg-brand-bgLight transition-all hover:bg-gray-100 shadow-sm"
-          >
+    <section id="services" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-gradient-to-b from-white to-green-50/30">
+      <div className="mx-auto max-w-[90rem]">
+        <div className="mb-16 text-center lg:mb-20">
+          <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl">
+            Our Services
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl">
+            Professional outdoor solutions tailored to your needs
+          </p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {services.map((service) => (
+            <article
+              key={service.title}
+              className="group glass-card-green relative overflow-hidden rounded-3xl hover:shadow-2xl hover:-translate-y-1"
+            >
             <div className="relative h-48 w-full overflow-hidden">
               <Image
                 src={service.imageUrl || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
@@ -57,6 +58,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           </article>
         ))}
       </div>
+     </div>
     </section>
   );
 }
