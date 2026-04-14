@@ -33,7 +33,7 @@ export async function getImagesInFolder(
       .max_results(maxResults)
       .execute();
 
-    return results.resources.map((res: any) => ({
+    return results.resources.map((res: CloudinaryResource) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
       width: res.width,
