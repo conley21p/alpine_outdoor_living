@@ -25,7 +25,7 @@ export default async function Home() {
     <SiteShell>
       <HeroSection heroPair={heroPair} />
       <ServicesGrid services={services} />
-      <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-gradient-to-t from-white via-white to-green-50/20">
+      <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-gradient-to-b from-[#e2e8d5] to-[#FAFAF9]">
         <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
           <div className="sm:col-span-2">
             <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Contact Details</h2>
