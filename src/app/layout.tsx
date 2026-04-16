@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     siteName: publicConfig.businessName,
     images: [`${publicConfig.siteUrl}/og-image.jpg`],
   },
+  icons: {
+    icon: "/Refreshed-logo.png",
+  },
 };
 
 export default function RootLayout({
