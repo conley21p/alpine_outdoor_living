@@ -4,11 +4,11 @@
  */
 export const publicConfig = {
   // Business identity
-  businessName: "Alpine Outdoor Living",
+  businessName: "Alpine Outdoor Living LLC",
   businessDescription: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
   businessTagline: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
-  businessPhone: "(217) 503-6851",
-  businessEmail: "alpineoutdooragent@gmail.com",
+  businessPhone: "217-899-1784",
+  businessEmail: "austinschiff@alpineoutdoorlivingllc.com",
   industry: "Landscape Design & Construction",
   servicesOffered: ["Water Features", "Fire Pits", "Patio", "Hardscape"],
 
@@ -50,7 +50,7 @@ export const getServerConfig = () => {
     cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
 
     // Optional settings
-    adminEmail: "alpineoutdooragent@gmail.com",
+    adminEmail: "austinschiff@alpineoutdoorlivingllc.com",
     nextAuthSecret: process.env.NEXTAUTH_SECRET || "",
     nextAuthUrl: publicConfig.siteUrl,
   };

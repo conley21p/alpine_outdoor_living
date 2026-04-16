@@ -79,6 +79,7 @@ export function ContactForm() {
         },
         body: JSON.stringify({
           access_key: "4880cd5b-7e22-4d93-9e8a-84d7c3d8f38d",
+          to: publicConfig.businessEmail,
           name: `${form.firstName} ${form.lastName}`.trim(),
           email: form.email,
           phone: form.phone,
