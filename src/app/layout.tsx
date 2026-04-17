@@ -31,18 +31,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className="antialiased"
-        style={
-          {
-            "--brand-primary": publicConfig.brandPrimary,
-            "--brand-secondary": publicConfig.brandSecondary,
-            "--brand-text-light": publicConfig.brandTextLight,
-            "--brand-text-dark": publicConfig.brandTextDark,
-            "--brand-bg-light": publicConfig.brandBgLight,
-          } as CSSProperties
-        }
-      >
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: `
+          :root {
+            --brand-primary: ${publicConfig.brandPrimary};
+            --brand-secondary: ${publicConfig.brandSecondary};
+            --brand-text-light: ${publicConfig.brandTextLight};
+            --brand-text-dark: ${publicConfig.brandTextDark};
+            --brand-bg-light: ${publicConfig.brandBgLight};
+          }
+        `}} />
+      </head>
+      <body className="antialiased">
         {children}
       </body>
     </html>
