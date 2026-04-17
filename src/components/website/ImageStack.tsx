@@ -180,19 +180,28 @@ export function ImageStack({ images, title }: ImageStackProps) {
 
 
                   <div className="relative w-full flex-1 flex items-center justify-center">
-                     <motion.div 
-                       layoutId={`img-${title}-${images[index]}`}
-                       className="relative w-full h-fit max-h-full aspect-[4/3] lg:aspect-video rounded-3xl overflow-hidden shadow-2xl bg-white/5"
-                     >
-                       <Image
-                          src={getOptimizedUrl(images[index], 'full')}
-                          alt={title}
-                          fill
-                          className="object-contain"
-                          unoptimized
-                          loading="lazy"
-                       />
-                     </motion.div>
+                      <motion.div 
+                        layoutId={`img-${title}-${images[index]}`}
+                        className="relative w-full h-fit max-h-full aspect-[4/3] lg:aspect-video rounded-3xl overflow-hidden shadow-2xl bg-white/5"
+                      >
+                        {/* Progressive Loading: Show thumbnail (cached) while high-res loads */}
+                        <Image
+                           src={getOptimizedUrl(images[index], 'thumb')}
+                           alt={`${title} placeholder`}
+                           fill
+                           className="object-contain blur-sm"
+                           unoptimized
+                           priority
+                        />
+                        <Image
+                           src={getOptimizedUrl(images[index], 'full')}
+                           alt={title}
+                           fill
+                           className="object-contain relative z-10"
+                           unoptimized
+                           priority
+                        />
+                      </motion.div>
                      
                      {/* Linear Browser Controls */}
                      <div className="absolute inset-x-0 bottom-10 lg:bottom-1/2 lg:translate-y-1/2 flex justify-between items-center px-4 md:px-10 z-[100001] pointer-events-none">
