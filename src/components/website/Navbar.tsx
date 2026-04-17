@@ -75,9 +75,9 @@ export function Navbar() {
           <button
             aria-label="Toggle navigation"
             onClick={() => setOpen((prev) => !prev)}
-            className="p-2 text-brand-textDark transition-all active:scale-95 md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-brand-textDark shadow-sm transition-all active:scale-95 md:hidden"
           >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </header>
@@ -89,7 +89,7 @@ export function Navbar() {
         }`}
       >
         <button
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_4px_20px_0_rgba(0,0,0,0.15)] text-brand-primary active:scale-90 transition-transform"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/40 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.12)] text-brand-primary active:scale-90 transition-all hover:bg-white/50"
           onClick={() => setOpen(true)}
         >
           <Menu className="h-6 w-6" />
