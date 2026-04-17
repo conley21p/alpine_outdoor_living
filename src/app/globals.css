@@ -179,7 +179,6 @@
 
   /* GSAP Scrubbed Dynamic Utility Blocks for Organic FLIP Sliding */
   .dynamic-image-block {
-    opacity: 0; /* Hidden by default on mobile for staggered reveal */
     width: 100%;
     margin-bottom: 1.5rem;
     height: 30vh;

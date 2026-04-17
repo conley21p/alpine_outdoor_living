@@ -86,12 +86,12 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                }
              });
 
-             // 2. Delayed Image Reveal ("Peering")
+              // 2. Delayed Image Reveal ("Peering")
              if (imgBlock) {
                gsap.to(imgBlock, { 
                  opacity: 1, 
                  scale: 1, 
-                 delay: 0.3, 
+                 delay: 0.15, // Reduced delay for better reactivity
                  duration: 0.8, 
                  ease: "power2.out" 
                });
@@ -100,7 +100,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           onLeaveBack: () => {
              gsap.to(card, { opacity: 0, y: 40, duration: 0.4, ease: "power2.in" });
              if (imgBlock) {
-               gsap.set(imgBlock, { opacity: 0, scale: 0.95 });
+               gsap.to(imgBlock, { opacity: 0, scale: 0.95, duration: 0.3 });
              }
           }
         });
@@ -170,7 +170,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
         }
       });
     }
-  }, { scope: containerRef, dependencies: [services.length] });
+  }, { scope: containerRef, dependencies: [services.length, isMobile] });
 
   if (services.length === 0) return null;
 
