@@ -15,25 +15,35 @@ interface ContactFormState {
   message: string;
 }
 
-const initialFormState = (services: readonly string[]): ContactFormState => ({
+interface ContactFormProps {
+  initialService?: string;
+}
+
+const initialFormState = (services: readonly string[], defaultService?: string): ContactFormState => ({
   firstName: "",
   lastName: "",
   phone: "",
   email: "",
-  serviceNeeded: services[0] ?? "",
+  serviceNeeded: defaultService || services[0] || "",
   preferredDate: "",
   message: "",
 });
 
-export function ContactForm() {
+export function ContactForm({ initialService }: ContactFormProps) {
   const services = useMemo(() => [...publicConfig.servicesOffered], []);
-  const [form, setForm] = useState<ContactFormState>(initialFormState(services));
+  const [form, setForm] = useState<ContactFormState>(initialFormState(services, initialService));
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
+    // If we have an initialService prop, use it immediately
+    if (initialService) {
+      setForm(prev => ({ ...prev, serviceNeeded: initialService }));
+      return;
+    }
+
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const serviceQuery = params.get("service");
@@ -42,7 +52,7 @@ export function ContactForm() {
         setForm((prev) => ({ ...prev, serviceNeeded: serviceQuery }));
       }
     }
-  }, [services]);
+  }, [services, initialService]);
 
   const onChange = (field: keyof ContactFormState, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));

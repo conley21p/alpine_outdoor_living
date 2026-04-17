@@ -165,13 +165,13 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
               <div className="relative z-10 p-6 flex flex-col gap-6">
                 {/* Static Image Stack - Removed overflow-hidden to allow background images to peep */}
                 <div className="w-full aspect-[4/3] rounded-2xl">
-                   {(activatedCards.has(i) || i === 0) && (
-                     <ImageStack 
-                       images={service.imageUrls} 
-                       title={service.title} 
-                       slug={service.id}
-                     />
-                   )}
+                  {(activatedCards.has(i) || i === 0) && (
+                    <ImageStack
+                      images={service.imageUrls}
+                      title={service.title}
+                      slug={service.id}
+                    />
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-4">
@@ -184,7 +184,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   <div className="flex gap-3 mt-2">
                     <Link href={`/services/${service.id}`} className="flex-1">
                       <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-brand-textDark bg-white border border-brand-primary/20 rounded-xl transition-all active:scale-95 shadow-sm">
-                        Explore
+                        Explore More
                       </button>
                     </Link>
                     <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="flex-1">
