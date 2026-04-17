@@ -169,9 +169,9 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
                       {/* The Magic Title - Because everything else collapses to 0 height/width organically, this aligns perfectly to the left/center structurally! */}
                       <div className="w-full pointer-events-auto z-20">
-                        <h3 className="font-bold text-brand-textDark tracking-tight"
+                        <h3 className="font-bold text-brand-textDark tracking-tight whitespace-nowrap lg:whitespace-normal"
                           style={{
-                            fontSize: "calc(1.25rem + (1.75rem * var(--weight)))",
+                            fontSize: "calc(clamp(1rem, 5vw, 1.25rem) + (clamp(0.5rem, 4vw, 1.75rem) * var(--weight)))",
                             lineHeight: 1.1,
                           }}
                         >
