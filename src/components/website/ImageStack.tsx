@@ -43,7 +43,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
   if (!images || images.length === 0) return null;
 
   // Indices for the trio
-  const centerIdx = index;
+
 
   return (
     <div className="relative w-full h-full flex items-center justify-center p-2 lg:p-8 overflow-visible">
