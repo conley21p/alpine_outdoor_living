@@ -75,7 +75,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    will-change: transform;
+    will-change: transform, opacity;
   }
 
   .card-container {
@@ -98,7 +98,7 @@
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    will-change: flex;
+    will-change: transform, flex, opacity;
     box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.06),
       0 20px 60px -10px rgba(0, 0, 0, 0.1),
@@ -126,8 +126,15 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    
+    @media (min-width: 1024px) {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    
+    will-change: backdrop-filter, transform;
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 20px;
     box-shadow:
