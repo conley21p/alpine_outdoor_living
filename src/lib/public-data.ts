@@ -217,21 +217,18 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
   return Promise.all(
     STATIC_SERVICES.map(async (service) => {
       const folderPath = `Website/Services/${service.folder}`;
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let resources: any[] = [];
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let resources: any[] = [];
 
-        if (isDev) {
-          resources = getLocalImagesInFolder(folderPath);
-        }
+      // Attempt Cloudinary first to ensure high-fidelity data
+      resources = await getImagesInFolder(folderPath, 50);
 
-        if (resources.length === 0) {
-          resources = await getImagesInFolder(folderPath, 50);
-        }
-
-        if (!isDev && resources.length === 0) {
-          resources = getLocalImagesInFolder(folderPath);
-        }
+      // Fallback to local if Cloudinary is empty or fails
+      if (resources.length === 0) {
+        console.log(`[DATA] ☁️ Cloudinary empty for "${service.title}". Trying local fallback.`);
+        resources = getLocalImagesInFolder(folderPath);
+      }
         
         if (resources.length === 0) {
           console.warn(`[DATA WARNING] No images found for "${service.title}" in LOCAL or CLOUDINARY`);
@@ -282,15 +279,11 @@ export const getServiceProjects = async (folder: string): Promise<GalleryImage[]
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let resources: any[] = [];
 
-    if (isDev) {
-      resources = getLocalImagesInFolder(folderPath);
-    }
+    // Prioritize Cloudinary for the complete projects view
+    resources = await getImagesInFolder(folderPath, 100);
 
     if (resources.length === 0) {
-      resources = await getImagesInFolder(folderPath, 100); // Fetch more for the full gallery
-    }
-
-    if (!isDev && resources.length === 0) {
+      console.log(`[DATA] ☁️ Folder "${folder}" empty on Cloudinary. Checking local.`);
       resources = getLocalImagesInFolder(folderPath);
     }
 
