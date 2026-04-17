@@ -17,8 +17,8 @@ export default async function GalleryPage() {
     <SiteShell>
       <PageHeroBanner
         slot="galleryHero"
-        title="Gallery"
-        subtitle="Browse recent work and project highlights."
+        title="Featured Projects"
+        subtitle="Browse our portfolio of custom outdoor solutions."
         heroPair={heroPair}
       />
       <GalleryGrid images={images} />

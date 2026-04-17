@@ -7,7 +7,7 @@ import { publicConfig } from "@/lib/config";
 const links = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/gallery", label: "Gallery" },
+  { href: "/featured-projects", label: "Featured Projects" },
   { href: "/contact", label: "Contact" },
 ];
 
