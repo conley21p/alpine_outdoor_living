@@ -2,10 +2,12 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ImageIcon, MessageSquare } from "lucide-react";
-import { getServiceBySlug, getOptimizedUrl } from "@/lib/public-data";
+import { MessageSquare, ArrowDown, ImageIcon } from "lucide-react";
+import { getServiceBySlug, getServiceProjects, getOptimizedUrl } from "@/lib/public-data";
 import { SiteShell } from "@/components/website/SiteShell";
 import { Breadcrumbs } from "@/components/website/Breadcrumbs";
+import { ServiceQuoteButton } from "@/components/website/ServiceQuoteButton";
+import { StaggeredGallery } from "@/components/website/StaggeredGallery";
 
 interface Props {
   params: { slug: string };
@@ -28,6 +30,7 @@ export default async function ServicePage({ params }: Props) {
     notFound();
   }
 
+  const allProjects = await getServiceProjects(service.folder);
   const mainImage = service.imageUrls[0];
 
   return (
@@ -47,7 +50,7 @@ export default async function ServicePage({ params }: Props) {
             ]} 
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-24 lg:mb-32">
             {/* Content Side */}
             <div className="lg:col-span-7 space-y-10">
               <div className="space-y-6">
@@ -61,28 +64,27 @@ export default async function ServicePage({ params }: Props) {
                 {service.description}
               </p>
 
-              <div className="flex flex-wrap gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4">
                 <Link 
-                  href={`/services/${params.slug}/projects`}
-                  className="group flex items-center gap-3 px-8 py-5 bg-brand-primary text-white rounded-2xl font-bold text-lg shadow-xl shadow-brand-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
+                  href="#gallery"
+                  className="group flex flex-col items-start gap-1 transition-all"
                 >
-                  <ImageIcon className="w-5 h-5" />
-                  View all {service.title} Projects
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <span className="text-sm font-bold uppercase tracking-widest text-brand-primary px-1">
+                    View all {service.title} projects below
+                  </span>
+                  <div className="flex items-center justify-center w-12 h-12 bg-white border border-brand-primary/20 rounded-full shadow-lg text-brand-primary animate-bounce mt-2 group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                    <ArrowDown className="w-6 h-6" />
+                  </div>
                 </Link>
 
-                <Link 
-                  href={`/?service=${encodeURIComponent(service.title)}#contact`}
-                  className="flex items-center gap-3 px-8 py-5 bg-white border border-brand-primary/20 text-brand-primary rounded-2xl font-bold text-lg hover:bg-brand-primary/5 active:scale-95 transition-all"
-                >
-                  <MessageSquare className="w-5 h-5" />
-                  Request a Quote
-                </Link>
+                <div className="h-12 w-px bg-brand-textDark/10 hidden sm:block mx-4" />
+
+                <ServiceQuoteButton serviceTitle={service.title} />
               </div>
             </div>
 
-            {/* Visual Side */}
-            <div className="lg:col-span-5 relative group">
+            {/* Visual Side - Hidden on Mobile */}
+            <div className="hidden lg:block lg:col-span-5 relative group">
                <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
                   {mainImage && (
                     <Image
@@ -102,36 +104,44 @@ export default async function ServicePage({ params }: Props) {
             </div>
           </div>
 
-          {/* Featured Preview Grid */}
-          {service.imageUrls.length > 1 && (
-            <div className="mt-24 lg:mt-36 space-y-12">
-              <div className="flex items-end justify-between border-b border-brand-textDark/5 pb-8">
-                 <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-brand-textDark">
-                   Project Previews
+          {/* Full Project Gallery Integrated Directly */}
+          <div id="gallery" className="space-y-16 scroll-mt-24">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-textDark/5 pb-12">
+               <div className="space-y-4">
+                 <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-brand-textDark">
+                   Project Gallery
                  </h2>
-                 <Link 
-                   href={`/services/${params.slug}/projects`}
-                   className="text-brand-primary font-bold hover:underline"
-                 >
-                   View All →
-                 </Link>
-              </div>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                 {service.imageUrls.slice(1, 5).map((img, i) => (
-                   <div key={img} className="relative aspect-square rounded-2xl overflow-hidden group shadow-lg">
-                      <Image
-                        src={getOptimizedUrl(img, 'thumb')}
-                        alt={`${service.title} preview ${i + 1}`}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        unoptimized
-                      />
-                   </div>
-                 ))}
-              </div>
+                 <p className="text-lg text-brand-textDark/60 max-w-2xl">
+                   Explore our portfolio of curated <strong>{service.title}</strong> installations. 
+                   Each build is a testament to our commitment to artistry and precision.
+                 </p>
+               </div>
+               
+               <div className="flex items-center gap-3 text-brand-textDark/40 font-bold uppercase tracking-widest text-xs bg-brand-textDark/5 px-4 py-2 rounded-full">
+                  <ImageIcon className="w-4 h-4" />
+                  {allProjects.length} Verified Builds
+               </div>
             </div>
-          )}
+
+            <StaggeredGallery 
+              images={allProjects} 
+              serviceTitle={service.title} 
+            />
+            
+            <div className="flex items-center justify-center pt-20">
+               <Link 
+                  href={`/?service=${encodeURIComponent(service.title)}#contact`}
+                  className="group flex flex-col items-center gap-4 text-center"
+               >
+                  <p className="text-2xl lg:text-3xl font-bold tracking-tight text-brand-textDark max-w-md uppercase">
+                    Like what you see?
+                  </p>
+                  <div className="px-12 py-5 bg-brand-primary text-white rounded-[2rem] font-bold text-xl shadow-2xl shadow-brand-primary/30 hover:scale-105 active:scale-95 transition-all">
+                    Start Your Project
+                  </div>
+               </Link>
+            </div>
+          </div>
         </div>
       </div>
     </SiteShell>
