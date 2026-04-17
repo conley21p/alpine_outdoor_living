@@ -22,7 +22,6 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   // Track which service indices have ever become active, to defer image loading
   const activatedRef = useRef<Set<number>>(new Set([0])); // Card 0 is active immediately
   const [activatedCards, setActivatedCards] = useState<Set<number>>(new Set([0]));
-  const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -43,68 +42,40 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
     const totalTransitions = cards.length - 1;
 
     if (isMobile) {
-      // MOBILE: high-performance unified scroll engine
-      // Instead of one trigger per card, we use one trigger for the track
-      // to calculate the exactly active index based on precision progress.
-      
+      // MOBILE: No scrubbing, just clean native transitions
       cards.forEach((card, i) => {
         gsap.set(card, { 
-          opacity: i === 0 ? 1 : 0, 
-          y: i === 0 ? 0 : 40,
+          opacity: 0, 
+          y: 20,
           flex: "1 1 auto",
           maxHeight: "none"
         });
-      });
 
-      ScrollTrigger.create({
-        trigger: trackRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: true,
-        onUpdate: (self) => {
-          const p = self.progress;
-          const total = services.length;
-          // Precision mapping: 1/total units per card
-          const rawIdx = p * (total - 1);
-          const activeIdx = Math.round(rawIdx);
-          
-          if (activeIdx !== activeIndex) {
-            setActiveIndex(activeIdx);
-            
-            // Deferred load logic
-            if (!activatedRef.current.has(activeIdx)) {
-              activatedRef.current.add(activeIdx);
-              setActivatedCards(new Set(activatedRef.current));
-            }
-          }
+        const imgBlock = card.querySelector('.dynamic-image-block');
+        if (imgBlock) gsap.set(imgBlock, { opacity: 0 });
 
-          // Visual unit transforms (staggered reveal)
-          cards.forEach((card, i) => {
-            const dist = Math.abs(i - rawIdx);
-            const cardOpacity = Math.max(0.4, 1 - (dist * 0.5)); // Subtle dimming for non-active cards
-            const y = dist * 10; // Very subtle lift
-            const imgBlock = card.querySelector('.dynamic-image-block') as HTMLElement;
-            
-            // Keep the card stable and visible
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top 85%",
+          onEnter: () => {
             gsap.to(card, { 
-              opacity: cardOpacity, 
-              y, 
-              duration: 0.2, 
-              overwrite: 'auto'
+              opacity: 1, 
+              y: 0, 
+              duration: 0.6, 
+              ease: "power2.out",
+              onStart: () => {
+                if (!activatedRef.current.has(i)) {
+                  activatedRef.current.add(i);
+                  setActivatedCards(new Set(activatedRef.current));
+                }
+              }
             });
-
             if (imgBlock) {
-              // Strict image toggle: only show the 'expanded' one
-              const isExpanded = dist < 0.45; 
-              gsap.to(imgBlock, { 
-                opacity: isExpanded ? 1 : 0, 
-                scale: isExpanded ? 1 : 0.98, 
-                duration: 0.4,
-                overwrite: 'auto'
-              });
+              gsap.to(imgBlock, { opacity: 1, delay: 0.2, duration: 0.8 });
             }
-          });
-        }
+          },
+          once: true // Trigger only once for maximum mobile performance
+        });
       });
     } else {
       // DESKTOP: Original Luxe-Vista morphing logic (optimized for large screens)
@@ -193,7 +164,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
       <section
         ref={trackRef}
         className="luxe-track"
-        style={{ height: `${Math.max(1, services.length) * 100}vh` }}
+        style={{ height: isMobile ? 'auto' : `${Math.max(1, services.length) * 100}vh` }}
       >
         <div className="sticky-viewport">
           <div className="card-container relative z-10 w-[92%] h-[calc(100%-20px)] lg:w-[90%] lg:h-[calc(100%-60px)]">
@@ -206,8 +177,8 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   className="luxe-option group relative overflow-hidden rounded-[20px]"
                   style={{
                     display: 'flex',
-                    flex: `${1 + (11 * initialWeight)} 1 0%`,
-                    '--weight': initialWeight,
+                    flex: isMobile ? "1 1 auto" : `${1 + (11 * initialWeight)} 1 0%`,
+                    '--weight': isMobile ? 1 : initialWeight,
                     '--exile': 1,
                   } as React.CSSProperties}
                 >
@@ -224,7 +195,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
                     {/* Image block — z-20 so it slides in OVER the text on mobile during animation */}
                     <div className="dynamic-image-block relative pointer-events-auto z-20">
-                      {(isMobile ? activeIndex === i : activatedCards.has(i)) && (
+                      {activatedCards.has(i) && (
                         <ImageStack
                           images={service.imageUrls}
                           title={service.title}
