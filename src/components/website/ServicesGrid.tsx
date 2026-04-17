@@ -43,83 +43,68 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
     const totalTransitions = cards.length - 1;
 
     if (isMobile) {
-      // MOBILE: high-performance unit-based transitions
-      // One scrolltrigger per card for independent, clean reveals
+      // MOBILE: high-performance unified scroll engine
+      // Instead of one trigger per card, we use one trigger for the track
+      // to calculate the exactly active index based on precision progress.
+      
       cards.forEach((card, i) => {
-        const imgBlock = card.querySelector('.dynamic-image-block');
-        
         gsap.set(card, { 
           opacity: i === 0 ? 1 : 0, 
           y: i === 0 ? 0 : 40,
           flex: "1 1 auto",
           maxHeight: "none"
         });
+      });
 
-        // For non-active cards, ensure image is hidden
-        if (imgBlock) {
-          gsap.set(imgBlock, { opacity: i === 0 ? 1 : 0, scale: i === 0 ? 1 : 0.95 });
-        }
-
-        if (i === 0) {
-          if (!activatedRef.current.has(0)) {
-            activatedRef.current.add(0);
-            setActivatedCards(new Set(activatedRef.current));
+      ScrollTrigger.create({
+        trigger: trackRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: (self) => {
+          const p = self.progress;
+          const total = services.length;
+          // Precision mapping: 1/total units per card
+          const rawIdx = p * (total - 1);
+          const activeIdx = Math.round(rawIdx);
+          
+          if (activeIdx !== activeIndex) {
+            setActiveIndex(activeIdx);
+            
+            // Deferred load logic
+            if (!activatedRef.current.has(activeIdx)) {
+              activatedRef.current.add(activeIdx);
+              setActivatedCards(new Set(activatedRef.current));
+            }
           }
-          return;
+
+          // Visual unit transforms (staggered reveal)
+          cards.forEach((card, i) => {
+            const dist = Math.abs(i - rawIdx);
+            const cardOpacity = Math.max(0.4, 1 - (dist * 0.5)); // Subtle dimming for non-active cards
+            const y = dist * 10; // Very subtle lift
+            const imgBlock = card.querySelector('.dynamic-image-block') as HTMLElement;
+            
+            // Keep the card stable and visible
+            gsap.to(card, { 
+              opacity: cardOpacity, 
+              y, 
+              duration: 0.2, 
+              overwrite: 'auto'
+            });
+
+            if (imgBlock) {
+              // Strict image toggle: only show the 'expanded' one
+              const isExpanded = dist < 0.45; 
+              gsap.to(imgBlock, { 
+                opacity: isExpanded ? 1 : 0, 
+                scale: isExpanded ? 1 : 0.98, 
+                duration: 0.4,
+                overwrite: 'auto'
+              });
+            }
+          });
         }
-
-        ScrollTrigger.create({
-          trigger: trackRef.current,
-          start: `${i * 100}vh center`,
-          end: `${(i + 1) * 100}vh center`,
-          onEnter: () => {
-             setActiveIndex(i);
-             // 1. Reveal Container
-             gsap.to(card, { 
-               opacity: 1, 
-               y: 0, 
-               duration: 0.6, 
-               ease: "power2.out"
-             });
-
-             // 2. Delayed Image Reveal ("Peering")
-             if (imgBlock) {
-               gsap.to(imgBlock, { 
-                 opacity: 1, 
-                 scale: 1, 
-                 delay: 0.15, 
-                 duration: 0.8, 
-                 ease: "power2.out" 
-               });
-             }
-          },
-          onLeave: () => {
-             // Hide image when moving past current card
-             if (imgBlock) {
-               gsap.to(imgBlock, { opacity: 0, scale: 0.95, duration: 0.3 });
-             }
-          },
-          onEnterBack: () => {
-             setActiveIndex(i);
-             // Re-reveal when scrolling back up
-             gsap.to(card, { opacity: 1, y: 0, duration: 0.4 });
-             if (imgBlock) {
-               gsap.to(imgBlock, { 
-                 opacity: 1, 
-                 scale: 1, 
-                 delay: 0.1, 
-                 duration: 0.6, 
-                 ease: "power2.out" 
-               });
-             }
-          },
-          onLeaveBack: () => {
-             gsap.to(card, { opacity: 0, y: 40, duration: 0.4, ease: "power2.in" });
-             if (imgBlock) {
-               gsap.to(imgBlock, { opacity: 0, scale: 0.95, duration: 0.3 });
-             }
-          }
-        });
       });
     } else {
       // DESKTOP: Original Luxe-Vista morphing logic (optimized for large screens)
