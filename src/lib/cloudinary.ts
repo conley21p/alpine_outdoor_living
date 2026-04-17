@@ -3,7 +3,6 @@ import { getServerConfig } from "./config";
 
 // Initialize Cloudinary with server-side config
 const config = getServerConfig();
-const VALID_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".mp4", ".mov", ".m4v"];
 
 cloudinary.config({
   cloud_name: config.cloudinaryCloudName,
