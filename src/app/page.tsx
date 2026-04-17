@@ -160,7 +160,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <GalleryGrid images={galleryImages} previewOnly />
+      {/* <GalleryGrid images={galleryImages} previewOnly /> */}
 
       {/* Instagram Section */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
