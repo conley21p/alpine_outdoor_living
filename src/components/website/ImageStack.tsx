@@ -14,6 +14,7 @@ interface ImageStackProps {
 
 export function ImageStack({ images, title }: ImageStackProps) {
   const [index, setIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -102,7 +103,12 @@ export function ImageStack({ images, title }: ImageStackProps) {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.2}
                 onDragEnd={handleDragEnd}
-                onClick={() => isCenter && setIsExpanded(true)}
+                onClick={() => {
+                  if (isCenter) {
+                    setExpandedIndex(index);
+                    setIsExpanded(true);
+                  }
+                }}
                 className="absolute inset-0 cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden bg-white"
               >
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
@@ -181,12 +187,14 @@ export function ImageStack({ images, title }: ImageStackProps) {
 
                   <div className="relative w-full flex-1 flex items-center justify-center">
                       <motion.div 
-                        layoutId={`img-${title}-${images[index]}`}
+                        key={`expanded-${images[expandedIndex]}`}
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
                         className="relative w-full h-fit max-h-full aspect-[4/3] lg:aspect-video rounded-3xl overflow-hidden shadow-2xl bg-white/5"
                       >
                         {/* Progressive Loading: Show thumbnail (cached) while high-res loads */}
                         <Image
-                           src={getOptimizedUrl(images[index], 'thumb')}
+                           src={getOptimizedUrl(images[expandedIndex], 'thumb')}
                            alt={`${title} placeholder`}
                            fill
                            className="object-contain blur-sm"
@@ -194,7 +202,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
                            priority
                         />
                         <Image
-                           src={getOptimizedUrl(images[index], 'full')}
+                           src={getOptimizedUrl(images[expandedIndex], 'full')}
                            alt={title}
                            fill
                            className="object-contain relative z-10"
@@ -202,17 +210,16 @@ export function ImageStack({ images, title }: ImageStackProps) {
                            priority
                         />
                       </motion.div>
-                     
-                     {/* Linear Browser Controls */}
+                                          {/* Linear Browser Controls */}
                      <div className="absolute inset-x-0 bottom-10 lg:bottom-1/2 lg:translate-y-1/2 flex justify-between items-center px-4 md:px-10 z-[100001] pointer-events-none">
                         <button 
-                          onClick={() => setIndex(prev => prev > 0 ? prev - 1 : images.length - 1)}
+                          onClick={() => setExpandedIndex(prev => prev > 0 ? prev - 1 : images.length - 1)}
                           className="bg-white/10 hover:bg-white/20 p-4 rounded-full text-white backdrop-blur-xl pointer-events-auto transition-transform hover:scale-110 active:scale-95"
                         >
                           ←
                         </button>
                         <button 
-                          onClick={() => setIndex(prev => prev < images.length - 1 ? prev + 1 : 0)}
+                          onClick={() => setExpandedIndex(prev => prev < images.length - 1 ? prev + 1 : 0)}
                           className="bg-white/10 hover:bg-white/20 p-4 rounded-full text-white backdrop-blur-xl pointer-events-auto transition-transform hover:scale-110 active:scale-95"
                         >
                           →
@@ -223,7 +230,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
                   <div className="h-20 flex flex-col items-center justify-center">
                     <div className="text-white font-bold text-lg tracking-tight">{title}</div>
                     <div className="text-white/40 text-xs font-bold tracking-widest uppercase mt-1">
-                      {index + 1} / {images.length}
+                      {expandedIndex + 1} / {images.length}
                     </div>
                   </div>
                </div>
