@@ -165,12 +165,13 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
               <div className="relative z-10 p-6 flex flex-col gap-6">
                 {/* Static Image Stack - Removed overflow-hidden to allow background images to peep */}
                 <div className="w-full aspect-[4/3] rounded-2xl">
-                  {(activatedCards.has(i) || i === 0) && (
-                    <ImageStack
-                      images={service.imageUrls}
-                      title={service.title}
-                    />
-                  )}
+                   {(activatedCards.has(i) || i === 0) && (
+                     <ImageStack 
+                       images={service.imageUrls} 
+                       title={service.title} 
+                       slug={service.id}
+                     />
+                   )}
                 </div>
 
                 <div className="flex flex-col gap-4">
@@ -228,6 +229,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                         <ImageStack
                           images={service.imageUrls}
                           title={service.title}
+                          slug={service.id}
                         />
                       )}
                     </div>

@@ -32,9 +32,11 @@ export interface Review {
 }
 
 export interface ServiceData {
+  id: string; // Slugified title
   title: string;
   description: string;
   imageUrls: string[];
+  folder: string; // The Cloudinary folder name
 }
 
 export { getOptimizedUrl } from "./media-utils";
@@ -243,20 +245,63 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
         const imageUrls = shuffled.slice(0, 10).map(res => res.secure_url);
 
         return {
+          id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
           title: service.title,
           description: service.description,
           imageUrls: imageUrls,
+          folder: service.folder,
         };
       } catch (error) {
         console.error(`[DATA ERROR] Smart fetch failed for "${service.title}":`, error);
         return {
+          id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
           title: service.title,
           description: service.description,
           imageUrls: [],
+          folder: service.folder,
         };
       }
     })
   );
+};
+
+/**
+ * Fetches a single service by its slug.
+ */
+export const getServiceBySlug = async (slug: string): Promise<ServiceData | null> => {
+  const all = await getStaticServices();
+  return all.find(s => s.id === slug) || null;
+};
+
+/**
+ * Fetches ALL images for a specific project folder.
+ */
+export const getServiceProjects = async (folder: string): Promise<GalleryImage[]> => {
+  const folderPath = `Website/Services/${folder}`;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let resources: any[] = [];
+
+    if (isDev) {
+      resources = getLocalImagesInFolder(folderPath);
+    }
+
+    if (resources.length === 0) {
+      resources = await getImagesInFolder(folderPath, 100); // Fetch more for the full gallery
+    }
+
+    if (!isDev && resources.length === 0) {
+      resources = getLocalImagesInFolder(folderPath);
+    }
+
+    return resources.map((res) => ({
+      name: res.public_id.split("/").pop() || "Project Image",
+      url: res.secure_url,
+    }));
+  } catch (error) {
+    console.error(`[DATA ERROR] Full gallery fetch failed for folder ${folder}:`, error);
+    return [];
+  }
 };
 
 

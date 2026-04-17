@@ -1,35 +1,26 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import Image from "next/image";
-import { Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { getOptimizedUrl } from "@/lib/media-utils";
 
 interface ImageStackProps {
   images: string[];
   title: string;
+  slug: string; // Used for navigation
 }
 
-export function ImageStack({ images, title }: ImageStackProps) {
+export function ImageStack({ images, title, slug }: ImageStackProps) {
   const [index, setIndex] = useState(0);
-  const [expandedIndex, setExpandedIndex] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [modalImageLoading, setModalImageLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
-    if (isExpanded) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isExpanded]);
+  }, []);
 
   // Swipe logic
   const handleDragEnd = (_event: unknown, info: PanInfo) => {
@@ -45,13 +36,10 @@ export function ImageStack({ images, title }: ImageStackProps) {
 
   if (!images || images.length === 0) return null;
 
-  // Indices for the trio
-
-
   return (
     <div className="relative w-full h-full flex items-center justify-center px-10 lg:px-14 overflow-visible">
       <div className="relative w-full aspect-[4/3] preserve-3d">
-      <div className="relative w-full aspect-[4/3] preserve-3d">
+        <AnimatePresence initial={false}>
           {images.map((img, i) => {
             const isCenter = i === index;
             const isLeft = i === index - 1;
@@ -94,7 +82,10 @@ export function ImageStack({ images, title }: ImageStackProps) {
                   scale, 
                   x, 
                   rotate, 
+                  zIndex,
+                  boxShadow: isCenter ? "0 25px 50px -12px rgba(0,0,0,0.5)" : "0 10px 20px rgba(0,0,0,0.2)"
                 }}
+                exit={{ opacity: 0, scale: 0.5, x: x * 1.5 }}
                 transition={{ type: "spring", stiffness: 260, damping: 25 }}
                 drag={isCenter ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
@@ -102,12 +93,10 @@ export function ImageStack({ images, title }: ImageStackProps) {
                 onDragEnd={handleDragEnd}
                 onClick={() => {
                   if (isCenter) {
-                    setExpandedIndex(index);
-                    setModalImageLoading(true); // Reset loading state for modal
-                    setIsExpanded(true);
+                    router.push(`/services/${slug}`);
                   }
                 }}
-                className={`absolute inset-0 cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden bg-white transition-shadow duration-300 ${isCenter ? 'shadow-2xl z-30' : 'shadow-md z-10'}`}
+                className="absolute inset-0 cursor-pointer rounded-2xl overflow-hidden bg-white"
               >
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                 <Image
@@ -119,15 +108,10 @@ export function ImageStack({ images, title }: ImageStackProps) {
                   unoptimized
                   loading="lazy"
                 />
-                
-                {isCenter && (
-                  <div className="absolute top-4 right-4 z-40 bg-black/40 backdrop-blur-md p-2 rounded-full hidden lg:block">
-                    <Maximize2 className="w-4 h-4 text-white" />
-                  </div>
-                )}
               </motion.div>
             );
           })}
+        </AnimatePresence>
         
         {/* Navigation Arrows - Desktop Only */}
         <button 
@@ -159,97 +143,6 @@ export function ImageStack({ images, title }: ImageStackProps) {
           {index + 1} / {images.length} • Swipe to Browse
         </div>
       </div>
-
-      {/* Expanded Modal Gallery - rendered via Portal to escape stacking context */}
-      {mounted && typeof document !== "undefined" && createPortal(
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-4 lg:p-20"
-              onClick={() => setIsExpanded(false)}
-            >
-              {/* Close Button - positioned to top-right of screen */}
-              <button 
-                onClick={() => setIsExpanded(false)}
-                className="absolute top-6 right-6 lg:top-10 lg:right-10 text-white/40 hover:text-white z-[100000] p-4 bg-white/5 rounded-full transition-colors"
-              >
-                <X className="w-6 h-6" /> 
-              </button>
-
-              <div className="relative w-full h-full flex flex-col items-center justify-center" onClick={(e) => e.stopPropagation()}>
-
-
-                  <div className="relative w-full flex-1 flex items-center justify-center">
-                      <motion.div 
-                        key={`expanded-${images[expandedIndex]}`}
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        className="relative w-full h-fit max-h-full aspect-[4/3] lg:aspect-video rounded-3xl overflow-hidden shadow-2xl bg-white/5"
-                      >
-                        {/* Static Loading Spinner */}
-                        {modalImageLoading && (
-                          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
-                             <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin" />
-                          </div>
-                        )}
-
-                        {/* Progressive Loading: Show thumbnail (cached) while high-res loads */}
-                        <Image
-                           src={getOptimizedUrl(images[expandedIndex], 'thumb')}
-                           alt={`${title} placeholder`}
-                           fill
-                           className="object-contain blur-sm"
-                           unoptimized
-                           priority
-                        />
-                        <Image
-                           src={getOptimizedUrl(images[expandedIndex], 'full')}
-                           alt={title}
-                           fill
-                           className="object-contain relative z-10"
-                           unoptimized
-                           priority
-                           onLoad={() => setModalImageLoading(false)}
-                        />
-                      </motion.div>
-                                          {/* Linear Browser Controls */}
-                     <div className="absolute inset-x-0 bottom-10 lg:bottom-1/2 lg:translate-y-1/2 flex justify-between items-center px-4 md:px-10 z-[100001] pointer-events-none">
-                        <button 
-                          onClick={() => {
-                            setModalImageLoading(true);
-                            setExpandedIndex(prev => prev > 0 ? prev - 1 : images.length - 1);
-                          }}
-                          className="bg-white/10 hover:bg-white/20 p-4 rounded-full text-white backdrop-blur-xl pointer-events-auto transition-transform hover:scale-110 active:scale-95"
-                        >
-                          ←
-                        </button>
-                        <button 
-                          onClick={() => {
-                            setModalImageLoading(true);
-                            setExpandedIndex(prev => prev < images.length - 1 ? prev + 1 : 0);
-                          }}
-                          className="bg-white/10 hover:bg-white/20 p-4 rounded-full text-white backdrop-blur-xl pointer-events-auto transition-transform hover:scale-110 active:scale-95"
-                        >
-                          →
-                        </button>
-                     </div>
-                  </div>
-
-                  <div className="h-20 flex flex-col items-center justify-center">
-                    <div className="text-white font-bold text-lg tracking-tight">{title}</div>
-                    <div className="text-white/40 text-xs font-bold tracking-widest uppercase mt-1">
-                      {expandedIndex + 1} / {images.length}
-                    </div>
-                  </div>
-               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
     </div>
   );
 }
