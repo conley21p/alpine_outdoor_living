@@ -42,7 +42,8 @@ export interface ServiceData {
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
-    let resources = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let resources: any[] = [];
     
     if (isDev) {
       console.log(`[DATA] 🛠️ DEV MODE: Prioritizing local fallback for "Website/Gallery"`);
@@ -168,12 +169,12 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
         return {
           title: prettyTitle,
           description: description,
-          imageUrl: imageResource?.secure_url || "",
-        };
+          imageUrls: imageResource ? [imageResource.secure_url] : [],
+        } as ServiceData;
       })
     );
 
-    return services.filter(s => s.imageUrl); // Only return services with at least one image
+    return services.filter(s => s.imageUrls.length > 0); // Only return services with at least one image
   } catch (error) {
     console.error("[DATA ERROR] Dynamic services fetch failed:", error);
     return [];
@@ -213,7 +214,8 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
     STATIC_SERVICES.map(async (service) => {
       const folderPath = `Website/Services/${service.folder}`;
       try {
-        let resources = [];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let resources: any[] = [];
 
         if (isDev) {
           resources = getLocalImagesInFolder(folderPath);
