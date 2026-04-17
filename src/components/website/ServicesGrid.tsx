@@ -155,21 +155,22 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
       {/* MOBILE VIEW (Zero Animation) */}
       <section className="block lg:hidden px-4 pb-20">
         <div className="flex flex-col gap-8">
-          {services.map((service) => (
+          {services.map((service, i) => (
             <div
               key={service.title}
               className="relative overflow-hidden rounded-[24px] bg-white border border-brand-primary/10 shadow-xl"
             >
-              {/* Simple background panel */}
               <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-transparent pointer-events-none" />
               
               <div className="relative z-10 p-6 flex flex-col gap-6">
-                 {/* Static Image Stack */}
-                 <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                   <ImageStack 
-                     images={service.imageUrls} 
-                     title={service.title} 
-                   />
+                 {/* Static Image Stack - Removed overflow-hidden to allow background images to peep */}
+                 <div className="w-full aspect-[4/3] rounded-2xl shadow-lg">
+                   {activatedCards.has(i) && (
+                     <ImageStack 
+                       images={service.imageUrls} 
+                       title={service.title} 
+                     />
+                   )}
                  </div>
 
                  <div className="flex flex-col gap-4">

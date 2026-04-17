@@ -49,8 +49,8 @@ export function ImageStack({ images, title }: ImageStackProps) {
 
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center p-2 lg:p-8 overflow-visible">
-      <div className="relative w-full aspect-[4/3] max-w-sm lg:max-w-md preserve-3d">
+    <div className="relative w-full h-full flex items-center justify-center px-10 lg:px-14 overflow-visible">
+      <div className="relative w-full aspect-[4/3] preserve-3d">
         <AnimatePresence initial={false}>
           {images.map((img, i) => {
             const isCenter = i === index;
