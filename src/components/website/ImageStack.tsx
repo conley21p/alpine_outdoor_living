@@ -88,7 +88,6 @@ export function ImageStack({ images, title }: ImageStackProps) {
             return (
               <motion.div
                 key={img}
-                layoutId={`img-${title}-${img}`}
                 initial={{ opacity: 0, scale: 0.8, x: 0 }}
                 animate={{ 
                   opacity, 

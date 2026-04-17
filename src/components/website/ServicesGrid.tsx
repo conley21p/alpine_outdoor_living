@@ -58,7 +58,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
     return () => clearInterval(interval);
   }, [isMobile, services.length]);
-  
+
   // Cache for DOM values to prevent redundant writes
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const prevStates = useRef<Map<number, Record<string, any>>>(new Map());
@@ -92,12 +92,12 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
           const isVisible = exile > 0.001;
           const finalFlex = (1 + (11 * w)) * exile;
-          
+
           const mHeight = dist > 1 ? `${Math.max(0, Math.round(exile * 300))}px` : '2000px';
           const mBottom = dist > 1 ? `${Math.round(exile * 15)}px` : '15px';
-          
+
           const prevState = prevStates.current.get(i) || {};
-          
+
           if (prevState.w !== w) {
             card.style.setProperty('--weight', w.toFixed(3));
             prevState.w = w;
@@ -161,32 +161,32 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
               className="relative overflow-hidden rounded-[24px] bg-white border border-brand-primary/10 shadow-xl"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-transparent pointer-events-none" />
-              
-              <div className="relative z-10 p-6 flex flex-col gap-6">
-                 {/* Static Image Stack - Removed overflow-hidden to allow background images to peep */}
-                 <div className="w-full aspect-[4/3] rounded-2xl shadow-lg">
-                   {activatedCards.has(i) && (
-                     <ImageStack 
-                       images={service.imageUrls} 
-                       title={service.title} 
-                     />
-                   )}
-                 </div>
 
-                 <div className="flex flex-col gap-4">
-                    <h3 className="text-2xl font-bold text-brand-textDark leading-tight">
-                      {service.title}
-                    </h3>
-                    <p className="text-base text-brand-textDark/70 leading-relaxed">
-                      {service.description}
-                    </p>
-                    <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="mt-2">
-                       <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-white bg-brand-primary rounded-xl transition-all active:scale-95 shadow-lg shadow-brand-primary/20">
-                          Let&apos;s Talk
-                          <span className="text-xl">→</span>
-                       </button>
-                    </Link>
-                 </div>
+              <div className="relative z-10 p-6 flex flex-col gap-6">
+                {/* Static Image Stack - Removed overflow-hidden to allow background images to peep */}
+                <div className="w-full aspect-[4/3] rounded-2xl">
+                  {(activatedCards.has(i) || i === 0) && (
+                    <ImageStack
+                      images={service.imageUrls}
+                      title={service.title}
+                    />
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-2xl font-bold text-brand-textDark leading-tight">
+                    {service.title}
+                  </h3>
+                  <p className="text-base text-brand-textDark/70 leading-relaxed">
+                    {service.description}
+                  </p>
+                  <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="mt-2">
+                    <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-white bg-brand-primary rounded-xl transition-all active:scale-95 shadow-lg shadow-brand-primary/20">
+                      Let&apos;s Talk
+                      <span className="text-xl">→</span>
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
