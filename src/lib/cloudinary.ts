@@ -41,12 +41,13 @@ export async function getImagesInFolder(
 
     console.log(`[CLOUDINARY] ✅ Found ${results.resources.length} resources in "${folderPath}"`);
 
-    return results.resources.map((res: CloudinaryResource) => ({
+    return results.resources.map((res: any) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
-      width: res.width,
-      height: res.height,
-      format: res.format,
+      width: res.width || 0,
+      height: res.height || 0,
+      format: res.format || "",
+      resource_type: res.resource_type || "image",
     }));
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);

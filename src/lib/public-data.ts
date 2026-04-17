@@ -56,7 +56,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
        resources = getLocalImagesInFolder("Website/Gallery");
     }
 
-    return resources.map((res) => ({
+    return resources.map((res: CloudinaryResource) => ({
       name: res.public_id.split("/").pop() || "Gallery Image",
       url: res.secure_url,
     }));
@@ -162,9 +162,11 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
         }
 
         return {
+          id: folderName.toLowerCase().replace(/ /g, "-"),
           title: prettyTitle,
           description: description,
           imageUrls: imageResource ? [imageResource.secure_url] : [],
+          folder: folderName,
         } as ServiceData;
       })
     );
