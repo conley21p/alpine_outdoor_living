@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Image from "next/image";
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
@@ -184,11 +184,14 @@ export default async function Home() {
                   rel="noopener noreferrer"
                   className="group block overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-[1.02]"
                 >
-                  <img
-                    src={instagramPost.thumbnailUrl}
-                    alt="Latest Instagram post"
-                    className="h-auto w-full object-cover"
-                  />
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src={instagramPost.thumbnailUrl}
+                      alt="Latest Instagram post"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
                 </a>
                 <p className="mt-3 text-center text-sm text-gray-500">Latest post from @{publicConfig.instagramHandle}</p>
               </div>

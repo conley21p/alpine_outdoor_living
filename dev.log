@@ -1,0 +1,50 @@
+
+> alpine-outdoor-living@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1070ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1181ms (863 modules)
+[CLOUDINARY] 📍 Fetching from folder: "Website/Gallery"
+[CLOUDINARY] 🏷️ Cloud Name: "dclxzgeyu"
+[CLOUDINARY] 🔑 API Key: "PRESENT"
+[CLOUDINARY] 🔒 API Secret: "PRESENT"
+[CLOUDINARY] 📍 Fetching from folder: "Website/Hero/Wide"
+[CLOUDINARY] 🏷️ Cloud Name: "dclxzgeyu"
+[CLOUDINARY] 🔑 API Key: "PRESENT"
+[CLOUDINARY] 🔒 API Secret: "PRESENT"
+[CLOUDINARY] 📍 Fetching from folder: "Website/Hero/Verticial"
+[CLOUDINARY] 🏷️ Cloud Name: "dclxzgeyu"
+[CLOUDINARY] 🔑 API Key: "PRESENT"
+[CLOUDINARY] 🔒 API Secret: "PRESENT"
+[DATA] Crawling Cloudinary for dynamic services in: Website/Services
+[CLOUDINARY ERROR] Folder: "Website/Hero/Wide": [object Object]
+[CLOUDINARY ERROR] Folder: "Website/Gallery": [object Object]
+[DATA ERROR] Dynamic services fetch failed: {
+  request_options: {
+    protocol: 'https:',
+    hostname: 'api.cloudinary.com',
+    path: '/v1_1/dclxzgeyu/folders/Website%2FServices',
+    pathname: '/v1_1/dclxzgeyu/folders/Website%2FServices',
+    query: '',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': 'CloudinaryNodeJS/2.9.0 (Node 25.9.0)'
+    },
+    auth: '513762142763689:a7C1QuPuBjkrsZGF4fSAo0OlO4c'
+  },
+  query_params: '',
+  error: {
+    message: 'Rate Limit Exceeded. Limit of 500 api operations reached. Try again on 2026-04-14 20:00:00 UTC',
+    http_code: 420
+  }
+}
+[CLOUDINARY ERROR] Folder: "Website/Hero/Verticial": [object Object]
+ GET / 200 in 1646ms
+[?25h

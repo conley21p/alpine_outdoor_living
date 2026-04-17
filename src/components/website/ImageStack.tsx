@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import Image from "next/image";
 import { Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -29,7 +29,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
   }, [isExpanded]);
 
   // Swipe logic
-  const handleDragEnd = (event: any, info: any) => {
+  const handleDragEnd = (_event: unknown, info: PanInfo) => {
     const threshold = 50;
     if (info.offset.x > threshold) {
       // Swipe Right -> Prev
@@ -43,9 +43,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
   if (!images || images.length === 0) return null;
 
   // Indices for the trio
-  const leftIdx = index - 1;
   const centerIdx = index;
-  const rightIdx = index + 1;
 
   return (
     <div className="relative w-full h-full flex items-center justify-center p-2 lg:p-8 overflow-visible">

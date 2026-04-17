@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import type { ServiceData } from "@/lib/public-data";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -102,7 +101,6 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           <div className="card-container relative z-10 w-[92%] h-[calc(100%-20px)] lg:w-[90%] lg:h-[calc(100%-60px)]">
             {services.map((service, i) => {
               const initialWeight = i === 0 ? 1 : 0;
-              const isVisible = i <= 1;
 
               return (
                 <div
@@ -166,7 +164,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                         <div className="mt-auto lg:mt-0 pb-2">
                           <Link href={`/?service=${encodeURIComponent(service.title)}#contact`}>
                             <button className="luxe-btn flex items-center justify-center gap-2 text-sm lg:text-base py-2 px-5 lg:py-3 lg:px-7 font-medium text-white bg-brand-primary rounded-full transition-all duration-300 hover:bg-brand-primary-dark hover:shadow-xl active:scale-95">
-                              Let's Talk
+                              Let&apos;s Talk
                               <span className="text-lg">→</span>
                             </button>
                           </Link>
