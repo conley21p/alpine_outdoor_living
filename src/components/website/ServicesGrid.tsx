@@ -22,6 +22,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   // Track which service indices have ever become active, to defer image loading
   const activatedRef = useRef<Set<number>>(new Set([0])); // Card 0 is active immediately
   const [activatedCards, setActivatedCards] = useState<Set<number>>(new Set([0]));
+  const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -72,18 +73,13 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           start: `${i * 100}vh center`,
           end: `${(i + 1) * 100}vh center`,
           onEnter: () => {
+             setActiveIndex(i);
              // 1. Reveal Container
              gsap.to(card, { 
                opacity: 1, 
                y: 0, 
                duration: 0.6, 
-               ease: "power2.out",
-               onStart: () => {
-                 if (!activatedRef.current.has(i)) {
-                   activatedRef.current.add(i);
-                   setActivatedCards(new Set(activatedRef.current));
-                 }
-               }
+               ease: "power2.out"
              });
 
              // 2. Delayed Image Reveal ("Peering")
@@ -104,6 +100,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
              }
           },
           onEnterBack: () => {
+             setActiveIndex(i);
              // Re-reveal when scrolling back up
              gsap.to(card, { opacity: 1, y: 0, duration: 0.4 });
              if (imgBlock) {
@@ -242,7 +239,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
                     {/* Image block — z-20 so it slides in OVER the text on mobile during animation */}
                     <div className="dynamic-image-block relative pointer-events-auto z-20">
-                      {activatedCards.has(i) && (
+                      {(isMobile ? activeIndex === i : activatedCards.has(i)) && (
                         <ImageStack
                           images={service.imageUrls}
                           title={service.title}

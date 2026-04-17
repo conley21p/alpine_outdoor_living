@@ -179,6 +179,7 @@
 
   /* GSAP Scrubbed Dynamic Utility Blocks for Organic FLIP Sliding */
   .dynamic-image-block {
+    opacity: 0; /* Strict hide on mobile - GSAP will handle the reveal during the peek animation */
     width: 100%;
     margin-bottom: 1.5rem;
     height: 30vh;
