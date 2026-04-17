@@ -35,7 +35,7 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <SiteShell>
-      <div className="relative min-h-screen bg-brand-bgLight">
+      <div id="top" className="relative min-h-screen bg-brand-bgLight scroll-mt-20">
         {/* Ambient Background Blur */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <div className="absolute top-[-10%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-brand-primary/10 blur-[120px]" />
@@ -46,7 +46,7 @@ export default async function ServicePage({ params }: Props) {
           <Breadcrumbs 
             items={[
               { label: "Services", href: "/#services" },
-              { label: service.title }
+              { label: service.title, href: "#top" }
             ]} 
           />
 
