@@ -3,9 +3,9 @@ import { publicConfig } from "@/lib/config";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
+  { href: "/#services", label: "Services" },
   { href: "/featured-projects", label: "Featured Projects" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Footer() {
