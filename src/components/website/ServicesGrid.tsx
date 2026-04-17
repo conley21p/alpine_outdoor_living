@@ -26,7 +26,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
   useGSAP(() => {
     if (!trackRef.current || services.length === 0) return;
-    
+
     const cards = gsap.utils.toArray<HTMLElement>('.luxe-option');
     const totalTransitions = cards.length - 1;
 
@@ -37,19 +37,19 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
       end: "bottom bottom",
       scrub: 0.6, // Balanced responsiveness and smoothness
       onUpdate: (self) => {
-        const p = self.progress; 
-        const scrubIdx = p * totalTransitions; 
-        
+        const p = self.progress;
+        const scrubIdx = p * totalTransitions;
+
         cards.forEach((card, i) => {
           const dist = Math.abs(i - scrubIdx);
           const w = Math.max(0, 1 - Math.min(1, dist));
-          
+
           // Exile: cards start shrinking when dist > 1.25, gone by 2.25
           const exileStart = 1.25;
           const exileEnd = 2.25;
           const exile = Math.max(0, 1 - Math.max(0, dist - exileStart) / (exileEnd - exileStart));
 
-          const isVisible = exile > 0.01; 
+          const isVisible = exile > 0.01;
           const finalFlex = (1 + (11 * w)) * exile;
 
           card.style.setProperty('--weight', w.toString());
@@ -63,7 +63,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
             activatedRef.current.add(i);
             setActivatedCards(new Set(activatedRef.current));
           }
-          
+
           if (dist > 1) {
             card.style.maxHeight = `${Math.max(0, exile * 300)}px`;
             card.style.marginBottom = `${exile * (window.innerWidth >= 1024 ? 15 : 10)}px`;
@@ -115,30 +115,30 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                     '--exile': 1,
                   } as React.CSSProperties}
                 >
-                  <div className="frosted-panel absolute inset-0 z-0 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-[16px] border border-white/60" />
-                  
+                  <div className="frosted-panel absolute inset-0 z-0 bg-gradient-to-br from-white/40 to-transparent backdrop-blur-[16px] border border-white/50" />
+
                   {/* True Native Layout engine mapping GSAP bounds to flex sizes for organic FLIP */}
-                  <div 
+                  <div
                     className="relative z-10 w-full h-full flex flex-col lg:flex-row items-center pointer-events-none overflow-hidden"
                     style={{
                       // Fixed comfortable padding - not scrubbed by exile so content stays aligned
                       padding: "1.5rem",
                     }}
                   >
-                    
+
                     {/* Image block — z-20 so it slides in OVER the text on mobile during animation */}
                     <div className="dynamic-image-block relative pointer-events-auto z-20">
                       {activatedCards.has(i) && (
-                        <ImageStack 
-                          images={service.imageUrls} 
-                          title={service.title} 
+                        <ImageStack
+                          images={service.imageUrls}
+                          title={service.title}
                         />
                       )}
                     </div>
 
                     {/* Text Block - z-10 so image can slide over it on mobile */}
                     <div className="text-block flex-1 w-full h-full flex flex-col justify-center items-start lg:h-full pointer-events-none z-10">
-                      
+
                       {/* Number Hook */}
                       <div className="dynamic-number-block w-full">
                         <span className="block text-brand-textDark/50 uppercase tracking-[0.2em] font-bold text-[10px] lg:text-xs mb-1">
@@ -147,9 +147,9 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                       </div>
 
                       {/* The Magic Title - Because everything else collapses to 0 height/width organically, this aligns perfectly to the left/center structurally! */}
-                      <div className="w-full flex-shrink-0 pointer-events-auto z-20">
-                        <h3 className="font-bold text-brand-textDark whitespace-nowrap tracking-tight" 
-                          style={{ 
+                      <div className="w-full pointer-events-auto z-20">
+                        <h3 className="font-bold text-brand-textDark tracking-tight"
+                          style={{
                             fontSize: "calc(1.25rem + (1.75rem * var(--weight)))",
                             lineHeight: 1.1,
                           }}
@@ -157,7 +157,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                           {service.title}
                         </h3>
                       </div>
-                      
+
                       {/* Description and Action Hub expands below the title pushing it UP! */}
                       <div className="dynamic-details-block pointer-events-auto w-full">
                         <p className="text-xs sm:text-base lg:text-xl text-brand-textDark/80 mb-4 lg:mb-8 max-w-xl pr-4">
@@ -165,8 +165,8 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                         </p>
                         <div className="mt-auto lg:mt-0 pb-2">
                           <Link href={`/?service=${encodeURIComponent(service.title)}#contact`}>
-                            <button className="luxe-btn flex items-center justify-center gap-2 text-sm lg:text-base py-2 px-5 lg:py-3 lg:px-7 font-medium text-white bg-brand-primary rounded-full hover:opacity-80 transition-opacity">
-                              Explore Details
+                            <button className="luxe-btn flex items-center justify-center gap-2 text-sm lg:text-base py-2 px-5 lg:py-3 lg:px-7 font-medium text-white bg-brand-primary rounded-full transition-all duration-300 hover:bg-brand-primary-dark hover:shadow-xl active:scale-95">
+                              Let's Talk
                               <span className="text-lg">→</span>
                             </button>
                           </Link>

@@ -24,16 +24,20 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           <div className="absolute inset-0 bg-black/30" />
 
           {/* Split Content Overlay */}
-          <div className="absolute inset-0 flex flex-col justify-between pt-8 md:pt-28 pb-28 md:pb-36 px-6 text-center z-10">
+          <div className="absolute inset-0 flex flex-col justify-between pt-12 md:pt-28 pb-20 md:pb-36 px-6 text-center z-10">
             {/* Central Branding */}
             <div className="mx-auto max-w-5xl">
-              <h1 className="text-5xl font-bold tracking-tighter text-white sm:text-7xl lg:text-9xl drop-shadow-2xl">
+              <h1 className="text-[2.75rem] sm:text-[3.5rem] md:text-[5rem] font-bold tracking-tighter text-white drop-shadow-2xl leading-none">
                 Alpine Outdoor Living LLC
               </h1>
-              <div className="mt-8 md:mt-12 inline-flex px-8 py-3 border-y border-white/20 backdrop-blur-sm">
-                <p className="text-[10px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">
-                  DESIGN/BUILD &bull; WATER FEATURES &bull; HARDSCAPES &bull; LANDSCAPE
-                </p>
+              <div className="mt-4 md:mt-12 inline-flex flex-col md:flex-row items-center gap-2 md:gap-0 px-8 py-4 md:py-3 border-y border-white/20 backdrop-blur-sm">
+                <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">DESIGN/BUILD</p>
+                <span className="hidden md:inline text-white/40 mx-3">&bull;</span>
+                <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">WATER FEATURES</p>
+                <span className="hidden md:inline text-white/40 mx-3">&bull;</span>
+                <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">HARDSCAPES</p>
+                <span className="hidden md:inline text-white/40 mx-3">&bull;</span>
+                <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">LANDSCAPE</p>
               </div>
             </div>
 

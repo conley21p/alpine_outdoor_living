@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
@@ -52,7 +53,7 @@ export default async function Home() {
           <section className="relative mx-auto max-w-7xl px-6 py-24 lg:py-40">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
               {/* Philosophy - The Brand Soul */}
-              <div className="space-y-8">
+              <div className="space-y-8 px-2 lg:px-12">
                 <div>
                   <h2 className="text-4xl lg:text-6xl font-bold tracking-tighter text-brand-textDark leading-[1.1]">
                     Quietly exceptional.<br/>Intentionally Built.
@@ -75,22 +76,52 @@ export default async function Home() {
                 <p className="text-lg text-brand-textDark/70 leading-relaxed mb-8">
                   Based in Springfield, IL, we proudly serve homeowners and businesses throughout the surrounding Central Illinois region.
                 </p>
-                <div className="flex items-center gap-4 text-brand-primary font-bold text-lg">
+                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-brand-primary font-bold text-lg">
                   <span>Thoughtful Design</span>
-                  <span className="text-brand-textDark/20">•</span>
+                  <span className="hidden md:inline text-brand-textDark/20">•</span>
                   <span>Quality Craftsmanship</span>
                 </div>
               </div>
             </div>
           </section>
-          
+
+          {/* Who We Are - Biographical Section */}
+          <section className="relative mx-auto max-w-7xl px-6 lg:px-20 py-24 lg:py-32">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              <div className="lg:col-span-8 space-y-6 lg:pr-12">
+                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/90 leading-relaxed">
+                  Alpine Outdoor Living, LLC. Was founded by Austin Schiff during his final year at the
+                  University of Illinois Urbana-Champaign. While earning his degree in Landscape Architecture,
+                  Austin combined his technical expertise with a lifelong passion for the outdoors.
+                </p>
+                <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
+                  His entrepreneurship started at a young age of 11 when he started his own mowing business to
+                  save for the future. Driven by a deep love for nature and a talent for artistic design, Austin now
+                  focuses on transforming ordinary spaces into extraordinary outdoor retreats.
+                </p>
+              </div>
+              <div className="lg:col-span-4 lg:sticky lg:top-32 order-first lg:order-last">
+                <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-none">
+                  Who We Are
+                </h2>
+                <div className="h-1.5 w-16 bg-brand-primary mt-6 rounded-full" />
+              </div>
+            </div>
+          </section>
+
           <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent">
             <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
-              <div className="sm:col-span-2">
-                <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Contact Details</h2>
-                <p className="mt-4 text-base leading-relaxed text-gray-600">{publicConfig.businessDescription}</p>
+              <div className="sm:col-span-2 flex flex-col">
+                <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-tight mb-6">
+                  Ready to Elevate <br className="hidden lg:block" /> Your Landscape?
+                </h2>
+                <p className="mt-4 text-lg lg:text-xl leading-relaxed text-brand-textDark/70 mb-8">
+                  Turn your blank canvas into a peaceful sanctuary. Whether you are looking for a custom stone
+                  patio, a relaxing water feature, or a complete landscape redesign, we are here to bring your
+                  vision to life with artistic precision.
+                </p>
 
-                <div className="mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
+                <div className="sm:mt-auto mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
                   <div className="flex items-start gap-4">
                     <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

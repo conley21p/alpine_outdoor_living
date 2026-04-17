@@ -26,7 +26,7 @@ const initialFormState = (services: readonly string[]): ContactFormState => ({
 });
 
 export function ContactForm() {
-  const services = useMemo(() => [...publicConfig.servicesOffered, "Other"], []);
+  const services = useMemo(() => [...publicConfig.servicesOffered], []);
   const [form, setForm] = useState<ContactFormState>(initialFormState(services));
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -107,15 +107,29 @@ export function ContactForm() {
 
   if (success) {
     return (
-      <div className="bg-transparent p-10 lg:p-12">
-        <div className="text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand-primary text-2xl text-white">
-            ✓
-          </div>
-          <h3 className="text-2xl font-semibold text-brand-textDark">Thank you!</h3>
-          <p className="mt-3 text-base leading-relaxed text-brand-textDark/70">
-            Your request has been submitted. We will contact you soon.
+      <div className="bg-transparent py-12 lg:py-20 text-center max-w-2xl mx-auto">
+        <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary">
+          <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 className="text-3xl font-bold text-brand-textDark mb-6">Thank you for reaching out!</h3>
+        <p className="text-lg leading-relaxed text-brand-textDark/80 mb-8">
+          We&rsquo;ve received your request and are excited to learn more about your vision. Austin or a 
+          member of the Alpine Team will review your details and get back with you within 24-48 hours 
+          to discuss the next steps for your outdoor space.
+        </p>
+        <div className="space-y-4">
+          <p className="text-base text-brand-textDark/60 italic">
+            In the meantime, feel free to browse The Portfolio for more inspiration
           </p>
+          <a 
+            href="#services" 
+            className="inline-block text-brand-primary font-bold border-b border-brand-primary pb-1 hover:text-brand-primary-dark hover:border-brand-primary-dark transition-all"
+            onClick={() => setSuccess(false)} // Optional: allow them to reset if they want
+          >
+            Explore Our Services &rarr;
+          </a>
         </div>
       </div>
     );

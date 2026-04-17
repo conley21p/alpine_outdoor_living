@@ -10,7 +10,16 @@ export const publicConfig = {
   businessPhone: "217-899-1784",
   businessEmail: "austinschiff@alpineoutdoorlivingllc.com",
   industry: "Landscape Design & Construction",
-  servicesOffered: ["Water Features", "Fire Pits", "Patio", "Hardscape"],
+  servicesOffered: [
+    "Full Landscape Design & Planning",
+    "Hardscape Installation (Patios, Walkways, & Retaining Walls)",
+    "Water Features (Aquascape Fountains & Ponds)",
+    "Fire Pits & Outdoor Fireplaces",
+    "Outdoor Living Spaces (Kitchen & Living Areas, Pergolas)",
+    "Softscaping (Planting, Gardens, & Mulch)",
+    "Landscape Lighting",
+    "Other/Custom Project"
+  ],
 
   // Branding
   brandPrimary: "#8B9D33",
