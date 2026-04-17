@@ -9,6 +9,7 @@ import { getOptimizedUrl } from "@/lib/media-utils";
 interface GalleryImage {
   name: string;
   url: string;
+  type: "image" | "video";
 }
 
 interface StaggeredGalleryProps {
@@ -17,11 +18,9 @@ interface StaggeredGalleryProps {
 }
 
 export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps) {
-  // We keep track of how many images have FINISHED loading
-  // We allow rendering current + 1 to keep the sequential chain moving
-  const [loadedCount, setLoadedCount] = useState(0);
+  // We keep track of how many images have FINISHED loading (optional for subtle polish, but no longer blocking)
   const [mounted, setMounted] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<GalleryImage | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -29,12 +28,12 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
 
   // Lock scroll when image is selected
   useEffect(() => {
-    if (selectedImage) {
+    if (selectedItem) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [selectedImage]);
+  }, [selectedItem]);
 
   if (!mounted) return null;
 
@@ -53,43 +52,57 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {images.map((img, i) => {
-            // Logic: Only render if it's within the loaded set OR it's the next one to load
-            const isVisible = i <= loadedCount;
-
-            if (!isVisible) return null;
-
             return (
               <motion.div
                 key={img.url}
-                onClick={() => setSelectedImage(img.url)}
-                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
+                onClick={() => setSelectedItem(img)}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ 
-                  duration: 0.7, 
+                  duration: 0.8, 
+                  delay: (i % 4) * 0.1, // Stagger based on column position
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="group relative aspect-[4/5] rounded-[2rem] overflow-hidden bg-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-zoom-in"
+                className="group relative aspect-[4/5] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-700 cursor-zoom-in border border-brand-textDark/5"
               >
-                <Image
-                  src={getOptimizedUrl(img.url, 'full')}
-                  alt={`${serviceTitle} project ${i + 1}`}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  unoptimized
-                  onLoad={() => {
-                    // When THIS image is done, allow the next one to render
-                    setLoadedCount(prev => Math.max(prev, i + 1));
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {img.type === "video" ? (
+                  <video
+                    src={img.url}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                  />
+                ) : (
+                  <Image
+                    src={getOptimizedUrl(img.url, 'full')}
+                    alt={`${serviceTitle} project ${i + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    unoptimized
+                  />
+                )}
                 
-                {/* Image Detail Badge */}
-                <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="bg-white/80 backdrop-blur-md px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest text-brand-textDark shadow-lg border border-white/50 inline-block">
-                    Build No. {1000 + i}
+                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Media Type Indicator */}
+                {img.type === "video" && (
+                  <div className="absolute top-4 right-4 bg-white/40 backdrop-blur-md rounded-full p-2 text-white border border-white/20">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                )}
+
+                {/* Project Badge */}
+                <div className="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="bg-brand-primary/90 backdrop-blur-md px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-white shadow-xl border border-white/20 inline-block">
+                    {img.type === "video" ? "Video View" : `Build ${1000 + i}`}
                   </div>
                 </div>
               </motion.div>
@@ -100,13 +113,13 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
 
       {/* Lightbox / Full-size Viewer */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedItem && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 lg:p-12">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedImage(null)}
+              onClick={() => setSelectedItem(null)}
               className="absolute inset-0 bg-brand-bgLight/80 backdrop-blur-2xl"
             />
             
@@ -114,20 +127,29 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full h-full max-w-7xl"
+              className="relative w-full h-full max-w-7xl flex items-center justify-center"
             >
-              <Image
-                src={getOptimizedUrl(selectedImage, 'full')}
-                alt="Selected project image"
-                fill
-                className="object-contain"
-                priority
-                unoptimized
-              />
+              {selectedItem.type === "video" ? (
+                <video
+                  src={selectedItem.url}
+                  className="max-w-full max-h-full rounded-2xl shadow-2xl"
+                  controls
+                  autoPlay
+                />
+              ) : (
+                <Image
+                  src={getOptimizedUrl(selectedItem.url, 'full')}
+                  alt="Selected project image"
+                  fill
+                  className="object-contain"
+                  priority
+                  unoptimized
+                />
+              )}
             </motion.div>
 
             <button 
-              onClick={() => setSelectedImage(null)}
+              onClick={() => setSelectedItem(null)}
               className="absolute top-8 right-8 z-[110] h-12 w-12 flex items-center justify-center rounded-full bg-white shadow-xl text-brand-textDark hover:scale-110 active:scale-95 transition-all"
             >
               <X className="w-6 h-6" />

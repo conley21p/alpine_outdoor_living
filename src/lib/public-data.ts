@@ -12,6 +12,7 @@ interface CloudinaryFolder {
 export interface GalleryImage {
   name: string;
   url: string;
+  type: "image" | "video";
 }
 
 export interface Review {
@@ -59,6 +60,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
     return resources.map((res: CloudinaryResource | LocalResource) => ({
       name: res.public_id.split("/").pop() || "Gallery Image",
       url: res.secure_url,
+      type: "resource_type" in res && res.resource_type === "video" ? "video" : "image",
     }));
   } catch (error) {
     console.error("[DATA ERROR] Gallery fetch:", error);
@@ -292,6 +294,7 @@ export const getServiceProjects = async (folder: string): Promise<GalleryImage[]
     return resources.map((res) => ({
       name: res.public_id.split("/").pop() || "Project Image",
       url: res.secure_url,
+      type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
     }));
   } catch (error) {
     console.error(`[DATA ERROR] Full gallery fetch failed for folder ${folder}:`, error);
