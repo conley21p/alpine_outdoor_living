@@ -63,7 +63,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   interface CardState {
     w?: number;
     exile?: number;
-    flex?: string;
+    flex?: number;
     visible?: boolean;
     mHeight?: string;
     mBottom?: string;
