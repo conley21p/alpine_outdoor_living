@@ -43,7 +43,7 @@ export function Navbar() {
             {!logoError ? (
               <div className="relative w-10 h-10 overflow-hidden rounded-lg">
                 <Image
-                  src="/Refreshed-logo.png"
+                  src="/Logo.svg"
                   alt={`${businessName} logo`}
                   fill
                   className="object-contain"
