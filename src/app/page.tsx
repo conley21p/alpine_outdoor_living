@@ -6,7 +6,6 @@ import { ServicesGrid } from "@/components/website/ServicesGrid";
 import { ContactForm } from "@/components/website/ContactForm";
 import { publicConfig } from "@/lib/config";
 import { 
-  getGalleryImages, 
   getInstagramFeaturedPost,
   getHeroPair,
   getStaticServices 

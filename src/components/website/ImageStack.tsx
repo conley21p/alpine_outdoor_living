@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import Image from "next/image";
 import { Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { getOptimizedUrl } from "@/lib/media-utils";
 
 interface ImageStackProps {
   images: string[];
@@ -106,7 +107,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
               >
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                 <Image
-                  src={img}
+                  src={getOptimizedUrl(img, 'thumb')}
                   alt={`${title} - image ${i + 1}`}
                   fill
                   className="object-cover pointer-events-none"
@@ -184,7 +185,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
                        className="relative w-full h-fit max-h-full aspect-[4/3] lg:aspect-video rounded-3xl overflow-hidden shadow-2xl bg-white/5"
                      >
                        <Image
-                          src={images[index]}
+                          src={getOptimizedUrl(images[index], 'full')}
                           alt={title}
                           fill
                           className="object-contain"

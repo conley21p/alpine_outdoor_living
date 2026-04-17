@@ -22,6 +22,10 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   // Track which service indices have ever become active, to defer image loading
   const activatedRef = useRef<Set<number>>(new Set([0])); // Card 0 is active immediately
   const [activatedCards, setActivatedCards] = useState<Set<number>>(new Set([0]));
+  
+  // Cache for DOM values to prevent redundant writes
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const prevStates = useRef<Map<number, Record<string, any>>>(new Map());
 
   useGSAP(() => {
     if (!trackRef.current || services.length === 0) return;
@@ -42,32 +46,57 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
         cards.forEach((card, i) => {
           const dist = Math.abs(i - scrubIdx);
-          const w = Math.max(0, 1 - Math.min(1, dist));
           
+          // Optimization: Hard cut-off for far-away cards
+          if (dist > 3 && !isMobile) return;
+
+          const w = Math.max(0, 1 - Math.min(1, dist));
           const exileStart = 1.25;
           const exileEnd = 2.25;
           const exile = Math.max(0, 1 - Math.max(0, dist - exileStart) / (exileEnd - exileStart));
 
-          const isVisible = exile > 0.01;
+          const isVisible = exile > 0.001;
           const finalFlex = (1 + (11 * w)) * exile;
+          
+          // Throttled Layout Properties (Reduced precision to avoid constant reflows)
+          const mHeight = dist > 1 ? `${Math.max(0, Math.round(exile * 300))}px` : '2000px';
+          const mBottom = dist > 1 ? `${Math.round(exile * (isMobile ? 10 : 15))}px` : `${isMobile ? 10 : 15}px`;
+          
+          const prevState = prevStates.current.get(i) || {};
+          
+          // Only write to DOM if values have changed meaningfully
+          if (prevState.w !== w) {
+            card.style.setProperty('--weight', w.toFixed(3));
+            prevState.w = w;
+          }
+          if (prevState.exile !== exile) {
+            card.style.setProperty('--exile', exile.toFixed(3));
+            card.style.opacity = exile.toFixed(3);
+            prevState.exile = exile;
+          }
+          if (prevState.flex !== finalFlex) {
+            card.style.flex = `${finalFlex.toFixed(3)} 1 0%`;
+            prevState.flex = finalFlex;
+          }
+          if (prevState.visible !== isVisible) {
+            card.style.visibility = isVisible ? 'visible' : 'hidden';
+            card.style.pointerEvents = isVisible ? 'auto' : 'none';
+            prevState.visible = isVisible;
+          }
+          if (prevState.mHeight !== mHeight) {
+            card.style.maxHeight = mHeight;
+            prevState.mHeight = mHeight;
+          }
+          if (prevState.mBottom !== mBottom) {
+            card.style.marginBottom = mBottom;
+            prevState.mBottom = mBottom;
+          }
 
-          card.style.setProperty('--weight', w.toString());
-          card.style.setProperty('--exile', exile.toString());
-          card.style.flex = `${finalFlex} 1 0%`;
-          card.style.display = isVisible ? 'flex' : 'none';
-          card.style.opacity = exile.toString();
+          prevStates.current.set(i, prevState);
 
           if (w > 0.01 && !activatedRef.current.has(i)) {
             activatedRef.current.add(i);
             setActivatedCards(new Set(activatedRef.current));
-          }
-
-          if (dist > 1) {
-            card.style.maxHeight = `${Math.max(0, exile * 300)}px`;
-            card.style.marginBottom = `${exile * (isMobile ? 10 : 15)}px`;
-          } else {
-            card.style.maxHeight = '2000px';
-            card.style.marginBottom = `${isMobile ? 10 : 15}px`;
           }
         });
       }

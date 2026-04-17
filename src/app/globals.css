@@ -99,6 +99,7 @@
     border-radius: 20px;
     overflow: hidden;
     will-change: transform, flex, opacity;
+    transform: translateZ(0);
     box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.06),
       0 20px 60px -10px rgba(0, 0, 0, 0.1),
