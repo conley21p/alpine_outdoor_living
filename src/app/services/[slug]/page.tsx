@@ -9,6 +9,7 @@ import { SiteShell } from "@/components/website/SiteShell";
 import { Breadcrumbs } from "@/components/website/Breadcrumbs";
 import { ServiceQuoteButton } from "@/components/website/ServiceQuoteButton";
 import { StaggeredGallery } from "@/components/website/StaggeredGallery";
+import { ContactForm } from "@/components/website/ContactForm";
 
 interface Props {
   params: { slug: string };
@@ -125,18 +126,22 @@ export default async function ServicePage({ params }: Props) {
               serviceTitle={service.title} 
             />
             
-            <div className="flex items-center justify-center pt-20">
-               <Link 
-                  href={`/?service=${encodeURIComponent(service.title)}#contact`}
-                  className="group flex flex-col items-center gap-4 text-center"
-               >
-                  <p className="text-2xl lg:text-3xl font-bold tracking-tight text-brand-textDark max-w-md uppercase">
-                    Like what you see?
-                  </p>
-                  <div className="px-12 py-5 bg-brand-primary text-white rounded-[2rem] font-bold text-xl shadow-2xl shadow-brand-primary/30 hover:scale-105 active:scale-95 transition-all">
+            {/* Direct Contact Form Section */}
+            <div className="pt-32 pb-20 border-t border-brand-textDark/5 mt-32">
+              <div className="mx-auto max-w-4xl">
+                <div className="text-center mb-16">
+                  <h2 className="text-4xl lg:text-6xl font-bold tracking-tighter text-brand-textDark mb-6">
                     Start Your Project
-                  </div>
-               </Link>
+                  </h2>
+                  <p className="text-lg lg:text-xl text-brand-textDark/60 max-w-2xl mx-auto">
+                    Liked what you saw? Ready to transform your own outdoor space? 
+                    Fill out our brief build request form below.
+                  </p>
+                </div>
+                <div className="glass-card-green rounded-[2.5rem] p-8 lg:p-12 shadow-2xl border border-white/40">
+                  <ContactForm initialService={service.title} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
