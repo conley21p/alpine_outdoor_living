@@ -65,37 +65,40 @@
   }
 
   .sticky-viewport {
-    position: relative;
-    height: auto;
+    position: sticky;
+    top: 0;
+    height: 100vh;
     
     @media (min-width: 1024px) {
-      position: sticky;
       top: 80px; /* Navbar Offset */
       height: calc(100vh - 80px);
     }
     
     /* Remaining usable screen space */
     background: transparent;
-    overflow: visible;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     will-change: transform, opacity;
+    scroll-snap-align: start;
+    transform: translateZ(0);
   }
 
   .luxe-track {
-    @media (min-width: 1024px) {
-      scroll-snap-type: y mandatory;
-    }
+    scroll-snap-type: y mandatory;
   }
 
   .card-container {
     display: flex;
     flex-direction: column;
     width: 92%;
-    height: auto;
-    gap: 1.5rem;
-    padding: 2rem 0;
+    height: calc(100% - 20px);
+    
+    @media (min-width: 1024px) {
+      width: 90%;
+      height: calc(100% - 60px);
+    }
   }
 
   @media (min-width: 1024px) {
