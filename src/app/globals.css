@@ -259,16 +259,18 @@
     }
   }
 
-  .lava-lamp-1 {
-    animation: float1 18s ease-in-out infinite alternate;
-  }
+  @media (min-width: 1024px) {
+    .lava-lamp-1 {
+      animation: float1 18s ease-in-out infinite alternate;
+    }
 
-  .lava-lamp-2 {
-    animation: float2 22s ease-in-out infinite alternate;
-  }
+    .lava-lamp-2 {
+      animation: float2 22s ease-in-out infinite alternate;
+    }
 
-  .lava-lamp-3 {
-    animation: float3 25s ease-in-out infinite alternate;
+    .lava-lamp-3 {
+      animation: float3 25s ease-in-out infinite alternate;
+    }
   }
 }
 
