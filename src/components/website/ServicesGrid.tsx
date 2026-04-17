@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import type { ServiceData } from "@/lib/public-data";
 import gsap from "gsap";
@@ -22,6 +22,14 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   // Track which service indices have ever become active, to defer image loading
   const activatedRef = useRef<Set<number>>(new Set([0])); // Card 0 is active immediately
   const [activatedCards, setActivatedCards] = useState<Set<number>>(new Set([0]));
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // Cache for DOM values to prevent redundant writes
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,74 +41,113 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
     const cards = gsap.utils.toArray<HTMLElement>('.luxe-option');
     const totalTransitions = cards.length - 1;
 
-    const isMobile = window.innerWidth < 1024;
+    if (isMobile) {
+      // MOBILE: high-performance unit-based transitions
+      // One scrolltrigger per card for independent, clean reveals
+      cards.forEach((card, i) => {
+        gsap.set(card, { 
+          opacity: i === 0 ? 1 : 0, 
+          y: i === 0 ? 0 : 40,
+          flex: "1 1 auto", // Stable flex for mobile
+          maxHeight: "none"
+        });
 
-    ScrollTrigger.create({
-      trigger: trackRef.current,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: isMobile ? 0.3 : 0.6,
-      onUpdate: (self) => {
-        const p = self.progress;
-        const scrubIdx = p * totalTransitions;
-
-        cards.forEach((card, i) => {
-          const dist = Math.abs(i - scrubIdx);
-          
-          // Optimization: Hard cut-off for far-away cards
-          if (dist > 3 && !isMobile) return;
-
-          const w = Math.max(0, 1 - Math.min(1, dist));
-          const exileStart = 1.25;
-          const exileEnd = 2.25;
-          const exile = Math.max(0, 1 - Math.max(0, dist - exileStart) / (exileEnd - exileStart));
-
-          const isVisible = exile > 0.001;
-          const finalFlex = (1 + (11 * w)) * exile;
-          
-          // Throttled Layout Properties (Reduced precision to avoid constant reflows)
-          const mHeight = dist > 1 ? `${Math.max(0, Math.round(exile * 300))}px` : '2000px';
-          const mBottom = dist > 1 ? `${Math.round(exile * (isMobile ? 10 : 15))}px` : `${isMobile ? 10 : 15}px`;
-          
-          const prevState = prevStates.current.get(i) || {};
-          
-          // Only write to DOM if values have changed meaningfully
-          if (prevState.w !== w) {
-            card.style.setProperty('--weight', w.toFixed(3));
-            prevState.w = w;
-          }
-          if (prevState.exile !== exile) {
-            card.style.setProperty('--exile', exile.toFixed(3));
-            card.style.opacity = exile.toFixed(3);
-            prevState.exile = exile;
-          }
-          if (prevState.flex !== finalFlex) {
-            card.style.flex = `${finalFlex.toFixed(3)} 1 0%`;
-            prevState.flex = finalFlex;
-          }
-          if (prevState.visible !== isVisible) {
-            card.style.visibility = isVisible ? 'visible' : 'hidden';
-            card.style.pointerEvents = isVisible ? 'auto' : 'none';
-            prevState.visible = isVisible;
-          }
-          if (prevState.mHeight !== mHeight) {
-            card.style.maxHeight = mHeight;
-            prevState.mHeight = mHeight;
-          }
-          if (prevState.mBottom !== mBottom) {
-            card.style.marginBottom = mBottom;
-            prevState.mBottom = mBottom;
-          }
-
-          prevStates.current.set(i, prevState);
-
-          if (w > 0.01 && !activatedRef.current.has(i)) {
-            activatedRef.current.add(i);
+        if (i === 0) {
+          if (!activatedRef.current.has(0)) {
+            activatedRef.current.add(0);
             setActivatedCards(new Set(activatedRef.current));
           }
+          return;
+        }
+
+        ScrollTrigger.create({
+          trigger: trackRef.current,
+          start: `${i * 100}vh center`,
+          end: `${(i + 1) * 100}vh center`,
+          onEnter: () => {
+             gsap.to(card, { 
+               opacity: 1, 
+               y: 0, 
+               duration: 0.6, 
+               ease: "power2.out",
+               onStart: () => {
+                 if (!activatedRef.current.has(i)) {
+                   activatedRef.current.add(i);
+                   setActivatedCards(new Set(activatedRef.current));
+                 }
+               }
+             });
+          },
+          onLeaveBack: () => {
+             gsap.to(card, { opacity: 0, y: 40, duration: 0.4, ease: "power2.in" });
+          }
         });
-      }
-    });
+      });
+    } else {
+      // DESKTOP: Original Luxe-Vista morphing logic (optimized for large screens)
+      ScrollTrigger.create({
+        trigger: trackRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.6,
+        onUpdate: (self) => {
+          const p = self.progress;
+          const scrubIdx = p * totalTransitions;
+
+          cards.forEach((card, i) => {
+            const dist = Math.abs(i - scrubIdx);
+            if (dist > 3) return;
+
+            const w = Math.max(0, 1 - Math.min(1, dist));
+            const exileStart = 1.25;
+            const exileEnd = 2.25;
+            const exile = Math.max(0, 1 - Math.max(0, dist - exileStart) / (exileEnd - exileStart));
+
+            const isVisible = exile > 0.001;
+            const finalFlex = (1 + (11 * w)) * exile;
+            
+            const mHeight = dist > 1 ? `${Math.max(0, Math.round(exile * 300))}px` : '2000px';
+            const mBottom = dist > 1 ? `${Math.round(exile * 15)}px` : '15px';
+            
+            const prevState = prevStates.current.get(i) || {};
+            
+            if (prevState.w !== w) {
+              card.style.setProperty('--weight', w.toFixed(3));
+              prevState.w = w;
+            }
+            if (prevState.exile !== exile) {
+              card.style.setProperty('--exile', exile.toFixed(3));
+              card.style.opacity = exile.toFixed(3);
+              prevState.exile = exile;
+            }
+            if (prevState.flex !== finalFlex) {
+              card.style.flex = `${finalFlex.toFixed(3)} 1 0%`;
+              prevState.flex = finalFlex;
+            }
+            if (prevState.visible !== isVisible) {
+              card.style.visibility = isVisible ? 'visible' : 'hidden';
+              card.style.pointerEvents = isVisible ? 'auto' : 'none';
+              prevState.visible = isVisible;
+            }
+            if (prevState.mHeight !== mHeight) {
+              card.style.maxHeight = mHeight;
+              prevState.mHeight = mHeight;
+            }
+            if (prevState.mBottom !== mBottom) {
+              card.style.marginBottom = mBottom;
+              prevState.mBottom = mBottom;
+            }
+
+            prevStates.current.set(i, prevState);
+
+            if (w > 0.01 && !activatedRef.current.has(i)) {
+              activatedRef.current.add(i);
+              setActivatedCards(new Set(activatedRef.current));
+            }
+          });
+        }
+      });
+    }
   }, { scope: containerRef, dependencies: [services.length] });
 
   if (services.length === 0) return null;
@@ -171,7 +218,9 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                       <div className="w-full pointer-events-auto z-20">
                         <h3 className="font-bold text-brand-textDark tracking-tight whitespace-nowrap lg:whitespace-normal"
                           style={{
-                            fontSize: "calc(clamp(1rem, 5vw, 1.25rem) + (clamp(0.5rem, 4vw, 1.75rem) * var(--weight)))",
+                            fontSize: isMobile 
+                              ? "clamp(1.5rem, 6vw, 2.5rem)" // Stable large title on mobile
+                              : "calc(clamp(1rem, 5vw, 1.25rem) + (clamp(0.5rem, 4vw, 1.75rem) * var(--weight)))",
                             lineHeight: 1.1,
                           }}
                         >
