@@ -75,9 +75,9 @@ export function Navbar() {
           <button
             aria-label="Toggle navigation"
             onClick={() => setOpen((prev) => !prev)}
-            className="text-[14px] font-normal text-brand-textDark transition-opacity hover:opacity-60 md:hidden"
+            className="p-2 text-brand-textDark transition-all active:scale-95 md:hidden"
           >
-            {open ? "Close" : "Menu"}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </header>
