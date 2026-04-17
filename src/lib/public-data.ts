@@ -1,5 +1,5 @@
-import cloudinary, { getImagesInFolder, getRandomImageInFolder, type CloudinaryResource } from "./cloudinary";
-import { getLocalImagesInFolder, getRandomLocalImageInFolder } from "./local-media";
+import cloudinary, { getImagesInFolder, getRandomImageInFolder, type CloudinaryResource, type CloudinaryApiResource, type CloudinaryApiResponse } from "./cloudinary";
+import { getLocalImagesInFolder, getRandomLocalImageInFolder, type LocalResource } from "./local-media";
 import { publicConfig } from "@/lib/config";
 
 const isDev = process.env.NODE_ENV === "development";
@@ -38,7 +38,7 @@ export interface ServiceData {
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
-    let resources: CloudinaryResource[] = [];
+    let resources: (CloudinaryResource | LocalResource)[] = [];
     
     if (isDev) {
       console.log(`[DATA] 🛠️ DEV MODE: Prioritizing local fallback for "Website/Gallery"`);
@@ -56,7 +56,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
        resources = getLocalImagesInFolder("Website/Gallery");
     }
 
-    return resources.map((res: CloudinaryResource) => ({
+    return resources.map((res: CloudinaryResource | LocalResource) => ({
       name: res.public_id.split("/").pop() || "Gallery Image",
       url: res.secure_url,
     }));
@@ -121,8 +121,8 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
   console.log("[DATA] Crawling Cloudinary for dynamic services in: Website/Services");
   try {
     // 1. List subfolders of Website/Services
-    const folderResult = await cloudinary.api.sub_folders("Website/Services");
-    const serviceFolders = folderResult.folders as CloudinaryFolder[];
+    const folderResult = (await cloudinary.api.sub_folders("Website/Services")) as { folders: CloudinaryFolder[] };
+    const serviceFolders = folderResult.folders;
 
     const services = await Promise.all(
       serviceFolders.map(async (folder: CloudinaryFolder) => {
@@ -136,9 +136,9 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
           .replace("Hard Scape", "Hardscape");
 
         // 3. Find images and text files in this folder using a single call
-        const results = await cloudinary.api.resources_by_asset_folder(folderPath, {
+        const results = (await (cloudinary.api as any).resources_by_asset_folder(folderPath, {
           max_results: 50
-        });
+        })) as CloudinaryApiResponse;
 
         if (!results || !results.resources) {
           return {
@@ -151,8 +151,8 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
         }
 
         // 4. Identify the image and the .txt description
-        const imageResource = results.resources.find((r: CloudinaryResource) => r.resource_type === "image");
-        const txtResource = results.resources.find((r: CloudinaryResource) => 
+        const imageResource = results.resources.find((r: CloudinaryApiResource) => r.resource_type === "image");
+        const txtResource = results.resources.find((r: CloudinaryApiResource) => 
           r.resource_type === "raw" && (r.format === "txt" || r.public_id.endsWith(".txt"))
         );
 
@@ -221,7 +221,7 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
     STATIC_SERVICES.map(async (service) => {
       const folderPath = `Website/Services/${service.folder}`;
     try {
-      let resources: CloudinaryResource[] = [];
+      let resources: (CloudinaryResource | LocalResource)[] = [];
 
       // Attempt Cloudinary first to ensure high-fidelity data
       resources = await getImagesInFolder(folderPath, 50);
@@ -278,7 +278,7 @@ export const getServiceBySlug = async (slug: string): Promise<ServiceData | null
 export const getServiceProjects = async (folder: string): Promise<GalleryImage[]> => {
   const folderPath = `Website/Services/${folder}`;
   try {
-    let resources: CloudinaryResource[] = [];
+    let resources: (CloudinaryResource | LocalResource)[] = [];
 
     // Prioritize Cloudinary for the complete projects view
     resources = await getImagesInFolder(folderPath, 100);

@@ -21,6 +21,24 @@ export interface CloudinaryResource {
 }
 
 /**
+ * Internal interfaces for Cloudinary API responses to satisfy strict linting.
+ */
+export interface CloudinaryApiResource {
+  public_id: string;
+  secure_url: string;
+  width?: number;
+  height?: number;
+  format?: string;
+  resource_type?: string;
+  [key: string]: unknown;
+}
+
+export interface CloudinaryApiResponse {
+  resources: CloudinaryApiResource[];
+  [key: string]: unknown;
+}
+
+/**
  * Fetches all images from a specific folder in Cloudinary using the Asset Folder API.
  * This is the most reliable method for newer Cloudinary accounts.
  */
@@ -35,19 +53,19 @@ export async function getImagesInFolder(
 
   try {
     // Using resources_by_asset_folder which works for Dynamic Folder accounts
-    const results = await cloudinary.api.resources_by_asset_folder(folderPath, {
+    const results = (await (cloudinary.api as any).resources_by_asset_folder(folderPath, {
       max_results: maxResults,
-    });
+    })) as CloudinaryApiResponse;
 
     console.log(`[CLOUDINARY] ✅ Found ${results.resources.length} resources in "${folderPath}"`);
 
-    return results.resources.map((res: any) => ({
+    return results.resources.map((res: CloudinaryApiResource) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
-      width: res.width || 0,
-      height: res.height || 0,
-      format: res.format || "",
-      resource_type: res.resource_type || "image",
+      width: Number(res.width) || 0,
+      height: Number(res.height) || 0,
+      format: String(res.format || ""),
+      resource_type: String(res.resource_type || "image"),
     }));
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
