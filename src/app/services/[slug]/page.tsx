@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { MessageSquare, ArrowDown, ImageIcon } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { getServiceBySlug, getServiceProjects } from "@/lib/public-data";
 import { getOptimizedUrl } from "@/lib/media-utils";
 import { SiteShell } from "@/components/website/SiteShell";
