@@ -39,7 +39,6 @@ export interface ServiceData {
   folder: string; // The Cloudinary folder name
 }
 
-export { getOptimizedUrl } from "./media-utils";
 
 /**
  * Fetches gallery images from Cloudinary Website/Gallery folder.
