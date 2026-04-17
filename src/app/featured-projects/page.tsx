@@ -45,7 +45,7 @@ export default async function GalleryPage() {
 
       {/* Contact Form Section */}
       <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-gradient-to-t from-white via-white to-green-50/20">
-        <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
+        <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5">
           <div className="sm:col-span-2">
             <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Get in Touch</h2>
             <p className="mt-4 text-base leading-relaxed text-gray-600">{publicConfig.businessDescription}</p>

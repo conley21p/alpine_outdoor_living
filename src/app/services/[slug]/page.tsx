@@ -39,12 +39,12 @@ export default async function ServicePage({ params }: Props) {
     <SiteShell>
       <div id="top" className="relative min-h-screen bg-brand-bgLight scroll-mt-20">
         {/* Ambient Background Blur */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden">
           <div className="absolute top-[-10%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-brand-primary/10 blur-[120px]" />
           <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-green-200/20 blur-[100px]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-12 lg:py-24">
+        <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-24">
           <Breadcrumbs 
             items={[
               { label: "Services", href: "/#services" },

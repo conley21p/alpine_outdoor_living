@@ -27,7 +27,7 @@ export default async function Home() {
       {/* Unified Ambient Background Zone - Services + Contact */}
       <div className="relative w-full">
         {/* Vibrant Lava Lamp Ambient Layer - Pure Greens Only */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden">
           {/* Top-left primary green pool */}
           <div className="absolute top-[-5%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/55 to-green-500/40 blur-[140px] lava-lamp-1" />
           {/* Top-left anchor — deep olive green */}
@@ -45,7 +45,7 @@ export default async function Home() {
           <div className="absolute top-[60%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay hidden lg:block" />
         </div>
 
-        <div className="relative z-10 w-full">
+        <div className="relative w-full">
           <ServicesGrid services={services} />
           
           {/* Service Areas & Philosophy Section */}
