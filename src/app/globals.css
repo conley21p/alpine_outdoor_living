@@ -179,13 +179,13 @@
 
   /* GSAP Scrubbed Dynamic Utility Blocks for Organic FLIP Sliding */
   .dynamic-image-block {
-    opacity: 1; /* On mobile, opacity is controlled by the parent unit */
+    opacity: 0; /* Hidden by default on mobile for staggered reveal */
     width: 100%;
     margin-bottom: 1.5rem;
     height: 30vh;
     min-height: 180px;
     overflow: visible;
-    will-change: transform;
+    will-change: transform, opacity;
   }
 
   @media (min-width: 1024px) {

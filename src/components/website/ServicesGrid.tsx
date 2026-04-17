@@ -45,12 +45,19 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
       // MOBILE: high-performance unit-based transitions
       // One scrolltrigger per card for independent, clean reveals
       cards.forEach((card, i) => {
+        const imgBlock = card.querySelector('.dynamic-image-block');
+        
         gsap.set(card, { 
           opacity: i === 0 ? 1 : 0, 
           y: i === 0 ? 0 : 40,
-          flex: "1 1 auto", // Stable flex for mobile
+          flex: "1 1 auto",
           maxHeight: "none"
         });
+
+        // For non-active cards, ensure image is hidden
+        if (imgBlock) {
+          gsap.set(imgBlock, { opacity: i === 0 ? 1 : 0, scale: i === 0 ? 1 : 0.95 });
+        }
 
         if (i === 0) {
           if (!activatedRef.current.has(0)) {
@@ -65,6 +72,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           start: `${i * 100}vh center`,
           end: `${(i + 1) * 100}vh center`,
           onEnter: () => {
+             // 1. Reveal Container
              gsap.to(card, { 
                opacity: 1, 
                y: 0, 
@@ -77,9 +85,23 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                  }
                }
              });
+
+             // 2. Delayed Image Reveal ("Peering")
+             if (imgBlock) {
+               gsap.to(imgBlock, { 
+                 opacity: 1, 
+                 scale: 1, 
+                 delay: 0.3, 
+                 duration: 0.8, 
+                 ease: "power2.out" 
+               });
+             }
           },
           onLeaveBack: () => {
              gsap.to(card, { opacity: 0, y: 40, duration: 0.4, ease: "power2.in" });
+             if (imgBlock) {
+               gsap.set(imgBlock, { opacity: 0, scale: 0.95 });
+             }
           }
         });
       });
