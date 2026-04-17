@@ -140,6 +140,16 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
           max_results: 50
         });
 
+        if (!results || !results.resources) {
+          return {
+            id: folderName.toLowerCase().replace(/ /g, "-"),
+            title: prettyTitle,
+            description: "Service information coming soon.",
+            imageUrls: [],
+            folder: folderName,
+          } as ServiceData;
+        }
+
         // 4. Identify the image and the .txt description
         const imageResource = results.resources.find((r: CloudinaryResource) => r.resource_type === "image");
         const txtResource = results.resources.find((r: CloudinaryResource) => 
