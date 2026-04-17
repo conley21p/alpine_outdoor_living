@@ -30,6 +30,34 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Sequential loading for mobile - ensures Hero loads first, then services in order
+  useEffect(() => {
+    if (!isMobile || services.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setActivatedCards((prev) => {
+        // Find the next unactivated index
+        let nextIndex = -1;
+        for (let i = 0; i < services.length; i++) {
+          if (!prev.has(i)) {
+            nextIndex = i;
+            break;
+          }
+        }
+
+        if (nextIndex === -1) {
+          clearInterval(interval);
+          return prev;
+        }
+
+        activatedRef.current.add(nextIndex);
+        return new Set(activatedRef.current);
+      });
+    }, 150); // 150ms stagger
+
+    return () => clearInterval(interval);
+  }, [isMobile, services.length]);
   
   // Cache for DOM values to prevent redundant writes
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
