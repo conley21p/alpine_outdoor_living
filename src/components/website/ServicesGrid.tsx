@@ -238,7 +238,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
                       {/* The Magic Title - Because everything else collapses to 0 height/width organically, this aligns perfectly to the left/center structurally! */}
                       <div className="w-full pointer-events-auto z-20">
-                        <h3 className="font-bold text-brand-textDark tracking-tight whitespace-nowrap lg:whitespace-normal"
+                        <h3 className="font-bold text-brand-textDark tracking-tight whitespace-normal"
                           style={{
                             fontSize: isMobile 
                               ? "clamp(1.5rem, 6vw, 2.5rem)" // Stable large title on mobile
