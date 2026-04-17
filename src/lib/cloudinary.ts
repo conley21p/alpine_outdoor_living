@@ -17,6 +17,7 @@ export interface CloudinaryResource {
   width: number;
   height: number;
   format: string;
+  resource_type: string;
 }
 
 /**

@@ -1,19 +1,12 @@
-import cloudinary, { getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
+import cloudinary, { getImagesInFolder, getRandomImageInFolder, type CloudinaryResource } from "./cloudinary";
 import { getLocalImagesInFolder, getRandomLocalImageInFolder } from "./local-media";
 import { publicConfig } from "@/lib/config";
 
 const isDev = process.env.NODE_ENV === "development";
-
+ 
 interface CloudinaryFolder {
   name: string;
   path: string;
-}
-
-interface CloudinaryResource {
-  public_id: string;
-  secure_url: string;
-  format: string;
-  resource_type: string;
 }
 
 export interface GalleryImage {
@@ -45,8 +38,7 @@ export interface ServiceData {
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let resources: any[] = [];
+    let resources: CloudinaryResource[] = [];
     
     if (isDev) {
       console.log(`[DATA] 🛠️ DEV MODE: Prioritizing local fallback for "Website/Gallery"`);
@@ -217,8 +209,7 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
     STATIC_SERVICES.map(async (service) => {
       const folderPath = `Website/Services/${service.folder}`;
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let resources: any[] = [];
+      let resources: CloudinaryResource[] = [];
 
       // Attempt Cloudinary first to ensure high-fidelity data
       resources = await getImagesInFolder(folderPath, 50);
@@ -275,8 +266,7 @@ export const getServiceBySlug = async (slug: string): Promise<ServiceData | null
 export const getServiceProjects = async (folder: string): Promise<GalleryImage[]> => {
   const folderPath = `Website/Services/${folder}`;
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let resources: any[] = [];
+    let resources: CloudinaryResource[] = [];
 
     // Prioritize Cloudinary for the complete projects view
     resources = await getImagesInFolder(folderPath, 100);
