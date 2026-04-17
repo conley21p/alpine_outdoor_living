@@ -13,7 +13,7 @@ export interface LocalResource {
 const normalizePath = (p: string) => p.replace(/\/+/g, "/").replace(/\/$/, "");
 
 const FALLBACK_ROOT = path.join(process.cwd(), "public", "fallback");
-const VALID_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
+export const VALID_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".mp4", ".mov", ".m4v"];
 
 /**
  * Scans the public/fallback/ directory for images matching the provided folderPath.

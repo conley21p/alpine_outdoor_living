@@ -3,6 +3,7 @@ import { getServerConfig } from "./config";
 
 // Initialize Cloudinary with server-side config
 const config = getServerConfig();
+const VALID_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".mp4", ".mov", ".m4v"];
 
 cloudinary.config({
   cloud_name: config.cloudinaryCloudName,
@@ -50,6 +51,14 @@ export interface CloudinaryApi {
     folderPath: string,
     options?: object
   ): Promise<{ folders: Array<{ name: string; path: string }> }>;
+  resources(
+    options?: { 
+      type?: string; 
+      prefix?: string; 
+      max_results?: number;
+      resource_type?: string;
+    }
+  ): Promise<CloudinaryApiResponse>;
 }
 
 /**
@@ -66,13 +75,28 @@ export async function getImagesInFolder(
   console.log(`[CLOUDINARY] 🔒 API Secret: "${config.cloudinaryApiSecret ? "PRESENT" : "MISSING"}"`);
 
   try {
-    // Using resources_by_asset_folder which works for Dynamic Folder accounts
+    // 1. Attempt using modern resources_by_asset_folder (for Dynamic Folder accounts)
     const api = cloudinary.api as unknown as CloudinaryApi;
-    const results = await api.resources_by_asset_folder(folderPath, {
+    let results = await api.resources_by_asset_folder(folderPath, {
       max_results: maxResults,
     });
 
-    console.log(`[CLOUDINARY] ✅ Found ${results.resources.length} resources in "${folderPath}"`);
+    console.log(`[CLOUDINARY] ✅ Asset Folder Search: Found ${results.resources.length} resources in "${folderPath}"`);
+
+    // 2. Fallback to traditional prefix listing if the modern method returns very few results (potential sync/limit issue)
+    if (results.resources.length < 5) {
+      console.log(`[CLOUDINARY] 🔄 Low result count. Attempting traditional prefix fallback for "${folderPath}"...`);
+      const prefixResults = await api.resources({
+        type: 'upload',
+        prefix: folderPath,
+        max_results: maxResults,
+      });
+      
+      if (prefixResults.resources.length > results.resources.length) {
+        console.log(`[CLOUDINARY] 🚀 Prefix search found MORE data (${prefixResults.resources.length} vs ${results.resources.length}). Using prefix results.`);
+        results = prefixResults;
+      }
+    }
 
     return results.resources.map((res: CloudinaryApiResource) => ({
       public_id: res.public_id,
@@ -83,7 +107,7 @@ export async function getImagesInFolder(
       resource_type: String(res.resource_type || "image"),
     }));
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
+    const errorMessage = error && typeof error === 'object' && 'message' in error ? String(error.message) : JSON.stringify(error);
     console.error(`[CLOUDINARY ERROR] Folder: "${folderPath}":`, errorMessage);
     return [];
   }
