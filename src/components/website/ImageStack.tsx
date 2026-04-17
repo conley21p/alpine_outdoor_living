@@ -25,12 +25,13 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
   // Swipe logic
   const handleDragEnd = (_event: unknown, info: PanInfo) => {
     const threshold = 50;
+    const len = images.length;
     if (info.offset.x > threshold) {
       // Swipe Right -> Prev
-      setIndex((prev) => (prev > 0 ? prev - 1 : prev));
+      setIndex((prev) => (prev > 0 ? prev - 1 : len - 1));
     } else if (info.offset.x < -threshold) {
       // Swipe Left -> Next
-      setIndex((prev) => (prev < images.length - 1 ? prev + 1 : prev));
+      setIndex((prev) => (prev < len - 1 ? prev + 1 : 0));
     }
   };
 
@@ -41,9 +42,10 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
       <div className="relative w-full aspect-[4/3] preserve-3d">
         <AnimatePresence initial={false}>
           {images.map((img, i) => {
+            const len = images.length;
             const isCenter = i === index;
-            const isLeft = i === index - 1;
-            const isRight = i === index + 1;
+            const isLeft = i === (index - 1 + len) % len;
+            const isRight = i === (index + 1) % len;
             const isHidden = !isCenter && !isLeft && !isRight;
 
             if (isHidden) return null;
@@ -114,29 +116,31 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
         </AnimatePresence>
         
         {/* Navigation Arrows - Desktop Only */}
-        <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            setIndex((prev) => (prev > 0 ? prev - 1 : prev));
-          }}
-          disabled={index === 0}
-          className={`absolute left-[-2.5rem] lg:left-[-3rem] top-1/2 -translate-y-1/2 z-50 p-2 lg:p-3 rounded-full bg-white/40 hover:bg-white/80 active:scale-95 text-brand-textDark/40 hover:text-brand-textDark shadow-sm transition-all hidden lg:flex items-center justify-center backdrop-blur-md border border-white/20 ${index === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-          aria-label="Previous image"
-        >
-          <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
-        </button>
+        {images.length > 1 && (
+          <>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+              }}
+              className="absolute left-[-2.5rem] lg:left-[-3rem] top-1/2 -translate-y-1/2 z-50 p-2 lg:p-3 rounded-full bg-white/40 hover:bg-white/80 active:scale-95 text-brand-textDark/40 hover:text-brand-textDark shadow-sm transition-all hidden lg:flex items-center justify-center backdrop-blur-md border border-white/20"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
+            </button>
 
-        <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            setIndex((prev) => (prev < images.length - 1 ? prev + 1 : prev));
-          }}
-          disabled={index === images.length - 1}
-          className={`absolute right-[-2.5rem] lg:right-[-3rem] top-1/2 -translate-y-1/2 z-50 p-2 lg:p-3 rounded-full bg-white/40 hover:bg-white/80 active:scale-95 text-brand-textDark/40 hover:text-brand-textDark shadow-sm transition-all hidden lg:flex items-center justify-center backdrop-blur-md border border-white/20 ${index === images.length - 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-          aria-label="Next image"
-        >
-          <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
-        </button>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+              }}
+              className="absolute right-[-2.5rem] lg:left-auto lg:right-[-3rem] top-1/2 -translate-y-1/2 z-50 p-2 lg:p-3 rounded-full bg-white/40 hover:bg-white/80 active:scale-95 text-brand-textDark/40 hover:text-brand-textDark shadow-sm transition-all hidden lg:flex items-center justify-center backdrop-blur-md border border-white/20"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
+            </button>
+          </>
+        )}
 
         {/* Counter UI */}
         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-brand-textDark/40 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
