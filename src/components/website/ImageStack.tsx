@@ -38,7 +38,7 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center px-10 lg:px-14 overflow-visible">
+    <div className="relative w-full h-full flex items-center justify-center px-10 lg:px-8 overflow-visible">
       <div className="relative w-full aspect-[4/3] preserve-3d">
         <AnimatePresence initial={false}>
           {images.map((img, i) => {

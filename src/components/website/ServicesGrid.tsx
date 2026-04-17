@@ -231,7 +231,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                       padding: "1.5rem",
                     }}
                   >
-                    <div className="dynamic-image-block relative pointer-events-auto z-20">
+                    <div className="dynamic-image-block relative pointer-events-auto z-20 w-full lg:w-[45%] xl:w-[50%] lg:max-w-xl">
                       {activatedCards.has(i) && (
                         <ImageStack
                           images={service.imageUrls}
@@ -241,7 +241,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                       )}
                     </div>
 
-                    <div className="text-block flex-1 w-full h-full flex flex-col justify-center items-start lg:h-full pointer-events-none z-10">
+                    <div className="text-block flex-1 w-full h-full flex flex-col justify-center items-start lg:h-full lg:pl-12 lg:pr-8 pointer-events-none z-10">
                       <div className="w-full pointer-events-auto z-20">
                         <h3 className="font-bold text-brand-textDark tracking-tight whitespace-normal"
                           style={{
