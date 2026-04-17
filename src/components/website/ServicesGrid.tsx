@@ -29,63 +29,45 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
     const cards = gsap.utils.toArray<HTMLElement>('.luxe-option');
     const totalTransitions = cards.length - 1;
 
-    // High-performance quickSetters to bypass standard style.setProperty overhead
-    const setters = cards.map(card => ({
-      weight: gsap.quickSetter(card, "css", "--weight"),
-      exile: gsap.quickSetter(card, "css", "--exile"),
-      flex: gsap.quickSetter(card, "flex"),
-      display: gsap.quickSetter(card, "display"),
-      opacity: gsap.quickSetter(card, "opacity"),
-      maxHeight: gsap.quickSetter(card, "maxHeight"),
-      marginBottom: gsap.quickSetter(card, "marginBottom"),
-    }));
-
     const isMobile = window.innerWidth < 1024;
 
     ScrollTrigger.create({
       trigger: trackRef.current,
       start: "top top",
       end: "bottom bottom",
-      scrub: isMobile ? 0.3 : 0.6, // Tighter scrub on mobile for immediate feel
+      scrub: isMobile ? 0.3 : 0.6,
       onUpdate: (self) => {
         const p = self.progress;
         const scrubIdx = p * totalTransitions;
 
         cards.forEach((card, i) => {
           const dist = Math.abs(i - scrubIdx);
-          
-          // Optimization: Skip calculations for cards far out of view
-          if (dist > 3 && !isMobile) return; 
-
           const w = Math.max(0, 1 - Math.min(1, dist));
           
-          // Exile: cards start shrinking when dist > 1.25, gone by 2.25
           const exileStart = 1.25;
           const exileEnd = 2.25;
           const exile = Math.max(0, 1 - Math.max(0, dist - exileStart) / (exileEnd - exileStart));
 
           const isVisible = exile > 0.01;
           const finalFlex = (1 + (11 * w)) * exile;
-          
-          const setter = setters[i];
-          setter.weight(w);
-          setter.exile(exile);
-          setter.flex(`${finalFlex} 1 0%`);
-          setter.display(isVisible ? 'flex' : 'none');
-          setter.opacity(exile);
 
-          // Mark card as activated for image loading
+          card.style.setProperty('--weight', w.toString());
+          card.style.setProperty('--exile', exile.toString());
+          card.style.flex = `${finalFlex} 1 0%`;
+          card.style.display = isVisible ? 'flex' : 'none';
+          card.style.opacity = exile.toString();
+
           if (w > 0.01 && !activatedRef.current.has(i)) {
             activatedRef.current.add(i);
             setActivatedCards(new Set(activatedRef.current));
           }
 
           if (dist > 1) {
-            setter.maxHeight(`${Math.max(0, exile * 300)}px`);
-            setter.marginBottom(`${exile * (isMobile ? 10 : 15)}px`);
+            card.style.maxHeight = `${Math.max(0, exile * 300)}px`;
+            card.style.marginBottom = `${exile * (isMobile ? 10 : 15)}px`;
           } else {
-            setter.maxHeight('2000px');
-            setter.marginBottom(`${isMobile ? 10 : 15}px`);
+            card.style.maxHeight = '2000px';
+            card.style.marginBottom = `${isMobile ? 10 : 15}px`;
           }
         });
       }
