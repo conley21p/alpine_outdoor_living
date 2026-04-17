@@ -39,6 +39,20 @@ export interface CloudinaryApiResponse {
 }
 
 /**
+ * Strict Cloudinary API interface to satisfy '@typescript-eslint/no-explicit-any'.
+ */
+export interface CloudinaryApi {
+  resources_by_asset_folder(
+    folderPath: string,
+    options?: { max_results?: number }
+  ): Promise<CloudinaryApiResponse>;
+  sub_folders(
+    folderPath: string,
+    options?: object
+  ): Promise<{ folders: Array<{ name: string; path: string }> }>;
+}
+
+/**
  * Fetches all images from a specific folder in Cloudinary using the Asset Folder API.
  * This is the most reliable method for newer Cloudinary accounts.
  */
@@ -53,9 +67,10 @@ export async function getImagesInFolder(
 
   try {
     // Using resources_by_asset_folder which works for Dynamic Folder accounts
-    const results = (await (cloudinary.api as any).resources_by_asset_folder(folderPath, {
+    const api = cloudinary.api as unknown as CloudinaryApi;
+    const results = await api.resources_by_asset_folder(folderPath, {
       max_results: maxResults,
-    })) as CloudinaryApiResponse;
+    });
 
     console.log(`[CLOUDINARY] ✅ Found ${results.resources.length} resources in "${folderPath}"`);
 

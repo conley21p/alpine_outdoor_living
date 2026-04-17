@@ -1,4 +1,4 @@
-import cloudinary, { getImagesInFolder, getRandomImageInFolder, type CloudinaryResource, type CloudinaryApiResource, type CloudinaryApiResponse } from "./cloudinary";
+import cloudinary, { getImagesInFolder, getRandomImageInFolder, type CloudinaryResource, type CloudinaryApiResource, type CloudinaryApi } from "./cloudinary";
 import { getLocalImagesInFolder, getRandomLocalImageInFolder, type LocalResource } from "./local-media";
 import { publicConfig } from "@/lib/config";
 
@@ -121,7 +121,8 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
   console.log("[DATA] Crawling Cloudinary for dynamic services in: Website/Services");
   try {
     // 1. List subfolders of Website/Services
-    const folderResult = (await cloudinary.api.sub_folders("Website/Services")) as { folders: CloudinaryFolder[] };
+    const api = cloudinary.api as unknown as CloudinaryApi;
+    const folderResult = await api.sub_folders("Website/Services");
     const serviceFolders = folderResult.folders;
 
     const services = await Promise.all(
@@ -136,9 +137,9 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
           .replace("Hard Scape", "Hardscape");
 
         // 3. Find images and text files in this folder using a single call
-        const results = (await (cloudinary.api as any).resources_by_asset_folder(folderPath, {
+        const results = await api.resources_by_asset_folder(folderPath, {
           max_results: 50
-        })) as CloudinaryApiResponse;
+        });
 
         if (!results || !results.resources) {
           return {
