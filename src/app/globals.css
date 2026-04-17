@@ -66,9 +66,14 @@
 
   .sticky-viewport {
     position: sticky;
-    top: 80px;
-    /* Navbar Offset */
-    height: calc(100vh - 80px);
+    top: 0;
+    height: 100vh;
+    
+    @media (min-width: 1024px) {
+      top: 80px; /* Navbar Offset */
+      height: calc(100vh - 80px);
+    }
+    
     /* Remaining usable screen space */
     background: transparent;
     overflow: hidden;
