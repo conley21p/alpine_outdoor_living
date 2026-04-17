@@ -1,6 +1,8 @@
-/** Cloudinary Dynamic Data Layer - Build Refresh Heartbeat **/
 import cloudinary, { getImagesInFolder, getRandomImageInFolder } from "./cloudinary";
+import { getLocalImagesInFolder, getRandomLocalImageInFolder } from "./local-media";
 import { publicConfig } from "@/lib/config";
+
+const isDev = process.env.NODE_ENV === "development";
 
 interface CloudinaryFolder {
   name: string;
@@ -40,7 +42,24 @@ export interface ServiceData {
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
-    const resources = await getImagesInFolder("Website/Gallery", 25);
+    let resources = [];
+    
+    if (isDev) {
+      console.log(`[DATA] 🛠️ DEV MODE: Prioritizing local fallback for "Website/Gallery"`);
+      resources = getLocalImagesInFolder("Website/Gallery");
+    }
+
+    if (resources.length === 0) {
+      console.log(`[DATA] ☁️ Fetching from Cloudinary: "Website/Gallery"`);
+      resources = await getImagesInFolder("Website/Gallery", 25);
+    }
+
+    // Secondary fallback in production if Cloudinary fails
+    if (!isDev && resources.length === 0) {
+       console.log(`[DATA] ⚠️ Cloudinary empty/failed. Fallback to local for "Website/Gallery"`);
+       resources = getLocalImagesInFolder("Website/Gallery");
+    }
+
     return resources.map((res) => ({
       name: res.public_id.split("/").pop() || "Gallery Image",
       url: res.secure_url,
@@ -61,10 +80,31 @@ export const getHeroPair = async (basePath: string) => {
       ? "Verticial" 
       : "Vertical";
 
+    const fetchHero = async (subFolder: string) => {
+      const folderPath = `${path}/${subFolder}`;
+      let res = null;
+
+      if (isDev) {
+        res = getRandomLocalImageInFolder(folderPath);
+      }
+
+      if (!res) {
+        res = await getRandomImageInFolder(folderPath);
+      }
+
+      if (!res && !isDev) {
+        res = getRandomLocalImageInFolder(folderPath);
+      }
+
+      return res;
+    };
+
     const [wide, vert] = await Promise.all([
-      getRandomImageInFolder(`${path}/Wide`),
-      getRandomImageInFolder(`${path}/${mobileFolderName}`),
+      fetchHero("Wide"),
+      fetchHero(mobileFolderName),
     ]);
+
+    console.log(`[DATA] 🏔️ Hero Section: Wide[${wide ? wide.secure_url.includes('fallback') ? 'LOCAL' : 'CLOUDINARY' : 'MISSING'}] Vert[${vert ? vert.secure_url.includes('fallback') ? 'LOCAL' : 'CLOUDINARY' : 'MISSING'}]`);
 
     return {
       wide: wide?.secure_url || null,
@@ -168,17 +208,31 @@ const STATIC_SERVICES: Array<{ title: string; description: string; folder: strin
 ];
 
 export const getStaticServices = async (): Promise<ServiceData[]> => {
-  console.log("[DATA] Fetching static service images from Cloudinary Website/Services/");
+  console.log(`[DATA] Fetching static services (Smart Fetch: ${isDev ? 'Local Primary' : 'Cloudinary Primary'})`);
   return Promise.all(
     STATIC_SERVICES.map(async (service) => {
       const folderPath = `Website/Services/${service.folder}`;
-      console.log(`[DATA] Querying Cloudinary folder: "${folderPath}"`);
       try {
-        const resources = await getImagesInFolder(folderPath, 50);
+        let resources = [];
+
+        if (isDev) {
+          resources = getLocalImagesInFolder(folderPath);
+        }
+
+        if (resources.length === 0) {
+          resources = await getImagesInFolder(folderPath, 50);
+        }
+
+        if (!isDev && resources.length === 0) {
+          resources = getLocalImagesInFolder(folderPath);
+        }
         
         if (resources.length === 0) {
-          console.warn(`[DATA WARNING] No images found in folder: "${folderPath}"`);
+          console.warn(`[DATA WARNING] No images found for "${service.title}" in LOCAL or CLOUDINARY`);
         }
+
+        const source = resources[0]?.secure_url.includes('fallback') ? 'LOCAL' : 'CLOUDINARY';
+        console.log(`[DATA] Service: "${service.title}" -> ${resources.length} images sourced from ${source}`);
 
         // Shuffle and take up to 10 images
         const shuffled = [...resources].sort(() => 0.5 - Math.random());
@@ -190,7 +244,7 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
           imageUrls: imageUrls,
         };
       } catch (error) {
-        console.error(`[DATA ERROR] Cloudinary fetch failed for "${service.title}" at "${folderPath}":`, error);
+        console.error(`[DATA ERROR] Smart fetch failed for "${service.title}":`, error);
         return {
           title: service.title,
           description: service.description,

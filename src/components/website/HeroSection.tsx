@@ -25,14 +25,16 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
 
           {/* Split Content Overlay */}
           <div className="absolute inset-0 flex flex-col justify-between pt-8 md:pt-28 pb-28 md:pb-36 px-6 text-center z-10">
-            {/* Top Text */}
-            <div className="mx-auto max-w-4xl">
-              <p className="mx-auto text-xl font-semibold leading-relaxed tracking-tight text-white sm:text-2xl lg:text-3xl">
-                Custom Water Features, Fire Pits, Patios & Outdoor Spaces
-              </p>
-              <p className="mx-auto mt-2 text-lg font-medium leading-relaxed tracking-tight text-white/80 sm:text-xl lg:text-2xl">
-                Proudly servicing Springfield IL
-              </p>
+            {/* Central Branding */}
+            <div className="mx-auto max-w-5xl">
+              <h1 className="text-5xl font-bold tracking-tighter text-white sm:text-7xl lg:text-9xl drop-shadow-2xl">
+                Alpine Outdoor Living LLC
+              </h1>
+              <div className="mt-8 md:mt-12 inline-flex px-8 py-3 border-y border-white/20 backdrop-blur-sm">
+                <p className="text-[10px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">
+                  DESIGN/BUILD &bull; WATER FEATURES &bull; HARDSCAPES &bull; LANDSCAPE
+                </p>
+              </div>
             </div>
 
             {/* Bottom Button */}

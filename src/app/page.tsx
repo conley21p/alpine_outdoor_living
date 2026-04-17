@@ -48,6 +48,42 @@ export default async function Home() {
         <div className="relative z-10 w-full">
           <ServicesGrid services={services} />
           
+          {/* Service Areas & Philosophy Section */}
+          <section className="relative mx-auto max-w-7xl px-6 py-24 lg:py-40">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+              {/* Philosophy - The Brand Soul */}
+              <div className="space-y-8">
+                <div>
+                  <h2 className="text-4xl lg:text-6xl font-bold tracking-tighter text-brand-textDark leading-[1.1]">
+                    Quietly exceptional.<br/>Intentionally Built.
+                  </h2>
+                  <div className="h-1.5 w-24 bg-brand-primary mt-6 rounded-full" />
+                </div>
+                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-xl">
+                  We believe the most compelling outdoor spaces don’t feel overdesigned—they feel effortless.
+                </p>
+              </div>
+
+              {/* Service Areas - The Logical Connection */}
+              <div className="rounded-3xl p-10 lg:p-14 glass-card-green relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-8 opacity-10">
+                  <svg className="w-32 h-32 text-brand-primary" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-brand-textDark mb-6">Service Areas</h3>
+                <p className="text-lg text-brand-textDark/70 leading-relaxed mb-8">
+                  Based in Springfield, IL, we proudly serve homeowners and businesses throughout the surrounding Central Illinois region.
+                </p>
+                <div className="flex items-center gap-4 text-brand-primary font-bold text-lg">
+                  <span>Thoughtful Design</span>
+                  <span className="text-brand-textDark/20">•</span>
+                  <span>Quality Craftsmanship</span>
+                </div>
+              </div>
+            </div>
+          </section>
+          
           <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent">
             <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
               <div className="sm:col-span-2">

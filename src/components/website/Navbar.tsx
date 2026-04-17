@@ -37,9 +37,6 @@ export function Navbar() {
               />
             </div>
           ) : null}
-          <span className="hidden text-[17px] font-semibold tracking-tight text-brand-textDark md:block">
-            {businessName}
-          </span>
         </Link>
         <nav className="hidden items-center gap-10 md:flex">
           {links.map((link) => (

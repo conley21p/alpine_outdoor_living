@@ -36,10 +36,8 @@ export function ResponsiveSlotImage({
   const wideSrc = overrideWide || slotConfig?.desktopSrc || "";
   const vertSrc = overrideVert || slotConfig?.mobileSrc || wideSrc;
 
-  if (!wideSrc) return null;
-
   return (
-    <div className={cn("relative overflow-hidden", className)}>
+    <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
       {/* Loading Glass Overlay */}
       <div 
         className={cn(
@@ -48,30 +46,37 @@ export function ResponsiveSlotImage({
         )}
       />
 
-      <div className={cn("relative md:hidden", mobileAspectClassName)}>
-        <Image
-          src={vertSrc}
-          alt={alt}
-          fill
-          priority={priority}
-          sizes="100vw"
-          className="object-cover"
-          unoptimized={wideSrc.includes('cloudinary')}
-          onLoad={() => setIsLoaded(true)}
-        />
-      </div>
-      <div className={cn("relative hidden md:block", desktopAspectClassName)}>
-        <Image
-          src={wideSrc}
-          alt={alt}
-          fill
-          priority={priority}
-          sizes="(min-width: 768px) 100vw, 0px"
-          className="object-cover"
-          unoptimized={wideSrc.includes('cloudinary')}
-          onLoad={() => setIsLoaded(true)}
-        />
-      </div>
+      {vertSrc && (
+        <div className={cn("relative md:hidden", mobileAspectClassName)}>
+          <Image
+            src={vertSrc}
+            alt={alt}
+            fill
+            priority={priority}
+            sizes="100vw"
+            className="object-cover"
+            unoptimized={vertSrc.includes('cloudinary')}
+            onLoad={() => setIsLoaded(true)}
+            onError={() => setIsLoaded(true)}
+          />
+        </div>
+      )}
+      {wideSrc && (
+        <div className={cn("relative hidden md:block", desktopAspectClassName)}>
+          <Image
+            src={wideSrc}
+            alt={alt}
+            fill
+            priority={priority}
+            sizes="(min-width: 768px) 100vw, 0px"
+            className="object-cover"
+            unoptimized={wideSrc.includes('cloudinary')}
+            onLoad={() => setIsLoaded(true)}
+            onError={() => setIsLoaded(true)}
+          />
+        </div>
+      )}
+      {!wideSrc && <div className={cn("relative", desktopAspectClassName)} />}
       {children ? <div className="absolute inset-0 z-10">{children}</div> : null}
     </div>
   );
