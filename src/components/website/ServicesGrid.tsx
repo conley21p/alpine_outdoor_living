@@ -183,7 +183,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   </p>
                   <div className="flex gap-3 mt-2">
                     <Link href={`/services/${service.id}`} className="flex-1">
-                      <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-brand-textDark bg-white border border-brand-primary/20 rounded-xl transition-all active:scale-95 shadow-lg">
+                      <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-brand-textDark bg-white border border-brand-primary/20 rounded-xl transition-all active:scale-95 shadow-sm">
                         Explore
                       </button>
                     </Link>
@@ -259,7 +259,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                         </p>
                         <div className="mt-auto lg:mt-0 pb-2 flex items-center gap-4">
                           <Link href={`/services/${service.id}`}>
-                            <button className="luxe-btn flex items-center justify-center gap-2 text-sm lg:text-base py-2 px-5 lg:py-3 lg:px-7 font-medium text-brand-textDark bg-white/40 backdrop-blur-md border border-white/50 rounded-full transition-all duration-300 hover:bg-white/60 hover:shadow-xl active:scale-95">
+                            <button className="luxe-btn flex items-center justify-center gap-2 text-sm lg:text-base py-2 px-5 lg:py-3 lg:px-7 font-medium text-brand-textDark bg-white/40 backdrop-blur-md border border-white/50 rounded-full transition-all duration-300 hover:bg-white/60 hover:shadow-sm active:scale-95">
                               Explore
                             </button>
                           </Link>
