@@ -136,12 +136,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                     {/* Text Block - z-10 so image can slide over it on mobile */}
                     <div className="text-block flex-1 w-full h-full flex flex-col justify-center items-start lg:h-full pointer-events-none z-10">
 
-                      {/* Number Hook */}
-                      <div className="dynamic-number-block w-full">
-                        <span className="block text-brand-textDark/50 uppercase tracking-[0.2em] font-bold text-[10px] lg:text-xs mb-1">
-                          {(i + 1).toString().padStart(2, "0")}
-                        </span>
-                      </div>
+
 
                       {/* The Magic Title - Because everything else collapses to 0 height/width organically, this aligns perfectly to the left/center structurally! */}
                       <div className="w-full pointer-events-auto z-20">
