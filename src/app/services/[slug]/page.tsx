@@ -117,10 +117,6 @@ export default async function ServicePage({ params }: Props) {
                  </p>
                </div>
                
-               <div className="flex items-center gap-3 text-brand-textDark/40 font-bold uppercase tracking-widest text-xs bg-brand-textDark/5 px-4 py-2 rounded-full">
-                  <ImageIcon className="w-4 h-4" />
-                  {allProjects.length} Verified Builds
-               </div>
             </div>
 
             <StaggeredGallery 
