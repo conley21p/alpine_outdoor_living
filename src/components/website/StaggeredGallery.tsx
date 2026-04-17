@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, X } from "lucide-react";
 import { getOptimizedUrl } from "@/lib/media-utils";
 
 interface GalleryImage {
@@ -21,10 +21,20 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
   // We allow rendering current + 1 to keep the sequential chain moving
   const [loadedCount, setLoadedCount] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Lock scroll when image is selected
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedImage]);
 
   if (!mounted) return null;
 
@@ -41,49 +51,89 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
+        <AnimatePresence>
+          {images.map((img, i) => {
+            // Logic: Only render if it's within the loaded set OR it's the next one to load
+            const isVisible = i <= loadedCount;
+
+            if (!isVisible) return null;
+
+            return (
+              <motion.div
+                key={img.url}
+                layoutId={`img-${img.url}`}
+                onClick={() => setSelectedImage(img.url)}
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  duration: 0.7, 
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="group relative aspect-[4/5] rounded-[2rem] overflow-hidden bg-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-zoom-in"
+              >
+                <Image
+                  src={getOptimizedUrl(img.url, 'full')}
+                  alt={`${serviceTitle} project ${i + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  unoptimized
+                  onLoad={() => {
+                    // When THIS image is done, allow the next one to render
+                    setLoadedCount(prev => Math.max(prev, i + 1));
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Image Detail Badge */}
+                <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="bg-white/80 backdrop-blur-md px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest text-brand-textDark shadow-lg border border-white/50 inline-block">
+                    Build No. {1000 + i}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </div>
+
+      {/* Lightbox / Full-size Viewer */}
       <AnimatePresence>
-        {images.map((img, i) => {
-          // Logic: Only render if it's within the loaded set OR it's the next one to load
-          const isVisible = i <= loadedCount;
-
-          if (!isVisible) return null;
-
-          return (
-            <motion.div
-              key={img.url}
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ 
-                duration: 0.7, 
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="group relative aspect-[4/5] rounded-[2rem] overflow-hidden bg-white/5 shadow-lg hover:shadow-2xl transition-all duration-500"
+        {selectedImage && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 lg:p-12">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedImage(null)}
+              className="absolute inset-0 bg-brand-bgLight/80 backdrop-blur-2xl"
+            />
+            
+            <motion.div 
+              layoutId={`img-${selectedImage}`}
+              className="relative w-full h-full max-w-7xl"
             >
               <Image
-                src={getOptimizedUrl(img.url, 'full')}
-                alt={`${serviceTitle} project ${i + 1}`}
+                src={getOptimizedUrl(selectedImage, 'full')}
+                alt="Selected project image"
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-contain"
+                priority
                 unoptimized
-                onLoad={() => {
-                   // When THIS image is done, allow the next one to render
-                   setLoadedCount(prev => Math.max(prev, i + 1));
-                }}
               />
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              {/* Image Detail Badge */}
-              <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                <div className="bg-white/80 backdrop-blur-md px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest text-brand-textDark shadow-lg border border-white/50 inline-block">
-                  Build No. {1000 + i}
-                </div>
-              </div>
             </motion.div>
-          );
-        })}
+
+            <button 
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-8 right-8 z-[110] h-12 w-12 flex items-center justify-center rounded-full bg-white shadow-xl text-brand-textDark hover:scale-110 active:scale-95 transition-all"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }
