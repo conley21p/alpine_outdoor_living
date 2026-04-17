@@ -60,8 +60,15 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   }, [isMobile, services.length]);
 
   // Cache for DOM values to prevent redundant writes
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const prevStates = useRef<Map<number, Record<string, any>>>(new Map());
+  interface CardState {
+    w?: number;
+    exile?: number;
+    flex?: string;
+    visible?: boolean;
+    mHeight?: string;
+    mBottom?: string;
+  }
+  const prevStates = useRef<Map<number, CardState>>(new Map());
 
   useGSAP(() => {
     if (!trackRef.current || services.length === 0) return;

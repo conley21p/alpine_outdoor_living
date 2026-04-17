@@ -15,12 +15,7 @@ interface ImageStackProps {
 
 export function ImageStack({ images, title, slug }: ImageStackProps) {
   const [index, setIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Swipe logic
   const handleDragEnd = (_event: unknown, info: PanInfo) => {
