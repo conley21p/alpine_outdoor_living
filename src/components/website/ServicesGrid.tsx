@@ -181,12 +181,19 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   <p className="text-base text-brand-textDark/70 leading-relaxed">
                     {service.description}
                   </p>
-                  <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="mt-2">
-                    <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-white bg-brand-primary rounded-xl transition-all active:scale-95 shadow-lg shadow-brand-primary/20">
-                      Let&apos;s Talk
-                      <span className="text-xl">→</span>
-                    </button>
-                  </Link>
+                  <div className="flex gap-3 mt-2">
+                    <Link href={`/services/${service.id}`} className="flex-1">
+                      <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-brand-textDark bg-white border border-brand-primary/20 rounded-xl transition-all active:scale-95 shadow-lg">
+                        Explore
+                      </button>
+                    </Link>
+                    <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="flex-1">
+                      <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-white bg-brand-primary rounded-xl transition-all active:scale-95 shadow-lg shadow-brand-primary/20">
+                        Let&apos;s Talk
+                        <span className="text-xl">→</span>
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -250,7 +257,12 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                         <p className="text-xs sm:text-base lg:text-xl text-brand-textDark/80 mb-4 lg:mb-8 max-w-xl pr-4">
                           {service.description}
                         </p>
-                        <div className="mt-auto lg:mt-0 pb-2">
+                        <div className="mt-auto lg:mt-0 pb-2 flex items-center gap-4">
+                          <Link href={`/services/${service.id}`}>
+                            <button className="luxe-btn flex items-center justify-center gap-2 text-sm lg:text-base py-2 px-5 lg:py-3 lg:px-7 font-medium text-brand-textDark bg-white/40 backdrop-blur-md border border-white/50 rounded-full transition-all duration-300 hover:bg-white/60 hover:shadow-xl active:scale-95">
+                              Explore
+                            </button>
+                          </Link>
                           <Link href={`/?service=${encodeURIComponent(service.title)}#contact`}>
                             <button className="luxe-btn flex items-center justify-center gap-2 text-sm lg:text-base py-2 px-5 lg:py-3 lg:px-7 font-medium text-white bg-brand-primary rounded-full transition-all duration-300 hover:bg-brand-primary-dark hover:shadow-xl active:scale-95">
                               Let&apos;s Talk
