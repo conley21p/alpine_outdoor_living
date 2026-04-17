@@ -37,7 +37,8 @@ export function ContactForm() {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const serviceQuery = params.get("service");
-      if (serviceQuery && services.includes(serviceQuery)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (serviceQuery && services.includes(serviceQuery as any)) {
         setForm((prev) => ({ ...prev, serviceNeeded: serviceQuery }));
       }
     }
