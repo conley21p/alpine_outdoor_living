@@ -1,5 +1,5 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import type { CSSProperties, ReactNode } from "react";
 import "./globals.css";
 import { publicConfig } from "@/lib/config";
 

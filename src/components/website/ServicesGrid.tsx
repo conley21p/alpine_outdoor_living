@@ -231,14 +231,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                       padding: "1.5rem",
                     }}
                   >
-                    <div 
-                      className="dynamic-image-block relative pointer-events-auto z-20 w-full lg:w-[45%] xl:w-[50%] lg:max-w-xl transition-all duration-300 ease-out"
-                      style={{
-                        opacity: "calc(0.5 + 0.5 * var(--weight))",
-                        transform: "scale(calc(0.75 + 0.25 * var(--weight)))",
-                        transformOrigin: "left center",
-                      } as any}
-                    >
+                    <div className="dynamic-image-block relative pointer-events-auto z-20 w-full lg:w-[45%] xl:w-[50%] lg:max-w-xl">
                       {activatedCards.has(i) && (
                         <ImageStack
                           images={service.imageUrls}
