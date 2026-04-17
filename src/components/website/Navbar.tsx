@@ -89,7 +89,7 @@ export function Navbar() {
         }`}
       >
         <button
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/40 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] text-brand-primary"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_4px_20px_0_rgba(0,0,0,0.15)] text-brand-primary active:scale-90 transition-transform"
           onClick={() => setOpen(true)}
         >
           <Menu className="h-6 w-6" />
