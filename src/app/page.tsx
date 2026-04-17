@@ -2,7 +2,7 @@ import Image from "next/image";
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
-import { GalleryGrid } from "@/components/website/GalleryGrid";
+// import { GalleryGrid } from "@/components/website/GalleryGrid";
 import { ContactForm } from "@/components/website/ContactForm";
 import { publicConfig } from "@/lib/config";
 import { 
@@ -15,8 +15,8 @@ import {
 export const revalidate = 300; // Cache the page for 5 minutes to prevent Cloudinary rate limits
 
 export default async function Home() {
-  const [galleryImages, instagramPost, heroPair, services] = await Promise.all([
-    getGalleryImages(),
+  const [instagramPost, heroPair, services] = await Promise.all([
+    // getGalleryImages(),
     getInstagramFeaturedPost(),
     getHeroPair("Home/Website/Hero"),
     getStaticServices(),
