@@ -53,13 +53,23 @@
   }
 
   .glass-card-green {
-    @apply border border-white/30 bg-gradient-to-br from-white/40 via-green-50/40 to-white/20 backdrop-blur-xl shadow-xl transition-all duration-300;
+    @apply border border-white/30 bg-gradient-to-br from-white/40 via-green-50/40 to-white/20 backdrop-blur-xl transition-all duration-300;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.06),
+      0 20px 60px -10px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+      inset 1px 0 0 rgba(255, 255, 255, 0.7),
+      inset -1px 0 0 rgba(0, 0, 0, 0.04),
+      inset 0 0 40px rgba(0, 0, 0, 0.04);
   }
 
   .sticky-viewport {
     position: sticky;
-    top: 80px; /* Navbar Offset */
-    height: calc(100vh - 80px); /* Remaining usable screen space */
+    top: 80px;
+    /* Navbar Offset */
+    height: calc(100vh - 80px);
+    /* Remaining usable screen space */
     background: transparent;
     overflow: hidden;
     display: flex;
@@ -72,29 +82,28 @@
     display: flex;
     flex-direction: column;
     width: 92%;
-    height: calc(100% - 20px); /* Stretch to max available space with 10px top/bottom buffer */
-    gap: 10px;
+    height: calc(100% - 20px);
+    /* Stretch to max available space with 10px top/bottom buffer */
   }
 
   @media (min-width: 1024px) {
     .card-container {
       width: 90%;
-      height: calc(100% - 60px); /* Stretch to max space with 30px top/bottom buffer */
-      gap: 15px;
+      height: calc(100% - 60px);
+      /* Stretch to max space with 30px top/bottom buffer */
     }
   }
 
   .luxe-option {
     position: relative;
-    flex: 1; /* Collapsed */
     border-radius: 20px;
     overflow: hidden;
-    transition: flex 0.9s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: flex;
-  }
-
-  .luxe-option.active {
-    flex: 12; /* Expanded */
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.06),
+      0 20px 60px -10px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -2px 8px rgba(0, 0, 0, 0.06);
   }
 
   /* Internal Image Physics */
@@ -103,13 +112,15 @@
     inset: 0;
     background-size: cover;
     background-position: center;
-    transform: scale(1.4); /* Pre-zoom */
+    transform: scale(1.4);
+    /* Pre-zoom */
     transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
   }
 
   .luxe-option.active .card-image {
-    transform: scale(1); /* Zoom-out reveal */
+    transform: scale(1);
+    /* Zoom-out reveal */
   }
 
   .frosted-panel {
@@ -120,11 +131,17 @@
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+      inset 1px 0 0 rgba(255, 255, 255, 0.7),
+      inset -1px 0 0 rgba(0, 0, 0, 0.04),
+      inset 0 0 40px rgba(0, 0, 0, 0.04);
     display: flex;
-    align-items: flex-start; /* Changed from flex-end */
+    align-items: flex-start;
+    /* Changed from flex-end */
     padding: 20px;
-    transition: all 0.4s ease-out;
   }
 
   .luxe-option.active .frosted-panel {
@@ -141,9 +158,114 @@
     font-weight: 500;
     transition: opacity 0.3s ease;
   }
-  
+
   .luxe-btn:hover {
     opacity: 0.8;
+  }
+
+  /* GSAP Scrubbed Dynamic Utility Blocks for Organic FLIP Sliding */
+  .dynamic-image-block {
+    opacity: var(--weight);
+    width: 100%;
+    margin-bottom: calc(var(--weight) * 1.5rem);
+    height: calc(var(--weight) * 30vh);
+    min-height: calc(var(--weight) * 100px);
+    overflow: visible;
+  }
+
+  @media (min-width: 1024px) {
+    .dynamic-image-block {
+      height: 100%;
+      min-height: 0;
+      width: calc(var(--weight) * 45%);
+      margin-bottom: 0;
+      margin-right: calc(var(--weight) * 2.5rem);
+    }
+  }
+
+  .dynamic-number-block {
+    opacity: var(--weight);
+    max-height: calc(var(--weight) * 30px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .dynamic-details-block {
+    opacity: var(--weight);
+    max-height: calc(var(--weight) * 500px);
+    margin-top: calc(var(--weight) * 1rem);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* On mobile: text block must stretch to fill its flex share so justify-center works */
+  .text-block {
+    min-height: 0;
+    flex: 1 1 0%;
+  }
+
+  /* Lava Lamp Ambient Gradient Physics */
+  @keyframes float1 {
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+      transform: translate(15vw, 15vh) scale(1.1);
+    }
+
+    66% {
+      transform: translate(-10vw, -10vh) scale(0.9);
+    }
+  }
+
+  @keyframes float2 {
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+      transform: translate(-15vw, -10vh) scale(0.95);
+    }
+
+    66% {
+      transform: translate(10vw, 15vh) scale(1.1);
+    }
+  }
+
+  @keyframes float3 {
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+      transform: translate(10vw, -15vh) scale(1.05);
+    }
+
+    66% {
+      transform: translate(-15vw, 10vh) scale(0.95);
+    }
+  }
+
+  .lava-lamp-1 {
+    animation: float1 18s ease-in-out infinite alternate;
+  }
+
+  .lava-lamp-2 {
+    animation: float2 22s ease-in-out infinite alternate;
+  }
+
+  .lava-lamp-3 {
+    animation: float3 25s ease-in-out infinite alternate;
   }
 }
 

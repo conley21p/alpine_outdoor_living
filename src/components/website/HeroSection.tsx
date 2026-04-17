@@ -8,7 +8,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ heroPair }: HeroSectionProps) {
   return (
-    <section className="relative w-full overflow-hidden bg-white">
+    <section className="relative w-full overflow-hidden bg-brand-bgLight">
       <div className="relative w-full">
         <ResponsiveSlotImage
           slot="homeHero"
@@ -46,8 +46,8 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* Bottom Fade to White Gradient - High visibility */}
-          <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white via-white/80 via-white/20 to-transparent z-0" />
+          {/* Bottom Fade to Brand Bg - Tighter, more immediate transition */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-brand-bgLight via-brand-bgLight/40 to-transparent z-0" />
         </ResponsiveSlotImage>
       </div>
     </section>

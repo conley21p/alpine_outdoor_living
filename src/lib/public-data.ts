@@ -32,7 +32,7 @@ export interface Review {
 export interface ServiceData {
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrls: string[];
 }
 
 /**
@@ -139,6 +139,68 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
     return [];
   }
 };
+
+/**
+ * Static service definitions - fetches one representative image per folder from Cloudinary.
+ * Folder names must match exactly as they appear in Cloudinary under Website/Services/
+ */
+const STATIC_SERVICES: Array<{ title: string; description: string; folder: string }> = [
+  {
+    title: "Outdoor Spaces",
+    description: "Custom Stonework, pathways, retaining walls, firepits, outdoor kitchens and living spaces. Precise, detail-driven construction with premium materials selected for both beauty and longevity. Understanding the property, architecture, and how the space will be lived in.",
+    folder: "Outdoor Spaces",
+  },
+  {
+    title: "Ecosystem Ponds and Waterfalls",
+    description: "Specialized expertise in natural water features that emphasize the soothing sound of water, which can mask city noise and create a Zen space. Unique focal points that elevate your property value and create the perfect atmosphere for relaxation or entertaining.",
+    folder: "Ecosystem Ponds and Waterfalls",
+  },
+  {
+    title: "Pondless Waterfalls and Fountainscapes",
+    description: "These offer the beauty of a waterfall without the open water basin. They add a relaxing, gentle, or dramatic water course to your landscape. Perfect for large or small spaces, decks, or patios, requiring very little maintenance.",
+    folder: "Pondless Waterfalls and Fountainscapes",
+  },
+  {
+    title: "Landscapes and Lighting",
+    description: "We curate expert green spaces designed to evolve and improve over time. Our build process is anchored in discipline and meticulous attention to detail. Strategic greenery that enhances the natural beauty of the Illinois landscape.",
+    folder: "Landscapes and Lighting",
+  },
+];
+
+export const getStaticServices = async (): Promise<ServiceData[]> => {
+  console.log("[DATA] Fetching static service images from Cloudinary Website/Services/");
+  return Promise.all(
+    STATIC_SERVICES.map(async (service) => {
+      const folderPath = `Website/Services/${service.folder}`;
+      console.log(`[DATA] Querying Cloudinary folder: "${folderPath}"`);
+      try {
+        const resources = await getImagesInFolder(folderPath, 50);
+        
+        if (resources.length === 0) {
+          console.warn(`[DATA WARNING] No images found in folder: "${folderPath}"`);
+        }
+
+        // Shuffle and take up to 10 images
+        const shuffled = [...resources].sort(() => 0.5 - Math.random());
+        const imageUrls = shuffled.slice(0, 10).map(res => res.secure_url);
+
+        return {
+          title: service.title,
+          description: service.description,
+          imageUrls: imageUrls,
+        };
+      } catch (error) {
+        console.error(`[DATA ERROR] Cloudinary fetch failed for "${service.title}" at "${folderPath}":`, error);
+        return {
+          title: service.title,
+          description: service.description,
+          imageUrls: [],
+        };
+      }
+    })
+  );
+};
+
 
 /**
  * Fetches representative images for each service category from Cloudinary.

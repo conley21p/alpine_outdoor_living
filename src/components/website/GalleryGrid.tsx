@@ -45,11 +45,8 @@ export function GalleryGrid({ images, previewOnly = false }: GalleryGridProps) {
     <section className="mx-auto max-w-[90rem] px-6 py-20 lg:px-12 lg:py-32">
       <div className="mb-16 text-center lg:mb-20">
         <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-6xl">
-          Our Work
+          Featured Designs
         </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl">
-          Explore our recent projects
-        </p>
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4">
         {displayImages.map((image, index) => (
@@ -74,8 +71,8 @@ export function GalleryGrid({ images, previewOnly = false }: GalleryGridProps) {
       </div>
       {previewOnly && (
         <div className="mt-12 text-center">
-          <Link 
-            href="/gallery" 
+          <Link
+            href="/gallery"
             className="inline-flex items-center gap-2 text-[17px] font-normal text-brand-accent transition-opacity hover:opacity-70"
           >
             View all photos

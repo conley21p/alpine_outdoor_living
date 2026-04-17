@@ -8,7 +8,7 @@ interface SiteShellProps {
 
 export function SiteShell({ children }: SiteShellProps) {
   return (
-    <div className="min-h-screen bg-white text-brand-textDark">
+    <div className="min-h-screen bg-brand-bgLight text-brand-textDark">
       <Navbar />
       <main>{children}</main>
       <Footer />

@@ -8,7 +8,7 @@ import {
   getGalleryImages, 
   getInstagramFeaturedPost,
   getHeroPair,
-  getDynamicServices 
+  getStaticServices 
 } from "@/lib/public-data";
 
 export const revalidate = 300; // Cache the page for 5 minutes to prevent Cloudinary rate limits
@@ -18,55 +18,80 @@ export default async function Home() {
     getGalleryImages(),
     getInstagramFeaturedPost(),
     getHeroPair("Home/Website/Hero"),
-    getDynamicServices(),
+    getStaticServices(),
   ]);
 
   return (
     <SiteShell>
       <HeroSection heroPair={heroPair} />
-      <ServicesGrid services={services} />
-      <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-gradient-to-b from-[#e2e8d5] to-[#FAFAF9]">
-        <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
-          <div className="sm:col-span-2">
-            <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Contact Details</h2>
-            <p className="mt-4 text-base leading-relaxed text-gray-600">{publicConfig.businessDescription}</p>
+      {/* Unified Ambient Background Zone - Services + Contact */}
+      <div className="relative w-full">
+        {/* Vibrant Lava Lamp Ambient Layer - Pure Greens Only */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          {/* Top-left primary green pool */}
+          <div className="absolute top-[-5%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/55 to-green-500/40 blur-[140px] lava-lamp-1" />
+          {/* Top-left anchor — deep olive green */}
+          <div className="absolute top-[-5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-green-600/40 to-brand-primary/50 blur-[130px] lava-lamp-3" />
+          {/* Right pool — warm lime-green, no blue */}
+          <div className="absolute top-[20%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-green-400/35 to-lime-500/30 blur-[160px] lava-lamp-2" />
 
-            <div className="mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Phone</p>
-                  <a href={`tel:${publicConfig.businessPhone}`} className="mt-1 block text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
-                    {publicConfig.businessPhone}
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 pt-4 border-t border-black/5">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Email</p>
-                  <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block break-all text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
-                    {publicConfig.businessEmail}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="sm:col-span-3">
-            <div className="glass-card-green rounded-3xl p-8 h-full">
-              <ContactForm />
-            </div>
-          </div>
+          {/* Mid Supporting Blobs */}
+          <div className="absolute top-[45%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-lime-400/25 to-green-500/20 blur-[120px] lava-lamp-3" />
+          <div className="absolute bottom-[30%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-green-500/25 to-brand-primary/30 blur-[140px] lava-lamp-1" />
+          <div className="absolute bottom-[5%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/40 to-green-400/25 blur-[150px] lava-lamp-2" />
+
+          {/* Warm Accent */}
+          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-[#C8882A]/12 to-yellow-300/10 blur-[120px] lava-lamp-3" />
+          <div className="absolute top-[60%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay" />
         </div>
-      </section>
+
+        <div className="relative z-10 w-full">
+          <ServicesGrid services={services} />
+          
+          <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent">
+            <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
+              <div className="sm:col-span-2">
+                <h2 className="text-3xl font-black text-brand-textDark sm:text-4xl">Contact Details</h2>
+                <p className="mt-4 text-base leading-relaxed text-gray-600">{publicConfig.businessDescription}</p>
+
+                <div className="mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Phone</p>
+                      <a href={`tel:${publicConfig.businessPhone}`} className="mt-1 block text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
+                        {publicConfig.businessPhone}
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 pt-4 border-t border-black/5">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Email</p>
+                      <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block break-all text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
+                        {publicConfig.businessEmail}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="sm:col-span-3">
+                <div className="glass-card-green rounded-3xl p-8 h-full">
+                  <ContactForm />
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
 
       <GalleryGrid images={galleryImages} previewOnly />
 
