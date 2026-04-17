@@ -51,7 +51,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
   return (
     <div className="relative w-full h-full flex items-center justify-center px-10 lg:px-14 overflow-visible">
       <div className="relative w-full aspect-[4/3] preserve-3d">
-        <AnimatePresence initial={false}>
+      <div className="relative w-full aspect-[4/3] preserve-3d">
           {images.map((img, i) => {
             const isCenter = i === index;
             const isLeft = i === index - 1;
@@ -94,10 +94,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
                   scale, 
                   x, 
                   rotate, 
-                  zIndex,
-                  boxShadow: isCenter ? "0 25px 50px -12px rgba(0,0,0,0.5)" : "0 10px 20px rgba(0,0,0,0.2)"
                 }}
-                exit={{ opacity: 0, scale: 0.5, x: x * 1.5 }}
                 transition={{ type: "spring", stiffness: 260, damping: 25 }}
                 drag={isCenter ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
@@ -110,7 +107,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
                     setIsExpanded(true);
                   }
                 }}
-                className="absolute inset-0 cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden bg-white"
+                className={`absolute inset-0 cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden bg-white transition-shadow duration-300 ${isCenter ? 'shadow-2xl z-30' : 'shadow-md z-10'}`}
               >
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                 <Image
@@ -131,7 +128,6 @@ export function ImageStack({ images, title }: ImageStackProps) {
               </motion.div>
             );
           })}
-        </AnimatePresence>
         
         {/* Navigation Arrows - Desktop Only */}
         <button 
