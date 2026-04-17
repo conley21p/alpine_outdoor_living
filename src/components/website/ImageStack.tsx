@@ -16,6 +16,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
   const [index, setIndex] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [modalImageLoading, setModalImageLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -106,6 +107,7 @@ export function ImageStack({ images, title }: ImageStackProps) {
                 onClick={() => {
                   if (isCenter) {
                     setExpandedIndex(index);
+                    setModalImageLoading(true); // Reset loading state for modal
                     setIsExpanded(true);
                   }
                 }}
@@ -192,6 +194,13 @@ export function ImageStack({ images, title }: ImageStackProps) {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         className="relative w-full h-fit max-h-full aspect-[4/3] lg:aspect-video rounded-3xl overflow-hidden shadow-2xl bg-white/5"
                       >
+                        {/* Static Loading Spinner */}
+                        {modalImageLoading && (
+                          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
+                             <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin" />
+                          </div>
+                        )}
+
                         {/* Progressive Loading: Show thumbnail (cached) while high-res loads */}
                         <Image
                            src={getOptimizedUrl(images[expandedIndex], 'thumb')}
@@ -208,18 +217,25 @@ export function ImageStack({ images, title }: ImageStackProps) {
                            className="object-contain relative z-10"
                            unoptimized
                            priority
+                           onLoad={() => setModalImageLoading(false)}
                         />
                       </motion.div>
                                           {/* Linear Browser Controls */}
                      <div className="absolute inset-x-0 bottom-10 lg:bottom-1/2 lg:translate-y-1/2 flex justify-between items-center px-4 md:px-10 z-[100001] pointer-events-none">
                         <button 
-                          onClick={() => setExpandedIndex(prev => prev > 0 ? prev - 1 : images.length - 1)}
+                          onClick={() => {
+                            setModalImageLoading(true);
+                            setExpandedIndex(prev => prev > 0 ? prev - 1 : images.length - 1);
+                          }}
                           className="bg-white/10 hover:bg-white/20 p-4 rounded-full text-white backdrop-blur-xl pointer-events-auto transition-transform hover:scale-110 active:scale-95"
                         >
                           ←
                         </button>
                         <button 
-                          onClick={() => setExpandedIndex(prev => prev < images.length - 1 ? prev + 1 : 0)}
+                          onClick={() => {
+                            setModalImageLoading(true);
+                            setExpandedIndex(prev => prev < images.length - 1 ? prev + 1 : 0);
+                          }}
                           className="bg-white/10 hover:bg-white/20 p-4 rounded-full text-white backdrop-blur-xl pointer-events-auto transition-transform hover:scale-110 active:scale-95"
                         >
                           →
