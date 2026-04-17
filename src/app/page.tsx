@@ -23,29 +23,32 @@ export default async function Home() {
 
   return (
     <SiteShell>
-      <HeroSection heroPair={heroPair} />
-      {/* Unified Ambient Background Zone - Services + Contact */}
+      {/* Unified Ambient Background Zone - Entire Page Flow */}
       <div className="relative w-full">
         {/* Vibrant Lava Lamp Ambient Layer - Pure Greens Only */}
         <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden">
           {/* Top-left primary green pool */}
-          <div className="absolute top-[-5%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/55 to-green-500/40 blur-[140px] lava-lamp-1" />
+          <div className="absolute top-[0%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/55 to-green-500/40 blur-[140px] lava-lamp-1" />
           {/* Top-left anchor — deep olive green */}
-          <div className="absolute top-[-5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-green-600/40 to-brand-primary/50 blur-[130px] lava-lamp-3 hidden lg:block" />
+          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-green-600/40 to-brand-primary/50 blur-[130px] lava-lamp-3 hidden lg:block" />
           {/* Right pool — warm lime-green, no blue */}
-          <div className="absolute top-[20%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-green-400/35 to-lime-500/30 blur-[160px] lava-lamp-2" />
+          <div className="absolute top-[15%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-green-400/35 to-lime-500/30 blur-[160px] lava-lamp-2" />
 
           {/* Mid Supporting Blobs */}
-          <div className="absolute top-[45%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-lime-400/25 to-green-500/20 blur-[120px] lava-lamp-3 hidden lg:block" />
-          <div className="absolute bottom-[30%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-green-500/25 to-brand-primary/30 blur-[140px] lava-lamp-1" />
-          <div className="absolute bottom-[5%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/40 to-green-400/25 blur-[150px] lava-lamp-2 hidden lg:block" />
+          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-lime-400/25 to-green-500/20 blur-[120px] lava-lamp-3 hidden lg:block" />
+          <div className="absolute top-[60%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-green-500/25 to-brand-primary/30 blur-[140px] lava-lamp-1" />
+          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/40 to-green-400/25 blur-[150px] lava-lamp-2 hidden lg:block" />
 
+          {/* Bottom Bloom */}
+          <div className="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-brand-primary/20 blur-[140px] lava-lamp-3" />
+          
           {/* Warm Accent */}
           <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-[#C8882A]/12 to-yellow-300/10 blur-[1200px] lava-lamp-3" />
-          <div className="absolute top-[60%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay hidden lg:block" />
+          <div className="absolute top-[40%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay hidden lg:block" />
         </div>
 
         <div className="relative w-full">
+          <HeroSection heroPair={heroPair} />
           <ServicesGrid services={services} />
           
           {/* Service Areas & Philosophy Section */}

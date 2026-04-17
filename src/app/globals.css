@@ -303,6 +303,19 @@
     .lava-lamp-3 {
       animation: float3 25s ease-in-out infinite alternate;
     }
+
+    .lava-lamp-slow-1 {
+      animation: float1 40s ease-in-out infinite alternate;
+    }
+
+    .lava-lamp-slow-2 {
+      animation: float2 45s ease-in-out infinite alternate;
+    }
+  }
+
+  .card-lava-blob {
+    @apply absolute filter blur-[40px] opacity-20 pointer-events-none;
+    mix-blend-mode: soft-light;
   }
 }
 

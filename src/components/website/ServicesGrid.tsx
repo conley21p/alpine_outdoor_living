@@ -148,7 +148,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   return (
     <div id="services" ref={containerRef} className="relative w-full bg-transparent">
       {/* Intro Section */}
-      <section className="services-intro py-20 lg:py-32 flex items-center justify-center bg-gradient-to-b from-brand-bgLight to-transparent">
+      <section className="services-intro py-20 lg:py-32 flex items-center justify-center bg-transparent">
         <div className="text-center px-6">
           <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-7xl">
             Our Services
@@ -165,9 +165,13 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           {services.map((service, i) => (
             <div
               key={service.title}
-              className="relative overflow-hidden rounded-[24px] bg-white border border-brand-primary/10 shadow-xl"
+              className="relative overflow-hidden rounded-[24px] border border-brand-primary/10 shadow-xl"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-white/40 backdrop-blur-xl pointer-events-none" />
+              
+              {/* Card Lava Lamp Blobs */}
+              <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-brand-primary/20 blur-[60px] lava-lamp-slow-1 pointer-events-none" />
+              <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-green-400/15 blur-[50px] lava-lamp-slow-2 pointer-events-none" />
 
               <div className="relative z-10 p-6 flex flex-col gap-6">
                 {/* Static Image Stack - Removed overflow-hidden to allow background images to peep */}
@@ -230,7 +234,12 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                     '--exile': 1,
                   } as React.CSSProperties}
                 >
-                  <div className="frosted-panel absolute inset-0 z-0 bg-gradient-to-br from-white/40 to-transparent backdrop-blur-[16px] border border-white/50" />
+                  <div className="frosted-panel absolute inset-0 z-0 bg-white/20 backdrop-blur-[16px] border border-white/40" />
+                  
+                  {/* Card Lava Lamp Blobs */}
+                  <div className="absolute top-[-30%] left-[-20%] w-[100%] h-[100%] rounded-full bg-brand-primary/25 blur-[80px] lava-lamp-slow-1 pointer-events-none" />
+                  <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] rounded-full bg-green-500/15 blur-[60px] lava-lamp-slow-2 pointer-events-none" />
+                  <div className="absolute top-[20%] right-[10%] w-[50%] h-[50%] rounded-full bg-lime-400/10 blur-[40px] lava-lamp-slow-1 pointer-events-none" />
 
                   <div
                     className="relative z-10 w-full h-full flex flex-col lg:flex-row items-center pointer-events-none overflow-hidden"
