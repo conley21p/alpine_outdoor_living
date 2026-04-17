@@ -90,8 +90,8 @@ export default async function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
               <div className="lg:col-span-8 space-y-6 lg:pr-12">
                 <p className="text-xl lg:text-2xl font-medium text-brand-textDark/90 leading-relaxed">
-                  Alpine Outdoor Living, LLC. Was founded by Austin Schiff during his final year at the
-                  University of Illinois Urbana-Champaign. While earning his degree in Landscape Architecture,
+                  <strong>Alpine Outdoor Living, LLC.</strong> Was founded by Austin Schiff during his final year at the
+                  University of Illinois Urbana-Champaign. While earning his degree in <strong>Landscape Architecture</strong>,
                   Austin combined his technical expertise with a lifelong passion for the outdoors.
                 </p>
                 <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
