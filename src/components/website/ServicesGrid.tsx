@@ -86,13 +86,32 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                }
              });
 
-              // 2. Delayed Image Reveal ("Peering")
+             // 2. Delayed Image Reveal ("Peering")
              if (imgBlock) {
                gsap.to(imgBlock, { 
                  opacity: 1, 
                  scale: 1, 
-                 delay: 0.15, // Reduced delay for better reactivity
+                 delay: 0.15, 
                  duration: 0.8, 
+                 ease: "power2.out" 
+               });
+             }
+          },
+          onLeave: () => {
+             // Hide image when moving past current card
+             if (imgBlock) {
+               gsap.to(imgBlock, { opacity: 0, scale: 0.95, duration: 0.3 });
+             }
+          },
+          onEnterBack: () => {
+             // Re-reveal when scrolling back up
+             gsap.to(card, { opacity: 1, y: 0, duration: 0.4 });
+             if (imgBlock) {
+               gsap.to(imgBlock, { 
+                 opacity: 1, 
+                 scale: 1, 
+                 delay: 0.1, 
+                 duration: 0.6, 
                  ease: "power2.out" 
                });
              }
