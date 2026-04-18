@@ -57,11 +57,13 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
        resources = getLocalImagesInFolder("Website/Gallery");
     }
 
-    return resources.map((res: CloudinaryResource | LocalResource) => ({
-      name: res.public_id.split("/").pop() || "Gallery Image",
-      url: res.secure_url,
-      type: "resource_type" in res && res.resource_type === "video" ? "video" : "image",
-    }));
+    return [...resources]
+      .sort((a, b) => a.public_id.localeCompare(b.public_id))
+      .map((res: CloudinaryResource | LocalResource) => ({
+        name: res.public_id.split("/").pop() || "Gallery Image",
+        url: res.secure_url,
+        type: "resource_type" in res && res.resource_type === "video" ? "video" : "image",
+      }));
   } catch (error) {
     console.error("[DATA ERROR] Gallery fetch:", error);
     return [];
@@ -254,9 +256,9 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
         const source = resources[0]?.secure_url.includes('fallback') ? 'LOCAL' : 'CLOUDINARY';
         console.log(`[DATA] Service: "${service.title}" -> ${resources.length} assets sourced from ${source}`);
 
-        // Shuffle and take up to 10 assets
-        const shuffled = [...resources].sort(() => 0.5 - Math.random());
-        const media: GalleryImage[] = shuffled.slice(0, 10).map(res => ({
+        // Sort alphabetically and take up to 10 assets
+        const sorted = [...resources].sort((a, b) => a.public_id.localeCompare(b.public_id));
+        const media: GalleryImage[] = sorted.slice(0, 10).map(res => ({
           name: res.public_id.split("/").pop() || "Project Media",
           url: res.secure_url,
           type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
@@ -307,11 +309,13 @@ export const getServiceProjects = async (folder: string): Promise<GalleryImage[]
       resources = getLocalImagesInFolder(folderPath);
     }
 
-    return resources.map((res) => ({
-      name: res.public_id.split("/").pop() || "Project Image",
-      url: res.secure_url,
-      type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
-    }));
+    return [...resources]
+      .sort((a, b) => a.public_id.localeCompare(b.public_id))
+      .map((res) => ({
+        name: res.public_id.split("/").pop() || "Project Image",
+        url: res.secure_url,
+        type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
+      }));
   } catch (error) {
     console.error(`[DATA ERROR] Full gallery fetch failed for folder ${folder}:`, error);
     return [];
