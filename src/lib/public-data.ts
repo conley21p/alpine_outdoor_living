@@ -204,9 +204,9 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
  */
 const STATIC_SERVICES: Array<{ title: string; description: string; folder: string }> = [
   {
-    title: "Outdoor Spaces",
-    description: "Custom Stonework, pathways, retaining walls, firepits, outdoor kitchens and living spaces. Precise, detail-driven construction with premium materials selected for both beauty and longevity. Understanding the property, architecture, and how the space will be lived in.",
-    folder: "Outdoor Spaces",
+    title: "Landscapes",
+    description: "Curated green spaces designed to evolve and improve over time. Our build process is anchored in discipline and meticulous attention to detail. Strategic greenery that enhances the natural beauty of the Illinois landscape.",
+    folder: "Landscapes and Lighting",
   },
   {
     title: "Ecosystem Ponds and Waterfalls",
@@ -219,9 +219,14 @@ const STATIC_SERVICES: Array<{ title: string; description: string; folder: strin
     folder: "Pondless Waterfalls and Fountainscapes",
   },
   {
-    title: "Landscapes and Lighting",
-    description: "We curate expert green spaces designed to evolve and improve over time. Our build process is anchored in discipline and meticulous attention to detail. Strategic greenery that enhances the natural beauty of the Illinois landscape.",
-    folder: "Landscapes and Lighting",
+    title: "Outdoor Spaces",
+    description: "Custom Stonework, pathways, retaining walls, firepits, outdoor kitchens and living spaces. Precise, detail-driven construction with premium materials selected for both beauty and longevity. Understanding the property, architecture, and how the space will be lived in.",
+    folder: "Outdoor Spaces",
+  },
+  {
+    title: "Lighting",
+    description: "Expertly designed outdoor lighting systems that transform your landscape after sunset. Precise placement and premium fixtures highlight architectural details, illuminate pathways, and extend the usability of your outdoor spaces into the evening.",
+    folder: "Lighting",
   },
 ];
 
