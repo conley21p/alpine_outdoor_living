@@ -45,11 +45,11 @@ export default async function ServicePage({ params }: Props) {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-24">
-          <Breadcrumbs 
+          <Breadcrumbs
             items={[
               { label: "Services", href: "/#services" },
               { label: service.title, href: "#top" }
-            ]} 
+            ]}
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-24 lg:mb-32">
@@ -67,7 +67,7 @@ export default async function ServicePage({ params }: Props) {
               </p>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4">
-                <Link 
+                <Link
                   href="#gallery"
                   className="group flex flex-col items-start gap-1 transition-all"
                 >
@@ -87,45 +87,45 @@ export default async function ServicePage({ params }: Props) {
 
             {/* Visual Side - Hidden on Mobile */}
             <div className="hidden lg:block lg:col-span-5 relative group">
-               <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
-                  {mainImage && (
-                    <Image
-                      src={getOptimizedUrl(mainImage, 'full')}
-                      alt={service.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      priority
-                      unoptimized
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />
-               </div>
+              <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
+                {mainImage && (
+                  <Image
+                    src={getOptimizedUrl(mainImage, 'full')}
+                    alt={service.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    priority
+                    unoptimized
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />
+              </div>
 
-               {/* Decorative floating square */}
-               <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-brand-primary/10 backdrop-blur-3xl border border-white/40 rounded-3xl -z-10 hidden lg:block" />
+              {/* Decorative floating square */}
+              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-brand-primary/10 backdrop-blur-3xl border border-white/40 rounded-3xl -z-10 hidden lg:block" />
             </div>
           </div>
 
-          {/* Full Project Gallery Integrated Directly */}
+          {/* Full Featured Projects Integrated Directly */}
           <div id="gallery" className="space-y-16 scroll-mt-24">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-textDark/5 pb-12">
-               <div className="space-y-4">
-                 <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-brand-textDark">
-                   Project Gallery
-                 </h2>
-                 <p className="text-lg text-brand-textDark/60 max-w-2xl">
-                   Explore our portfolio of curated <strong>{service.title}</strong> installations. 
-                   Each build is a testament to our commitment to artistry and precision.
-                 </p>
-               </div>
-               
+              <div className="space-y-4">
+                <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-brand-textDark">
+                  Featured Projects
+                </h2>
+                <p className="text-lg text-brand-textDark/60 max-w-2xl">
+                  Explore our portfolio of curated <strong>{service.title}</strong> installations.
+                  Each build is a testament to our commitment to artistry and precision.
+                </p>
+              </div>
+
             </div>
 
-            <StaggeredGallery 
-              images={allProjects} 
-              serviceTitle={service.title} 
+            <StaggeredGallery
+              images={allProjects}
+              serviceTitle={service.title}
             />
-            
+
             {/* Direct Contact Form Section */}
             <div className="pt-32 pb-20 border-t border-brand-textDark/5 mt-32">
               <div className="mx-auto max-w-4xl">
@@ -134,7 +134,7 @@ export default async function ServicePage({ params }: Props) {
                     Start Your Project
                   </h2>
                   <p className="text-lg lg:text-xl text-brand-textDark/60 max-w-2xl mx-auto">
-                    Liked what you saw? Ready to transform your own outdoor space? 
+                    Liked what you saw? Ready to transform your own outdoor space?
                     Fill out our brief build request form below.
                   </p>
                 </div>
