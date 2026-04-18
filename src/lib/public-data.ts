@@ -58,7 +58,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
     }
 
     return [...resources]
-      .sort((a, b) => a.public_id.localeCompare(b.public_id))
+      .sort((a, b) => a.public_id.localeCompare(b.public_id, undefined, { numeric: true, sensitivity: 'base' }))
       .map((res: CloudinaryResource | LocalResource) => ({
         name: res.public_id.split("/").pop() || "Gallery Image",
         url: res.secure_url,
@@ -256,8 +256,8 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
         const source = resources[0]?.secure_url.includes('fallback') ? 'LOCAL' : 'CLOUDINARY';
         console.log(`[DATA] Service: "${service.title}" -> ${resources.length} assets sourced from ${source}`);
 
-        // Sort alphabetically and take up to 10 assets
-        const sorted = [...resources].sort((a, b) => a.public_id.localeCompare(b.public_id));
+        // Sort numerically/alphabetically and take up to 10 assets
+        const sorted = [...resources].sort((a, b) => a.public_id.localeCompare(b.public_id, undefined, { numeric: true, sensitivity: 'base' }));
         const media: GalleryImage[] = sorted.slice(0, 10).map(res => ({
           name: res.public_id.split("/").pop() || "Project Media",
           url: res.secure_url,
@@ -310,7 +310,7 @@ export const getServiceProjects = async (folder: string): Promise<GalleryImage[]
     }
 
     return [...resources]
-      .sort((a, b) => a.public_id.localeCompare(b.public_id))
+      .sort((a, b) => a.public_id.localeCompare(b.public_id, undefined, { numeric: true, sensitivity: 'base' }))
       .map((res) => ({
         name: res.public_id.split("/").pop() || "Project Image",
         url: res.secure_url,
