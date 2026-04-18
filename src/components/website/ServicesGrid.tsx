@@ -178,7 +178,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                 <div className="w-full aspect-[4/3] rounded-2xl">
                   {(activatedCards.has(i) || i === 0) && (
                     <ImageStack
-                      images={service.imageUrls}
+                      media={service.media}
                       title={service.title}
                       slug={service.id}
                     />
@@ -250,7 +250,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                     <div className="dynamic-image-block relative pointer-events-auto z-20 w-full lg:w-[45%] xl:w-[50%] lg:max-w-xl">
                       {activatedCards.has(i) && (
                         <ImageStack
-                          images={service.imageUrls}
+                          media={service.media}
                           title={service.title}
                           slug={service.id}
                         />

@@ -22,6 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: service.title,
     description: service.description.substring(0, 160),
+    openGraph: {
+      images: service.media[0] ? [service.media[0].url] : [],
+    }
   };
 }
 
@@ -34,7 +37,7 @@ export default async function ServicePage({ params }: Props) {
 
   const allProjects = await getServiceProjects(service.folder);
   const heroVideo = allProjects.find((p) => p.type === "video");
-  const mainImage = service.imageUrls[0];
+  const mainImage = service.media[0]?.url;
 
   return (
     <SiteShell>

@@ -5,22 +5,23 @@ import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import type { GalleryImage } from "@/lib/public-data";
 import { getOptimizedUrl } from "@/lib/media-utils";
 
 interface ImageStackProps {
-  images: string[];
+  media: GalleryImage[];
   title: string;
   slug: string; // Used for navigation
 }
 
-export function ImageStack({ images, title, slug }: ImageStackProps) {
+export function ImageStack({ media, title, slug }: ImageStackProps) {
   const [index, setIndex] = useState(0);
   const router = useRouter();
 
   // Swipe logic
   const handleDragEnd = (_event: unknown, info: PanInfo) => {
     const threshold = 50;
-    const len = images.length;
+    const len = media.length;
     if (info.offset.x > threshold) {
       // Swipe Right -> Prev
       setIndex((prev) => (prev > 0 ? prev - 1 : len - 1));
@@ -30,14 +31,14 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
     }
   };
 
-  if (!images || images.length === 0) return null;
+  if (!media || media.length === 0) return null;
 
   return (
     <div className="relative w-full h-full flex items-center justify-center px-10 lg:px-8 overflow-visible">
       <div className="relative w-full aspect-[4/3] preserve-3d">
         <AnimatePresence initial={false}>
-          {images.map((img, i) => {
-            const len = images.length;
+          {media.map((item, i) => {
+            const len = media.length;
             const isCenter = i === index;
             const isLeft = i === (index - 1 + len) % len;
             const isRight = i === (index + 1) % len;
@@ -72,7 +73,7 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
 
             return (
               <motion.div
-                key={img}
+                key={item.url}
                 initial={{ opacity: 0, scale: 0.8, x: 0 }}
                 animate={{ 
                   opacity, 
@@ -96,30 +97,42 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
                 className="absolute inset-0 cursor-pointer rounded-2xl overflow-hidden bg-white"
               >
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-                <Image
-                  src={getOptimizedUrl(img, 'thumb')}
-                  alt={`${title} - image ${i + 1}`}
-                  fill
-                  className="object-cover pointer-events-none"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  unoptimized
-                  loading="lazy"
-                />
+                
+                {item.type === "video" ? (
+                  <video
+                    src={item.url}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover pointer-events-none"
+                  />
+                ) : (
+                  <Image
+                    src={getOptimizedUrl(item.url, 'thumb')}
+                    alt={`${title} - asset ${i + 1}`}
+                    fill
+                    className="object-cover pointer-events-none"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    unoptimized
+                    loading="lazy"
+                  />
+                )}
               </motion.div>
             );
           })}
         </AnimatePresence>
         
         {/* Navigation Arrows - Desktop Only */}
-        {images.length > 1 && (
+        {media.length > 1 && (
           <>
             <button 
               onClick={(e) => {
                 e.stopPropagation();
-                setIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+                setIndex((prev) => (prev > 0 ? prev - 1 : media.length - 1));
               }}
               className="absolute left-[-2.5rem] lg:left-[-3rem] top-1/2 -translate-y-1/2 z-50 p-2 lg:p-3 rounded-full bg-white/40 hover:bg-white/80 active:scale-95 text-brand-textDark/40 hover:text-brand-textDark shadow-sm transition-all hidden lg:flex items-center justify-center backdrop-blur-md border border-white/20"
-              aria-label="Previous image"
+              aria-label="Previous asset"
             >
               <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
             </button>
@@ -127,10 +140,10 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
             <button 
               onClick={(e) => {
                 e.stopPropagation();
-                setIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+                setIndex((prev) => (prev < media.length - 1 ? prev + 1 : 0));
               }}
               className="absolute right-[-2.5rem] lg:left-auto lg:right-[-3rem] top-1/2 -translate-y-1/2 z-50 p-2 lg:p-3 rounded-full bg-white/40 hover:bg-white/80 active:scale-95 text-brand-textDark/40 hover:text-brand-textDark shadow-sm transition-all hidden lg:flex items-center justify-center backdrop-blur-md border border-white/20"
-              aria-label="Next image"
+              aria-label="Next asset"
             >
               <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
             </button>
@@ -139,7 +152,7 @@ export function ImageStack({ images, title, slug }: ImageStackProps) {
 
         {/* Counter UI */}
         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-brand-textDark/40 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
-          {index + 1} / {images.length} • Swipe to Browse
+          {index + 1} / {media.length} • Swipe to Browse
         </div>
       </div>
     </div>

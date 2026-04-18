@@ -29,7 +29,7 @@ export interface ServiceData {
   id: string; // Slugified title
   title: string;
   description: string;
-  imageUrls: string[];
+  media: GalleryImage[];
   folder: string; // The Cloudinary folder name
 }
 
@@ -148,13 +148,20 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
             id: folderName.toLowerCase().replace(/ /g, "-"),
             title: prettyTitle,
             description: "Service information coming soon.",
-            imageUrls: [],
+            media: [],
             folder: folderName,
           } as ServiceData;
         }
 
-        // 4. Identify the image and the .txt description
-        const imageResource = results.resources.find((r: CloudinaryApiResource) => r.resource_type === "image");
+        // Identify media resources and text files
+        const media: GalleryImage[] = results.resources
+          .filter((r: CloudinaryApiResource) => r.resource_type === "image" || r.resource_type === "video")
+          .map((r: CloudinaryApiResource) => ({
+            name: r.public_id.split("/").pop() || "Media",
+            url: r.secure_url,
+            type: r.resource_type === "video" ? "video" : "image",
+          }));
+
         const txtResource = results.resources.find((r: CloudinaryApiResource) => 
           r.resource_type === "raw" && (r.format === "txt" || r.public_id.endsWith(".txt"))
         );
@@ -178,13 +185,13 @@ export const getDynamicServices = async (): Promise<ServiceData[]> => {
           id: folderName.toLowerCase().replace(/ /g, "-"),
           title: prettyTitle,
           description: description,
-          imageUrls: imageResource ? [imageResource.secure_url] : [],
+          media: media,
           folder: folderName,
         } as ServiceData;
       })
     );
 
-    return services.filter(s => s.imageUrls.length > 0); // Only return services with at least one image
+    return services.filter(s => s.media.length > 0); // Only return services with at least one asset
   } catch (error) {
     console.error("[DATA ERROR] Dynamic services fetch failed:", error);
     return [];
@@ -240,17 +247,21 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
         }
 
         const source = resources[0]?.secure_url.includes('fallback') ? 'LOCAL' : 'CLOUDINARY';
-        console.log(`[DATA] Service: "${service.title}" -> ${resources.length} images sourced from ${source}`);
+        console.log(`[DATA] Service: "${service.title}" -> ${resources.length} assets sourced from ${source}`);
 
-        // Shuffle and take up to 10 images
+        // Shuffle and take up to 10 assets
         const shuffled = [...resources].sort(() => 0.5 - Math.random());
-        const imageUrls = shuffled.slice(0, 10).map(res => res.secure_url);
+        const media: GalleryImage[] = shuffled.slice(0, 10).map(res => ({
+          name: res.public_id.split("/").pop() || "Project Media",
+          url: res.secure_url,
+          type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
+        }));
 
         return {
           id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
           title: service.title,
           description: service.description,
-          imageUrls: imageUrls,
+          media: media,
           folder: service.folder,
         };
       } catch (error) {
@@ -259,7 +270,7 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
           id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
           title: service.title,
           description: service.description,
-          imageUrls: [],
+          media: [],
           folder: service.folder,
         };
       }
