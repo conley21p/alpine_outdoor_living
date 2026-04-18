@@ -33,6 +33,7 @@ export default async function ServicePage({ params }: Props) {
   }
 
   const allProjects = await getServiceProjects(service.folder);
+  const heroVideo = allProjects.find((p) => p.type === "video");
   const mainImage = service.imageUrls[0];
 
   return (
@@ -87,8 +88,18 @@ export default async function ServicePage({ params }: Props) {
 
             {/* Visual Side - Hidden on Mobile */}
             <div className="hidden lg:block lg:col-span-5 relative group">
-              <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
-                {mainImage && (
+              <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl bg-black/5">
+                {heroVideo ? (
+                  <video
+                    src={heroVideo.url}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster={mainImage ? getOptimizedUrl(mainImage, 'full') : undefined}
+                  />
+                ) : mainImage ? (
                   <Image
                     src={getOptimizedUrl(mainImage, 'full')}
                     alt={service.title}
@@ -97,8 +108,8 @@ export default async function ServicePage({ params }: Props) {
                     priority
                     unoptimized
                   />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />
+                ) : null}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-60 pointer-events-none" />
               </div>
 
               {/* Decorative floating square */}
