@@ -8,7 +8,7 @@ export const publicConfig = {
   businessDescription: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
   businessTagline: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
   businessPhone: "217-899-1784",
-  businessEmail: "austinschiff@alpineoutdoorlivingllc.com",
+  businessEmail: "Info@alpineoutdoorlivingllc.com",
   industry: "Landscape Design & Construction",
   servicesOffered: [
     "Full Landscape Design & Planning",
@@ -59,7 +59,7 @@ export const getServerConfig = () => {
     cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
 
     // Optional settings
-    adminEmail: "austinschiff@alpineoutdoorlivingllc.com",
+    adminEmail: "Info@alpineoutdoorlivingllc.com",
     nextAuthSecret: process.env.NEXTAUTH_SECRET || "",
     nextAuthUrl: publicConfig.siteUrl,
   };
