@@ -114,20 +114,20 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
       {/* Lightbox / Full-size Viewer */}
       <AnimatePresence>
         {selectedItem && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center">
+          <div className="fixed top-0 left-0 right-0 bottom-0 z-[200] flex items-center justify-center m-0 p-0">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedItem(null)}
-              className="absolute inset-0 bg-brand-bgLight/80 backdrop-blur-2xl"
+              className="absolute inset-0 bg-brand-bgLight/90 backdrop-blur-3xl cursor-zoom-out"
             />
             
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full h-full flex items-center justify-center"
+              className="relative w-full h-full flex items-center justify-center pointer-events-none"
             >
               {selectedItem.type === "video" ? (
                 <video
