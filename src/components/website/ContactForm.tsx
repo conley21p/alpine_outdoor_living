@@ -53,7 +53,25 @@ export function ContactForm({ initialService }: ContactFormProps) {
     }
   }, [services, initialService]);
 
+  const formatPhoneNumber = (value: string) => {
+    const phoneNumber = value.replace(/\D/g, "");
+    const phoneNumberLength = phoneNumber.length;
+    if (phoneNumberLength < 4) return phoneNumber;
+    if (phoneNumberLength < 7) {
+      return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+    }
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
+      3,
+      6
+    )}-${phoneNumber.slice(6, 10)}`;
+  };
+
   const onChange = (field: keyof ContactFormState, value: string) => {
+    if (field === "phone") {
+      const formatted = formatPhoneNumber(value);
+      setForm((prev) => ({ ...prev, [field]: formatted }));
+      return;
+    }
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -194,6 +212,8 @@ export function ContactForm({ initialService }: ContactFormProps) {
           <Input 
             value={form.phone} 
             onChange={(event) => onChange("phone", event.target.value)} 
+            placeholder="(217) 899-1784"
+            maxLength={14}
             required
           />
           {fieldErrors.phone && (
