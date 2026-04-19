@@ -63,7 +63,7 @@ export function Navbar() {
               </Link>
             ))}
             <a
-              href={`tel:${businessPhone}`}
+              href={`tel:${businessPhone.replace(/\D/g, '')}`}
               className="ml-2 rounded-full bg-brand-primary px-5 py-2 text-[13px] font-medium text-white transition-all hover:bg-brand-primary-dark"
             >
               Call Now

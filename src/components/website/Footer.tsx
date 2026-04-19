@@ -26,7 +26,7 @@ export function Footer() {
             </h4>
             <div className="mt-3 space-y-2">
               <a
-                href={`tel:${publicConfig.businessPhone}`}
+                href={`tel:${publicConfig.businessPhone.replace(/\D/g, '')}`}
                 className="block text-[14px] text-brand-textDark transition-opacity hover:opacity-60"
               >
                 {publicConfig.businessPhone}

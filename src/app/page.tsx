@@ -144,7 +144,7 @@ export default async function Home() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Phone</p>
-                      <a href={`tel:${publicConfig.businessPhone}`} className="mt-1 block text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
+                      <a href={`tel:${publicConfig.businessPhone.replace(/\D/g, '')}`} className="mt-1 block text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
                         {publicConfig.businessPhone}
                       </a>
                     </div>
