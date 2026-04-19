@@ -102,11 +102,23 @@ export default async function Home() {
                   focuses on transforming ordinary spaces into extraordinary outdoor retreats.
                 </p>
               </div>
-              <div className="lg:col-span-4 lg:sticky lg:top-32 order-first lg:order-last">
-                <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-none">
-                  Who We Are
-                </h2>
-                <div className="h-1.5 w-16 bg-brand-primary mt-6 rounded-full" />
+              <div className="lg:col-span-4 lg:sticky lg:top-32 order-first lg:order-last space-y-8">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-2xl glass-card-green">
+                  <Image
+                    src="/fallback/Website/WhoWeAre/Spotlight on Austin P7051304.JPG"
+                    alt="Austin Schiff, Founder of Alpine Outdoor Living"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                </div>
+                <div>
+                  <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-none">
+                    Who We Are
+                  </h2>
+                  <div className="h-1.5 w-16 bg-brand-primary mt-6 rounded-full" />
+                </div>
               </div>
             </div>
           </section>
