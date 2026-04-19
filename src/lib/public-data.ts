@@ -300,6 +300,19 @@ export const getServiceBySlug = async (slug: string): Promise<ServiceData | null
   const all = await getStaticServices();
   return all.find(s => s.id === slug) || null;
 };
+/**
+ * Fetches the spotlight photo for the "Who We Are" section.
+ * Prioritizes Website/WhoWeAre folder in Cloudinary.
+ */
+export async function getWhoWeArePhoto(): Promise<string> {
+  const folder = "Website/WhoWeAre";
+  const image = await getRandomImageInFolder(folder);
+  
+  if (image) return image.secure_url;
+  
+  // High-fidelity fallback
+  return "/fallback/Website/WhoWeAre/Spotlight on Austin P7051304.JPG";
+}
 
 /**
  * Fetches ALL images for a specific project folder.

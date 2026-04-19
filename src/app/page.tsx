@@ -8,17 +8,19 @@ import { publicConfig } from "@/lib/config";
 import { 
   getInstagramFeaturedPost,
   getHeroPair,
-  getStaticServices 
+  getStaticServices,
+  getWhoWeArePhoto
 } from "@/lib/public-data";
 
 export const revalidate = 300; // Cache the page for 5 minutes to prevent Cloudinary rate limits
 
 export default async function Home() {
-  const [instagramPost, heroPair, services] = await Promise.all([
+  const [instagramPost, heroPair, services, whoWeArePhoto] = await Promise.all([
     // getGalleryImages(),
     getInstagramFeaturedPost(),
     getHeroPair("Home/Website/Hero"),
     getStaticServices(),
+    getWhoWeArePhoto(),
   ]);
 
   return (
@@ -105,7 +107,7 @@ export default async function Home() {
               <div className="lg:col-span-4 lg:sticky lg:top-32 order-first lg:order-last space-y-8">
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-2xl glass-card-green">
                   <Image
-                    src="/fallback/Website/WhoWeAre/Spotlight on Austin P7051304.JPG"
+                    src={whoWeArePhoto}
                     alt="Austin Schiff, Founder of Alpine Outdoor Living"
                     fill
                     className="object-cover"
