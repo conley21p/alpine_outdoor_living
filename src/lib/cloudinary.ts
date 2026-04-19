@@ -13,6 +13,7 @@ cloudinary.config({
 
 export interface CloudinaryResource {
   public_id: string;
+  display_name?: string;
   secure_url: string;
   width: number;
   height: number;
@@ -99,6 +100,7 @@ export async function getImagesInFolder(
 
     return results.resources.map((res: CloudinaryApiResource) => ({
       public_id: res.public_id,
+      display_name: typeof res.display_name === 'string' ? res.display_name : undefined,
       secure_url: res.secure_url,
       width: Number(res.width) || 0,
       height: Number(res.height) || 0,

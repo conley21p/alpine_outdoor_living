@@ -3,6 +3,7 @@ import path from "path";
 
 export interface LocalResource {
   public_id: string;
+  display_name?: string;
   secure_url: string;
   format: string;
 }

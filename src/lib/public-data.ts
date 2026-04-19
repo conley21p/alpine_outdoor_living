@@ -58,9 +58,13 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
     }
 
     return [...resources]
-      .sort((a, b) => a.public_id.localeCompare(b.public_id, undefined, { numeric: true, sensitivity: 'base' }))
+      .sort((a, b) => {
+        const nameA = a.display_name || a.public_id;
+        const nameB = b.display_name || b.public_id;
+        return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
+      })
       .map((res: CloudinaryResource | LocalResource) => ({
-        name: res.public_id.split("/").pop() || "Gallery Image",
+        name: res.display_name || res.public_id.split("/").pop() || "Gallery Image",
         url: res.secure_url,
         type: "resource_type" in res && res.resource_type === "video" ? "video" : "image",
       }));
@@ -256,10 +260,14 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
         const source = resources[0]?.secure_url.includes('fallback') ? 'LOCAL' : 'CLOUDINARY';
         console.log(`[DATA] Service: "${service.title}" -> ${resources.length} assets sourced from ${source}`);
 
-        // Sort numerically/alphabetically and take up to 10 assets
-        const sorted = [...resources].sort((a, b) => a.public_id.localeCompare(b.public_id, undefined, { numeric: true, sensitivity: 'base' }));
+        // Sort numerically/alphabetically by display_name and take up to 10 assets
+        const sorted = [...resources].sort((a, b) => {
+          const nameA = a.display_name || a.public_id;
+          const nameB = b.display_name || b.public_id;
+          return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
+        });
         const media: GalleryImage[] = sorted.slice(0, 10).map(res => ({
-          name: res.public_id.split("/").pop() || "Project Media",
+          name: res.display_name || res.public_id.split("/").pop() || "Project Media",
           url: res.secure_url,
           type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
         }));
@@ -310,9 +318,13 @@ export const getServiceProjects = async (folder: string): Promise<GalleryImage[]
     }
 
     return [...resources]
-      .sort((a, b) => a.public_id.localeCompare(b.public_id, undefined, { numeric: true, sensitivity: 'base' }))
+      .sort((a, b) => {
+        const nameA = a.display_name || a.public_id;
+        const nameB = b.display_name || b.public_id;
+        return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
+      })
       .map((res) => ({
-        name: res.public_id.split("/").pop() || "Project Image",
+        name: res.display_name || res.public_id.split("/").pop() || "Project Image",
         url: res.secure_url,
         type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
       }));
