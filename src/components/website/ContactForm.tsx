@@ -59,13 +59,36 @@ export function ContactForm({ initialService }: ContactFormProps) {
 
   const validate = () => {
     const nextErrors: Record<string, string> = {};
-    if (!form.firstName.trim()) nextErrors.firstName = "First name is required.";
+    
+    // First Name validation
+    if (!form.firstName.trim()) {
+      nextErrors.firstName = "First name is required.";
+    }
+
+    // Email validation (Basic regex)
+    if (form.email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(form.email)) {
+        nextErrors.email = "Please enter a valid email address.";
+      }
+    } else if (!form.phone.trim()) {
+      // If no phone provided, email becomes required as a fallback contact
+      nextErrors.email = "Please provide an email or phone number.";
+    }
+
+    // Phone validation (Ensure it's not just a few digits)
+    const phoneDigits = form.phone.replace(/\D/g, "");
+    if (!form.phone.trim()) {
+      nextErrors.phone = "Phone number is required.";
+    } else if (phoneDigits.length < 10) {
+      nextErrors.phone = "Please enter a valid 10-digit phone number.";
+    }
+
+    // Service validation
     if (!form.serviceNeeded.trim()) {
       nextErrors.serviceNeeded = "Select a service.";
     }
-    if (!form.phone.trim()) {
-      nextErrors.phone = "Phone number is required.";
-    }
+
     return nextErrors;
   };
 
@@ -184,6 +207,9 @@ export function ContactForm({ initialService }: ContactFormProps) {
             value={form.email}
             onChange={(event) => onChange("email", event.target.value)}
           />
+          {fieldErrors.email && (
+            <p className="mt-2 text-[13px] text-red-600">{fieldErrors.email}</p>
+          )}
         </div>
       </div>
 
