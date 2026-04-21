@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     description: publicConfig.businessDescription,
     url: publicConfig.siteUrl,
     siteName: publicConfig.businessName,
-    images: [`${publicConfig.siteUrl}/Logo.svg`],
+    images: [`${publicConfig.siteUrl}/Logo.png`],
   },
   icons: {
-    icon: "/Logo.svg",
+    icon: "/Logo.png",
   },
 };
 

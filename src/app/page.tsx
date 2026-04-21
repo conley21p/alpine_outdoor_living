@@ -2,22 +2,20 @@ import Image from "next/image";
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
-// import { GalleryGrid } from "@/components/website/GalleryGrid";
 import { ContactForm } from "@/components/website/ContactForm";
 import { publicConfig } from "@/lib/config";
 import { 
-  getInstagramFeaturedPost,
+  getFacebookFeaturedPost,
   getHeroPair,
   getStaticServices,
   getWhoWeArePhoto
 } from "@/lib/public-data";
 
-export const revalidate = 300; // Cache the page for 5 minutes to prevent Cloudinary rate limits
+export const revalidate = 300; // Cache the page for 5 minutes
 
 export default async function Home() {
-  const [instagramPost, heroPair, services, whoWeArePhoto] = await Promise.all([
-    // getGalleryImages(),
-    getInstagramFeaturedPost(),
+  const [facebookPost, heroPair, services, whoWeArePhoto] = await Promise.all([
+    getFacebookFeaturedPost(),
     getHeroPair("Home/Website/Hero"),
     getStaticServices(),
     getWhoWeArePhoto(),
@@ -25,27 +23,27 @@ export default async function Home() {
 
   return (
     <SiteShell>
-      {/* Unified Ambient Background Zone - Entire Page Flow */}
+      {/* Unified Ambient Background Zone - KML Blue/Green Palette */}
       <div className="relative w-full">
-        {/* Vibrant Lava Lamp Ambient Layer - Pure Greens Only */}
+        {/* Vibrant Lava Lamp Ambient Layer - Blue & Green */}
         <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden">
-          {/* Top-left primary green pool */}
-          <div className="absolute top-[0%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/55 to-green-500/40 blur-[140px] lava-lamp-1" />
-          {/* Top-left anchor — deep olive green */}
-          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-green-600/40 to-brand-primary/50 blur-[130px] lava-lamp-3 hidden lg:block" />
-          {/* Right pool — warm lime-green, no blue */}
-          <div className="absolute top-[15%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-green-400/35 to-lime-500/30 blur-[160px] lava-lamp-2" />
+          {/* Top-left Blue pool */}
+          <div className="absolute top-[0%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/55 to-blue-600/40 blur-[140px] lava-lamp-1" />
+          {/* Top-left anchor — Vibrant Green */}
+          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-brand-secondary/40 to-brand-primary/50 blur-[130px] lava-lamp-3 hidden lg:block" />
+          {/* Right pool — Blue/Green mix */}
+          <div className="absolute top-[15%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-blue-400/35 to-brand-secondary/30 blur-[160px] lava-lamp-2" />
 
           {/* Mid Supporting Blobs */}
-          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-lime-400/25 to-green-500/20 blur-[120px] lava-lamp-3 hidden lg:block" />
-          <div className="absolute top-[60%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-green-500/25 to-brand-primary/30 blur-[140px] lava-lamp-1" />
-          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/40 to-green-400/25 blur-[150px] lava-lamp-2 hidden lg:block" />
+          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-brand-secondary/25 to-blue-500/20 blur-[120px] lava-lamp-3 hidden lg:block" />
+          <div className="absolute top-[60%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-blue-500/25 to-brand-primary/30 blur-[140px] lava-lamp-1" />
+          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/40 to-brand-secondary/25 blur-[150px] lava-lamp-2 hidden lg:block" />
 
           {/* Bottom Bloom */}
           <div className="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-brand-primary/20 blur-[140px] lava-lamp-3" />
           
           {/* Warm Accent */}
-          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-[#C8882A]/12 to-yellow-300/10 blur-[1200px] lava-lamp-3" />
+          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-brand-secondary/12 to-blue-300/10 blur-[1200px] lava-lamp-3" />
           <div className="absolute top-[40%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay hidden lg:block" />
         </div>
 
@@ -60,12 +58,12 @@ export default async function Home() {
               <div className="space-y-8 px-2 lg:px-12">
                 <div>
                   <h2 className="text-4xl lg:text-6xl font-bold tracking-tighter text-brand-textDark leading-[1.1]">
-                    Quietly exceptional.<br/>Intentionally Built.
+                    Precision Focused.<br/>Locally Owned.
                   </h2>
-                  <div className="h-1.5 w-24 bg-brand-primary mt-6 rounded-full" />
+                  <div className="h-1.5 w-24 bg-brand-secondary mt-6 rounded-full" />
                 </div>
                 <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-xl">
-                  We believe the most compelling outdoor spaces don’t feel overdesigned—they feel effortless.
+                  We believe your home deserves the best protection—delivered with honesty, reliability, and expert craftsmanship.
                 </p>
               </div>
 
@@ -78,37 +76,36 @@ export default async function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-brand-textDark mb-6">Service Areas</h3>
                 <p className="text-lg text-brand-textDark/70 leading-relaxed mb-8">
-                  Based in Springfield, IL, we proudly serve homeowners and businesses throughout the surrounding Central Illinois region.
+                  Based in Petersburg, IL, we proudly serve homeowners and businesses throughout Springfield, Chatham, and the surrounding Central Illinois region.
                 </p>
                 <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-brand-primary font-bold text-lg">
-                  <span>Thoughtful Design</span>
+                  <span>Knowledgeable Service</span>
                   <span className="hidden md:inline text-brand-textDark/20">•</span>
-                  <span>Quality Craftsmanship</span>
+                  <span>Reliable Results</span>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Who We Are - Biographical Section */}
+          {/* Who We Are - KML Biographical Section */}
           <section className="relative mx-auto max-w-7xl px-6 lg:px-20 py-24 lg:py-32">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
               <div className="lg:col-span-8 space-y-6 lg:pr-12">
                 <p className="text-xl lg:text-2xl font-medium text-brand-textDark/90 leading-relaxed">
-                  <strong>Alpine Outdoor Living, LLC.</strong> Was founded by Austin Schiff during his final year at the
-                  University of Illinois Urbana-Champaign. While earning his degree in <strong>Landscape Architecture</strong>,
-                  Austin combined his technical expertise with a lifelong passion for the outdoors.
+                  <strong>KML Seamless Gutters LLC</strong> is a locally owned and operated exterior contractor founded by <strong>Kale Lash</strong>. 
+                  We specialize in high-quality seamless gutters, soffit, fascia, and siding installation and repair services.
                 </p>
                 <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
-                  His entrepreneurship started at a young age of 11 when he started his own mowing business to
-                  save for the future. Driven by a deep love for nature and a talent for artistic design, Austin now
-                  focuses on transforming ordinary spaces into extraordinary outdoor retreats.
+                  Kale and his team take immense pride in delivering exceptional results, whether it&apos;s a residential remodel or a 
+                  large-scale commercial project. Our commitment to using premium materials like 6-inch seamless gutters 
+                  and precision downspouts ensures your property is protected from the elements for years to come.
                 </p>
               </div>
               <div className="lg:col-span-4 lg:sticky lg:top-32 order-first lg:order-last space-y-8">
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-2xl glass-card-green">
                   <Image
                     src={whoWeArePhoto}
-                    alt="Austin Schiff, Founder of Alpine Outdoor Living"
+                    alt="Kale Lash, Founder of KML Seamless Gutters"
                     fill
                     className="object-cover"
                     priority
@@ -119,7 +116,7 @@ export default async function Home() {
                   <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-none">
                     Who We Are
                   </h2>
-                  <div className="h-1.5 w-16 bg-brand-primary mt-6 rounded-full" />
+                  <div className="h-1.5 w-16 bg-brand-secondary mt-6 rounded-full" />
                 </div>
               </div>
             </div>
@@ -129,12 +126,12 @@ export default async function Home() {
             <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
               <div className="sm:col-span-2 flex flex-col">
                 <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-tight mb-6">
-                  Ready to Elevate <br className="hidden lg:block" /> Your Landscape?
+                  Ready to Protect <br className="hidden lg:block" /> Your Exterior?
                 </h2>
                 <p className="mt-4 text-lg lg:text-xl leading-relaxed text-brand-textDark/70 mb-8">
-                  Turn your blank canvas into a peaceful sanctuary. Whether you are looking for a custom stone
-                  patio, a relaxing water feature, or a complete landscape redesign, we are here to bring your
-                  vision to life with artistic precision.
+                  Don&apos;t let worn-out gutters or soffit compromise your home. Whether you need 5-inch 
+                  residential gutters, 6-inch commercial drainage, or a complete siding refresh, 
+                  KML is here to deliver professional results with local care.
                 </p>
 
                 <div className="sm:mt-auto mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
@@ -146,7 +143,7 @@ export default async function Home() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Phone</p>
-                      <a href={`tel:${publicConfig.businessPhone.replace(/\D/g, '')}`} className="mt-1 block text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
+                      <a href={`tel:${publicConfig.businessPhone.replace(/\D/g, '')}`} className="mt-1 block text-lg font-bold text-brand-primary hover:text-brand-secondary transition-colors">
                         {publicConfig.businessPhone}
                       </a>
                     </div>
@@ -159,7 +156,7 @@ export default async function Home() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Email</p>
-                      <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block break-all text-lg font-bold text-brand-primary hover:text-brand-accent transition-colors">
+                      <a href={`mailto:${publicConfig.businessEmail}`} className="mt-1 block break-all text-lg font-bold text-brand-primary hover:text-brand-secondary transition-colors">
                         {publicConfig.businessEmail}
                       </a>
                     </div>
@@ -176,53 +173,51 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* <GalleryGrid images={galleryImages} previewOnly /> */}
-
-      {/* Instagram Section */}
+      {/* Facebook Section */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 px-8 py-12 lg:px-16 lg:py-16">
+        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-green-50 px-8 py-12 lg:px-16 lg:py-16">
           <div className="mx-auto max-w-4xl">
             <div className="text-center">
-              <div className="mb-6 text-5xl">📸</div>
+              <div className="mb-6 text-5xl">👍</div>
               <h2 className="text-3xl font-bold tracking-tight text-brand-textDark sm:text-4xl">
-                Follow Us on Instagram
+                Follow Us on Facebook
               </h2>
               <p className="mt-4 text-lg text-gray-600">
-                See our latest projects and get inspired for your outdoor space
+                See our latest projects and high-quality results from the field
               </p>
             </div>
 
-            {instagramPost && (
+            {facebookPost && (
               <div className="mt-8">
                 <a
-                  href={instagramPost.postUrl}
+                  href={facebookPost.postUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group block overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-[1.02]"
                 >
-                  <div className="relative aspect-square w-full overflow-hidden">
+                  <div className="relative aspect-video w-full overflow-hidden">
                     <Image
-                      src={instagramPost.thumbnailUrl}
-                      alt="Latest Instagram post"
+                      src={facebookPost.thumbnailUrl}
+                      alt="Latest KML project on Facebook"
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
                 </a>
-                <p className="mt-3 text-center text-sm text-gray-500">Latest post from @{publicConfig.instagramHandle}</p>
+                <p className="mt-3 text-center text-sm text-gray-500">Visit {publicConfig.facebookHandle} on Facebook</p>
               </div>
             )}
 
             <div className="mt-8 text-center">
               <a
-                href={`https://instagram.com/${publicConfig.instagramHandle}`}
+                href={publicConfig.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 text-lg font-semibold text-white transition-all hover:from-purple-700 hover:to-pink-700 hover:shadow-lg"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary px-8 py-4 text-lg font-semibold text-white transition-all hover:shadow-lg"
               >
-                <span>@{publicConfig.instagramHandle}</span>
+                <span>Visit Our Page</span>
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
               </a>
             </div>

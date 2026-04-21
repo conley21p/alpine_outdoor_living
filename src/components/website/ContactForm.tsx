@@ -129,15 +129,15 @@ export function ContactForm({ initialService }: ContactFormProps) {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          access_key: "4880cd5b-7e22-4d93-9e8a-84d7c3d8f38d",
+          access_key: "d26b5a1d-c58c-4ca1-a6e9-f0733127e6f3",
           to: publicConfig.businessEmail,
           name: `${form.firstName} ${form.lastName}`.trim(),
           email: form.email,
           phone: form.phone,
           service: form.serviceNeeded,
           message: form.message,
-          subject: `New Contact: ${form.serviceNeeded} from ${form.firstName}`,
-          from_name: "Alpine Outdoor Living",
+          subject: `New Gutter Request: ${form.serviceNeeded} from ${form.firstName}`,
+          from_name: "KML Seamless Gutters",
         }),
       });
 
@@ -166,9 +166,9 @@ export function ContactForm({ initialService }: ContactFormProps) {
         </div>
         <h3 className="text-3xl font-bold text-brand-textDark mb-6">Thank you for reaching out!</h3>
         <p className="text-lg leading-relaxed text-brand-textDark/80 mb-8">
-          We&rsquo;ve received your request and are excited to learn more about your vision. Austin or a 
-          member of the Alpine Team will review your details and get back with you within 24-48 hours 
-          to discuss the next steps for your outdoor space.
+          We&rsquo;ve received your request and are excited to help with your project. Kale or a 
+          member of the KML Team will review your details and get back with you within 24-48 hours 
+          to discuss your gutter, soffit, or siding needs.
         </p>
         <div className="space-y-4">
           <p className="text-base text-brand-textDark/60 italic">
@@ -212,7 +212,7 @@ export function ContactForm({ initialService }: ContactFormProps) {
           <Input 
             value={form.phone} 
             onChange={(event) => onChange("phone", event.target.value)} 
-            placeholder="(217) 899-1784"
+            placeholder="(217) 843-7265"
             maxLength={14}
             required
           />

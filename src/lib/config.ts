@@ -4,37 +4,37 @@
  */
 export const publicConfig = {
   // Business identity
-  businessName: "Alpine Outdoor Living LLC",
-  businessDescription: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
-  businessTagline: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
-  businessPhone: "(217) 899-1784",
-  businessEmail: "Info@alpineoutdoorlivingllc.com",
-  industry: "Landscape Design & Construction",
+  businessName: "KML Seamless Gutters LLC",
+  businessDescription: "Locally owned and operated exterior contractor offering seamless gutters, soffit, fascia, and siding installation and repair services in Springfield, IL and surrounding areas.",
+  businessTagline: "Expert Gutter, Soffit, Fascia & Siding Solutions — Precision Built in Central Illinois",
+  businessPhone: "(217) 843-7265",
+  businessEmail: "kmlseamlessguttersil@gmail.com",
+  industry: "Exterior Construction & Gutter Services",
   servicesOffered: [
-    "Full Landscape Design & Planning",
-    "Hardscape Installation (Patios, Walkways, & Retaining Walls)",
-    "Water Features (Aquascape Fountains & Ponds)",
-    "Fire Pits & Outdoor Fireplaces",
-    "Outdoor Living Spaces (Kitchen & Living Areas, Pergolas)",
-    "Softscaping (Planting, Gardens, & Mulch)",
-    "Landscape Lighting",
+    "5-Inch Seamless Gutters",
+    "6-Inch Seamless Gutters",
+    "Soffit & Fascia Installation",
+    "Siding Installation & Repair",
+    "Downspouts & Gutter Guards",
+    "Gutter Cleaning & Maintenance",
+    "Aluminum Trim & Repairs",
     "Other/Custom Project"
   ],
 
   // Branding
-  brandPrimary: "#8B9D33",
-  brandSecondary: "#C8882A",
+  brandPrimary: "#1C419E", // Primary Blue
+  brandSecondary: "#56D14B", // Vibrant Green
   brandTextLight: "#FFFFFF",
   brandTextDark: "#121212",
   brandBgLight: "#FAFAF9",
 
   // Site URLs
-  siteUrl: "https://alpine-outdoor-living.vercel.app",
-  defaultDomain: "alpine-outdoor-living.vercel.app",
+  siteUrl: "https://kml-seamless-gutters.vercel.app",
+  defaultDomain: "kml-seamless-gutters.vercel.app",
 
   // Social media
-  instagramHandle: "alpineoutdoorliving_",
-  instagramFeaturedPost: "https://www.instagram.com/p/C-v-X3jS0K0/",
+  facebookUrl: "https://www.facebook.com/p/KML-seamless-gutters-LLC-61573112742583/",
+  facebookHandle: "KML Seamless Gutters LLC",
 
   // Optional integrations (empty if not used)
   googleAnalyticsId: "",
