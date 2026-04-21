@@ -11,6 +11,8 @@ import { ServiceQuoteButton } from "@/components/website/ServiceQuoteButton";
 import { StaggeredGallery } from "@/components/website/StaggeredGallery";
 import { ContactForm } from "@/components/website/ContactForm";
 
+export const runtime = "edge";
+
 interface Props {
   params: { slug: string };
 }
