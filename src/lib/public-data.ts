@@ -1,12 +1,4 @@
-import { getLocalImagesInFolder, getRandomLocalImageInFolder, type LocalResource } from "./local-media";
 import { publicConfig } from "@/lib/config";
-
-// Edge-safe type definition (mirrors CloudinaryResource shape for compatibility)
-interface MediaResource {
-  public_id: string;
-  display_name?: string;
-  secure_url: string;
-}
 
 export interface GalleryImage {
   name: string;
@@ -33,100 +25,73 @@ export interface ServiceData {
 }
 
 /**
- * Fetches gallery images from local fallback folder.
+ * Gallery images — served from static public/fallback/ assets.
+ * Add more entries here as KML uploads project photos.
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
-  try {
-    const resources: LocalResource[] = getLocalImagesInFolder("Website/Gallery");
-    return [...resources]
-      .sort((a, b) => {
-        const nameA = a.display_name || a.public_id;
-        const nameB = b.display_name || b.public_id;
-        return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: "base" });
-      })
-      .map((res) => ({
-        name: res.display_name || res.public_id.split("/").pop() || "Gallery Image",
-        url: res.secure_url,
-        type: "image" as const,
-      }));
-  } catch {
-    return [];
-  }
+  return [
+    { name: "Seamless Gutter Project", url: "/fallback/Website/Services/5-Inch Seamless Gutters/Project.png", type: "image" },
+    { name: "Black Gutter Installation", url: "/fallback/Website/Services/6-Inch Seamless Gutters/Project.png", type: "image" },
+  ];
 };
 
 /**
- * Fetches a random pair of hero images (wide and mobile) from local fallback.
+ * Hero images — served from static public/fallback/ assets.
  */
-export const getHeroPair = async (basePath: string) => {
-  const path = basePath.replace("Home/", "");
-  try {
-    const wide = getRandomLocalImageInFolder(`${path}/Wide`);
-    const vert = getRandomLocalImageInFolder(`${path}/Vertical`);
-    return {
-      wide: wide?.secure_url || "/fallback/Website/Hero/Wide/Hero.png",
-      vert: vert?.secure_url || "/fallback/Website/Hero/Vertical/Hero.png",
-    };
-  } catch {
-    return {
-      wide: "/fallback/Website/Hero/Wide/Hero.png",
-      vert: "/fallback/Website/Hero/Vertical/Hero.png",
-    };
-  }
+export const getHeroPair = async (_basePath: string) => {
+  return {
+    wide: "/fallback/Website/Hero/Wide/Hero.png",
+    vert: "/fallback/Website/Hero/Vertical/Hero.png",
+  };
 };
 
 /**
  * Static service definitions for KML Seamless Gutters.
  */
-const STATIC_SERVICES: Array<{ title: string; description: string; folder: string }> = [
+const STATIC_SERVICES: Array<{ title: string; description: string; folder: string; media: GalleryImage[] }> = [
   {
     title: "Seamless Gutters",
     description: "Our premier seamless gutter systems are custom-formed on-site for a perfect fit, providing ultimate protection against water damage and foundation issues.",
     folder: "Seamless Gutters",
+    media: [
+      { name: "White Gutter Installation", url: "/fallback/Website/Services/5-Inch Seamless Gutters/Project.png", type: "image" },
+      { name: "Black Gutter Installation", url: "/fallback/Website/Services/6-Inch Seamless Gutters/Project.png", type: "image" },
+    ],
   },
   {
     title: "Soffit",
     description: "Expertly installed soffit systems that provide critical attic ventilation and structural integrity while enhancing your home's roofline aesthetics.",
     folder: "Soffit",
+    media: [
+      { name: "Soffit Installation", url: "/fallback/Website/Hero/Wide/Hero.png", type: "image" },
+    ],
   },
   {
     title: "Fascia",
     description: "Durable fascia installation that serves as the perfect support for your gutter system while creating a clean, finished appearance for your home's exterior.",
     folder: "Fascia",
+    media: [
+      { name: "Fascia Installation", url: "/fallback/Website/Hero/Wide/Hero.png", type: "image" },
+    ],
   },
   {
     title: "Siding Installation",
     description: "Professional siding solutions featuring premium materials that improve energy efficiency and curb appeal while providing a robust weather-resistant barrier.",
     folder: "Siding",
+    media: [
+      { name: "Siding Installation", url: "/fallback/Website/Hero/Vertical/Hero.png", type: "image" },
+    ],
   },
 ];
 
 export const getStaticServices = async (): Promise<ServiceData[]> => {
-  return STATIC_SERVICES.map((service) => {
-    const folderPath = `Website/Services/${service.folder}`;
-    try {
-      const resources: LocalResource[] = getLocalImagesInFolder(folderPath);
-      const media: GalleryImage[] = resources.slice(0, 10).map((res) => ({
-        name: res.display_name || res.public_id.split("/").pop() || "Project Media",
-        url: res.secure_url,
-        type: "image" as const,
-      }));
-      return {
-        id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
-        title: service.title,
-        description: service.description,
-        media,
-        folder: service.folder,
-      };
-    } catch {
-      return {
-        id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
-        title: service.title,
-        description: service.description,
-        media: [],
-        folder: service.folder,
-      };
-    }
-  });
+  return STATIC_SERVICES.map((service) => ({
+    id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
+    title: service.title,
+    description: service.description,
+    media: service.media,
+    folder: service.folder,
+  }));
 };
 
 export const getServiceBySlug = async (slug: string): Promise<ServiceData | null> => {
@@ -135,27 +100,12 @@ export const getServiceBySlug = async (slug: string): Promise<ServiceData | null
 };
 
 export async function getWhoWeArePhoto(): Promise<string> {
-  const res = getRandomLocalImageInFolder("Website/WhoWeAre");
-  return res?.secure_url || "/fallback/Website/WhoWeAre/Kale.png";
+  return "/fallback/Website/WhoWeAre/Kale.png";
 }
 
 export const getServiceProjects = async (folder: string): Promise<GalleryImage[]> => {
-  try {
-    const resources: LocalResource[] = getLocalImagesInFolder(`Website/Services/${folder}`);
-    return [...resources]
-      .sort((a, b) => {
-        const nameA = a.display_name || a.public_id;
-        const nameB = b.display_name || b.public_id;
-        return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: "base" });
-      })
-      .map((res) => ({
-        name: res.display_name || res.public_id.split("/").pop() || "Project Image",
-        url: res.secure_url,
-        type: "image" as const,
-      }));
-  } catch {
-    return [];
-  }
+  const service = STATIC_SERVICES.find((s) => s.folder === folder);
+  return service?.media || [];
 };
 
 export const getPublishedReviews = async (): Promise<Review[]> => {
