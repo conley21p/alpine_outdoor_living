@@ -10,7 +10,7 @@ export const revalidate = 300; // Cache the page for 5 minutes to prevent Cloudi
 export default async function GalleryPage() {
   const [images, heroPair] = await Promise.all([
     getGalleryImages(),
-    getHeroPair("Home/Website/GalleryHero"),
+    getHeroPair(),
   ]);
 
   return (

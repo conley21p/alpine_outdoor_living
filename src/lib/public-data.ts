@@ -38,7 +38,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
 /**
  * Hero images — served from static public/fallback/ assets.
  */
-export const getHeroPair = async (_basePath: string) => {
+export const getHeroPair = async () => {
   return {
     wide: "/fallback/Website/Hero/Wide/Hero.png",
     vert: "/fallback/Website/Hero/Vertical/Hero.png",
