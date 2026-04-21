@@ -215,7 +215,7 @@ export const getServiceProjects = async (folder: string): Promise<GalleryImage[]
         url: res.secure_url,
         type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
       }));
-  } catch (_error) {
+  } catch {
     return [];
   }
 };
