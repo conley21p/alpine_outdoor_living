@@ -59,7 +59,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
         url: res.secure_url,
         type: "resource_type" in res && res.resource_type === "video" ? "video" : "image",
       }));
-  } catch (_error) {
+  } catch {
     console.error("[DATA ERROR] Gallery fetch failed");
     return [];
   }
@@ -101,7 +101,7 @@ export const getHeroPair = async (basePath: string) => {
       wide: wide?.secure_url || "/fallback/Website/Hero/Wide/Hero.png",
       vert: vert?.secure_url || "/fallback/Website/Hero/Wide/Hero.png",
     };
-  } catch (_error) {
+  } catch {
     console.error(`[DATA ERROR] Hero pair for ${path} failed`);
     return { wide: "/fallback/Website/Hero/Wide/Hero.png", vert: "/fallback/Website/Hero/Wide/Hero.png" };
   }
@@ -161,7 +161,7 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
           media: media,
           folder: service.folder,
         };
-      } catch (_error) {
+      } catch {
         return {
           id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
           title: service.title,
