@@ -3,6 +3,7 @@ import { getLocalImagesInFolder, getRandomLocalImageInFolder, type LocalResource
 import { publicConfig } from "@/lib/config";
 
 const isDev = process.env.NODE_ENV === "development";
+const useCloudinary = publicConfig.useCloudinary;
  
 interface CloudinaryFolder {
   name: string;
@@ -34,17 +35,17 @@ export interface ServiceData {
 }
 
 /**
- * Fetches gallery images from Cloudinary Website/Gallery folder.
+ * Fetches gallery images.
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
     let resources: (CloudinaryResource | LocalResource)[] = [];
     
-    if (isDev) {
+    if (isDev || !useCloudinary) {
       resources = getLocalImagesInFolder("Website/Gallery");
     }
 
-    if (resources.length === 0) {
+    if (useCloudinary && resources.length === 0) {
       resources = await getImagesInFolder("Website/Gallery", 25);
     }
 
@@ -70,7 +71,7 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
 };
 
 /**
- * Fetches a random pair of hero images (wide and mobile) from Cloudinary.
+ * Fetches a random pair of hero images (wide and mobile).
  */
 export const getHeroPair = async (basePath: string) => {
   const path = basePath.replace("Home/", "");
@@ -81,11 +82,11 @@ export const getHeroPair = async (basePath: string) => {
       const folderPath = `${path}/${subFolder}`;
       let res = null;
 
-      if (isDev) {
+      if (isDev || !useCloudinary) {
         res = getRandomLocalImageInFolder(folderPath);
       }
 
-      if (!res) {
+      if (useCloudinary && !res) {
         res = await getRandomImageInFolder(folderPath);
       }
 
@@ -148,7 +149,10 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
       const folderPath = `Website/Services/${service.folder}`;
     try {
       let resources: (CloudinaryResource | LocalResource)[] = [];
-      resources = await getImagesInFolder(folderPath, 50);
+      
+      if (useCloudinary) {
+        resources = await getImagesInFolder(folderPath, 50);
+      }
 
       if (resources.length === 0) {
         resources = getLocalImagesInFolder(folderPath);
@@ -187,7 +191,12 @@ export const getServiceBySlug = async (slug: string): Promise<ServiceData | null
 
 export async function getWhoWeArePhoto(): Promise<string> {
   const folder = "Website/WhoWeAre";
-  const image = await getRandomImageInFolder(folder);
+  let image = null;
+
+  if (useCloudinary) {
+    image = await getRandomImageInFolder(folder);
+  }
+
   if (image) return image.secure_url;
   return "/fallback/Website/WhoWeAre/Kale.png";
 }
@@ -196,7 +205,10 @@ export const getServiceProjects = async (folder: string): Promise<GalleryImage[]
   const folderPath = `Website/Services/${folder}`;
   try {
     let resources: (CloudinaryResource | LocalResource)[] = [];
-    resources = await getImagesInFolder(folderPath, 100);
+    
+    if (useCloudinary) {
+      resources = await getImagesInFolder(folderPath, 100);
+    }
 
     if (resources.length === 0) {
       resources = getLocalImagesInFolder(folderPath);

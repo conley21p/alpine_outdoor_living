@@ -28,6 +28,9 @@ export const publicConfig = {
   brandTextDark: "#121212",
   brandBgLight: "#FAFAF9",
 
+  // Integrations
+  useCloudinary: false,
+
   // Site URLs
   siteUrl: "https://kml-seamless-gutters.vercel.app",
   defaultDomain: "kml-seamless-gutters.vercel.app",
