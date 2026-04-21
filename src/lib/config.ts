@@ -11,15 +11,11 @@ export const publicConfig = {
   businessEmail: "kmlseamlessguttersil@gmail.com",
   industry: "Exterior Construction & Gutter Services",
   servicesOffered: [
-    "5-Inch Seamless Gutters",
-    "6-Inch Seamless Gutters",
-    "Soffit & Fascia Installation",
-    "Siding Installation & Repair",
-    "Downspouts & Gutter Guards",
-    "Gutter Cleaning & Maintenance",
-    "Aluminum Trim & Repairs",
-    "Other/Custom Project"
-  ],
+    "Seamless Gutters",
+    "Soffit",
+    "Fascia",
+    "Siding Installation"
+  ] as const,
 
   // Branding
   brandPrimary: "#1C419E", // Primary Blue

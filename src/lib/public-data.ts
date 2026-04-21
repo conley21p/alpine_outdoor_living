@@ -1,14 +1,9 @@
-import cloudinary, { getImagesInFolder, getRandomImageInFolder, type CloudinaryResource, type CloudinaryApiResource, type CloudinaryApi } from "./cloudinary";
+import { getImagesInFolder, getRandomImageInFolder, type CloudinaryResource } from "./cloudinary";
 import { getLocalImagesInFolder, getRandomLocalImageInFolder, type LocalResource } from "./local-media";
 import { publicConfig } from "@/lib/config";
 
 const isDev = process.env.NODE_ENV === "development";
 const useCloudinary = publicConfig.useCloudinary;
- 
-interface CloudinaryFolder {
-  name: string;
-  path: string;
-}
 
 export interface GalleryImage {
   name: string;
@@ -31,11 +26,11 @@ export interface ServiceData {
   title: string;
   description: string;
   media: GalleryImage[];
-  folder: string; // The Cloudinary folder name
+  folder: string; // The folder name for media assets
 }
 
 /**
- * Fetches gallery images.
+ * Fetches gallery images from the Website/Gallery folder.
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   try {
@@ -64,8 +59,8 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
         url: res.secure_url,
         type: "resource_type" in res && res.resource_type === "video" ? "video" : "image",
       }));
-  } catch (error) {
-    console.error("[DATA ERROR] Gallery fetch:", error);
+  } catch (_error) {
+    console.error("[DATA ERROR] Gallery fetch failed");
     return [];
   }
 };
@@ -106,8 +101,8 @@ export const getHeroPair = async (basePath: string) => {
       wide: wide?.secure_url || "/fallback/Website/Hero/Wide/Hero.png",
       vert: vert?.secure_url || "/fallback/Website/Hero/Wide/Hero.png",
     };
-  } catch (error) {
-    console.error(`[DATA ERROR] Hero pair for ${path}:`, error);
+  } catch (_error) {
+    console.error(`[DATA ERROR] Hero pair for ${path} failed`);
     return { wide: "/fallback/Website/Hero/Wide/Hero.png", vert: "/fallback/Website/Hero/Wide/Hero.png" };
   }
 };
@@ -117,29 +112,24 @@ export const getHeroPair = async (basePath: string) => {
  */
 const STATIC_SERVICES: Array<{ title: string; description: string; folder: string }> = [
   {
-    title: "5-Inch Seamless Gutters",
-    description: "Standard residential gutter solutions designed for effective water management. Our 5-inch seamless gutters are custom-formed on-site for a perfect fit, preventing leaks and protecting your home's foundation.",
-    folder: "5-Inch Seamless Gutters",
+    title: "Seamless Gutters",
+    description: "Our premier seamless gutter systems are custom-formed on-site for a perfect fit, providing ultimate protection against water damage and foundation issues.",
+    folder: "Seamless Gutters",
   },
   {
-    title: "6-Inch Seamless Gutters",
-    description: "High-capacity drainage systems for larger roof surfaces or homes with heavy water runoff. These larger gutters provide superior protection during intense rainstorms, ensuring water is moved safely away from your property.",
-    folder: "6-Inch Seamless Gutters",
+    title: "Soffit",
+    description: "Expertly installed soffit systems that provide critical attic ventilation and structural integrity while enhancing your home's roofline aesthetics.",
+    folder: "Soffit",
   },
   {
-    title: "Soffit & Fascia",
-    description: "Expert installation and repair of soffit and fascia systems. These essential components provide critical ventilation and structural support for your roof while giving your home a clean, finished appearance.",
-    folder: "Soffit and Fascia",
+    title: "Fascia",
+    description: "Durable fascia installation that serves as the perfect support for your gutter system while creating a clean, finished appearance for your home's exterior.",
+    folder: "Fascia",
   },
   {
-    title: "Siding Installation & Repair",
-    description: "Quality exterior siding services including installation and repair. We use premium materials to enhance your home's curb appeal while providing a durable, weather-resistant barrier for your exterior walls.",
+    title: "Siding Installation",
+    description: "Professional siding solutions featuring premium materials that improve energy efficiency and curb appeal while providing a robust weather-resistant barrier.",
     folder: "Siding",
-  },
-  {
-    title: "Downspouts & Gutter Guards",
-    description: "Complete water management systems featuring professional downspout installation and high-performance leaf guards. Keep your gutters flowing freely and minimize maintenance with our custom protection solutions.",
-    folder: "Downspouts and Guards",
   },
 ];
 
@@ -171,7 +161,7 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
           media: media,
           folder: service.folder,
         };
-      } catch (error) {
+      } catch (_error) {
         return {
           id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
           title: service.title,
@@ -225,7 +215,7 @@ export const getServiceProjects = async (folder: string): Promise<GalleryImage[]
         url: res.secure_url,
         type: "resource_type" in res && (res as CloudinaryResource).resource_type === "video" ? "video" : "image",
       }));
-  } catch (error) {
+  } catch (_error) {
     return [];
   }
 };
