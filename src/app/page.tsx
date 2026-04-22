@@ -62,7 +62,7 @@ export default async function Home() {
                 <div className="inline-block px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-sm font-bold tracking-widest uppercase mb-4">
                   Our Philosophy
                 </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
                   <span className="whitespace-nowrap">Quietly <span className="text-brand-primary italic">Exceptional.</span></span><br />
                   Intentionally Built.
                 </h2>
