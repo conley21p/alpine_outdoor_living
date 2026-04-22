@@ -58,7 +58,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
               <div className="relative z-10 w-full lg:w-[45%] xl:w-[50%] p-6 sm:p-8 lg:p-10 flex-shrink-0 flex items-center justify-center">
                 {/* Image Stack */}
-                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-500">
+                <div className="w-full aspect-[4/3]">
                   <ImageStack
                     media={service.media}
                     title={service.title}
