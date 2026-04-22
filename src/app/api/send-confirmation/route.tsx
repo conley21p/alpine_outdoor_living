@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       from: "Alpine Outdoor Living <notifications@alpineoutdoorlivingllc.com>",
       to: [email],
       subject: "We've received your request - Alpine Outdoor Living",
-      text: `Hi ${firstName}, thank you for your interest in ${service}! We will get back to you in 24-48 hours.`,
+      react: ConfirmationEmail({ firstName, service }),
     });
 
     if (error) {
