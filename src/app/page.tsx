@@ -62,7 +62,7 @@ export default async function Home() {
                 <div className="inline-block px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-sm font-bold tracking-widest uppercase mb-4">
                   Our Philosophy
                 </div>
-                <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
+                <h2 className="text-3xl sm:text-4xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
                   <span className="whitespace-nowrap">Quietly <span className="text-brand-primary italic">Exceptional.</span></span><br />
                   Intentionally Built.
                 </h2>
@@ -120,9 +120,9 @@ export default async function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/40 via-transparent to-transparent opacity-60" />
 
-                  <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
-                    <h3 className="text-2xl font-bold text-white mb-1">Austin Schiff</h3>
-                    <p className="text-white/80 font-medium">Founder & Landscape Architect</p>
+                  <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl glass-card-green shadow-xl">
+                    <h3 className="text-2xl font-bold text-brand-textDark mb-1">Austin Schiff</h3>
+                    <p className="text-brand-textDark/80 font-medium">Founder & Landscape Architect</p>
                   </div>
                 </div>
               </div>
