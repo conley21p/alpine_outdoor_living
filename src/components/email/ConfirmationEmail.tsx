@@ -20,6 +20,11 @@ export const ConfirmationEmail: React.FC<Readonly<ConfirmationEmailProps>> = ({
     border: "1px solid #EFEFEF"
   }}>
     <div style={{ textAlign: "center", marginBottom: "30px" }}>
+      <img 
+        src="https://alpine-outdoor-living.vercel.app/Logo.svg" 
+        alt="Alpine Outdoor Living Logo" 
+        style={{ width: "60px", height: "60px", marginBottom: "15px" }}
+      />
       <h1 style={{
         fontSize: "24px",
         fontWeight: "bold",
