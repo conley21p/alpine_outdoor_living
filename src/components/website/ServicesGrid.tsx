@@ -81,13 +81,13 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                 scale = 0.9;
                 rotate = -6;
                 // Expose enough of the card to read it (overlap less)
-                x = isMobile ? "-45%" : "-60%";
+                x = isMobile ? "-45%" : "-80%";
                 opacity = 0.8;
               } else if (isRight) {
                 zIndex = 10;
                 scale = 0.9;
                 rotate = 6;
-                x = isMobile ? "45%" : "60%";
+                x = isMobile ? "45%" : "80%";
                 opacity = 0.8;
               }
 
@@ -172,7 +172,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   e.stopPropagation();
                   setIndex((prev) => (prev > 0 ? prev - 1 : services.length - 1));
                 }}
-                className="absolute left-[-1.5rem] lg:left-[-7rem] top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-white/90 hover:bg-white active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-black/5 shadow-xl transition-all hidden md:flex items-center justify-center backdrop-blur-xl"
+                className="absolute left-[-1.5rem] lg:left-[-7rem] top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-transparent hover:bg-white/40 active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-black/60 shadow-xl transition-all hidden md:flex items-center justify-center backdrop-blur-xl"
                 aria-label="Previous card"
               >
                 <ChevronLeft className="w-7 h-7" />
@@ -183,7 +183,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   e.stopPropagation();
                   setIndex((prev) => (prev < services.length - 1 ? prev + 1 : 0));
                 }}
-                className="absolute right-[-1.5rem] lg:right-[-7rem] top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-white/90 hover:bg-white active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-black/5 shadow-xl transition-all hidden md:flex items-center justify-center backdrop-blur-xl"
+                className="absolute right-[-1.5rem] lg:right-[-7rem] top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-transparent hover:bg-white/40 active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-black/60 shadow-xl transition-all hidden md:flex items-center justify-center backdrop-blur-xl"
                 aria-label="Next card"
               >
                 <ChevronRight className="w-7 h-7" />
