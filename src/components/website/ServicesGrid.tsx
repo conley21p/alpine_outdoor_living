@@ -19,7 +19,7 @@ interface ServicesGridProps {
 const CardPattern = ({ index }: { index: number }) => {
   const patterns = [
     // 0: Waves (Fluid)
-    <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+    <svg key="pattern-waves" className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="pattern-0" x="0" y="0" width="100" height="20" patternUnits="userSpaceOnUse">
           <path d="M0 10 Q 25 0 50 10 T 100 10" fill="none" stroke="currentColor" strokeWidth="2" />
@@ -28,7 +28,7 @@ const CardPattern = ({ index }: { index: number }) => {
       <rect width="100%" height="100%" fill="url(#pattern-0)" />
     </svg>,
     // 1: Dots (Grid)
-    <svg className="absolute inset-0 w-full h-full opacity-[0.04] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+    <svg key="pattern-dots" className="absolute inset-0 w-full h-full opacity-[0.04] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="pattern-1" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
           <circle cx="2" cy="2" r="1.5" fill="currentColor" />
@@ -37,7 +37,7 @@ const CardPattern = ({ index }: { index: number }) => {
       <rect width="100%" height="100%" fill="url(#pattern-1)" />
     </svg>,
     // 2: Diagonal Lines (Dynamic)
-    <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+    <svg key="pattern-lines" className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="pattern-2" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
           <line x1="0" y1="0" x2="0" y2="40" stroke="currentColor" strokeWidth="4" />
@@ -46,7 +46,7 @@ const CardPattern = ({ index }: { index: number }) => {
       <rect width="100%" height="100%" fill="url(#pattern-2)" />
     </svg>,
     // 3: Hexagons (Technical)
-    <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+    <svg key="pattern-hex" className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="pattern-3" x="0" y="0" width="28" height="49" patternUnits="userSpaceOnUse">
           <path d="M14 0 L28 7 L28 21 L14 28 L0 21 L0 7 Z" fill="none" stroke="currentColor" strokeWidth="1" />
