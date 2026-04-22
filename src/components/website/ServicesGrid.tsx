@@ -193,11 +193,6 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
                     {/* Action Buttons Layer - Only clickable if Center card */}
                     <div className={`flex gap-3 pb-2 transition-opacity duration-300 ${isCenter ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-                      <Link href={`/services/${service.id}`} className="flex-1">
-                        <button className="flex items-center justify-center gap-2 w-full py-4 px-4 font-bold text-brand-textDark bg-white/90 backdrop-blur-md border border-brand-primary/20 rounded-2xl transition-all hover:bg-white active:scale-95 shadow-sm text-sm lg:text-base">
-                          Explore
-                        </button>
-                      </Link>
                       <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="flex-1">
                         <button className="flex items-center justify-center gap-2 w-full py-4 px-4 font-bold text-white bg-brand-primary rounded-2xl transition-all hover:bg-brand-primary-dark active:scale-95 shadow-xl shadow-brand-primary/20 text-sm lg:text-base">
                           Let&apos;s Talk <span>→</span>
