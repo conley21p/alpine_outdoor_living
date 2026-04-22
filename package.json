@@ -19,6 +19,7 @@
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
+    "resend": "^6.12.2",
     "yet-another-react-lightbox": "^3.29.1"
   },
   "devDependencies": {

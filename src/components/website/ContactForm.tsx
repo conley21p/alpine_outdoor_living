@@ -148,6 +148,21 @@ export function ContactForm({ initialService }: ContactFormProps) {
         return;
       }
 
+      // Send confirmation email via Resend (Parallel, non-blocking for user success UI)
+      if (form.email.trim()) {
+        fetch("/api/send-confirmation", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: form.email,
+            firstName: form.firstName,
+            service: form.serviceNeeded,
+          }),
+        }).catch((err) => {
+          console.error("[CONFIRMATION EMAIL ERROR]", err);
+        });
+      }
+
       setSuccess(true);
     } catch {
       setError("Unable to submit your request right now. Please try again.");
