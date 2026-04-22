@@ -30,7 +30,7 @@ export interface ServiceData {
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   return [
-    { name: "Seamless Gutters Installation", url: "/fallback/Website/Services/Seamless Gutters/Project.png", type: "image" },
+    { name: "Seamless Gutters Installation", url: "/fallback/Website/Services/Seamless-Gutters/Project.png", type: "image" },
     { name: "Soffit Installation", url: "/fallback/Website/Services/Soffit/Project.png", type: "image" },
     { name: "Fascia Installation", url: "/fallback/Website/Services/Fascia/Project.png", type: "image" },
     { name: "Siding Installation", url: "/fallback/Website/Services/Siding/Project.png", type: "image" },
@@ -56,7 +56,7 @@ const STATIC_SERVICES: Array<{ title: string; description: string; folder: strin
     description: "Our premier seamless gutter systems are custom-formed on-site for a perfect fit, providing ultimate protection against water damage and foundation issues.",
     folder: "Seamless Gutters",
     media: [
-      { name: "Seamless Gutter Installation", url: "/fallback/Website/Services/Seamless Gutters/Project.png", type: "image" },
+      { name: "Seamless Gutter Installation", url: "/fallback/Website/Services/Seamless-Gutters/Project.png", type: "image" },
     ],
   },
   {

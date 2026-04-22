@@ -169,7 +169,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   <div className="relative z-10 p-5 lg:p-8 flex flex-col gap-5 lg:gap-8 h-full flex-grow pointer-events-none">
                     {/* SINGLE STATIC IMAGE - Removed nested ImageStack */}
                     {primaryMedia && (
-                      <div className="w-full aspect-[4/3] lg:aspect-square sm:aspect-video md:aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden relative flex-shrink-0 shadow-lg border border-black/5">
+                      <div className="w-full h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden relative flex-shrink-0 shadow-lg border border-black/5">
                         <Image
                           src={getOptimizedUrl(primaryMedia.url, 'thumb')}
                           alt={`${service.title} Example`}
