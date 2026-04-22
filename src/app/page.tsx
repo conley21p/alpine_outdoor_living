@@ -75,23 +75,22 @@ export default async function Home() {
               </div>
 
               {/* Content */}
-              <div className="lg:col-span-7 space-y-12">
-                <div className="space-y-6">
+              <div className="lg:col-span-7 flex flex-col justify-center h-full">
+                <div className="space-y-8">
                   <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tighter text-brand-textDark leading-[1.1]">
                     Quietly Exceptional.<br />Intentionally Built.
                   </h2>
                   <div className="h-1.5 w-24 bg-brand-primary rounded-full" />
-                  <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-2xl">
-                    We believe the most compelling outdoor spaces don’t feel overdesigned—they feel effortless.
-                  </p>
-                </div>
-
-                <div className="w-full">
-                  <div className="glass-card-green p-6 rounded-2xl">
-                    <h4 className="text-lg font-bold text-brand-textDark mb-3">Our Roots</h4>
-                    <p className="text-brand-textDark/70 leading-relaxed">
-                      Founded with a degree in Landscape Architecture and a lifelong passion for transforming ordinary spaces into extraordinary retreats.
+                  <div className="space-y-6 max-w-2xl">
+                    <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed">
+                      We believe the most compelling outdoor spaces don’t feel overdesigned—they feel effortless.
                     </p>
+                    <div className="p-6 rounded-2xl bg-brand-primary/5 border border-brand-primary/10">
+                      <h4 className="text-lg font-bold text-brand-textDark mb-2">Our Roots</h4>
+                      <p className="text-lg text-brand-textDark/70 leading-relaxed">
+                        Founded with a degree in Landscape Architecture and a lifelong passion for transforming ordinary spaces into extraordinary retreats.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

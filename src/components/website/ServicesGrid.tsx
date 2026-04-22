@@ -34,7 +34,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           {services.map((service, i) => (
             <div
               key={service.title}
-              className="group relative overflow-hidden rounded-[32px] border border-green-500/10 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 flex flex-col lg:flex-row h-full bg-white/40 backdrop-blur-2xl items-stretch"
+              className={`group relative overflow-hidden rounded-[32px] border border-green-500/10 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 flex flex-col h-full bg-white/40 backdrop-blur-2xl items-stretch ${i % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
             >
               {/* Unique Lava Lamp Backgrounds per Card */}
               {i % 3 === 0 && (
@@ -67,7 +67,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                 </div>
               </div>
 
-              <div className="relative z-10 p-6 sm:p-8 lg:p-10 lg:pl-0 flex flex-col justify-center flex-grow gap-4 lg:gap-6">
+              <div className={`relative z-10 p-6 sm:p-8 flex flex-col justify-center flex-grow gap-4 lg:gap-6 ${i % 2 === 1 ? 'lg:p-10 lg:pr-0' : 'lg:p-10 lg:pl-0'}`}>
                 <h3 className="text-2xl sm:text-3xl font-bold text-brand-textDark leading-tight group-hover:text-brand-primary transition-colors">
                   {service.title}
                 </h3>
