@@ -51,79 +51,66 @@ export default async function Home() {
 
         <div className="relative w-full">
           <HeroSection heroPair={heroPair} />
-          <ServicesGrid services={services} />
-          
-          {/* Service Areas & Philosophy Section */}
-          <section className="relative mx-auto max-w-7xl px-6 py-24 lg:py-40">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-              {/* Philosophy - The Brand Soul */}
-              <div className="space-y-8 px-2 lg:px-12">
-                <div>
-                  <h2 className="text-4xl lg:text-6xl font-bold tracking-tighter text-brand-textDark leading-[1.1]">
-                    Quietly exceptional.<br/>Intentionally Built.
-                  </h2>
-                  <div className="h-1.5 w-24 bg-brand-primary mt-6 rounded-full" />
-                </div>
-                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-xl">
-                  We believe the most compelling outdoor spaces don’t feel overdesigned—they feel effortless.
-                </p>
-              </div>
 
-              {/* Service Areas - The Logical Connection */}
-              <div className="rounded-3xl p-10 lg:p-14 glass-card-green relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-8 opacity-10">
-                  <svg className="w-32 h-32 text-brand-primary" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-brand-textDark mb-6">Service Areas</h3>
-                <p className="text-lg text-brand-textDark/70 leading-relaxed mb-8">
-                  Based in Springfield, IL, we proudly serve homeowners and businesses throughout the surrounding Central Illinois region.
-                </p>
-                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-brand-primary font-bold text-lg">
-                  <span>Thoughtful Design</span>
-                  <span className="hidden md:inline text-brand-textDark/20">•</span>
-                  <span>Quality Craftsmanship</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Who We Are - Biographical Section */}
-          <section className="relative mx-auto max-w-7xl px-6 lg:px-20 py-24 lg:py-32">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              <div className="lg:col-span-8 space-y-6 lg:pr-12">
-                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/90 leading-relaxed">
-                  <strong>Alpine Outdoor Living, LLC.</strong> Was founded by Austin Schiff during his final year at the
-                  University of Illinois Urbana-Champaign. While earning his degree in <strong>Landscape Architecture</strong>,
-                  Austin combined his technical expertise with a lifelong passion for the outdoors.
-                </p>
-                <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
-                  His entrepreneurship started at a young age of 11 when he started his own mowing business to
-                  save for the future. Driven by a deep love for nature and a talent for artistic design, Austin now
-                  focuses on transforming ordinary spaces into extraordinary outdoor retreats.
-                </p>
-              </div>
-              <div className="lg:col-span-4 lg:sticky lg:top-32 order-first lg:order-last space-y-8">
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-2xl glass-card-green">
+          {/* Trust Section: Who We Are & Philosophy */}
+          <section className="relative mx-auto max-w-7xl px-6 py-20 lg:py-32">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              {/* Image / Founder */}
+              <div className="lg:col-span-5 relative order-last lg:order-first">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-2xl glass-card-green group">
                   <Image
                     src={whoWeArePhoto}
                     alt="Austin Schiff, Founder of Alpine Outdoor Living"
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/40 via-transparent to-transparent opacity-60" />
+                  
+                  <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
+                    <h3 className="text-2xl font-bold text-white mb-1">Austin Schiff</h3>
+                    <p className="text-white/80 font-medium">Founder & Landscape Architect</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-none">
-                    Who We Are
+              </div>
+
+              {/* Content */}
+              <div className="lg:col-span-7 space-y-12">
+                <div className="space-y-6">
+                  <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tighter text-brand-textDark leading-[1.1]">
+                    Quietly exceptional.<br/>Intentionally Built.
                   </h2>
-                  <div className="h-1.5 w-16 bg-brand-primary mt-6 rounded-full" />
+                  <div className="h-1.5 w-24 bg-brand-primary rounded-full" />
+                  <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-2xl">
+                    We believe the most compelling outdoor spaces don’t feel overdesigned—they feel effortless.
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="glass-card-green p-6 rounded-2xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                      <svg className="w-24 h-24 text-brand-primary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>
+                    </div>
+                    <h4 className="text-lg font-bold text-brand-textDark mb-3">Service Areas</h4>
+                    <p className="text-brand-textDark/70 leading-relaxed">
+                      Based in Springfield, IL, proudly serving Central Illinois with thoughtful design and quality craftsmanship.
+                    </p>
+                  </div>
+
+                  <div className="glass-card-green p-6 rounded-2xl">
+                    <h4 className="text-lg font-bold text-brand-textDark mb-3">Our Roots</h4>
+                    <p className="text-brand-textDark/70 leading-relaxed">
+                      Founded with a degree in Landscape Architecture and a lifelong passion for transforming ordinary spaces into extraordinary retreats.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
+
+          <ServicesGrid services={services} />
 
           <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent">
             <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
