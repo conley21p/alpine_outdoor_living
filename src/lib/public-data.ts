@@ -311,7 +311,7 @@ export async function getWhoWeArePhoto(): Promise<string> {
   if (image) return image.secure_url;
   
   // High-fidelity fallback
-  return "/fallback/Website/WhoWeAre/Spotlight on Austin P7051304.JPG";
+  return "/fallback/Website/Profiles/HeadShot.jpg";
 }
 
 /**
