@@ -49,78 +49,69 @@ export default async function Home() {
 
         <div className="relative w-full">
           <HeroSection heroPair={heroPair} />
-          <ServicesGrid services={services} />
-          
-          {/* Service Areas & Philosophy Section */}
-          <section className="relative mx-auto max-w-7xl px-6 py-24 lg:py-40">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-              {/* Philosophy - The Brand Soul */}
-              <div className="space-y-8 px-2 lg:px-12">
-                <div>
-                  <h2 className="text-4xl lg:text-6xl font-bold tracking-tighter text-brand-textDark leading-[1.1]">
-                    Precision Focused.<br/>Locally Owned.
-                  </h2>
-                  <div className="h-1.5 w-24 bg-brand-secondary mt-6 rounded-full" />
-                </div>
-                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-xl">
-                  We believe your home deserves the best protection—delivered with honesty, reliability, and expert craftsmanship.
-                </p>
-              </div>
 
-              {/* Service Areas - The Logical Connection */}
-              <div className="rounded-3xl p-10 lg:p-14 glass-card-green relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-8 opacity-10">
-                  <svg className="w-32 h-32 text-brand-primary" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-brand-textDark mb-6">Service Areas</h3>
-                <p className="text-lg text-brand-textDark/70 leading-relaxed mb-8">
-                  Based in Petersburg, IL, we proudly serve homeowners and businesses throughout Springfield, Chatham, and the surrounding Central Illinois region.
-                </p>
-                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-brand-primary font-bold text-lg">
-                  <span>Knowledgeable Service</span>
-                  <span className="hidden md:inline text-brand-textDark/20">•</span>
-                  <span>Reliable Results</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Who We Are - KML Biographical Section */}
-          <section className="relative mx-auto max-w-7xl px-6 lg:px-20 py-24 lg:py-32">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              <div className="lg:col-span-8 space-y-6 lg:pr-12">
-                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/90 leading-relaxed">
-                  <strong>KML Seamless Gutters LLC</strong> is a locally owned and operated exterior contractor founded by <strong>Kale Lash</strong>. 
-                  We specialize in high-quality seamless gutters, soffit, fascia, and siding installation and repair services.
-                </p>
-                <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
-                  Kale and his team take immense pride in delivering exceptional results, whether it&apos;s a residential remodel or a 
-                  large-scale commercial project. Our commitment to using premium materials like 6-inch seamless gutters 
-                  and precision downspouts ensures your property is protected from the elements for years to come.
-                </p>
-              </div>
-              <div className="lg:col-span-4 lg:sticky lg:top-32 order-first lg:order-last space-y-8">
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-2xl glass-card-green">
+          {/* Unified Foundation Section - Building Trust Before Services */}
+          <section className="relative mx-auto max-w-7xl px-6 py-20 lg:py-32">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+              {/* Visual Side - Portrait/Bio Anchor */}
+              <div className="lg:col-span-5 relative order-last lg:order-first">
+                <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl glass-card-green group">
                   <Image
                     src={whoWeArePhoto}
                     alt="Kale Lash, Founder of KML Seamless Gutters"
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                  {/* Floating Identity Badge */}
+                  <div className="absolute bottom-8 left-8 right-8 p-6 glass-card rounded-2xl border border-white/40 shadow-xl backdrop-blur-md">
+                    <p className="text-brand-textDark font-bold text-xl leading-none">Kale Lash</p>
+                    <p className="text-brand-primary font-medium text-sm uppercase tracking-widest mt-1">Founder & Lead Contractor</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-none">
-                    Who We Are
+                {/* Decorative Accent */}
+                <div className="absolute -top-6 -left-6 w-32 h-32 bg-brand-secondary/20 rounded-full blur-3xl -z-10" />
+              </div>
+
+              {/* Narrative Side - Philosophy & Service Area */}
+              <div className="lg:col-span-7 space-y-10">
+                <div className="space-y-6">
+                  <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
+                    Built on Precision.<br/>Backed by Trust.
                   </h2>
-                  <div className="h-1.5 w-16 bg-brand-secondary mt-6 rounded-full" />
+                  <div className="h-1.5 w-24 bg-brand-secondary rounded-full" />
+                </div>
+
+                <div className="space-y-6 text-xl lg:text-2xl text-brand-textDark/80 leading-relaxed font-medium">
+                  <p>
+                    <strong>KML Seamless Gutters LLC</strong> is more than just an exterior contractor. Founded by Kale Lash, we are a locally owned operation driven by a simple philosophy: protect your home with honesty and expert craftsmanship.
+                  </p>
+                  <p className="text-lg lg:text-xl text-brand-textDark/60 font-normal">
+                    Based in <strong>Petersburg, IL</strong>, we take immense pride in delivering exceptional results across Springfield, Chatham, and the surrounding Central Illinois region. From 6-inch seamless gutters to precision siding, we ensure every detail is built to last.
+                  </p>
+                </div>
+
+                {/* Service Reach Trust Badges */}
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-4 border-t border-brand-textDark/5">
+                  <div className="flex items-center gap-2 text-brand-primary font-bold">
+                    <div className="w-2 h-2 rounded-full bg-brand-secondary" />
+                    <span>Locally Owned</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-brand-primary font-bold">
+                    <div className="w-2 h-2 rounded-full bg-brand-secondary" />
+                    <span>Petersburg & Springfield</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-brand-primary font-bold">
+                    <div className="w-2 h-2 rounded-full bg-brand-secondary" />
+                    <span>Licensed & Insured</span>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
+
+          <ServicesGrid services={services} />
+          
 
           <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent">
             <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
