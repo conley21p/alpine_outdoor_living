@@ -315,6 +315,20 @@ export async function getWhoWeArePhoto(): Promise<string> {
 }
 
 /**
+ * Fetches the photo for the "Philosophy" section.
+ * Prioritizes Website/Philosophy folder in Cloudinary.
+ */
+export async function getPhilosophyPhoto(): Promise<string> {
+  const folder = "Website/Philosophy";
+  const image = await getRandomImageInFolder(folder);
+  
+  if (image) return image.secure_url;
+  
+  // High-fidelity local fallback
+  return "/images/philosophy.png";
+}
+
+/**
  * Fetches ALL images for a specific project folder.
  */
 export const getServiceProjects = async (folder: string): Promise<GalleryImage[]> => {

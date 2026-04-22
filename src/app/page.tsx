@@ -9,18 +9,20 @@ import {
   getInstagramFeaturedPost,
   getHeroPair,
   getStaticServices,
-  getWhoWeArePhoto
+  getWhoWeArePhoto,
+  getPhilosophyPhoto
 } from "@/lib/public-data";
 
 export const revalidate = 300; // Cache the page for 5 minutes to prevent Cloudinary rate limits
 
 export default async function Home() {
-  const [instagramPost, heroPair, services, whoWeArePhoto] = await Promise.all([
+  const [instagramPost, heroPair, services, whoWeArePhoto, philosophyPhoto] = await Promise.all([
     // getGalleryImages(),
     getInstagramFeaturedPost(),
     getHeroPair("Home/Website/Hero"),
     getStaticServices(),
     getWhoWeArePhoto(),
+    getPhilosophyPhoto(),
   ]);
 
   return (
@@ -82,7 +84,7 @@ export default async function Home() {
                   {/* Main Image with layered effect */}
                   <div className="relative z-10 w-full h-full overflow-hidden rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] border border-white/20">
                     <Image
-                      src="/images/philosophy.png"
+                      src={philosophyPhoto}
                       alt="Modern outdoor living space design"
                       fill
                       className="object-cover transform scale-105 hover:scale-100 transition-transform duration-1000"
