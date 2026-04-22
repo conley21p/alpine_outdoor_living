@@ -67,11 +67,11 @@ export default async function Home() {
                   Intentionally Built.
                 </h2>
                 <div className="h-1.5 w-32 bg-brand-primary rounded-full mt-2" />
-                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-xl">
-                  We believe the most compelling outdoor spaces don’t feel overdesigned, they feel effortless.
+                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-2xl">
+                  We believe the most compelling outdoor spaces don&apos;t feel overdesigned—they feel effortless.
                 </p>
                 <p className="text-lg text-brand-textDark/60 leading-relaxed max-w-lg">
-                  Every stone, every plant, and every light is placed with purpose. We create spaces that resonate with the natural landscape while providing a backdrop for life's most meaningful moments.
+                  Every stone, every plant, and every light is placed with purpose. We create spaces that resonate with the natural landscape while providing a backdrop for life&apos;s most meaningful moments.
                 </p>
               </div>
 
@@ -97,7 +97,7 @@ export default async function Home() {
                       <span className="font-bold text-brand-textDark">The Alpine Standard</span>
                     </div>
                     <p className="text-sm font-medium text-brand-textDark leading-relaxed">
-                      We believe the most compelling outdoor spaces don’t feel overdesigned, they feel effortless.
+                      We believe the most compelling outdoor spaces don&apos;t feel overdesigned, they feel effortless.
                     </p>
                   </div>
                 </div>
