@@ -28,16 +28,19 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
             {/* Central Branding */}
             <div className="mx-auto max-w-5xl">
               <h1 className="text-[2.75rem] sm:text-[3.5rem] md:text-[5rem] font-bold tracking-tighter text-white drop-shadow-2xl leading-none">
-                Alpine Outdoor Living LLC
+                {publicConfig.businessName}
               </h1>
-              <div className="mt-4 md:mt-12 inline-flex flex-col md:flex-row items-center gap-2 md:gap-0 px-8 py-4 md:py-3 border-y border-white/20 backdrop-blur-sm">
-                <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">DESIGN/BUILD</p>
-                <span className="hidden md:inline text-white/40 mx-3">&bull;</span>
-                <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">WATER FEATURES</p>
-                <span className="hidden md:inline text-white/40 mx-3">&bull;</span>
-                <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">HARDSCAPES</p>
-                <span className="hidden md:inline text-white/40 mx-3">&bull;</span>
-                <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">LANDSCAPE</p>
+              <div className="mt-4 md:mt-12 inline-flex flex-wrap justify-center items-center gap-y-2 px-8 py-4 md:py-3 border-y border-white/20 backdrop-blur-sm">
+                {publicConfig.servicesOffered.map((service, index) => (
+                  <div key={service} className="flex items-center">
+                    <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">
+                      {service}
+                    </p>
+                    {index < publicConfig.servicesOffered.length - 1 && (
+                      <span className="text-white/40 mx-3">&bull;</span>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 

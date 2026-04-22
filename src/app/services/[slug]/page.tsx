@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
-import { getServiceBySlug, getServiceProjects } from "@/lib/public-data";
+import { getServiceBySlug, getServiceProjects, getStaticServices } from "@/lib/public-data";
 import { getOptimizedUrl } from "@/lib/media-utils";
 import { SiteShell } from "@/components/website/SiteShell";
 import { Breadcrumbs } from "@/components/website/Breadcrumbs";
@@ -11,7 +11,11 @@ import { ServiceQuoteButton } from "@/components/website/ServiceQuoteButton";
 import { StaggeredGallery } from "@/components/website/StaggeredGallery";
 import { ContactForm } from "@/components/website/ContactForm";
 
-export const runtime = "edge";
+// Required for static export: tells Next.js which slugs to pre-render at build time.
+export async function generateStaticParams() {
+  const services = await getStaticServices();
+  return services.map((s) => ({ slug: s.id }));
+}
 
 interface Props {
   params: { slug: string };
