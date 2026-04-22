@@ -22,16 +22,19 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-3xl">
             Professional outdoor solutions tailored to your needs
           </p>
+          <p className="mx-auto mt-3 max-w-3xl text-base font-medium text-brand-textDark/60 sm:text-lg lg:text-xl">
+            Based in Springfield, IL, proudly serving Central Illinois with thoughtful design and quality craftsmanship.
+          </p>
         </div>
       </section>
 
       {/* Unified Grid View (Mobile & Desktop) */}
       <section className="px-4 md:px-6 lg:px-8 pb-32 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 gap-8 lg:gap-12">
           {services.map((service, i) => (
             <div
               key={service.title}
-              className="group relative overflow-hidden rounded-[32px] border border-green-500/10 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 flex flex-col h-full bg-white/40 backdrop-blur-2xl"
+              className="group relative overflow-hidden rounded-[32px] border border-green-500/10 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 flex flex-col lg:flex-row h-full bg-white/40 backdrop-blur-2xl items-stretch"
             >
               {/* Unique Lava Lamp Backgrounds per Card */}
               {i % 3 === 0 && (
@@ -53,7 +56,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                 </>
               )}
 
-              <div className="relative z-10 p-6 sm:p-8 flex flex-col flex-grow gap-6 sm:gap-8">
+              <div className="relative z-10 w-full lg:w-[45%] xl:w-[50%] p-6 sm:p-8 lg:p-10 flex-shrink-0 flex items-center justify-center">
                 {/* Image Stack */}
                 <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-500">
                   <ImageStack
@@ -62,28 +65,28 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                     slug={service.id}
                   />
                 </div>
+              </div>
 
-                <div className="flex flex-col flex-grow gap-4">
-                  <h3 className="text-2xl sm:text-3xl font-bold text-brand-textDark leading-tight group-hover:text-brand-primary transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-base sm:text-lg text-brand-textDark/80 leading-relaxed flex-grow">
-                    {service.description}
-                  </p>
-                  
-                  <div className="flex flex-col xl:flex-row gap-3 mt-6">
-                    <Link href={`/services/${service.id}`} className="flex-1">
-                      <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-brand-textDark bg-white/80 hover:bg-white border border-brand-primary/20 rounded-xl transition-all shadow-sm">
-                        Explore
-                      </button>
-                    </Link>
-                    <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="flex-1">
-                      <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-white bg-brand-primary hover:bg-brand-primary-dark rounded-xl transition-all shadow-lg shadow-brand-primary/20 group/btn">
-                        Let&apos;s Talk
-                        <span className="text-xl group-hover/btn:translate-x-1 transition-transform">→</span>
-                      </button>
-                    </Link>
-                  </div>
+              <div className="relative z-10 p-6 sm:p-8 lg:p-10 lg:pl-0 flex flex-col justify-center flex-grow gap-4 lg:gap-6">
+                <h3 className="text-2xl sm:text-3xl font-bold text-brand-textDark leading-tight group-hover:text-brand-primary transition-colors">
+                  {service.title}
+                </h3>
+                <p className="text-base sm:text-lg text-brand-textDark/80 leading-relaxed max-w-2xl">
+                  {service.description}
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-3 mt-4 lg:mt-6 w-full max-w-lg">
+                  <Link href={`/services/${service.id}`} className="flex-1">
+                    <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-brand-textDark bg-white/80 hover:bg-white border border-brand-primary/20 rounded-xl transition-all shadow-sm">
+                      Explore
+                    </button>
+                  </Link>
+                  <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="flex-1">
+                    <button className="flex items-center justify-center gap-2 w-full py-4 px-6 font-bold text-white bg-brand-primary hover:bg-brand-primary-dark rounded-xl transition-all shadow-lg shadow-brand-primary/20 group/btn">
+                      Let&apos;s Talk
+                      <span className="text-xl group-hover/btn:translate-x-1 transition-transform">→</span>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
