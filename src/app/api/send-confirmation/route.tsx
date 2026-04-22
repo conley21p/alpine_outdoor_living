@@ -1,7 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { ConfirmationEmail } from "@/components/email/ConfirmationEmail";
-import * as React from "react";
 import { publicConfig } from "@/lib/config";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
