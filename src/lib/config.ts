@@ -58,7 +58,7 @@ export const getServerConfig = () => {
     cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
 
     // Optional settings
-    adminEmail: "Info@alpineoutdoorlivingllc.com",
+    adminEmail: "kmlseamlessguttersil@gmail.com",
     nextAuthSecret: process.env.NEXTAUTH_SECRET || "",
     nextAuthUrl: publicConfig.siteUrl,
   };

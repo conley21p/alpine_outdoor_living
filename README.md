@@ -1,6 +1,6 @@
-# Alpine Outdoor Living - Static Website
+# KML Seamless Gutters - Static Website
 
-A premium, static Next.js website for Alpine Outdoor Living, showcasing custom water features, fire pits, and outdoor spaces.
+A premium, static Next.js website for KML Seamless Gutters, showcasing expert gutter, soffit, fascia, and siding solutions.
 
 ## Features
 
@@ -41,7 +41,7 @@ A premium, static Next.js website for Alpine Outdoor Living, showcasing custom w
 2. **Configure Environment**:
    Create a `.env.local` file with your site metadata:
    ```text
-   NEXT_PUBLIC_BUSINESS_NAME="Alpine Outdoor Living"
+   NEXT_PUBLIC_BUSINESS_NAME="KML Seamless Gutters"
    NEXT_PUBLIC_SITE_URL="your-site-url.com"
    ```
 
