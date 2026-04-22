@@ -30,14 +30,14 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
               <h1 className="text-[2.75rem] sm:text-[3.5rem] md:text-[5rem] font-bold tracking-tighter text-white drop-shadow-2xl leading-none">
                 {publicConfig.businessName}
               </h1>
-              <div className="mt-4 md:mt-12 inline-flex flex-wrap justify-center items-center gap-y-2 px-8 py-4 md:py-3 border-y border-white/20 backdrop-blur-sm">
+              <div className="mt-4 md:mt-12 flex flex-col md:flex-row md:flex-wrap justify-center items-center gap-y-3 md:gap-y-2 px-8 py-4 md:py-3 border-y border-white/20 backdrop-blur-sm">
                 {publicConfig.servicesOffered.map((service, index) => (
                   <div key={service} className="flex items-center">
-                    <p className="text-[11px] md:text-sm font-bold tracking-[0.4em] text-white/90 uppercase">
+                    <p className="text-xs md:text-sm font-bold tracking-[0.3em] md:tracking-[0.4em] text-white/90 uppercase text-center">
                       {service}
                     </p>
                     {index < publicConfig.servicesOffered.length - 1 && (
-                      <span className="text-white/40 mx-3">&bull;</span>
+                      <span className="text-white/40 mx-3 hidden md:inline">&bull;</span>
                     )}
                   </div>
                 ))}
