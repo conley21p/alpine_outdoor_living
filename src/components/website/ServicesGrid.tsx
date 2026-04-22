@@ -16,6 +16,48 @@ interface ServicesGridProps {
   services?: ServiceData[];
 }
 
+const CardPattern = ({ index }: { index: number }) => {
+  const patterns = [
+    // 0: Waves (Fluid)
+    <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="pattern-0" x="0" y="0" width="100" height="20" patternUnits="userSpaceOnUse">
+          <path d="M0 10 Q 25 0 50 10 T 100 10" fill="none" stroke="currentColor" strokeWidth="2" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#pattern-0)" />
+    </svg>,
+    // 1: Dots (Grid)
+    <svg className="absolute inset-0 w-full h-full opacity-[0.04] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="pattern-1" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.5" fill="currentColor" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#pattern-1)" />
+    </svg>,
+    // 2: Diagonal Lines (Dynamic)
+    <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="pattern-2" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="40" stroke="currentColor" strokeWidth="4" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#pattern-2)" />
+    </svg>,
+    // 3: Hexagons (Technical)
+    <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="pattern-3" x="0" y="0" width="28" height="49" patternUnits="userSpaceOnUse">
+          <path d="M14 0 L28 7 L28 21 L14 28 L0 21 L0 7 Z" fill="none" stroke="currentColor" strokeWidth="1" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#pattern-3)" />
+    </svg>
+  ];
+  return patterns[index % patterns.length];
+};
+
 export function ServicesGrid({ services = [] }: ServicesGridProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -169,9 +211,10 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
             >
               <div className="absolute inset-0 bg-white/40 backdrop-blur-xl pointer-events-none" />
               
-              {/* Card Lava Lamp Blobs */}
+              {/* Card Lava Lamp Blobs - Blue & Green */}
               <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-brand-primary/20 blur-[60px] lava-lamp-slow-1 pointer-events-none" />
-              <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-green-400/15 blur-[50px] lava-lamp-slow-2 pointer-events-none" />
+              <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-brand-secondary/20 blur-[50px] lava-lamp-slow-2 pointer-events-none" />
+              <CardPattern index={i} />
 
               <div className="relative z-10 p-6 flex flex-col gap-6">
                 {/* Static Image Stack - Removed overflow-hidden to allow background images to peep */}
@@ -236,10 +279,11 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                 >
                   <div className="frosted-panel absolute inset-0 z-0 bg-white/20 backdrop-blur-[16px] border border-white/40" />
                   
-                  {/* Card Lava Lamp Blobs */}
-                  <div className="absolute top-[-30%] left-[-20%] w-[100%] h-[100%] rounded-full bg-brand-primary/25 blur-[80px] lava-lamp-slow-1 pointer-events-none" />
-                  <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] rounded-full bg-green-500/15 blur-[60px] lava-lamp-slow-2 pointer-events-none" />
-                  <div className="absolute top-[20%] right-[10%] w-[50%] h-[50%] rounded-full bg-lime-400/10 blur-[40px] lava-lamp-slow-1 pointer-events-none" />
+                  {/* Card Lava Lamp Blobs - Blue & Green */}
+                  <div className="absolute top-[-30%] left-[-20%] w-[100%] h-[100%] rounded-full bg-brand-primary/20 blur-[80px] lava-lamp-slow-1 pointer-events-none" />
+                  <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] rounded-full bg-brand-secondary/20 blur-[60px] lava-lamp-slow-2 pointer-events-none" />
+                  <div className="absolute top-[20%] right-[10%] w-[50%] h-[50%] rounded-full bg-brand-primary/10 blur-[40px] lava-lamp-slow-1 pointer-events-none" />
+                  <CardPattern index={i} />
 
                   <div
                     className="relative z-10 w-full h-full flex flex-col lg:flex-row items-center pointer-events-none overflow-hidden"
