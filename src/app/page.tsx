@@ -52,11 +52,62 @@ export default async function Home() {
         <div className="relative w-full">
           <HeroSection heroPair={heroPair} />
 
-          {/* Trust Section: Who We Are & Philosophy */}
+          {/* Philosophy Section - High Impact Redesign */}
+          <section className="relative mx-auto max-w-7xl px-6 py-24 lg:py-40">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+              {/* Text Content */}
+              <div className="lg:col-span-6 space-y-8 lg:pr-10">
+                <div className="inline-block px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-sm font-bold tracking-widest uppercase mb-4">
+                  Our Philosophy
+                </div>
+                <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
+                  <span className="whitespace-nowrap">Quietly <span className="text-brand-primary italic">Exceptional.</span></span><br />
+                  Intentionally Built.
+                </h2>
+                <div className="h-1.5 w-32 bg-brand-primary rounded-full mt-2" />
+                <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed max-w-xl">
+                  We believe the most compelling outdoor spaces don’t feel overdesigned, they feel effortless.
+                </p>
+                <p className="text-lg text-brand-textDark/60 leading-relaxed max-w-lg">
+                  Every stone, every plant, and every light is placed with purpose. We create spaces that resonate with the natural landscape while providing a backdrop for life's most meaningful moments.
+                </p>
+              </div>
+
+              {/* Redesigned Image Block */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative aspect-[4/5] lg:aspect-square w-full">
+                  {/* Decorative background blob */}
+                  <div className="absolute -top-10 -right-10 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl animate-pulse" />
+
+                  {/* Main Image with layered effect */}
+                  <div className="relative z-10 w-full h-full overflow-hidden rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] border border-white/20">
+                    <Image
+                      src="/images/philosophy.png"
+                      alt="Modern outdoor living space design"
+                      fill
+                      className="object-cover transform scale-105 hover:scale-100 transition-transform duration-1000"
+                    />
+                  </div>
+
+                  {/* Highlighting Card Overlay */}
+                  <div className="absolute -bottom-6 -left-6 lg:-left-12 z-20 p-8 glass-card-green rounded-3xl shadow-xl max-w-[320px] hidden sm:block">
+                    <div className="flex items-center gap-4 mb-4">
+                      <span className="font-bold text-brand-textDark">The Alpine Standard</span>
+                    </div>
+                    <p className="text-sm font-medium text-brand-textDark leading-relaxed">
+                      We believe the most compelling outdoor spaces don’t feel overdesigned, they feel effortless.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Our Roots Section */}
           <section className="relative mx-auto max-w-7xl px-6 py-20 lg:py-32">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* Image / Founder */}
-              <div className="lg:col-span-5 relative order-last lg:order-first">
+              <div className="lg:col-span-5 relative">
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-2xl glass-card-green group">
                   <Image
                     src={whoWeArePhoto}
@@ -75,23 +126,22 @@ export default async function Home() {
               </div>
 
               {/* Content */}
-              <div className="lg:col-span-7 flex flex-col justify-center h-full">
-                <div className="space-y-8">
-                  <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tighter text-brand-textDark leading-[1.1]">
-                    Quietly Exceptional.<br />Intentionally Built.
-                  </h2>
-                  <div className="h-1.5 w-24 bg-brand-primary rounded-full" />
-                  <div className="space-y-6 max-w-2xl">
-                    <p className="text-xl lg:text-2xl font-medium text-brand-textDark/80 leading-relaxed">
-                      We believe the most compelling outdoor spaces don’t feel overdesigned—they feel effortless.
-                    </p>
-                    <div className="p-6 rounded-2xl bg-brand-primary/5 border border-brand-primary/10">
-                      <h4 className="text-lg font-bold text-brand-textDark mb-2">Our Roots</h4>
-                      <p className="text-lg text-brand-textDark/70 leading-relaxed">
-                        Founded with a degree in Landscape Architecture and a lifelong passion for transforming ordinary spaces into extraordinary retreats.
-                      </p>
-                    </div>
-                  </div>
+              <div className="lg:col-span-7 space-y-8">
+                <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark">
+                  Our Roots
+                </h2>
+                <div className="h-1.5 w-16 bg-brand-primary rounded-full" />
+                <div className="space-y-6">
+                  <p className="text-xl lg:text-2xl font-medium text-brand-textDark/90 leading-relaxed">
+                    <strong>Alpine Outdoor Living, LLC</strong> was founded by Austin Schiff during his final year at the
+                    University of Illinois Urbana-Champaign. While earning his degree in <strong>Landscape Architecture</strong>,
+                    Austin combined his technical expertise with a lifelong passion for the outdoors.
+                  </p>
+                  <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
+                    His entrepreneurship started at the young age of 11 when he started his own mowing business to
+                    save for the future. Driven by a deep love for nature and a talent for artistic design, Austin now
+                    focuses on transforming ordinary spaces into extraordinary outdoor retreats.
+                  </p>
                 </div>
               </div>
             </div>
