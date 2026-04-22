@@ -150,6 +150,7 @@ export function ContactForm({ initialService }: ContactFormProps) {
 
       // Send confirmation email via Resend (Parallel, non-blocking for user success UI)
       if (form.email.trim()) {
+        console.log("[DEBUG] Initiating Resend confirmation call for:", form.email);
         fetch("/api/send-confirmation", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -158,6 +159,8 @@ export function ContactForm({ initialService }: ContactFormProps) {
             firstName: form.firstName,
             service: form.serviceNeeded,
           }),
+        }).then(res => {
+          console.log("[DEBUG] Resend response status:", res.status);
         }).catch((err) => {
           console.error("[CONFIRMATION EMAIL ERROR]", err);
         });
