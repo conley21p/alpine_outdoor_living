@@ -30,8 +30,10 @@ export interface ServiceData {
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   return [
-    { name: "Seamless Gutter Project", url: "/fallback/Website/Services/5-Inch Seamless Gutters/Project.png", type: "image" },
-    { name: "Black Gutter Installation", url: "/fallback/Website/Services/6-Inch Seamless Gutters/Project.png", type: "image" },
+    { name: "Seamless Gutters Installation", url: "/fallback/Website/Services/Seamless Gutters/Project.png", type: "image" },
+    { name: "Soffit Installation", url: "/fallback/Website/Services/Soffit/Project.png", type: "image" },
+    { name: "Fascia Installation", url: "/fallback/Website/Services/Fascia/Project.png", type: "image" },
+    { name: "Siding Installation", url: "/fallback/Website/Services/Siding/Project.png", type: "image" },
   ];
 };
 
@@ -54,8 +56,7 @@ const STATIC_SERVICES: Array<{ title: string; description: string; folder: strin
     description: "Our premier seamless gutter systems are custom-formed on-site for a perfect fit, providing ultimate protection against water damage and foundation issues.",
     folder: "Seamless Gutters",
     media: [
-      { name: "White Gutter Installation", url: "/fallback/Website/Services/5-Inch Seamless Gutters/Project.png", type: "image" },
-      { name: "Black Gutter Installation", url: "/fallback/Website/Services/6-Inch Seamless Gutters/Project.png", type: "image" },
+      { name: "Seamless Gutter Installation", url: "/fallback/Website/Services/Seamless Gutters/Project.png", type: "image" },
     ],
   },
   {
@@ -63,7 +64,7 @@ const STATIC_SERVICES: Array<{ title: string; description: string; folder: strin
     description: "Expertly installed soffit systems that provide critical attic ventilation and structural integrity while enhancing your home's roofline aesthetics.",
     folder: "Soffit",
     media: [
-      { name: "Soffit Installation", url: "/fallback/Website/Hero/Wide/Hero.png", type: "image" },
+      { name: "Soffit Installation", url: "/fallback/Website/Services/Soffit/Project.png", type: "image" },
     ],
   },
   {
@@ -71,7 +72,7 @@ const STATIC_SERVICES: Array<{ title: string; description: string; folder: strin
     description: "Durable fascia installation that serves as the perfect support for your gutter system while creating a clean, finished appearance for your home's exterior.",
     folder: "Fascia",
     media: [
-      { name: "Fascia Installation", url: "/fallback/Website/Hero/Wide/Hero.png", type: "image" },
+      { name: "Fascia Installation", url: "/fallback/Website/Services/Fascia/Project.png", type: "image" },
     ],
   },
   {
@@ -79,7 +80,7 @@ const STATIC_SERVICES: Array<{ title: string; description: string; folder: strin
     description: "Professional siding solutions featuring premium materials that improve energy efficiency and curb appeal while providing a robust weather-resistant barrier.",
     folder: "Siding",
     media: [
-      { name: "Siding Installation", url: "/fallback/Website/Hero/Vertical/Hero.png", type: "image" },
+      { name: "Siding Installation", url: "/fallback/Website/Services/Siding/Project.png", type: "image" },
     ],
   },
 ];
