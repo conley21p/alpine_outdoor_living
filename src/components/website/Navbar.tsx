@@ -70,21 +70,14 @@ export function Navbar() {
             </a>
           </nav>
           
-          {/* Desktop Fallback Menu Button (always hidden, standard layout preserved) */}
-          <button
-            aria-label="Toggle navigation"
-            onClick={() => setOpen((prev) => !prev)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-brand-textDark shadow-sm transition-all active:scale-95 md:hidden"
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+
         </div>
       </header>
 
       {/* Floating Mobile Trigger - Premium Glassmorphism */}
       <div 
         className={`fixed top-4 right-4 z-[60] md:hidden transition-all duration-500 ease-in-out ${
-          isScrolled && !open ? "translate-y-0 opacity-100 scale-100" : "translate-y-[-20px] opacity-0 scale-90 pointer-events-none"
+          !open ? "translate-y-0 opacity-100 scale-100" : "translate-y-[-20px] opacity-0 scale-90 pointer-events-none"
         }`}
       >
         <button
