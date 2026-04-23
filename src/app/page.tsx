@@ -165,8 +165,18 @@ export default async function Home() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-green-50 px-8 py-12 lg:px-16 lg:py-16">
           <div className="mx-auto max-w-4xl">
+            <div className="text-center">
+              <div className="mb-6 text-5xl">👍</div>
+              <h2 className="text-3xl font-bold tracking-tight text-brand-textDark sm:text-4xl">
+                Follow Us on Facebook
+              </h2>
+              <p className="mt-4 text-lg text-gray-600">
+                See our latest projects and high-quality results from the field
+              </p>
+            </div>
+
             {facebookPost && (
-              <div className="">
+              <div className="mt-8">
                 <a
                   href={facebookPost.postUrl}
                   target="_blank"
@@ -182,9 +192,22 @@ export default async function Home() {
                     />
                   </div>
                 </a>
-                <p className="mt-3 text-center text-sm text-gray-500 font-medium uppercase tracking-widest">Visit {publicConfig.facebookHandle} on Facebook</p>
               </div>
             )}
+
+            <div className="mt-8 text-center">
+              <a
+                href={publicConfig.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary px-8 py-4 text-lg font-semibold text-white transition-all hover:shadow-lg"
+              >
+                <span>Visit Our Page</span>
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </section>
