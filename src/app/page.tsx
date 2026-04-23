@@ -5,7 +5,6 @@ import { ServicesGrid } from "@/components/website/ServicesGrid";
 import { ContactForm } from "@/components/website/ContactForm";
 import { publicConfig } from "@/lib/config";
 import {
-  getFacebookFeaturedPost,
   getHeroPair,
   getStaticServices,
 } from "@/lib/public-data";
@@ -13,8 +12,7 @@ import {
 export const revalidate = 300; // Cache the page for 5 minutes
 
 export default async function Home() {
-  const [facebookPost, heroPair, services] = await Promise.all([
-    getFacebookFeaturedPost(),
+  const [heroPair, services] = await Promise.all([
     getHeroPair(),
     getStaticServices(),
   ]);
