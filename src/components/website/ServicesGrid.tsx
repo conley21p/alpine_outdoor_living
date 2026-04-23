@@ -17,6 +17,7 @@ interface ServicesGridProps {
 export function ServicesGrid({ services = [] }: ServicesGridProps) {
   const [index, setIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -25,13 +26,26 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (!isAutoPlaying || services.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev < services.length - 1 ? prev + 1 : 0));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, services.length]);
+
   const handleDragEnd = (_event: unknown, info: PanInfo) => {
     const threshold = 50;
     const len = services.length;
-    if (info.offset.x > threshold) {
-      setIndex((prev) => (prev > 0 ? prev - 1 : len - 1));
-    } else if (info.offset.x < -threshold) {
-      setIndex((prev) => (prev < len - 1 ? prev + 1 : 0));
+    if (Math.abs(info.offset.x) > threshold) {
+      setIsAutoPlaying(false);
+      if (info.offset.x > threshold) {
+        setIndex((prev) => (prev > 0 ? prev - 1 : len - 1));
+      } else if (info.offset.x < -threshold) {
+        setIndex((prev) => (prev < len - 1 ? prev + 1 : 0));
+      }
     }
   };
 
@@ -112,6 +126,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   dragElastic={0.2}
                   onDragEnd={handleDragEnd}
                   onClick={() => {
+                    setIsAutoPlaying(false);
                     if (isLeft) setIndex((prev) => (prev > 0 ? prev - 1 : len - 1));
                     if (isRight) setIndex((prev) => (prev < len - 1 ? prev + 1 : 0));
                   }}
@@ -119,24 +134,11 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                     isCenter ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer hover:bg-white/90'
                   } transition-colors duration-300`}
                 >
-                  <motion.div 
-                    className="absolute inset-0 z-0 pointer-events-none"
-                    animate={isCenter && index === 0 ? {
-                      x: [0, -10, 10, -5, 5, 0],
-                    } : { x: 0 }}
-                    transition={isCenter && index === 0 ? {
-                      duration: 1.2,
-                      repeat: Infinity,
-                      repeatDelay: 3,
-                      delay: 2
-                    } : {}}
-                  >
-                    <div className="absolute inset-0 bg-white/40 backdrop-blur-md" />
-                    
-                    {/* Lava Lamp Blobs */}
-                    <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-blue-600/20 blur-[60px] lava-lamp-slow-1" />
-                    <div className="absolute bottom-[10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-green-500/20 blur-[50px] lava-lamp-slow-2" />
-                  </motion.div>
+                  <div className="absolute inset-0 bg-white/40 backdrop-blur-md pointer-events-none z-0" />
+                  
+                  {/* Lava Lamp Blobs */}
+                  <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-blue-600/20 blur-[60px] lava-lamp-slow-1 pointer-events-none z-0" />
+                  <div className="absolute bottom-[10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-green-500/20 blur-[50px] lava-lamp-slow-2 pointer-events-none z-0" />
 
                   <div className="relative z-10 p-5 lg:p-8 flex flex-col gap-5 lg:gap-8 h-full flex-grow pointer-events-none">
                     {/* SINGLE STATIC IMAGE - Removed nested ImageStack */}
@@ -172,8 +174,6 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                       </Link>
                     </div>
                   </div>
-                    </div>
-                  </motion.div>
                 </motion.div>
               );
             })}
@@ -185,6 +185,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
               <button 
                 onClick={(e) => {
                   e.stopPropagation();
+                  setIsAutoPlaying(false);
                   setIndex((prev) => (prev > 0 ? prev - 1 : services.length - 1));
                 }}
                 className="absolute left-[-1.5rem] lg:left-[-7rem] top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-transparent hover:bg-white/40 active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-black/60 transition-all hidden md:flex items-center justify-center"
@@ -196,6 +197,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
               <button 
                 onClick={(e) => {
                   e.stopPropagation();
+                  setIsAutoPlaying(false);
                   setIndex((prev) => (prev < services.length - 1 ? prev + 1 : 0));
                 }}
                 className="absolute right-[-1.5rem] lg:right-[-7rem] top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-transparent hover:bg-white/40 active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-black/60 transition-all hidden md:flex items-center justify-center"
@@ -207,20 +209,9 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           )}
 
           {/* Counter UI */}
-          <motion.div 
-            className="absolute -bottom-12 lg:-bottom-20 left-1/2 -translate-x-1/2 text-brand-textDark/50 text-xs lg:text-sm font-bold uppercase tracking-widest whitespace-nowrap"
-            animate={index === 0 ? {
-              scale: [1, 1.15, 1],
-            } : { scale: 1 }}
-            transition={index === 0 ? {
-              duration: 1.2,
-              repeat: Infinity,
-              repeatDelay: 3,
-              delay: 2
-            } : {}}
-          >
+          <div className="absolute -bottom-12 lg:-bottom-20 left-1/2 -translate-x-1/2 text-brand-textDark/50 text-xs lg:text-sm font-bold uppercase tracking-widest whitespace-nowrap">
             {index + 1} / {services.length} • Swipe or Click
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>
