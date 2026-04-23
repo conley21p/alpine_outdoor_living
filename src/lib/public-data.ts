@@ -31,8 +31,7 @@ export interface ServiceData {
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   return [
     { name: "Seamless Gutters Installation", url: "/fallback/Website/Services/Seamless-Gutters/Project.png", type: "image" },
-    { name: "Soffit Installation", url: "/fallback/Website/Services/Soffit/Project.png", type: "image" },
-    { name: "Fascia Installation", url: "/fallback/Website/Services/Fascia/Project.png", type: "image" },
+    { name: "Soffit & Fascia Installation", url: "/fallback/Website/Services/Soffit & Fasica/Project.png", type: "image" },
     { name: "Siding Installation", url: "/fallback/Website/Services/Siding/Project.png", type: "image" },
   ];
 };
@@ -60,19 +59,11 @@ const STATIC_SERVICES: Array<{ title: string; description: string; folder: strin
     ],
   },
   {
-    title: "Soffit",
-    description: "Expertly installed soffit systems that provide critical attic ventilation and structural integrity while enhancing your home's roofline aesthetics.",
-    folder: "Soffit",
+    title: "Soffit & Fascia",
+    description: "Expertly installed soffit and fascia systems that provide critical attic ventilation and structural integrity while creating a clean, finished appearance for your home's exterior.",
+    folder: "Soffit & Fasica",
     media: [
-      { name: "Soffit Installation", url: "/fallback/Website/Services/Soffit/Project.png", type: "image" },
-    ],
-  },
-  {
-    title: "Fascia",
-    description: "Durable fascia installation that serves as the perfect support for your gutter system while creating a clean, finished appearance for your home's exterior.",
-    folder: "Fascia",
-    media: [
-      { name: "Fascia Installation", url: "/fallback/Website/Services/Fascia/Project.png", type: "image" },
+      { name: "Soffit & Fascia Installation", url: "/fallback/Website/Services/Soffit & Fasica/Project.png", type: "image" },
     ],
   },
   {

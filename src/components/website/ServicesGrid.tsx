@@ -38,7 +38,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   if (services.length === 0) return null;
 
   return (
-    <div id="services" className="relative w-full bg-transparent mx-auto max-w-7xl overflow-hidden pt-10 pb-32">
+    <div id="services" className="relative w-full bg-transparent pt-10 pb-32">
       <section className="services-intro py-12 lg:py-20 flex items-center justify-center bg-transparent relative z-40">
         <div className="text-center px-6">
           <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-7xl">

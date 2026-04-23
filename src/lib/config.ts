@@ -12,8 +12,7 @@ export const publicConfig = {
   industry: "Exterior Construction & Gutter Services",
   servicesOffered: [
     "Seamless Gutters",
-    "Soffit",
-    "Fascia",
+    "Soffit & Fascia",
     "Siding Installation"
   ] as const,
 
