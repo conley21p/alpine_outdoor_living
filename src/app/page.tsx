@@ -8,7 +8,6 @@ import {
   getFacebookFeaturedPost,
   getHeroPair,
   getStaticServices,
-  getWhoWeArePhoto
 } from "@/lib/public-data";
 
 export const revalidate = 300; // Cache the page for 5 minutes
