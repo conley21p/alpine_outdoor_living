@@ -27,8 +27,8 @@ export const publicConfig = {
   useCloudinary: false,
 
   // Site URLs
-  siteUrl: "https://kml-seamless-gutters.vercel.app",
-  defaultDomain: "kml-seamless-gutters.vercel.app",
+  siteUrl: "http://kmlSeamlessGutters.com",
+  defaultDomain: "kmlSeamlessGutters.com",
 
   // Social media
   facebookUrl: "https://www.facebook.com/p/KML-seamless-gutters-LLC-61573112742583/",
