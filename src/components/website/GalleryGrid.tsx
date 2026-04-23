@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import Lightbox from "yet-another-react-lightbox";
+import { getOptimizedUrl } from "@/lib/media-utils";
 import "yet-another-react-lightbox/styles.css";
 
 export interface GalleryImage {
@@ -58,10 +59,9 @@ export function GalleryGrid({ images, previewOnly = false }: GalleryGridProps) {
           >
             <div className="relative h-60 w-full lg:h-80">
               <Image
-                src={image.url}
+                src={getOptimizedUrl(image.url, 'thumb')}
                 alt={image.name}
                 fill
-                unoptimized
                 sizes="(max-width: 768px) 50vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />

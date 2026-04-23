@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { siteImageSlots, type SiteImageSlot } from "@/lib/site-images";
+import { getOptimizedUrl } from "@/lib/media-utils";
 
 interface ResponsiveSlotImageProps {
   slot?: SiteImageSlot;
@@ -49,7 +50,7 @@ export function ResponsiveSlotImage({
       {vertSrc && (
         <div className={cn("relative md:hidden", mobileAspectClassName)}>
           <Image
-            src={vertSrc}
+            src={getOptimizedUrl(vertSrc, 'full')}
             alt={alt}
             fill
             priority={priority}
@@ -64,7 +65,7 @@ export function ResponsiveSlotImage({
       {wideSrc && (
         <div className={cn("relative hidden md:block", desktopAspectClassName)}>
           <Image
-            src={wideSrc}
+            src={getOptimizedUrl(wideSrc, 'full')}
             alt={alt}
             fill
             priority={priority}

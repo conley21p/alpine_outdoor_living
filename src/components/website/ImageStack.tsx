@@ -114,7 +114,6 @@ export function ImageStack({ media, title, slug }: ImageStackProps) {
                     fill
                     className="object-cover pointer-events-none"
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    unoptimized
                     loading="lazy"
                   />
                 )}

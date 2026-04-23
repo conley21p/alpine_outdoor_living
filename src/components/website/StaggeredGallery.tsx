@@ -79,12 +79,11 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
                   />
                 ) : (
                   <Image
-                    src={getOptimizedUrl(img.url, 'full')}
+                    src={getOptimizedUrl(img.url, 'thumb')}
                     alt={`${serviceTitle} project ${i + 1}`}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    unoptimized
                   />
                 )}
                 
@@ -143,7 +142,6 @@ export function StaggeredGallery({ images, serviceTitle }: StaggeredGalleryProps
                   fill
                   className="object-contain"
                   priority
-                  unoptimized
                 />
               )}
             </motion.div>
