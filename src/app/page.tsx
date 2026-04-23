@@ -82,7 +82,7 @@ export default async function Home() {
                     <strong>KML Seamless Gutters LLC</strong> is more than just an exterior contractor. Founded by Kale Lash, we are a locally owned operation driven by a simple philosophy: protect your home with honesty and expert craftsmanship.
                   </p>
                   <p className="text-lg lg:text-xl text-brand-textDark/60 font-normal">
-                    Servicing <strong>Sangamon County</strong>, we take immense pride in delivering exceptional results across Springfield, Chatham, and the surrounding Central Illinois region. From 6-inch seamless gutters to precision siding, we ensure every detail is built to last.
+                    Servicing <strong>Central Illinois</strong>, we take immense pride in delivering exceptional results across Springfield, Chatham, and the surrounding region. From 6-inch seamless gutters to precision siding, we ensure every detail is built to last.
                   </p>
                 </div>
 
@@ -94,7 +94,7 @@ export default async function Home() {
                   </div>
                   <div className="flex items-center gap-2 text-brand-primary font-bold">
                     <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                    <span>Sangamon County</span>
+                    <span>Central Illinois</span>
                   </div>
                   <div className="flex items-center gap-2 text-brand-primary font-bold">
                     <div className="w-2 h-2 rounded-full bg-brand-secondary" />
