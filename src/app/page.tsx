@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
