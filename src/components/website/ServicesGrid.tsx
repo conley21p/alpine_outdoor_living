@@ -119,11 +119,24 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                     isCenter ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer hover:bg-white/90'
                   } transition-colors duration-300`}
                 >
-                  <div className="absolute inset-0 bg-white/40 backdrop-blur-md pointer-events-none z-0" />
-                  
-                  {/* Lava Lamp Blobs */}
-                  <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-blue-600/20 blur-[60px] lava-lamp-slow-1 pointer-events-none z-0" />
-                  <div className="absolute bottom-[10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-green-500/20 blur-[50px] lava-lamp-slow-2 pointer-events-none z-0" />
+                  <motion.div 
+                    className="absolute inset-0 z-0 pointer-events-none"
+                    animate={isCenter && index === 0 ? {
+                      x: [0, -10, 10, -5, 5, 0],
+                    } : { x: 0 }}
+                    transition={isCenter && index === 0 ? {
+                      duration: 1.2,
+                      repeat: Infinity,
+                      repeatDelay: 3,
+                      delay: 2
+                    } : {}}
+                  >
+                    <div className="absolute inset-0 bg-white/40 backdrop-blur-md" />
+                    
+                    {/* Lava Lamp Blobs */}
+                    <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-blue-600/20 blur-[60px] lava-lamp-slow-1" />
+                    <div className="absolute bottom-[10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-green-500/20 blur-[50px] lava-lamp-slow-2" />
+                  </motion.div>
 
                   <div className="relative z-10 p-5 lg:p-8 flex flex-col gap-5 lg:gap-8 h-full flex-grow pointer-events-none">
                     {/* SINGLE STATIC IMAGE - Removed nested ImageStack */}
@@ -159,6 +172,8 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                       </Link>
                     </div>
                   </div>
+                    </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
@@ -192,9 +207,20 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           )}
 
           {/* Counter UI */}
-          <div className="absolute -bottom-12 lg:-bottom-20 left-1/2 -translate-x-1/2 text-brand-textDark/50 text-xs lg:text-sm font-bold uppercase tracking-widest whitespace-nowrap">
+          <motion.div 
+            className="absolute -bottom-12 lg:-bottom-20 left-1/2 -translate-x-1/2 text-brand-textDark/50 text-xs lg:text-sm font-bold uppercase tracking-widest whitespace-nowrap"
+            animate={index === 0 ? {
+              scale: [1, 1.15, 1],
+            } : { scale: 1 }}
+            transition={index === 0 ? {
+              duration: 1.2,
+              repeat: Infinity,
+              repeatDelay: 3,
+              delay: 2
+            } : {}}
+          >
             {index + 1} / {services.length} • Swipe or Click
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
