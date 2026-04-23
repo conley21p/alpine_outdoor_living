@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --brand-primary: #8B9D33;
-  --brand-primary-dark: #525d1e;
-  --brand-secondary: #2C2C2E;
+  --brand-primary: #1C419E;
+  --brand-primary-dark: #16337a;
+  --brand-secondary: #56D14B;
   --brand-text-light: #FFFFFF;
   --brand-text-dark: #121212;
   --brand-bg-light: #FAFAF9;
-  --brand-accent: #8B9D33;
-  --luxe-green: #8B9D33;
+  --brand-accent: #1C419E;
+  --luxe-green: #56D14B;
 }
 
 @layer base {
@@ -41,7 +41,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-brand-primary text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-brand-primary-dark hover:shadow-lg active:scale-95;
+    @apply bg-brand-primary text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-brand-secondary hover:shadow-lg active:scale-95;
   }
 
   .glass-loading {
