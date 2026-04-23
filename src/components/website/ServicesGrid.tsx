@@ -51,7 +51,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
       </section>
 
       {/* SWIPEABLE HAND-OF-CARDS DECK */}
-      <section className="relative w-full h-[650px] lg:h-[750px] flex items-center justify-center px-4 lg:px-20 -mt-8">
+      <section className="relative w-full h-[650px] lg:h-[750px] flex items-center justify-center px-8 lg:px-20 -mt-8">
         <div className="relative w-full max-w-md lg:max-w-xl h-full flex items-center justify-center">
           <AnimatePresence initial={false}>
             {services.map((service, i) => {
