@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
 import { ContactForm } from "@/components/website/ContactForm";
 import { publicConfig } from "@/lib/config";
-import { 
+import {
   getFacebookFeaturedPost,
   getHeroPair,
   getStaticServices,
@@ -39,7 +39,7 @@ export default async function Home() {
 
           {/* Bottom Bloom */}
           <div className="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-brand-primary/20 blur-[140px] lava-lamp-3" />
-          
+
           {/* Warm Accent */}
           <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-brand-secondary/12 to-blue-300/10 blur-[1200px] lava-lamp-3" />
           <div className="absolute top-[40%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay hidden lg:block" />
@@ -75,7 +75,7 @@ export default async function Home() {
               <div className="lg:col-span-12 space-y-10">
                 <div className="space-y-6">
                   <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
-                    Built on Precision.<br/>Backed by Trust.
+                    Built on Precision.<br />Backed by Trust.
                   </h2>
                   <div className="h-1.5 w-24 bg-brand-secondary rounded-full" />
                 </div>
@@ -109,7 +109,7 @@ export default async function Home() {
           </section>
 
           <ServicesGrid services={services} />
-          
+
 
           <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent">
             <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
@@ -118,8 +118,8 @@ export default async function Home() {
                   Ready to Protect <br className="hidden lg:block" /> Your Exterior?
                 </h2>
                 <p className="mt-4 text-lg lg:text-xl leading-relaxed text-brand-textDark/70 mb-8">
-                  Don&apos;t let worn-out gutters or soffit compromise your home. Whether you need 5-inch 
-                  residential gutters, 6-inch commercial drainage, or a complete siding refresh, 
+                  Don&apos;t let worn-out gutters or soffit compromise your home. Whether you need 5-inch
+                  residential gutters, 6-inch commercial drainage, or a complete siding refresh,
                   KML is here to deliver professional results with local care.
                 </p>
 
@@ -174,27 +174,6 @@ export default async function Home() {
                 See our latest projects and high-quality results from the field
               </p>
             </div>
-
-            {facebookPost && (
-              <div className="mt-8">
-                <a
-                  href={facebookPost.postUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-[1.02]"
-                >
-                  <div className="relative aspect-video w-full overflow-hidden">
-                    <Image
-                      src={facebookPost.thumbnailUrl}
-                      alt="Latest KML project on Facebook"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                </a>
-              </div>
-            )}
-
             <div className="mt-8 text-center">
               <a
                 href={publicConfig.facebookUrl}
@@ -204,7 +183,7 @@ export default async function Home() {
               >
                 <span>Visit Our Page</span>
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
               </a>
             </div>
