@@ -53,7 +53,8 @@ export default async function Home() {
           {/* Unified Foundation Section - Building Trust Before Services */}
           <section className="relative mx-auto max-w-7xl px-6 py-20 lg:py-32">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-              {/* Visual Side - Portrait/Bio Anchor */}
+              {/* Visual Side - Portrait/Bio Anchor - DISABLED PER USER REQUEST */}
+              {/* 
               <div className="lg:col-span-5 relative order-last lg:order-first">
                 <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl glass-card-green group">
                   <Image
@@ -63,18 +64,17 @@ export default async function Home() {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     priority
                   />
-                  {/* Floating Identity Badge */}
                   <div className="absolute bottom-8 left-8 right-8 p-6 glass-card rounded-2xl border border-white/40 shadow-xl backdrop-blur-md">
                     <p className="text-brand-textDark font-bold text-xl leading-none">Kale Lash</p>
                     <p className="text-brand-primary font-medium text-sm uppercase tracking-widest mt-1">Founder & Lead Contractor</p>
                   </div>
                 </div>
-                {/* Decorative Accent */}
                 <div className="absolute -top-6 -left-6 w-32 h-32 bg-brand-secondary/20 rounded-full blur-3xl -z-10" />
-              </div>
+              </div> 
+              */}
 
               {/* Narrative Side - Philosophy & Service Area */}
-              <div className="lg:col-span-7 space-y-10">
+              <div className="lg:col-span-12 space-y-10">
                 <div className="space-y-6">
                   <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
                     Built on Precision.<br/>Backed by Trust.
