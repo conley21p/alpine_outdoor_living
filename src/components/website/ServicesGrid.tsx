@@ -38,7 +38,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   if (services.length === 0) return null;
 
   return (
-    <div id="services" className="relative w-full bg-transparent pt-10 pb-32">
+    <div id="services" className="relative w-full bg-transparent overflow-x-hidden pt-10 pb-32">
       <section className="services-intro py-12 lg:py-20 flex items-center justify-center bg-transparent relative z-40">
         <div className="text-center px-6">
           <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-7xl">
@@ -52,7 +52,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
 
       {/* SWIPEABLE HAND-OF-CARDS DECK */}
       <section className="relative w-full h-[650px] lg:h-[750px] flex items-center justify-center px-8 lg:px-20 -mt-8">
-        <div className="relative w-full max-w-md lg:max-w-xl h-full flex items-center justify-center">
+        <div className="relative w-[85%] lg:w-full max-w-md lg:max-w-xl h-full flex items-center justify-center">
           <AnimatePresence initial={false}>
             {services.map((service, i) => {
               const len = services.length;
@@ -81,13 +81,13 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                 scale = 0.9;
                 rotate = -6;
                 // Expose enough of the card to read it (overlap less)
-                x = isMobile ? "-45%" : "-80%";
+                x = isMobile ? "-35%" : "-80%";
                 opacity = 0.8;
               } else if (isRight) {
                 zIndex = 10;
                 scale = 0.9;
                 rotate = 6;
-                x = isMobile ? "45%" : "80%";
+                x = isMobile ? "35%" : "80%";
                 opacity = 0.8;
               }
 
