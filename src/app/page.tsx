@@ -14,11 +14,10 @@ import {
 export const revalidate = 300; // Cache the page for 5 minutes
 
 export default async function Home() {
-  const [facebookPost, heroPair, services, whoWeArePhoto] = await Promise.all([
+  const [facebookPost, heroPair, services] = await Promise.all([
     getFacebookFeaturedPost(),
     getHeroPair(),
     getStaticServices(),
-    getWhoWeArePhoto(),
   ]);
 
   return (
