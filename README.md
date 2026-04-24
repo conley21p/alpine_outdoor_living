@@ -1,62 +1,61 @@
-# Alpine Outdoor Living - Static Website
+# Modular Website Framework
 
-A premium, static Next.js website for Alpine Outdoor Living, showcasing custom water features, fire pits, and outdoor spaces.
+A premium, highly configurable website framework built with Next.js 14 and Tailwind CSS. This codebase allows you to deploy a professional, media-rich website for any service-based business by simply modifying a JSON configuration file.
 
-## Features
+## 🚀 Key Features
 
-- **Responsive Design**: Mobile-first layout optimized for all devices.
-- **Dynamic Hero Images**: Automatic switching between vertical and wide hero images based on screen size.
-- **Service Showcase**: Detailed grid of services and outdoor offerings.
-- **Gallery**: Photo gallery populated from local static assets.
-- **Contact Form**: Integrated with **Web3Forms** for direct email notifications without a backend database.
+- **JSON-Driven Core**: Control business identity, branding, and contact details from `src/config/site-config.json`.
+- **Modular Layouts**: Switch between different UI layouts for key sections (e.g., choose between "Stacked" or "HandOfCards" service sections).
+- **Branding Engine**: Full control over color palettes, logos, and taglines directly via config.
+- **Cloudinary Integration**: Dynamic image and video sourcing with local fallback support for high performance.
+- **Ready-to-use Contact Form**: Integrated Web3Forms support with configurable recipient routing.
+- **Luxe Aesthetics**: Modern UI with glassmorphism, ambient lava-lamp gradients, and smooth Framer Motion animations.
 
-## Technology Stack
+## 🛠️ Getting Started
 
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS
-- **Submission**: Web3Forms (Public Key Integration)
-- **Host**: Vercel (Recommended)
+### 1. Configure your site
+Open [site-config.json](file:///Users/conleyprice/Documents/alpine/alpine_outdoor_living/src/config/site-config.json) and plug in your company information:
 
-## Project Structure
-
-```text
-.
-├── public/                 # Static assets (images, icons)
-│   └── images/
-│       ├── hero/           # Hero images (wide/vert folders)
-│       └── gallery/        # Gallery source images
-└── src/
-    ├── app/                # Next.js pages and layouts
-    ├── components/         # Reusable UI components
-    └── lib/                # Shared utilities and site config
+```json
+{
+  "business": {
+    "name": "Your Company Name",
+    "mission": "Your mission statement...",
+    "location": "City, ST",
+    ...
+  },
+  "branding": {
+    "colors": {
+      "primary": "#YOUR_COLOR",
+      "secondary": "#YOUR_ACCENT"
+    }
+  },
+  "ui": {
+    "serviceSectionType": "Stacked", // "Stacked" or "HandOfCards"
+    "hasServiceDetailPage": true
+  }
+}
 ```
 
-## Quick Start
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-1. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
+### 3. Set up Media
+The framework looks for images in `public/images` or your Cloudinary account. Update the `folder` references in your service definitions to match your media structure.
 
-2. **Configure Environment**:
-   Create a `.env.local` file with your site metadata:
-   ```text
-   NEXT_PUBLIC_BUSINESS_NAME="Alpine Outdoor Living"
-   NEXT_PUBLIC_SITE_URL="your-site-url.com"
-   ```
+### 4. Development
+```bash
+npm run dev
+```
 
-3. **Development Mode**:
-   ```bash
-   npm run dev
-   ```
+## 📂 Project Structure
 
-4. **Build for Production**:
-   ```bash
-   npm run build
-   ```
+- `src/config/site-config.json`: The central source of truth for the website.
+- `src/lib/config.ts`: Type-safe configuration bridge.
+- `src/components/website/layouts/`: Contains interchangeable section layouts.
+- `src/components/website/`: Main UI components.
 
-## Development Guidelines
-
-- **Adding Hero Images**: Place vertical versions in `public/images/hero/vert/` and wide versions in `public/images/hero/wide/`.
-- **Updating Gallery**: Simply add or remove images from `public/images/gallery/`. The page will update automatically on next build.
-- **Branding**: Colors and fonts are managed via tailwind.config.js and CSS variables in `src/app/globals.css`.
+## 📄 License
+Custom Framework - Internal Use Only.
