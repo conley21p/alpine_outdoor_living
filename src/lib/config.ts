@@ -1,44 +1,50 @@
+import siteConfig from "@/config/site-config.json";
+
 /**
  * publicConfig: Publicly accessible site configuration and branding.
  * These values are used on the client-side and server-side.
  */
 export const publicConfig = {
   // Business identity
-  businessName: "Alpine Outdoor Living LLC",
-  businessDescription: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
-  businessTagline: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
-  businessPhone: "(217) 899-1784",
-  businessEmail: "Info@alpineoutdoorlivingllc.com",
-  industry: "Landscape Design & Construction",
-  servicesOffered: [
-    "Full Landscape Design & Planning",
-    "Hardscape Installation (Patios, Walkways, & Retaining Walls)",
-    "Water Features (Aquascape Fountains & Ponds)",
-    "Fire Pits & Outdoor Fireplaces",
-    "Outdoor Living Spaces (Kitchen & Living Areas, Pergolas)",
-    "Softscaping (Planting, Gardens, & Mulch)",
-    "Landscape Lighting",
-    "Other/Custom Project"
-  ],
+  businessName: siteConfig.business.name,
+  businessShortName: siteConfig.business.shortName,
+  businessDescription: siteConfig.business.description,
+  businessTagline: siteConfig.business.tagline,
+  businessPhone: siteConfig.business.phone,
+  businessEmail: siteConfig.business.email,
+  businessLocation: siteConfig.business.location,
+  businessMission: siteConfig.business.mission,
+  founder: siteConfig.business.founder,
+  
+  // Services
+  servicesOffered: siteConfig.services.map(s => s.title).concat("Other/Custom Project"),
+  services: siteConfig.services,
+
+  // UI / Features
+  serviceSectionType: siteConfig.ui.serviceSectionType as "Stacked" | "HandOfCards",
+  hasServiceDetailPage: siteConfig.ui.hasServiceDetailPage,
 
   // Branding
-  brandPrimary: "#8B9D33",
-  brandSecondary: "#C8882A",
-  brandTextLight: "#FFFFFF",
-  brandTextDark: "#121212",
-  brandBgLight: "#FAFAF9",
+  brandPrimary: siteConfig.branding.colors.primary,
+  brandPrimaryDark: siteConfig.branding.colors.primaryDark,
+  brandSecondary: siteConfig.branding.colors.secondary,
+  brandTextLight: siteConfig.branding.colors.textLight,
+  brandTextDark: siteConfig.branding.colors.textDark,
+  brandBgLight: siteConfig.branding.colors.bgLight,
+  logo: siteConfig.branding.logo,
 
   // Site URLs
   siteUrl: "https://alpineoutdoorlivingllc.com",
   defaultDomain: "alpineoutdoorlivingllc.com",
 
   // Social media
-  instagramHandle: "alpineoutdoorliving_",
-  instagramFeaturedPost: "https://www.instagram.com/p/C-v-X3jS0K0/",
+  instagramHandle: siteConfig.integrations.instagramHandle,
+  instagramFeaturedPost: siteConfig.integrations.instagramFeaturedPost,
 
-  // Optional integrations (empty if not used)
-  googleAnalyticsId: "",
-  googleReviewsUrl: "",
+  // Integrations
+  web3FormsKey: siteConfig.integrations.web3FormsKey,
+  googleAnalyticsId: siteConfig.integrations.googleAnalyticsId,
+  googleReviewsUrl: siteConfig.integrations.googleReviewsUrl,
 } as const;
 
 export type PublicConfig = typeof publicConfig;
@@ -59,7 +65,7 @@ export const getServerConfig = () => {
     cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
 
     // Optional settings
-    adminEmail: "Info@alpineoutdoorlivingllc.com",
+    adminEmail: siteConfig.business.email,
     nextAuthSecret: process.env.NEXTAUTH_SECRET || "",
     nextAuthUrl: publicConfig.siteUrl,
   };

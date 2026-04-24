@@ -94,7 +94,7 @@ export default async function Home() {
                   {/* Highlighting Card Overlay */}
                   <div className="absolute -bottom-6 -left-6 lg:-left-12 z-20 p-8 glass-card-green rounded-3xl shadow-xl max-w-[320px] hidden sm:block">
                     <div className="flex items-center gap-4 mb-4">
-                      <span className="font-bold text-brand-textDark">The Alpine Standard</span>
+                      <span className="font-bold text-brand-textDark">The {publicConfig.businessShortName} Standard</span>
                     </div>
                     <p className="text-sm font-medium text-brand-textDark leading-relaxed">
                       We believe the most compelling outdoor spaces don&apos;t feel overdesigned, they feel effortless.
@@ -113,7 +113,7 @@ export default async function Home() {
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-2xl glass-card-green group">
                   <Image
                     src={whoWeArePhoto}
-                    alt="Austin Schiff, Founder of Alpine Outdoor Living"
+                    alt={`${publicConfig.founder.name}, Founder of ${publicConfig.businessName}`}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     priority
@@ -121,8 +121,8 @@ export default async function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/40 via-transparent to-transparent opacity-60" />
 
                   <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl glass-card-green shadow-xl">
-                    <h3 className="text-2xl font-bold text-brand-textDark mb-1">Austin Schiff</h3>
-                    <p className="text-brand-textDark/80 font-medium">Founder & Landscape Architect</p>
+                    <h3 className="text-2xl font-bold text-brand-textDark mb-1">{publicConfig.founder.name}</h3>
+                    <p className="text-brand-textDark/80 font-medium">Founder</p>
                   </div>
                 </div>
               </div>
@@ -135,14 +135,7 @@ export default async function Home() {
                 <div className="h-1.5 w-16 bg-brand-primary rounded-full" />
                 <div className="space-y-6">
                   <p className="text-xl lg:text-2xl font-medium text-brand-textDark/90 leading-relaxed">
-                    <strong>Alpine Outdoor Living, LLC</strong> was founded by Austin Schiff during his final year at the
-                    University of Illinois Urbana-Champaign. While earning his degree in <strong>Landscape Architecture</strong>,
-                    Austin combined his technical expertise with a lifelong passion for the outdoors.
-                  </p>
-                  <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
-                    His entrepreneurship started at the young age of 11 when he started his own mowing business to
-                    save for the future. Driven by a deep love for nature and a talent for artistic design, Austin now
-                    focuses on transforming ordinary spaces into extraordinary outdoor retreats.
+                    {publicConfig.founder.bio}
                   </p>
                 </div>
               </div>

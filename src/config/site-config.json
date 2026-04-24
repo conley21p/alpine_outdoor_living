@@ -1,0 +1,70 @@
+{
+  "business": {
+    "name": "Alpine Outdoor Living LLC",
+    "shortName": "Alpine",
+    "description": "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
+    "tagline": "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
+    "phone": "(217) 899-1784",
+    "email": "Info@alpineoutdoorlivingllc.com",
+    "location": "Springfield, IL",
+    "mission": "Turning your outdoor dreams into a reality through thoughtful design and quality craftsmanship.",
+    "founder": {
+      "name": "Austin Schiff",
+      "bio": "Alpine Outdoor Living, LLC was founded by Austin Schiff during his final year at the University of Illinois at Springfield. Growing up in Springfield, Austin developed a deep appreciation for the community and its landscape. He founded the company with a vision to bring high-end, custom outdoor living solutions to Central Illinois, combining his passion for design with a commitment to quality and integrity."
+    }
+  },
+  "branding": {
+    "logo": "/Logo.svg",
+    "colors": {
+      "primary": "#8B9D33",
+      "primaryDark": "#6B7D23",
+      "secondary": "#C8882A",
+      "textLight": "#FFFFFF",
+      "textDark": "#121212",
+      "bgLight": "#FAFAF9"
+    }
+  },
+  "ui": {
+    "serviceSectionType": "Stacked",
+    "hasServiceDetailPage": true
+  },
+  "integrations": {
+    "web3FormsKey": "4880cd5b-7e22-4d93-9e8a-84d7c3d8f38d",
+    "instagramHandle": "alpineoutdoorliving_",
+    "instagramFeaturedPost": "https://www.instagram.com/p/C-v-X3jS0K0/",
+    "googleAnalyticsId": "",
+    "googleReviewsUrl": ""
+  },
+  "services": [
+    {
+      "id": "landscapes",
+      "title": "Landscapes",
+      "description": "Curated green spaces designed to evolve and improve over time. Our build process is anchored in discipline and meticulous attention to detail. Strategic greenery that enhances the natural beauty of the Illinois landscape.",
+      "folder": "Landscapes and Lighting"
+    },
+    {
+      "id": "ponds-waterfalls",
+      "title": "Ecosystem Ponds and Waterfalls",
+      "description": "Specialized expertise in natural water features that emphasize the soothing sound of water, which can mask city noise and create a Zen space. Unique focal points that elevate your property value and create the perfect atmosphere for relaxation or entertaining.",
+      "folder": "Ecosystem Ponds and Waterfalls"
+    },
+    {
+      "id": "fountainscapes",
+      "title": "Pondless Waterfalls and Fountainscapes",
+      "description": "These offer the beauty of a waterfall without the open water basin. They add a relaxing, gentle, or dramatic water course to your landscape. Perfect for large or small spaces, decks, or patios, requiring very little maintenance.",
+      "folder": "Pondless Waterfalls and Fountainscapes"
+    },
+    {
+      "id": "outdoor-spaces",
+      "title": "Outdoor Spaces",
+      "description": "Custom Stonework, pathways, retaining walls, firepits, outdoor kitchens and living spaces. Precise, detail-driven construction with premium materials selected for both beauty and longevity. Understanding the property, architecture, and how the space will be lived in.",
+      "folder": "Outdoor Spaces"
+    },
+    {
+      "id": "lighting",
+      "title": "Lighting",
+      "description": "Expertly designed outdoor lighting systems that transform your landscape after sunset. Precise placement and premium fixtures highlight architectural details, illuminate pathways, and extend the usability of your outdoor spaces into the evening.",
+      "folder": "Lighting"
+    }
+  ]
+}

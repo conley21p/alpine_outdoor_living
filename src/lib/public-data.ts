@@ -395,7 +395,7 @@ export const getPublishedReviews = async (): Promise<Review[]> => {
       customer_name: "Sarah Johnson",
       rating: 5,
       quote:
-        "Alpine Outdoor Living transformed our backyard into a peaceful oasis. Their attention to detail on our new pond was incredible!",
+        `${publicConfig.businessName} transformed our backyard into a peaceful oasis. Their attention to detail on our new pond was incredible!`,
       review_date: new Date().toISOString(),
       published: true,
     },

@@ -129,7 +129,7 @@ export function ContactForm({ initialService }: ContactFormProps) {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          access_key: "4880cd5b-7e22-4d93-9e8a-84d7c3d8f38d",
+          access_key: publicConfig.web3FormsKey,
           to: publicConfig.businessEmail,
           name: `${form.firstName} ${form.lastName}`.trim(),
           email: form.email,
@@ -137,7 +137,7 @@ export function ContactForm({ initialService }: ContactFormProps) {
           service: form.serviceNeeded,
           message: form.message,
           subject: `New Contact: ${form.serviceNeeded} from ${form.firstName}`,
-          from_name: "Alpine Outdoor Living",
+          from_name: publicConfig.businessName,
         }),
       });
 
@@ -146,24 +146,6 @@ export function ContactForm({ initialService }: ContactFormProps) {
       if (!response.ok || !result.success) {
         setError(result.message || "Unable to submit your request.");
         return;
-      }
-
-      // Send confirmation email via Resend (Parallel, non-blocking for user success UI)
-      if (form.email.trim()) {
-        console.log("[DEBUG] Initiating Resend confirmation call for:", form.email);
-        fetch("/api/send-confirmation", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: form.email,
-            firstName: form.firstName,
-            service: form.serviceNeeded,
-          }),
-        }).then(res => {
-          console.log("[DEBUG] Resend response status:", res.status);
-        }).catch((err) => {
-          console.error("[CONFIRMATION EMAIL ERROR]", err);
-        });
       }
 
       setSuccess(true);
@@ -184,8 +166,8 @@ export function ContactForm({ initialService }: ContactFormProps) {
         </div>
         <h3 className="text-3xl font-bold text-brand-textDark mb-6">Thank you for reaching out!</h3>
         <p className="text-lg leading-relaxed text-brand-textDark/80 mb-8">
-          We&rsquo;ve received your request and are excited to learn more about your vision. Austin or a 
-          member of the Alpine Team will review your details and get back with you within 24-48 hours 
+          We&rsquo;ve received your request and are excited to learn more about your vision. {publicConfig.founder.name} or a 
+          member of the {publicConfig.businessShortName} team will review your details and get back with you within 24-48 hours 
           to discuss the next steps for your outdoor space.
         </p>
         <div className="space-y-4">
