@@ -29,8 +29,8 @@ export const publicConfig = {
   brandBgLight: "#FAFAF9",
 
   // Site URLs
-  siteUrl: "https://alpineoutdoorlivingllc.com",
-  defaultDomain: "alpineoutdoorlivingllc.com",
+  siteUrl: "https://www.alpineoutdoorlivingllc.com",
+  defaultDomain: "www.alpineoutdoorlivingllc.com",
 
   // Social media
   instagramHandle: "alpineoutdoorliving_",

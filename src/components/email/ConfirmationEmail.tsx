@@ -21,7 +21,7 @@ export const ConfirmationEmail: React.FC<Readonly<ConfirmationEmailProps>> = ({
   }}>
     <div style={{ textAlign: "center", marginBottom: "30px" }}>
       <img 
-        src="https://alpineoutdoorlivingllc.com/Logo.svg" 
+        src="https://www.alpineoutdoorlivingllc.com/Logo.svg" 
         alt="Alpine Outdoor Living Logo" 
         style={{ width: "60px", height: "60px", marginBottom: "15px" }}
       />
