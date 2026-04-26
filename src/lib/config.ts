@@ -4,21 +4,30 @@
  */
 export const publicConfig = {
   // Business identity
-  businessName: "KML Seamless Gutters LLC",
-  businessDescription: "Locally owned and operated exterior contractor offering seamless gutters, soffit, fascia, and siding installation and repair services in Springfield, IL and surrounding areas.",
-  businessTagline: "Expert Gutter, Soffit, Fascia & Siding Solutions — Precision Built in Central Illinois",
-  businessPhone: "(217) 843-7265",
-  businessEmail: "kmlseamlessguttersil@gmail.com",
-  industry: "Exterior Construction & Gutter Services",
+  businessName: "Lincoln Land Exteriors",
+  businessDescription:
+    "Lincoln Land Exteriors is a family-owned contractor based in Springfield, Illinois. We handle interior and exterior projects with quality workmanship, clean job sites, and straightforward pricing.",
+  businessTagline: "Need work done right the first time? We handle it all — start to finish.",
+  businessPhone: "(217) 691-1043",
+  businessEmail: "lincolnlandexteriors@gmail.com",
+  industry: "General Contracting — Interior & Exterior",
   servicesOffered: [
-    "Seamless Gutters",
+    "Roofing",
+    "Siding",
+    "Gutters",
+    "Windows & Doors",
     "Soffit & Fascia",
-    "Siding Installation"
+    "Flooring",
+    "Drywall",
+    "Kitchen Remodeling",
+    "Bathroom Remodeling",
+    "Lighting Installation"
   ] as const,
+  serviceHighlights: ["Roofing", "Siding", "Gutters", "Remodeling"] as const,
 
   // Branding
-  brandPrimary: "#1C419E", // Primary Blue
-  brandSecondary: "#56D14B", // Vibrant Green
+  brandPrimary: "#C1121F", // Red
+  brandSecondary: "#F4D35E", // Yellow
   brandTextLight: "#FFFFFF",
   brandTextDark: "#121212",
   brandBgLight: "#FAFAF9",
@@ -27,12 +36,12 @@ export const publicConfig = {
   useCloudinary: false,
 
   // Site URLs
-  siteUrl: "http://kmlSeamlessGutters.com",
-  defaultDomain: "kmlSeamlessGutters.com",
+  siteUrl: "http://lincolnlandexteriors.com",
+  defaultDomain: "lincolnlandexteriors.com",
 
   // Social media
-  facebookUrl: "https://www.facebook.com/p/KML-seamless-gutters-LLC-61573112742583/",
-  facebookHandle: "KML Seamless Gutters LLC",
+  facebookUrl: "https://www.facebook.com/people/Lincoln-Land-Exteriors/",
+  facebookHandle: "Lincoln Land Exteriors",
 
   // Optional integrations (empty if not used)
   googleAnalyticsId: "",
@@ -57,7 +66,7 @@ export const getServerConfig = () => {
     cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
 
     // Optional settings
-    adminEmail: "kmlseamlessguttersil@gmail.com",
+    adminEmail: "lincolnlandexteriors@gmail.com",
     nextAuthSecret: process.env.NEXTAUTH_SECRET || "",
     nextAuthUrl: publicConfig.siteUrl,
   };

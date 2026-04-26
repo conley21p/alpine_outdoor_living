@@ -136,8 +136,8 @@ export function ContactForm({ initialService }: ContactFormProps) {
           phone: form.phone,
           service: form.serviceNeeded,
           message: form.message,
-          subject: `New Gutter Request: ${form.serviceNeeded} from ${form.firstName}`,
-          from_name: "KML Seamless Gutters",
+          subject: `New Estimate Request: ${form.serviceNeeded} — ${form.firstName}`,
+          from_name: publicConfig.businessName,
         }),
       });
 
@@ -166,9 +166,7 @@ export function ContactForm({ initialService }: ContactFormProps) {
         </div>
         <h3 className="text-3xl font-bold text-brand-textDark mb-6">Thank you for reaching out!</h3>
         <p className="text-lg leading-relaxed text-brand-textDark/80 mb-8">
-          We&rsquo;ve received your request and are excited to help with your project. Kale or a 
-          member of the KML Team will review your details and get back with you within 24-48 hours 
-          to discuss your gutter, soffit, or siding needs.
+          We&rsquo;ve received your request and will get back to you as soon as possible to go over your project details and schedule a free estimate.
         </p>
         <div className="space-y-4">
           <p className="text-base text-brand-textDark/60 italic">

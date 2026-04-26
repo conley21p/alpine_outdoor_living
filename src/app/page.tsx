@@ -2,43 +2,44 @@ import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
 import { ContactForm } from "@/components/website/ContactForm";
+import Image from "next/image";
 import { publicConfig } from "@/lib/config";
 import {
   getHeroPair,
-  getStaticServices,
+  getExteriorServices,
 } from "@/lib/public-data";
 
 export const revalidate = 300; // Cache the page for 5 minutes
 
 export default async function Home() {
-  const [heroPair, services] = await Promise.all([
+  const [heroPair, exteriorServices] = await Promise.all([
     getHeroPair(),
-    getStaticServices(),
+    getExteriorServices(),
   ]);
 
   return (
     <SiteShell>
-      {/* Unified Ambient Background Zone - KML Blue/Green Palette */}
+      {/* Unified Ambient Background Zone - Lincoln Land Exteriors Red/Yellow Palette */}
       <div className="relative w-full">
-        {/* Vibrant Lava Lamp Ambient Layer - Blue & Green */}
+        {/* Vibrant Lava Lamp Ambient Layer - Red & Yellow */}
         <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden">
-          {/* Top-left Blue pool */}
-          <div className="absolute top-[0%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/55 to-blue-600/40 blur-[140px] lava-lamp-1" />
-          {/* Top-left anchor — Vibrant Green */}
-          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-brand-secondary/40 to-brand-primary/50 blur-[130px] lava-lamp-3 hidden lg:block" />
-          {/* Right pool — Blue/Green mix */}
-          <div className="absolute top-[15%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-blue-400/35 to-brand-secondary/30 blur-[160px] lava-lamp-2" />
+          {/* Top-left Red pool */}
+          <div className="absolute top-[0%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/45 to-red-500/30 blur-[140px] lava-lamp-1" />
+          {/* Top-left anchor — Warm Yellow */}
+          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-brand-secondary/40 to-brand-primary/25 blur-[130px] lava-lamp-3 hidden lg:block" />
+          {/* Right pool — Red/Yellow mix */}
+          <div className="absolute top-[15%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-orange-300/25 to-brand-secondary/30 blur-[160px] lava-lamp-2" />
 
           {/* Mid Supporting Blobs */}
-          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-brand-secondary/25 to-blue-500/20 blur-[120px] lava-lamp-3 hidden lg:block" />
-          <div className="absolute top-[60%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-blue-500/25 to-brand-primary/30 blur-[140px] lava-lamp-1" />
-          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/40 to-brand-secondary/25 blur-[150px] lava-lamp-2 hidden lg:block" />
+          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-brand-secondary/20 to-orange-400/15 blur-[120px] lava-lamp-3 hidden lg:block" />
+          <div className="absolute top-[60%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-red-500/18 to-brand-primary/22 blur-[140px] lava-lamp-1" />
+          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/30 to-brand-secondary/20 blur-[150px] lava-lamp-2 hidden lg:block" />
 
           {/* Bottom Bloom */}
-          <div className="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-brand-primary/20 blur-[140px] lava-lamp-3" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-brand-primary/18 blur-[140px] lava-lamp-3" />
 
           {/* Warm Accent */}
-          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-brand-secondary/12 to-blue-300/10 blur-[1200px] lava-lamp-3" />
+          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-brand-secondary/12 to-orange-200/10 blur-[1200px] lava-lamp-3" />
           <div className="absolute top-[40%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay hidden lg:block" />
         </div>
 
@@ -68,21 +69,21 @@ export default async function Home() {
               </div> 
               */}
 
-              {/* Narrative Side - Philosophy & Service Area */}
-              <div className="lg:col-span-12 space-y-10">
+              {/* Philosophy + Owner Operated (2-col on desktop) */}
+              <div className="lg:col-span-8 space-y-10">
                 <div className="space-y-6">
                   <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
-                    Built on Precision.<br />Backed by Trust.
+                    Quality Work.<br />Done Right the First Time.
                   </h2>
                   <div className="h-1.5 w-24 bg-brand-secondary rounded-full" />
                 </div>
 
                 <div className="space-y-6 text-xl lg:text-2xl text-brand-textDark/80 leading-relaxed font-medium">
                   <p>
-                    <strong>KML Seamless Gutters LLC</strong> is more than just an exterior contractor. Founded by Kale Lash, we are a locally owned operation driven by a simple philosophy: protect your home with honesty and expert craftsmanship.
+                    <strong>Lincoln Land Exteriors</strong> handles projects start-to-finish with clear communication, reliable scheduling, and workmanship that holds up.
                   </p>
                   <p className="text-lg lg:text-xl text-brand-textDark/60 font-normal">
-                    Servicing <strong>Central Illinois</strong>, we take immense pride in delivering exceptional results across Springfield, Chatham, and the surrounding region. From 6-inch seamless gutters to precision siding, we ensure every detail is built to last.
+                    Need an exterior upgrade or an interior remodel? From roofing and siding to flooring and kitchens, we coordinate the right crew and keep the process straightforward.
                   </p>
                 </div>
 
@@ -90,37 +91,145 @@ export default async function Home() {
                 <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-4 border-t border-brand-textDark/5">
                   <div className="flex items-center gap-2 text-brand-primary font-bold">
                     <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                    <span>Locally Owned</span>
+                    <span>Family Owned</span>
                   </div>
                   <div className="flex items-center gap-2 text-brand-primary font-bold">
                     <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                    <span>Central Illinois</span>
+                    <span>Springfield, IL</span>
                   </div>
                   <div className="flex items-center gap-2 text-brand-primary font-bold">
                     <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                    <span>Licensed & Insured</span>
+                    <span>Insured & Bonded</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-brand-primary font-bold">
+                    <div className="w-2 h-2 rounded-full bg-brand-secondary" />
+                    <span>Free Estimates</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-brand-primary font-bold">
+                    <div className="w-2 h-2 rounded-full bg-brand-secondary" />
+                    <span>3D Models via Hover</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Owner Operated column (desktop right) */}
+              <aside className="lg:col-span-4">
+                <div className="rounded-[2.5rem] border border-white/40 bg-white/55 backdrop-blur-xl p-6 shadow-xl">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-brand-textDark/60">
+                    Owner Operated
+                  </p>
+                  <div className="mt-4 relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/50 shadow-2xl">
+                    <Image
+                      src="/lincoln-land-exteriors/Zach Williams (Owner).JPG"
+                      alt="Zach Williams, Owner"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 420px"
+                      priority={false}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent" />
+
+                    {/* Frosted text bubble */}
+                    <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/40 bg-white/70 backdrop-blur-xl p-4">
+                      <p className="text-lg font-bold tracking-tight text-brand-textDark">
+                        Meet Zach Williams
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-brand-textDark/70">
+                        Lincoln Land Exteriors is a family-owned contractor serving Springfield, Illinois and surrounding areas.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <ServicesGrid
+            sectionId="exterior-services"
+            title="Exterior Services"
+            subtitle="Roofing, siding, gutters, windows & doors, soffit and fascia."
+            services={exteriorServices}
+          />
+
+          <section
+            id="interior-services"
+            className="relative mx-auto w-full max-w-7xl px-6 py-20 lg:py-28"
+          >
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-center">
+              <div className="lg:col-span-7 space-y-8">
+                <div className="space-y-5">
+                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter text-brand-textDark">
+                    Interior Services
+                  </h2>
+                  <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
+                    If your project is inside the home, we can help coordinate it start-to-finish.
+                    Here are the most common interior requests we handle.
+                  </p>
+                </div>
+
+                <ul className="space-y-4 text-base lg:text-lg text-brand-textDark/80">
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-brand-secondary" />
+                    <span>Flooring (hardwood, vinyl, laminate, tile)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-brand-secondary" />
+                    <span>Drywall (install, patch, finish)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-brand-secondary" />
+                    <span>Interior &amp; exterior door installation</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-brand-secondary" />
+                    <span>Kitchen remodeling</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-brand-secondary" />
+                    <span>Bathroom remodeling</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-brand-secondary" />
+                    <span>Lighting fixture installation</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="lg:col-span-5">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2.5rem] border border-white/50 bg-gradient-to-br from-brand-primary/10 via-white/70 to-brand-secondary/25 shadow-2xl">
+                  <Image
+                    src="/lincoln-land-exteriors/Team Photo.JPG"
+                    alt="Lincoln Land Exteriors team"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 500px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
+                  <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/40 p-5">
+                    <p className="text-sm font-semibold uppercase tracking-widest text-brand-textDark/60">
+                      Interior &amp; Exterior
+                    </p>
+                    <p className="mt-1 text-xl font-bold tracking-tight text-brand-textDark">
+                      One call. One plan. Get it done.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <ServicesGrid services={services} />
-
 
           <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent">
             <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
               <div className="sm:col-span-2 flex flex-col">
                 <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-tight mb-6">
-                  Ready to Protect <br className="hidden lg:block" /> Your Exterior?
+                  Get a Free Estimate <br className="hidden lg:block" /> Today
                 </h2>
                 <p className="mt-4 text-lg lg:text-xl leading-relaxed text-brand-textDark/70 mb-8">
-                  Don&apos;t let worn-out gutters or soffit compromise your home. Whether you need 5-inch
-                  residential gutters, 6-inch commercial drainage, or a complete siding refresh,
-                  KML is here to deliver professional results with local care.
+                  Submit the contact form or reach out to Zach Williams at the phone number below today to get started.
                 </p>
 
-                <div className="sm:mt-auto mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
+                <div className="sm:mt-auto mt-8 space-y-4 rounded-3xl p-8 glass-card-warm">
                   <div className="flex items-start gap-4">
                     <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,7 +259,7 @@ export default async function Home() {
                 </div>
               </div>
               <div className="sm:col-span-3">
-                <div className="glass-card-green rounded-3xl p-8 h-full">
+                <div className="glass-card-warm rounded-3xl p-8 h-full">
                   <ContactForm />
                 </div>
               </div>
@@ -160,15 +269,14 @@ export default async function Home() {
       </div>
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-green-50 px-8 py-12 lg:px-16 lg:py-16">
+        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-50 to-red-50 px-8 py-12 lg:px-16 lg:py-16">
           <div className="mx-auto max-w-4xl">
             <div className="text-center">
-              <div className="mb-6 text-5xl">👍</div>
               <h2 className="text-3xl font-bold tracking-tight text-brand-textDark sm:text-4xl">
                 Follow Us on Facebook
               </h2>
               <p className="mt-4 text-lg text-gray-600">
-                See our latest projects and high-quality results from the field
+                See recent projects, updates, and photos from the field
               </p>
             </div>
             <div className="mt-8 text-center">

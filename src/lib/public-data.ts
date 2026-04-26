@@ -22,57 +22,97 @@ export interface ServiceData {
   description: string;
   media: GalleryImage[];
   folder: string;
+  category: "exterior" | "interior";
 }
 
 /**
- * Gallery images — served from static public/fallback/ assets.
- * Add more entries here as KML uploads project photos.
+ * Gallery images — served from static public/ assets.
  */
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   return [
-    { name: "Seamless Gutters Installation", url: "/fallback/Website/Services/Seamless-Gutters/Project.png", type: "image" },
-    { name: "Soffit & Fascia Installation", url: "/fallback/Website/Services/Soffit & Fasica/Project.png", type: "image" },
-    { name: "Siding Installation", url: "/fallback/Website/Services/Siding/Project.png", type: "image" },
+    { name: "Green House — New Roof", url: "/lincoln-land-exteriors/Green House New Roof Hero Image.jpeg", type: "image" },
+    { name: "Brick House — New Roof", url: "/lincoln-land-exteriors/Brick House New Roof Street View.jpeg", type: "image" },
+    { name: "Blue House — Roofing Project", url: "/lincoln-land-exteriors/Blue House Roofing Project Started.jpeg", type: "image" },
+    { name: "Duplex — New Roof", url: "/lincoln-land-exteriors/Duplex New Roof.jpeg", type: "image" },
+    { name: "New Roof & Black Gutters", url: "/lincoln-land-exteriors/House New Roof and black gutters.jpeg", type: "image" },
+    { name: "New Roof — Rear View", url: "/lincoln-land-exteriors/House With Out house new roof picture of back of house.jpeg", type: "image" },
+    { name: "Remodel — New Roof & Gutters", url: "/lincoln-land-exteriors/Remodedl White House New Roof And Gutters.jpeg", type: "image" },
   ];
 };
 
 /**
- * Hero images — served from static public/fallback/ assets.
+ * Hero images — served from static public/ assets.
  */
 export const getHeroPair = async () => {
   return {
-    wide: "/fallback/Website/Hero/Wide/Hero.png",
-    vert: "/fallback/Website/Hero/Vertical/Hero.png",
+    wide: "/lincoln-land-exteriors/Green House New Roof Hero Image.jpeg",
+    vert: "/lincoln-land-exteriors/Brick House New Roof Street View.jpeg",
   };
 };
 
 /**
- * Static service definitions for KML Seamless Gutters.
+ * Static service definitions for Lincoln Land Exteriors.
  */
-const STATIC_SERVICES: Array<{ title: string; description: string; folder: string; media: GalleryImage[] }> = [
+const STATIC_SERVICES: Array<{
+  title: string;
+  description: string;
+  folder: string;
+  media: GalleryImage[];
+  category: "exterior" | "interior";
+}> = [
   {
-    title: "Seamless Gutters",
-    description: "Our premier seamless gutter systems are custom-formed on-site for a perfect fit, providing ultimate protection against water damage and foundation issues.",
-    folder: "Seamless Gutters",
+    title: "Roofing (Repairs & Replacements)",
+    description: "From leak repairs to full tear-offs and replacements, we deliver durable roofing work with clear communication and job sites kept clean.",
+    folder: "Roofing",
     media: [
-      { name: "Seamless Gutter Installation", url: "/fallback/Website/Services/Seamless-Gutters/Project.png", type: "image" },
+      { name: "Roofing Project", url: "/lincoln-land-exteriors/Remodedl White House New Roof And Gutters.jpeg", type: "image" },
     ],
+    category: "exterior",
+  },
+  {
+    title: "Siding (Install & Repair)",
+    description: "Improve curb appeal and protection with professional siding installation and repairs built for Midwest weather.",
+    folder: "Siding",
+    media: [
+      { name: "Siding Example", url: "/lincoln-land-exteriors/Brick House New Roof Street View.jpeg", type: "image" },
+    ],
+    category: "exterior",
+  },
+  {
+    title: "Gutters (Install & Replace)",
+    description: "Replace worn or undersized gutters to help protect your home from water damage. We install clean, functional systems that look great.",
+    folder: "Gutters",
+    media: [
+      { name: "Roof & Gutters", url: "/lincoln-land-exteriors/Remodedl White House New Roof And Gutters.jpeg", type: "image" },
+    ],
+    category: "exterior",
+  },
+  {
+    title: "Windows & Exterior Doors",
+    description: "Upgrade efficiency, security, and curb appeal with professional window and exterior door installation.",
+    folder: "Windows & Doors",
+    media: [
+      { name: "Project Photo", url: "/lincoln-land-exteriors/House New Roof and black gutters.jpeg", type: "image" },
+    ],
+    category: "exterior",
   },
   {
     title: "Soffit & Fascia",
-    description: "Expertly installed soffit and fascia systems that provide critical attic ventilation and structural integrity while creating a clean, finished appearance for your home's exterior.",
-    folder: "Soffit & Fasica",
+    description: "Protect your roofline with properly installed soffit and fascia for ventilation, durability, and a finished look.",
+    folder: "Soffit & Fascia",
     media: [
-      { name: "Soffit & Fascia Installation", url: "/fallback/Website/Services/Soffit & Fasica/Project.png", type: "image" },
+      { name: "Project Photo", url: "/lincoln-land-exteriors/Blue House Roofing Project Started.jpeg", type: "image" },
     ],
+    category: "exterior",
   },
   {
-    title: "Siding Installation",
-    description: "Professional siding solutions featuring premium materials that improve energy efficiency and curb appeal while providing a robust weather-resistant barrier.",
-    folder: "Siding",
+    title: "Interior Remodeling",
+    description: "Flooring, drywall, kitchens, bathrooms, lighting, and doors — handled start-to-finish with reliable scheduling and clear expectations.",
+    folder: "Interior",
     media: [
-      { name: "Siding Installation", url: "/fallback/Website/Services/Siding/Project.png", type: "image" },
+      { name: "Team", url: "/lincoln-land-exteriors/Team Photo.JPG", type: "image" },
     ],
+    category: "interior",
   },
 ];
 
@@ -83,7 +123,18 @@ export const getStaticServices = async (): Promise<ServiceData[]> => {
     description: service.description,
     media: service.media,
     folder: service.folder,
+    category: service.category,
   }));
+};
+
+export const getExteriorServices = async (): Promise<ServiceData[]> => {
+  const all = await getStaticServices();
+  return all.filter((s) => s.category === "exterior");
+};
+
+export const getInteriorServices = async (): Promise<ServiceData[]> => {
+  const all = await getStaticServices();
+  return all.filter((s) => s.category === "interior");
 };
 
 export const getServiceBySlug = async (slug: string): Promise<ServiceData | null> => {
@@ -92,7 +143,7 @@ export const getServiceBySlug = async (slug: string): Promise<ServiceData | null
 };
 
 export async function getWhoWeArePhoto(): Promise<string> {
-  return "/fallback/Website/WhoWeAre/Kale.png";
+  return "/lincoln-land-exteriors/Zach Williams (Owner).JPG";
 }
 
 export const getServiceProjects = async (folder: string): Promise<GalleryImage[]> => {

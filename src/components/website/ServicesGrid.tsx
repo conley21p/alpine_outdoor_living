@@ -3,21 +3,30 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence, type PanInfo } from "framer-motion";
+import { motion, AnimatePresence, type PanInfo, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { ServiceData } from "@/lib/public-data";
 import { getOptimizedUrl } from "@/lib/media-utils";
 
 interface ServicesGridProps {
   services?: ServiceData[];
+  sectionId?: string;
+  title?: string;
+  subtitle?: string;
 }
 
 
 
-export function ServicesGrid({ services = [] }: ServicesGridProps) {
+export function ServicesGrid({
+  services = [],
+  sectionId = "services",
+  title = "Our Services",
+  subtitle = "Swipe to explore our professional solutions",
+}: ServicesGridProps) {
   const [index, setIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -27,6 +36,8 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   }, []);
 
   useEffect(() => {
+    // Mobile-only autoplay: advance until the user interacts.
+    if (!isMobile) return;
     if (!isAutoPlaying || services.length <= 1) return;
 
     const interval = setInterval(() => {
@@ -34,13 +45,12 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, services.length]);
+  }, [isAutoPlaying, isMobile, services.length]);
 
   const handleDragEnd = (_event: unknown, info: PanInfo) => {
     const threshold = 50;
     const len = services.length;
     if (Math.abs(info.offset.x) > threshold) {
-      setIsAutoPlaying(false);
       if (info.offset.x > threshold) {
         setIndex((prev) => (prev > 0 ? prev - 1 : len - 1));
       } else if (info.offset.x < -threshold) {
@@ -52,20 +62,20 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
   if (services.length === 0) return null;
 
   return (
-    <div id="services" className="relative w-full bg-transparent overflow-x-hidden pt-10 pb-32">
+    <div id={sectionId} className="relative w-full bg-transparent overflow-x-hidden pt-10 pb-32">
       <section className="services-intro py-12 lg:py-20 flex items-center justify-center bg-transparent relative z-40">
         <div className="text-center px-6">
           <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl lg:text-7xl">
-            Our Services
+            {title}
           </h2>
           <p className="mx-auto mt-5 max-w-3xl text-lg font-normal text-brand-textDark/70 sm:text-lg lg:text-2xl">
-            Swipe to explore our professional solutions
+            {subtitle}
           </p>
         </div>
       </section>
 
       {/* SWIPEABLE HAND-OF-CARDS DECK */}
-      <section className="relative w-full h-[650px] lg:h-[750px] flex items-center justify-center px-8 lg:px-20 -mt-8">
+      <section className="relative isolate w-full h-[650px] lg:h-[750px] flex items-center justify-center px-8 lg:px-20 -mt-8 overflow-hidden">
         <div className="relative w-[85%] lg:w-full max-w-md lg:max-w-xl h-full flex items-center justify-center">
           <AnimatePresence initial={false}>
             {services.map((service, i) => {
@@ -106,39 +116,76 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
               }
 
               const primaryMedia = service.media && service.media.length > 0 ? service.media[0] : null;
+              const boxShadow = isCenter
+                ? "0 25px 60px -15px rgba(0,0,0,0.4)"
+                : "0 10px 30px -10px rgba(0,0,0,0.2)";
 
               return (
                 <motion.div
                   key={service.title}
                   initial={{ opacity: 0, scale: 0.8, x: "0%" }}
-                  animate={{ 
-                    opacity, 
-                    scale, 
-                    x, 
-                    rotate, 
-                    zIndex,
-                    boxShadow: isCenter ? "0 25px 60px -15px rgba(0,0,0,0.4)" : "0 10px 30px -10px rgba(0,0,0,0.2)"
+                  animate={{
+                    opacity,
+                    scale,
+                    x,
+                    rotate,
                   }}
                   exit={{ opacity: 0, scale: 0.5, x: x === "0%" ? "0%" : (isLeft ? "-100%" : "100%") }}
-                  transition={{ type: "spring", stiffness: 220, damping: 25 }}
+                  transition={
+                    prefersReducedMotion
+                      ? { duration: 0.01 }
+                      : isMobile
+                        ? { type: "tween", ease: [0.2, 0.8, 0.2, 1], duration: 0.35 }
+                        : { type: "spring", stiffness: 220, damping: 25 }
+                  }
                   drag={isCenter ? "x" : false}
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.2}
+                  onDragStart={() => {
+                    // Stop autoplay on first user interaction (even a small swipe).
+                    setIsAutoPlaying(false);
+                  }}
                   onDragEnd={handleDragEnd}
                   onClick={() => {
                     setIsAutoPlaying(false);
                     if (isLeft) setIndex((prev) => (prev > 0 ? prev - 1 : len - 1));
                     if (isRight) setIndex((prev) => (prev < len - 1 ? prev + 1 : 0));
                   }}
-                  className={`absolute w-full h-[600px] lg:h-[700px] overflow-hidden rounded-[32px] border border-white/40 bg-white/70 backdrop-blur-3xl flex flex-col ${
+                  style={{
+                    zIndex,
+                    boxShadow,
+                    willChange: "transform, opacity",
+                    transform: "translateZ(0)",
+                    // Helps mobile browsers allow horizontal drag smoothly
+                    touchAction: isCenter ? "pan-y" : "auto",
+                  }}
+                  className={`absolute w-full h-[600px] lg:h-[700px] overflow-hidden rounded-[32px] border border-white/60 bg-white/80 bg-[radial-gradient(120%_90%_at_20%_10%,rgba(193,18,31,0.34)_0%,rgba(255,255,255,0.90)_52%,rgba(255,255,255,0.82)_100%)] flex flex-col transform-gpu ${
                     isCenter ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer hover:bg-white/90'
                   } transition-colors duration-300`}
                 >
-                  <div className="absolute inset-0 bg-white/40 backdrop-blur-md pointer-events-none z-0" />
+                  {/* Frosted glass overlay (desktop only for perf) */}
+                  {!isMobile && (
+                    <div className="absolute inset-0 bg-white/30 backdrop-blur-3xl pointer-events-none z-0" />
+                  )}
+                  {/* Inner highlight for stronger "frost" */}
+                  <div className="absolute inset-0 pointer-events-none rounded-[32px] ring-1 ring-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] z-[1]" />
                   
-                  {/* Lava Lamp Blobs */}
-                  <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-blue-600/20 blur-[60px] lava-lamp-slow-1 pointer-events-none z-0" />
-                  <div className="absolute bottom-[10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-green-500/20 blur-[50px] lava-lamp-slow-2 pointer-events-none z-0" />
+                  {/* Lava Lamp Blobs (static on mobile; animated on desktop) */}
+                  <div
+                    className={`absolute top-[-18%] left-[-18%] w-[80%] h-[80%] rounded-full bg-brand-primary/35 pointer-events-none z-0 ${
+                      isMobile ? "blur-[32px]" : "blur-[60px] lava-lamp-slow-1"
+                    }`}
+                  />
+                  <div
+                    className={`absolute bottom-[8%] right-[-12%] w-[60%] h-[60%] rounded-full bg-brand-secondary/45 pointer-events-none z-0 ${
+                      isMobile ? "blur-[28px]" : "blur-[50px] lava-lamp-slow-2"
+                    }`}
+                  />
+                  <div
+                    className={`absolute top-[35%] right-[-20%] w-[55%] h-[55%] rounded-full bg-orange-400/25 pointer-events-none z-0 ${
+                      isMobile ? "blur-[26px]" : "blur-[55px] lava-lamp-slow-1"
+                    }`}
+                  />
 
                   <div className="relative z-10 p-5 lg:p-8 flex flex-col gap-5 lg:gap-8 h-full flex-grow pointer-events-none">
                     {/* SINGLE STATIC IMAGE - Removed nested ImageStack */}
@@ -188,7 +235,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   setIsAutoPlaying(false);
                   setIndex((prev) => (prev > 0 ? prev - 1 : services.length - 1));
                 }}
-                className="absolute left-[-1.5rem] lg:left-[-7rem] top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-transparent hover:bg-white/40 active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-black/60 transition-all hidden md:flex items-center justify-center"
+                className="absolute left-[-1.25rem] lg:left-[-7rem] top-1/2 -translate-y-1/2 z-50 p-3 md:p-4 rounded-full bg-white/40 hover:bg-white/55 active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-white/60 backdrop-blur-xl transition-all hidden md:flex items-center justify-center"
                 aria-label="Previous card"
               >
                 <ChevronLeft className="w-7 h-7" />
@@ -200,7 +247,7 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
                   setIsAutoPlaying(false);
                   setIndex((prev) => (prev < services.length - 1 ? prev + 1 : 0));
                 }}
-                className="absolute right-[-1.5rem] lg:right-[-7rem] top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-transparent hover:bg-white/40 active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-black/60 transition-all hidden md:flex items-center justify-center"
+                className="absolute right-[-1.25rem] lg:right-[-7rem] top-1/2 -translate-y-1/2 z-50 p-3 md:p-4 rounded-full bg-white/40 hover:bg-white/55 active:scale-95 text-brand-textDark/70 hover:text-brand-textDark border border-white/60 backdrop-blur-xl transition-all hidden md:flex items-center justify-center"
                 aria-label="Next card"
               >
                 <ChevronRight className="w-7 h-7" />
