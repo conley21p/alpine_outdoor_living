@@ -65,7 +65,7 @@
   }
 
   .glass-card-warm {
-    @apply border border-white/30 bg-gradient-to-br from-white/45 via-yellow-50/50 to-white/25 backdrop-blur-xl transition-all duration-300;
+    @apply border border-white/30 bg-gradient-to-br from-white/45 via-red-50/45 to-white/25 backdrop-blur-xl transition-all duration-300;
     box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.06),
       0 20px 60px -10px rgba(0, 0, 0, 0.12),

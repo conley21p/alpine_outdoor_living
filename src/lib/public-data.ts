@@ -65,7 +65,7 @@ const STATIC_SERVICES: Array<{
     description: "From leak repairs to full tear-offs and replacements, we deliver durable roofing work with clear communication and job sites kept clean.",
     folder: "Roofing",
     media: [
-      { name: "Roofing Project", url: "/lincoln-land-exteriors/Remodedl White House New Roof And Gutters.jpeg", type: "image" },
+      { name: "Roofing Project", url: "/lincoln-land-exteriors/Brick House New Roof Street View.jpeg", type: "image" },
     ],
     category: "exterior",
   },
@@ -74,7 +74,7 @@ const STATIC_SERVICES: Array<{
     description: "Improve curb appeal and protection with professional siding installation and repairs built for Midwest weather.",
     folder: "Siding",
     media: [
-      { name: "Siding Example", url: "/lincoln-land-exteriors/Brick House New Roof Street View.jpeg", type: "image" },
+      { name: "Siding Example", url: "/lincoln-land-exteriors/Remodedl White House New Roof And Gutters.jpeg", type: "image" },
     ],
     category: "exterior",
   },
@@ -83,7 +83,7 @@ const STATIC_SERVICES: Array<{
     description: "Replace worn or undersized gutters to help protect your home from water damage. We install clean, functional systems that look great.",
     folder: "Gutters",
     media: [
-      { name: "Roof & Gutters", url: "/lincoln-land-exteriors/Remodedl White House New Roof And Gutters.jpeg", type: "image" },
+      { name: "Gutters Project", url: "/lincoln-land-exteriors/Green House New Roof Hero Image.jpeg", type: "image" },
     ],
     category: "exterior",
   },
@@ -101,7 +101,7 @@ const STATIC_SERVICES: Array<{
     description: "Protect your roofline with properly installed soffit and fascia for ventilation, durability, and a finished look.",
     folder: "Soffit & Fascia",
     media: [
-      { name: "Project Photo", url: "/lincoln-land-exteriors/Blue House Roofing Project Started.jpeg", type: "image" },
+      { name: "Soffit & Fascia", url: "/lincoln-land-exteriors/Soffit-and-Fascia.png", type: "image" },
     ],
     category: "exterior",
   },

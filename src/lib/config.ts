@@ -40,7 +40,7 @@ export const publicConfig = {
   defaultDomain: "lincolnlandexteriors.com",
 
   // Social media
-  facebookUrl: "https://www.facebook.com/people/Lincoln-Land-Exteriors/",
+  facebookUrl: "https://www.facebook.com/profile.php?id=61573307573609",
   facebookHandle: "Lincoln Land Exteriors",
 
   // Optional integrations (empty if not used)
