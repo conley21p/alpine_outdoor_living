@@ -122,7 +122,7 @@ export default async function Home() {
 
                   <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl glass-card-green shadow-xl">
                     <h3 className="text-2xl font-bold text-brand-textDark mb-1">Austin Schiff</h3>
-                    <p className="text-brand-textDark/80 font-medium">Founder & Landscape Architect</p>
+                    <p className="text-brand-textDark/80 font-medium">Founder & Landscape Designer</p>
                   </div>
                 </div>
               </div>
