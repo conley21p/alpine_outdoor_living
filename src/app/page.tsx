@@ -1,8 +1,8 @@
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
-import { ServicesGrid } from "@/components/website/ServicesGrid";
+import { ServicesGridLazy } from "@/components/website/ServicesGridLazy";
 import { ContactFormLazy } from "@/components/website/ContactFormLazy";
-import Image from "next/image";
+import { PicturePhoto } from "@/components/website/PicturePhoto";
 import { publicConfig } from "@/lib/config";
 import {
   getHeroPair,
@@ -17,8 +17,45 @@ export default async function Home() {
     getExteriorServices(),
   ]);
 
+  // Preload-link targets for the hero. We preload the AVIF variant only —
+  // browsers that don't support AVIF skip the preload (because of the
+  // `type` attribute) and still load the WebP/JPEG via the <picture> in
+  // HeroSection. The `media` attribute keeps mobile devices from preloading
+  // the desktop image and vice versa.
+  const heroWideAvif = heroPair.wide ? heroPair.wide.replace(/\.[^.]+$/, ".avif") : null;
+  const heroVertAvif = heroPair.vert ? heroPair.vert.replace(/\.[^.]+$/, ".avif") : null;
+
   return (
-    <SiteShell>
+    <>
+      {/*
+       * LCP preloads for the hero image (AVIF only; per-viewport).
+       * Placed outside <SiteShell> so they aren't rendered inside <main>.
+       * Modern browsers scan the entire HTML for preload hints before
+       * parsing, so position in <body> is fine. `type="image/avif"` makes
+       * non-supporting browsers skip the preload (they'll still get the
+       * WebP/JPEG via the hero's <picture> element).
+       */}
+      {heroWideAvif ? (
+        <link
+          rel="preload"
+          as="image"
+          type="image/avif"
+          href={heroWideAvif}
+          media="(min-width: 768px)"
+          fetchPriority="high"
+        />
+      ) : null}
+      {heroVertAvif ? (
+        <link
+          rel="preload"
+          as="image"
+          type="image/avif"
+          href={heroVertAvif}
+          media="(max-width: 767px)"
+          fetchPriority="high"
+        />
+      ) : null}
+      <SiteShell>
       {/* Unified Ambient Background Zone - Lincoln Land Exteriors Red/Yellow Palette */}
       <div className="relative w-full">
         {/*
@@ -130,13 +167,11 @@ export default async function Home() {
                     Owner Operated
                   </p>
                   <div className="mt-4 relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/50 shadow-2xl">
-                    <Image
+                    <PicturePhoto
                       src="/lincoln-land-exteriors/Zach Williams (Owner).JPG"
                       alt="Zach Williams, Owner"
-                      fill
-                      className="object-cover"
+                      className="absolute inset-0 h-full w-full object-cover"
                       sizes="(max-width: 1024px) 100vw, 420px"
-                      priority={false}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent" />
 
@@ -155,7 +190,7 @@ export default async function Home() {
             </div>
           </section>
 
-          <ServicesGrid
+          <ServicesGridLazy
             sectionId="exterior-services"
             title="Exterior Services"
             subtitle="Roofing, siding, gutters, windows & doors, soffit and fascia."
@@ -208,11 +243,10 @@ export default async function Home() {
 
               <div className="lg:col-span-5">
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2.5rem] border border-white/50 bg-gradient-to-br from-brand-primary/10 via-white/70 to-brand-secondary/25 shadow-2xl">
-                  <Image
+                  <PicturePhoto
                     src="/lincoln-land-exteriors/Team Photo.JPG"
                     alt="Lincoln Land Exteriors team"
-                    fill
-                    className="object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                     sizes="(max-width: 1024px) 100vw, 500px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
@@ -307,5 +341,6 @@ export default async function Home() {
         </div>
       </section>
     </SiteShell>
+    </>
   );
 }

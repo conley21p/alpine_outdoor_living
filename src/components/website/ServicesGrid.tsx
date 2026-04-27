@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence, type PanInfo, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { ServiceData } from "@/lib/public-data";
 import { getOptimizedUrl } from "@/lib/media-utils";
+import { PicturePhoto } from "@/components/website/PicturePhoto";
 
-interface ServicesGridProps {
+export interface ServicesGridProps {
   services?: ServiceData[];
   sectionId?: string;
   title?: string;
@@ -192,14 +192,11 @@ export function ServicesGrid({
                     {/* SINGLE STATIC IMAGE - Removed nested ImageStack */}
                     {primaryMedia && (
                       <div className="w-full h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden relative flex-shrink-0 shadow-lg border border-black/5">
-                        <Image
+                        <PicturePhoto
                           src={getOptimizedUrl(primaryMedia.url, 'thumb')}
                           alt={`${service.title} Example`}
-                          fill
-                          className="object-cover"
+                          className="absolute inset-0 h-full w-full object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                          // Only eagerly load the first card image in the deck.
-                          // Subsequent cards should load as the user navigates.
                           priority={eagerLoadImage}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
