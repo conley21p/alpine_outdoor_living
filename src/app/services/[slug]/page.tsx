@@ -9,7 +9,7 @@ import { SiteShell } from "@/components/website/SiteShell";
 import { Breadcrumbs } from "@/components/website/Breadcrumbs";
 import { ServiceQuoteButton } from "@/components/website/ServiceQuoteButton";
 import { StaggeredGallery } from "@/components/website/StaggeredGallery";
-import { ContactForm } from "@/components/website/ContactForm";
+import { ContactFormLazy } from "@/components/website/ContactFormLazy";
 
 interface Props {
   params: { slug: string };
@@ -153,7 +153,7 @@ export default async function ServicePage({ params }: Props) {
                   </p>
                 </div>
                 <div className="glass-card-green rounded-[2.5rem] p-8 lg:p-12 shadow-2xl border border-white/40">
-                  <ContactForm initialService={service.title} />
+                  <ContactFormLazy initialService={service.title} />
                 </div>
               </div>
             </div>

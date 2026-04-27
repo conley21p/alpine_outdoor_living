@@ -3,8 +3,9 @@ import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
 // import { GalleryGrid } from "@/components/website/GalleryGrid";
-import { ContactForm } from "@/components/website/ContactForm";
+import { ContactFormLazy } from "@/components/website/ContactFormLazy";
 import { publicConfig } from "@/lib/config";
+import { getOptimizedUrl } from "@/lib/media-utils";
 import {
   getInstagramFeaturedPost,
   getHeroPair,
@@ -25,30 +26,49 @@ export default async function Home() {
     getPhilosophyPhoto(),
   ]);
 
+  const heroWidePreload = heroPair.wide ? getOptimizedUrl(heroPair.wide, "full") : null;
+  const heroVertPreload = heroPair.vert ? getOptimizedUrl(heroPair.vert, "full") : null;
+
   return (
-    <SiteShell>
-      {/* Unified Ambient Background Zone - Entire Page Flow */}
+    <>
+      {heroWidePreload ? (
+        <link
+          rel="preload"
+          as="image"
+          href={heroWidePreload}
+          media="(min-width: 768px)"
+          fetchPriority="high"
+        />
+      ) : null}
+      {heroVertPreload ? (
+        <link
+          rel="preload"
+          as="image"
+          href={heroVertPreload}
+          media="(max-width: 767px)"
+          fetchPriority="high"
+        />
+      ) : null}
+      <SiteShell>
       <div className="relative w-full">
-        {/* Vibrant Lava Lamp Ambient Layer - Pure Greens Only */}
-        <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden">
-          {/* Top-left primary green pool */}
+        <div
+          aria-hidden
+          className="absolute inset-0 z-[-1] pointer-events-none lg:hidden bg-[radial-gradient(120%_60%_at_15%_5%,rgba(139,157,51,0.18)_0%,rgba(200,136,42,0.10)_45%,rgba(255,255,255,0)_70%),radial-gradient(120%_60%_at_85%_85%,rgba(139,157,51,0.14)_0%,rgba(255,255,255,0)_60%)]"
+        />
+
+        <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden hidden lg:block">
           <div className="absolute top-[0%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/55 to-green-500/40 blur-[140px] lava-lamp-1" />
-          {/* Top-left anchor — deep olive green */}
-          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-green-600/40 to-brand-primary/50 blur-[130px] lava-lamp-3 hidden lg:block" />
-          {/* Right pool — warm lime-green, no blue */}
+          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-green-600/40 to-brand-primary/50 blur-[130px] lava-lamp-3" />
           <div className="absolute top-[15%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-green-400/35 to-lime-500/30 blur-[160px] lava-lamp-2" />
 
-          {/* Mid Supporting Blobs */}
-          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-lime-400/25 to-green-500/20 blur-[120px] lava-lamp-3 hidden lg:block" />
+          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-lime-400/25 to-green-500/20 blur-[120px] lava-lamp-3" />
           <div className="absolute top-[60%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-green-500/25 to-brand-primary/30 blur-[140px] lava-lamp-1" />
-          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/40 to-green-400/25 blur-[150px] lava-lamp-2 hidden lg:block" />
+          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/40 to-green-400/25 blur-[150px] lava-lamp-2" />
 
-          {/* Bottom Bloom */}
           <div className="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-brand-primary/20 blur-[140px] lava-lamp-3" />
 
-          {/* Warm Accent */}
-          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-[#C8882A]/12 to-yellow-300/10 blur-[1200px] lava-lamp-3" />
-          <div className="absolute top-[40%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay hidden lg:block" />
+          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-[#C8882A]/12 to-yellow-300/10 blur-[200px] lava-lamp-3" />
+          <div className="absolute top-[40%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay" />
         </div>
 
         <div className="relative w-full">
@@ -79,7 +99,7 @@ export default async function Home() {
               <div className="lg:col-span-6 relative">
                 <div className="relative aspect-[4/5] lg:aspect-square w-full">
                   {/* Decorative background blob */}
-                  <div className="absolute -top-10 -right-10 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl animate-pulse" />
+                  <div className="hidden lg:block absolute -top-10 -right-10 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl animate-pulse" />
 
                   {/* Main Image with layered effect */}
                   <div className="relative z-10 w-full h-full overflow-hidden rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] border border-white/20">
@@ -194,7 +214,7 @@ export default async function Home() {
               </div>
               <div className="sm:col-span-3">
                 <div className="glass-card-green rounded-3xl p-8 h-full">
-                  <ContactForm />
+                  <ContactFormLazy />
                 </div>
               </div>
             </div>
@@ -256,5 +276,6 @@ export default async function Home() {
         </div>
       </section>
     </SiteShell>
+    </>
   );
 }

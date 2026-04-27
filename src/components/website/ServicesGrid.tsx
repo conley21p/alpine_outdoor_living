@@ -34,27 +34,29 @@ export function ServicesGrid({ services = [] }: ServicesGridProps) {
           {services.map((service, i) => (
             <div
               key={service.title}
-              className={`group relative overflow-hidden rounded-[32px] border border-green-500/10 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 flex flex-col ${i % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} h-full bg-white/40 backdrop-blur-2xl items-stretch`}
+              className={`group relative overflow-hidden rounded-[32px] border border-green-500/10 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 flex flex-col ${i % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} h-full bg-white/92 lg:bg-white/40 lg:backdrop-blur-2xl items-stretch`}
             >
-              {/* Unique Lava Lamp Backgrounds per Card */}
-              {i % 3 === 0 && (
-                <>
-                  <div className="absolute top-[-20%] left-[-20%] w-[100%] h-[100%] rounded-full bg-gradient-to-tr from-brand-primary/20 to-green-400/20 blur-[60px] pointer-events-none" style={{ animationDelay: '0s' }} />
-                  <div className="absolute bottom-[-10%] right-[-10%] w-[80%] h-[80%] rounded-full bg-emerald-400/15 blur-[50px] pointer-events-none" />
-                </>
-              )}
-              {i % 3 === 1 && (
-                <>
-                  <div className="absolute top-[-10%] right-[-20%] w-[110%] h-[110%] rounded-full bg-gradient-to-bl from-green-500/15 to-lime-400/15 blur-[70px] pointer-events-none" style={{ animationDelay: '1s' }} />
-                  <div className="absolute bottom-[-20%] left-[-10%] w-[70%] h-[70%] rounded-full bg-green-600/15 blur-[60px] pointer-events-none" />
-                </>
-              )}
-              {i % 3 === 2 && (
-                <>
-                  <div className="absolute top-[30%] left-[20%] w-[120%] h-[120%] rounded-full bg-gradient-to-r from-emerald-400/20 to-brand-primary/10 blur-[80px] pointer-events-none" style={{ animationDelay: '2s' }} />
-                  <div className="absolute top-[-30%] right-[-20%] w-[70%] h-[70%] rounded-full bg-brand-primary/20 blur-[50px] pointer-events-none" />
-                </>
-              )}
+              {/* Lava blobs: desktop only — large blurs inside cards are costly on mobile Safari */}
+              <div className="hidden lg:block absolute inset-0 overflow-hidden rounded-[32px] pointer-events-none" aria-hidden>
+                {i % 3 === 0 && (
+                  <>
+                    <div className="absolute top-[-20%] left-[-20%] w-[100%] h-[100%] rounded-full bg-gradient-to-tr from-brand-primary/20 to-green-400/20 blur-[60px] pointer-events-none" style={{ animationDelay: '0s' }} />
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[80%] h-[80%] rounded-full bg-emerald-400/15 blur-[50px] pointer-events-none" />
+                  </>
+                )}
+                {i % 3 === 1 && (
+                  <>
+                    <div className="absolute top-[-10%] right-[-20%] w-[110%] h-[110%] rounded-full bg-gradient-to-bl from-green-500/15 to-lime-400/15 blur-[70px] pointer-events-none" style={{ animationDelay: '1s' }} />
+                    <div className="absolute bottom-[-20%] left-[-10%] w-[70%] h-[70%] rounded-full bg-green-600/15 blur-[60px] pointer-events-none" />
+                  </>
+                )}
+                {i % 3 === 2 && (
+                  <>
+                    <div className="absolute top-[30%] left-[20%] w-[120%] h-[120%] rounded-full bg-gradient-to-r from-emerald-400/20 to-brand-primary/10 blur-[80px] pointer-events-none" style={{ animationDelay: '2s' }} />
+                    <div className="absolute top-[-30%] right-[-20%] w-[70%] h-[70%] rounded-full bg-brand-primary/20 blur-[50px] pointer-events-none" />
+                  </>
+                )}
+              </div>
 
               <div className="relative z-10 w-full lg:w-[45%] xl:w-[50%] p-6 sm:p-8 lg:p-10 flex-shrink-0 flex items-center justify-center">
                 {/* Image Stack */}

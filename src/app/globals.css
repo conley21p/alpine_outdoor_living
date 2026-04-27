@@ -48,12 +48,13 @@
     @apply absolute inset-0 z-10 flex items-center justify-center bg-white/30 backdrop-blur-xl transition-opacity duration-700;
   }
 
+  /* backdrop-filter is expensive on mobile — blur only at lg+ */
   .glass-card {
-    @apply border border-white/20 bg-white/40 backdrop-blur-xl shadow-xl transition-all duration-300;
+    @apply border border-white/20 bg-white/55 lg:bg-white/40 lg:backdrop-blur-xl shadow-xl transition-all duration-300;
   }
 
   .glass-card-green {
-    @apply border border-white/30 bg-gradient-to-br from-white/40 via-green-50/40 to-white/20 backdrop-blur-xl transition-all duration-300;
+    @apply border border-white/30 bg-gradient-to-br from-white/55 via-green-50/55 to-white/35 lg:from-white/40 lg:via-green-50/40 lg:to-white/20 lg:backdrop-blur-xl transition-all duration-300;
     box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.06),
       0 20px 60px -10px rgba(0, 0, 0, 0.12),
