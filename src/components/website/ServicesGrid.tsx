@@ -178,34 +178,12 @@ export function ServicesGrid({
                     WebkitUserSelect: "none",
                     userSelect: "none",
                   }}
-                  className={`absolute w-full h-[600px] lg:h-[700px] overflow-hidden rounded-[32px] border border-white/60 bg-white/80 lg:bg-[radial-gradient(120%_90%_at_20%_10%,rgba(193,18,31,0.34)_0%,rgba(255,255,255,0.90)_52%,rgba(255,255,255,0.82)_100%)] flex flex-col transform-gpu ${
-                    isCenter ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer lg:hover:bg-white/90'
-                  } lg:transition-colors lg:duration-300`}
+                  className={`absolute w-full h-[600px] lg:h-[700px] overflow-hidden rounded-[32px] border border-white bg-gradient-to-br from-[#fbe9ea] to-white lg:bg-[radial-gradient(120%_90%_at_20%_10%,rgb(234,174,179)_0%,rgb(255,255,255)_52%,rgb(255,255,255)_100%)] flex flex-col transform-gpu ${
+                    isCenter ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer'
+                  }`}
                 >
-                  {/* Frosted glass overlay — desktop only */}
-                  <div className="hidden lg:block absolute inset-0 bg-white/30 backdrop-blur-3xl pointer-events-none z-0" />
-                  {/* Inner highlight (ring + inset shadow are extra paint layers — desktop only) */}
-                  <div className="hidden lg:block absolute inset-0 pointer-events-none rounded-[32px] ring-1 ring-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] z-[1]" />
-
-                  {/*
-                   * Lava Lamp Blobs (desktop only).
-                   * Removed entirely on mobile — even one blurred element inside
-                   * a transforming parent forces iOS Safari to re-rasterize the
-                   * card layer every frame.
-                   */}
-                  <div
-                    className="hidden lg:block absolute top-[-18%] left-[-18%] w-[80%] h-[80%] rounded-full bg-brand-primary/35 pointer-events-none z-0 blur-[60px] lava-lamp-slow-1"
-                  />
-                  <div
-                    className="hidden lg:block absolute bottom-[8%] right-[-12%] w-[60%] h-[60%] rounded-full bg-brand-secondary/45 pointer-events-none z-0 blur-[50px] lava-lamp-slow-2"
-                  />
-                  <div
-                    className="hidden lg:block absolute top-[35%] right-[-20%] w-[55%] h-[55%] rounded-full bg-orange-400/25 pointer-events-none z-0 blur-[55px] lava-lamp-slow-1"
-                  />
-
-                  {/* Mobile-only: simple flat tint on the top-left for warm glass feel.
-                      Pure solid color, no blur, no transform — costs almost nothing. */}
-                  <div className="lg:hidden absolute inset-0 pointer-events-none z-0 bg-gradient-to-br from-brand-primary/10 via-transparent to-white/0" />
+                  {/* Inner highlight ring — desktop only, purely cosmetic. */}
+                  <div className="hidden lg:block absolute inset-0 pointer-events-none rounded-[32px] ring-1 ring-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] z-[1]" />
 
                   <div className="relative z-10 p-5 lg:p-8 flex flex-col gap-5 lg:gap-8 h-full flex-grow pointer-events-none">
                     {primaryMedia && (
