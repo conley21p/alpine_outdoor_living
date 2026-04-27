@@ -13,6 +13,11 @@ interface PicturePhotoProps {
   priority?: boolean;
   /** Optional `sizes` attribute for the responsive variants. */
   sizes?: string;
+  /**
+   * If true, sets `draggable={false}` and disables iOS long-press image
+   * preview. Useful when this image lives inside a swipeable carousel.
+   */
+  noDrag?: boolean;
 }
 
 /**
@@ -36,13 +41,22 @@ export function PicturePhoto({
   style,
   priority = false,
   sizes,
+  noDrag = false,
 }: PicturePhotoProps) {
-  // Strip the extension (handles .jpeg, .jpg, .JPG, .png, etc.) and append
-  // the new extensions for the optimized variants.
   const lastDot = src.lastIndexOf(".");
   const stem = lastDot >= 0 ? src.slice(0, lastDot) : src;
   const avifSrc = `${stem}.avif`;
   const webpSrc = `${stem}.webp`;
+
+  const imgStyle: CSSProperties = noDrag
+    ? ({
+        ...style,
+        WebkitTouchCallout: "none",
+        WebkitUserDrag: "none",
+        userSelect: "none",
+        pointerEvents: "none",
+      } as CSSProperties)
+    : style ?? {};
 
   return (
     <picture>
@@ -52,9 +66,10 @@ export function PicturePhoto({
         src={src}
         alt={alt}
         className={className}
-        style={style}
+        style={imgStyle}
         loading={priority ? "eager" : "lazy"}
         decoding={priority ? "sync" : "async"}
+        draggable={noDrag ? false : undefined}
       />
     </picture>
   );
