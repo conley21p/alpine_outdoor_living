@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { publicConfig } from "@/lib/config";
 
@@ -26,6 +26,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/Logo.png",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: publicConfig.brandPrimary,
 };
 
 export default function RootLayout({

@@ -101,7 +101,7 @@ const STATIC_SERVICES: Array<{
     description: "Protect your roofline with properly installed soffit and fascia for ventilation, durability, and a finished look.",
     folder: "Soffit & Fascia",
     media: [
-      { name: "Soffit & Fascia", url: "/lincoln-land-exteriors/Soffit-and-Fascia.png", type: "image" },
+      { name: "Soffit & Fascia", url: "/lincoln-land-exteriors/Soffit-and-Fascia.jpeg", type: "image" },
     ],
     category: "exterior",
   },

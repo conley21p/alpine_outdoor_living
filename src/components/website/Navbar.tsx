@@ -30,7 +30,7 @@ export function Navbar() {
   return (
     <>
       <header 
-        className={`sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/5 transition-transform duration-500 ease-in-out ${
+        className={`sticky top-0 z-50 bg-white/95 lg:bg-white/80 lg:backdrop-blur-xl border-b border-black/5 transition-transform duration-500 ease-in-out ${
           isScrolled ? "md:translate-y-0 -translate-y-full" : "translate-y-0"
         }`}
       >
@@ -81,7 +81,7 @@ export function Navbar() {
         }`}
       >
         <button
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/40 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.12)] text-brand-primary active:scale-90 transition-all hover:bg-white/50"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/85 border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.12)] text-brand-primary active:scale-90 transition-all hover:bg-white/95"
           onClick={() => setOpen(true)}
         >
           <Menu className="h-6 w-6" />
@@ -93,7 +93,7 @@ export function Navbar() {
         <div className="fixed inset-0 z-[100] md:hidden">
           {/* Backdrop */}
           <div 
-            className="absolute inset-0 bg-brand-bgLight/40 backdrop-blur-3xl transition-opacity animate-in fade-in"
+            className="absolute inset-0 bg-brand-bgLight/85 transition-opacity animate-in fade-in"
             onClick={() => setOpen(false)}
           />
           

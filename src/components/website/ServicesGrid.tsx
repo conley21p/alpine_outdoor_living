@@ -36,8 +36,8 @@ export function ServicesGrid({
   }, []);
 
   useEffect(() => {
-    // Autoplay disabled when mobile uses the vertical list layout.
-    if (isMobile) return;
+    // Mobile-only autoplay: advance until the user interacts.
+    if (!isMobile) return;
     if (!isAutoPlaying || services.length <= 1) return;
 
     const interval = setInterval(() => {
@@ -61,78 +61,6 @@ export function ServicesGrid({
 
   if (services.length === 0) return null;
 
-  if (isMobile) {
-    return (
-      <div id={sectionId} className="relative w-full bg-transparent overflow-x-hidden pt-10 pb-24">
-        <section className="services-intro py-10 flex items-center justify-center bg-transparent relative z-40">
-          <div className="text-center px-6">
-            <h2 className="text-4xl font-bold tracking-tighter text-brand-textDark sm:text-5xl">
-              {title}
-            </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-base font-normal text-brand-textDark/70 sm:text-lg">
-              {subtitle}
-            </p>
-          </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-2xl px-6">
-          <div className="space-y-6">
-            {services.map((service) => {
-              const primaryMedia = service.media && service.media.length > 0 ? service.media[0] : null;
-              const isFirst = services[0]?.id === service.id;
-              return (
-                <div
-                  key={service.id}
-                  className="relative overflow-hidden rounded-[28px] border border-white/60 bg-white/85 bg-[radial-gradient(120%_90%_at_20%_10%,rgba(193,18,31,0.26)_0%,rgba(255,255,255,0.92)_54%,rgba(255,255,255,0.86)_100%)] shadow-[0_18px_60px_-24px_rgba(0,0,0,0.35)]"
-                >
-                  {/* Inner highlight */}
-                  <div className="absolute inset-0 pointer-events-none rounded-[28px] ring-1 ring-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]" />
-
-                  {/* Lava blobs (static, lighter blur for perf) */}
-                  <div className="absolute top-[-18%] left-[-18%] w-[78%] h-[78%] rounded-full bg-brand-primary/30 blur-[26px] pointer-events-none" />
-                  <div className="absolute bottom-[8%] right-[-12%] w-[58%] h-[58%] rounded-full bg-brand-secondary/35 blur-[22px] pointer-events-none" />
-                  <div className="absolute top-[35%] right-[-20%] w-[52%] h-[52%] rounded-full bg-orange-400/20 blur-[22px] pointer-events-none" />
-
-                  <div className="relative z-10 p-5 flex flex-col gap-5">
-                    {primaryMedia && (
-                      <div className="w-full h-52 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden relative shadow-lg border border-black/5">
-                        <Image
-                          src={getOptimizedUrl(primaryMedia.url, "thumb")}
-                          alt={`${service.title} example`}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 560px"
-                          // Load the first visible card image first; everything else lazy-loads as you scroll.
-                          priority={isFirst}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                      </div>
-                    )}
-
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-bold text-brand-textDark tracking-tight">
-                        {service.title}
-                      </h3>
-                      <p className="text-base text-brand-textDark/75 leading-relaxed font-medium">
-                        {service.description}
-                      </p>
-                    </div>
-
-                    <Link href={`/?service=${encodeURIComponent(service.title)}#contact`}>
-                      <button className="w-full py-4 px-4 font-bold text-white bg-brand-primary rounded-2xl transition-all active:scale-[0.99] shadow-xl shadow-brand-primary/20 text-base">
-                        Let&apos;s Talk <span>→</span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      </div>
-    );
-  }
-
   return (
     <div id={sectionId} className="relative w-full bg-transparent overflow-x-hidden pt-10 pb-32">
       <section className="services-intro py-12 lg:py-20 flex items-center justify-center bg-transparent relative z-40">
@@ -146,7 +74,7 @@ export function ServicesGrid({
         </div>
       </section>
 
-      {/* SWIPEABLE HAND-OF-CARDS DECK (desktop) */}
+      {/* SWIPEABLE HAND-OF-CARDS DECK */}
       <section className="relative isolate w-full h-[650px] lg:h-[750px] flex items-center justify-center px-8 lg:px-20 -mt-8 overflow-hidden">
         <div className="relative w-[85%] lg:w-full max-w-md lg:max-w-xl h-full flex items-center justify-center">
           <AnimatePresence initial={false}>
@@ -191,6 +119,7 @@ export function ServicesGrid({
               const boxShadow = isCenter
                 ? "0 25px 60px -15px rgba(0,0,0,0.4)"
                 : "0 10px 30px -10px rgba(0,0,0,0.2)";
+              // Only eagerly load the first visible card image in the deck.
               const eagerLoadImage = isCenter && index === 0;
 
               return (
@@ -236,28 +165,27 @@ export function ServicesGrid({
                     isCenter ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer hover:bg-white/90'
                   } transition-colors duration-300`}
                 >
-                  {/* Frosted glass overlay (desktop only for perf) */}
-                  {!isMobile && (
-                    <div className="absolute inset-0 bg-white/30 backdrop-blur-3xl pointer-events-none z-0" />
-                  )}
+                  {/* Frosted glass overlay — desktop only (CSS-gated for SSR safety) */}
+                  <div className="hidden lg:block absolute inset-0 bg-white/30 backdrop-blur-3xl pointer-events-none z-0" />
                   {/* Inner highlight for stronger "frost" */}
                   <div className="absolute inset-0 pointer-events-none rounded-[32px] ring-1 ring-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] z-[1]" />
-                  
-                  {/* Lava Lamp Blobs (static on mobile; animated on desktop) */}
+
+                  {/*
+                   * Lava Lamp Blobs.
+                   * Mobile: ONE light blob per card, static, ~24px blur.
+                   * Desktop: three animated blobs with heavier blur.
+                   * Using Tailwind responsive classes (instead of a JS
+                   * isMobile flag) avoids a post-hydration repaint when the
+                   * client decides which version to render.
+                   */}
                   <div
-                    className={`absolute top-[-18%] left-[-18%] w-[80%] h-[80%] rounded-full bg-brand-primary/35 pointer-events-none z-0 ${
-                      isMobile ? "blur-[32px]" : "blur-[60px] lava-lamp-slow-1"
-                    }`}
+                    className="absolute top-[-18%] left-[-18%] w-[80%] h-[80%] rounded-full bg-brand-primary/30 pointer-events-none z-0 blur-[24px] lg:bg-brand-primary/35 lg:blur-[60px] lg:lava-lamp-slow-1"
                   />
                   <div
-                    className={`absolute bottom-[8%] right-[-12%] w-[60%] h-[60%] rounded-full bg-brand-secondary/45 pointer-events-none z-0 ${
-                      isMobile ? "blur-[28px]" : "blur-[50px] lava-lamp-slow-2"
-                    }`}
+                    className="hidden lg:block absolute bottom-[8%] right-[-12%] w-[60%] h-[60%] rounded-full bg-brand-secondary/45 pointer-events-none z-0 blur-[50px] lava-lamp-slow-2"
                   />
                   <div
-                    className={`absolute top-[35%] right-[-20%] w-[55%] h-[55%] rounded-full bg-orange-400/25 pointer-events-none z-0 ${
-                      isMobile ? "blur-[26px]" : "blur-[55px] lava-lamp-slow-1"
-                    }`}
+                    className="hidden lg:block absolute top-[35%] right-[-20%] w-[55%] h-[55%] rounded-full bg-orange-400/25 pointer-events-none z-0 blur-[55px] lava-lamp-slow-1"
                   />
 
                   <div className="relative z-10 p-5 lg:p-8 flex flex-col gap-5 lg:gap-8 h-full flex-grow pointer-events-none">

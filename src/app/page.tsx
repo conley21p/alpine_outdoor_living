@@ -1,7 +1,7 @@
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGrid } from "@/components/website/ServicesGrid";
-import { ContactForm } from "@/components/website/ContactForm";
+import { ContactFormLazy } from "@/components/website/ContactFormLazy";
 import Image from "next/image";
 import { publicConfig } from "@/lib/config";
 import {
@@ -21,26 +21,37 @@ export default async function Home() {
     <SiteShell>
       {/* Unified Ambient Background Zone - Lincoln Land Exteriors Red/Yellow Palette */}
       <div className="relative w-full">
-        {/* Vibrant Lava Lamp Ambient Layer - Red & Yellow */}
-        <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden">
+        {/*
+         * Mobile: a single, cheap CSS gradient (no blurred ~80vw squares).
+         * Repainting nine giant blurred elements per scroll frame was the main
+         * cause of jank on phones, so we only enable the lava-lamp layer on
+         * lg+ where GPUs/desktops handle it comfortably.
+         */}
+        <div
+          aria-hidden
+          className="absolute inset-0 z-[-1] pointer-events-none lg:hidden bg-[radial-gradient(120%_60%_at_15%_5%,rgba(193,18,31,0.18)_0%,rgba(244,211,94,0.10)_45%,rgba(255,255,255,0)_70%),radial-gradient(120%_60%_at_85%_85%,rgba(193,18,31,0.14)_0%,rgba(255,255,255,0)_60%)]"
+        />
+
+        {/* Vibrant Lava Lamp Ambient Layer - Desktop only */}
+        <div className="absolute inset-0 z-[-1] pointer-events-none overflow-hidden hidden lg:block">
           {/* Top-left Red pool */}
           <div className="absolute top-[0%] left-[-15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-tr from-brand-primary/45 to-red-500/30 blur-[140px] lava-lamp-1" />
           {/* Top-left anchor — Warm Yellow */}
-          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-brand-secondary/40 to-brand-primary/25 blur-[130px] lava-lamp-3 hidden lg:block" />
+          <div className="absolute top-[5%] left-[5%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-brand-secondary/40 to-brand-primary/25 blur-[130px] lava-lamp-3" />
           {/* Right pool — Red/Yellow mix */}
           <div className="absolute top-[15%] right-[-20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-bl from-orange-300/25 to-brand-secondary/30 blur-[160px] lava-lamp-2" />
 
           {/* Mid Supporting Blobs */}
-          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-brand-secondary/20 to-orange-400/15 blur-[120px] lava-lamp-3 hidden lg:block" />
+          <div className="absolute top-[35%] left-[0%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-brand-secondary/20 to-orange-400/15 blur-[120px] lava-lamp-3" />
           <div className="absolute top-[60%] right-[5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-bl from-red-500/18 to-brand-primary/22 blur-[140px] lava-lamp-1" />
-          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/30 to-brand-secondary/20 blur-[150px] lava-lamp-2 hidden lg:block" />
+          <div className="absolute bottom-[20%] left-[5%] w-[75vw] h-[75vw] rounded-full bg-gradient-to-tr from-brand-primary/30 to-brand-secondary/20 blur-[150px] lava-lamp-2" />
 
           {/* Bottom Bloom */}
           <div className="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-brand-primary/18 blur-[140px] lava-lamp-3" />
 
           {/* Warm Accent */}
-          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-brand-secondary/12 to-orange-200/10 blur-[1200px] lava-lamp-3" />
-          <div className="absolute top-[40%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay hidden lg:block" />
+          <div className="absolute bottom-[20%] left-[35%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-brand-secondary/12 to-orange-200/10 blur-[200px] lava-lamp-3" />
+          <div className="absolute top-[40%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-white/50 blur-[110px] lava-lamp-1 mix-blend-overlay" />
         </div>
 
         <div className="relative w-full">
@@ -114,7 +125,7 @@ export default async function Home() {
 
               {/* Owner Operated column (desktop right) */}
               <aside className="lg:col-span-4">
-                <div className="rounded-[2.5rem] border border-white/40 bg-white/55 backdrop-blur-xl p-6 shadow-xl">
+                <div className="rounded-[2.5rem] border border-white/40 bg-white/80 lg:bg-white/55 lg:backdrop-blur-xl p-6 shadow-xl">
                   <p className="text-xs font-semibold uppercase tracking-widest text-brand-textDark/60">
                     Owner Operated
                   </p>
@@ -130,7 +141,7 @@ export default async function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent" />
 
                     {/* Frosted text bubble */}
-                    <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/40 bg-white/70 backdrop-blur-xl p-4">
+                    <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/40 bg-white/85 lg:bg-white/70 lg:backdrop-blur-xl p-4">
                       <p className="text-lg font-bold tracking-tight text-brand-textDark">
                         Meet Zach Williams
                       </p>
@@ -205,7 +216,7 @@ export default async function Home() {
                     sizes="(max-width: 1024px) 100vw, 500px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/40 p-5">
+                  <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/85 lg:bg-white/70 lg:backdrop-blur-xl border border-white/40 p-5">
                     <p className="text-sm font-semibold uppercase tracking-widest text-brand-textDark/60">
                       Interior &amp; Exterior
                     </p>
@@ -260,7 +271,7 @@ export default async function Home() {
               </div>
               <div className="sm:col-span-3">
                 <div className="glass-card-warm rounded-3xl p-8 h-full">
-                  <ContactForm />
+                  <ContactFormLazy />
                 </div>
               </div>
             </div>

@@ -48,12 +48,21 @@
     @apply absolute inset-0 z-10 flex items-center justify-center bg-white/30 backdrop-blur-xl transition-opacity duration-700;
   }
 
+  /*
+   * Glass card variants.
+   *
+   * `backdrop-filter: blur()` is one of the most expensive paint operations
+   * on mobile — the GPU has to composite a copy of the parent layer and
+   * blur it every frame. We disable backdrop-filter below the lg breakpoint
+   * and use a slightly more opaque solid gradient instead. The visual
+   * difference is minimal but the perf win on mid-tier phones is large.
+   */
   .glass-card {
-    @apply border border-white/20 bg-white/40 backdrop-blur-xl shadow-xl transition-all duration-300;
+    @apply border border-white/20 bg-white/55 lg:bg-white/40 lg:backdrop-blur-xl shadow-xl transition-all duration-300;
   }
 
   .glass-card-green {
-    @apply border border-white/30 bg-gradient-to-br from-white/40 via-green-50/40 to-white/20 backdrop-blur-xl transition-all duration-300;
+    @apply border border-white/30 bg-gradient-to-br from-white/55 via-green-50/55 to-white/35 lg:from-white/40 lg:via-green-50/40 lg:to-white/20 lg:backdrop-blur-xl transition-all duration-300;
     box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.06),
       0 20px 60px -10px rgba(0, 0, 0, 0.12),
@@ -65,7 +74,7 @@
   }
 
   .glass-card-warm {
-    @apply border border-white/30 bg-gradient-to-br from-white/45 via-red-50/45 to-white/25 backdrop-blur-xl transition-all duration-300;
+    @apply border border-white/30 bg-gradient-to-br from-white/60 via-red-50/55 to-white/35 lg:from-white/45 lg:via-red-50/45 lg:to-white/25 lg:backdrop-blur-xl transition-all duration-300;
     box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.06),
       0 20px 60px -10px rgba(0, 0, 0, 0.12),
