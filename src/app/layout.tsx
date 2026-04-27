@@ -1,28 +1,37 @@
 import type { ReactNode } from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { publicConfig } from "@/lib/config";
 
+const siteUrl = new URL(publicConfig.siteUrl);
+
 export const metadata: Metadata = {
-  metadataBase: new URL(publicConfig.siteUrl),
+  metadataBase: siteUrl,
   title: {
     default: publicConfig.businessName,
     template: `%s | ${publicConfig.businessName}`,
   },
   description: publicConfig.businessDescription,
   alternates: {
-    canonical: publicConfig.siteUrl,
+    canonical: siteUrl.toString(),
   },
   openGraph: {
     title: publicConfig.businessName,
     description: publicConfig.businessDescription,
-    url: publicConfig.siteUrl,
+    url: siteUrl.toString(),
     siteName: publicConfig.businessName,
-    images: [`${publicConfig.siteUrl}/Logo.png`],
+    images: [new URL("/Logo.png", siteUrl).toString()],
   },
   icons: {
     icon: "/Logo.png",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: publicConfig.brandPrimary,
 };
 
 export default function RootLayout({

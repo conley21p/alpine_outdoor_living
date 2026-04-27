@@ -1,6 +1,6 @@
 import { SiteShell } from "@/components/website/SiteShell";
 import { GalleryGrid } from "@/components/website/GalleryGrid";
-import { ContactForm } from "@/components/website/ContactForm";
+import { ContactFormLazy } from "@/components/website/ContactFormLazy";
 import { PageHeroBanner } from "@/components/website/PageHeroBanner";
 import { publicConfig } from "@/lib/config";
 import { getGalleryImages, getHeroPair } from "@/lib/public-data";
@@ -78,7 +78,7 @@ export default async function GalleryPage() {
           </div>
           <div className="sm:col-span-3">
             <div className="glass-card-green rounded-3xl p-8 h-full">
-              <ContactForm />
+              <ContactFormLazy />
             </div>
           </div>
         </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { siteImageSlots, type SiteImageSlot } from "@/lib/site-images";
@@ -18,6 +17,20 @@ interface ResponsiveSlotImageProps {
   children?: ReactNode;
 }
 
+/**
+ * Responsive hero/slot image.
+ *
+ * Performance notes:
+ * - We render ONE <picture> element with a media-queried <source> so the
+ *   browser fetches only the appropriate variant. Previously two <Image>
+ *   elements were rendered side by side (mobile + desktop) which made
+ *   mobile devices download both, doubling hero bytes.
+ * - The aspect-ratio container changes at the `md` breakpoint via Tailwind
+ *   classes so the layout still adapts without rendering a second image.
+ * - We skip the backdrop-filter loading shimmer because compositing a
+ *   viewport-sized blurred overlay is expensive on mobile GPUs. A plain
+ *   color fade is more than sufficient for that brief moment.
+ */
 export function ResponsiveSlotImage({
   slot,
   overrideWide,
@@ -31,54 +44,77 @@ export function ResponsiveSlotImage({
 }: ResponsiveSlotImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Use overrides if provided, otherwise fallback to slot config
   const slotConfig = slot ? siteImageSlots[slot] : null;
-  
   const wideSrc = overrideWide || slotConfig?.desktopSrc || "";
   const vertSrc = overrideVert || slotConfig?.mobileSrc || wideSrc;
 
+  if (!wideSrc && !vertSrc) {
+    return (
+      <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
+        <div className={cn("relative", desktopAspectClassName)} />
+        {children ? <div className="absolute inset-0 z-10">{children}</div> : null}
+      </div>
+    );
+  }
+
+  const wideUrl = wideSrc ? getOptimizedUrl(wideSrc, "full") : "";
+  const vertUrl = vertSrc ? getOptimizedUrl(vertSrc, "full") : wideUrl;
+  const fallbackUrl = wideUrl || vertUrl;
+
+  const swapExt = (url: string, ext: string) => {
+    if (!url || /^(https?:|data:)/i.test(url)) return url;
+    const dot = url.lastIndexOf(".");
+    return dot > 0 ? `${url.slice(0, dot)}.${ext}` : url;
+  };
+  const wideAvif = swapExt(wideUrl, "avif");
+  const wideWebp = swapExt(wideUrl, "webp");
+  const vertAvif = swapExt(vertUrl, "avif");
+  const vertWebp = swapExt(vertUrl, "webp");
+  const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
+
   return (
     <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
-      {/* Loading Glass Overlay */}
-      <div 
+      <div
         className={cn(
-          "absolute inset-0 z-20 bg-white/10 backdrop-blur-2xl transition-opacity duration-1000",
-          isLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+          "relative w-full",
+          mobileAspectClassName,
+          desktopAspectClassName
+            .split(" ")
+            .map((cls) => (cls.startsWith("md:") ? cls : `md:${cls}`))
+            .join(" ")
         )}
-      />
+      >
+        <div
+          aria-hidden
+          className={cn(
+            "absolute inset-0 z-20 bg-brand-bgLight/60 transition-opacity duration-700",
+            isLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+          )}
+        />
 
-      {vertSrc && (
-        <div className={cn("relative md:hidden", mobileAspectClassName)}>
-          <Image
-            src={getOptimizedUrl(vertSrc, 'full')}
+        <picture>
+          {isLocal(wideUrl) && (
+            <source media="(min-width: 768px)" type="image/avif" srcSet={wideAvif} />
+          )}
+          {isLocal(wideUrl) && (
+            <source media="(min-width: 768px)" type="image/webp" srcSet={wideWebp} />
+          )}
+          <source media="(min-width: 768px)" srcSet={wideUrl || vertUrl} />
+          {isLocal(vertUrl) && <source type="image/avif" srcSet={vertAvif} />}
+          {isLocal(vertUrl) && <source type="image/webp" srcSet={vertWebp} />}
+          <img
+            src={vertUrl || fallbackUrl}
             alt={alt}
-            fill
-            priority={priority}
-            sizes="100vw"
-            className="object-cover"
-            unoptimized={vertSrc.includes('cloudinary')}
+            className="absolute inset-0 h-full w-full object-cover"
+            loading={priority ? "eager" : "lazy"}
+            decoding={priority ? "sync" : "async"}
             onLoad={() => setIsLoaded(true)}
             onError={() => setIsLoaded(true)}
           />
-        </div>
-      )}
-      {wideSrc && (
-        <div className={cn("relative hidden md:block", desktopAspectClassName)}>
-          <Image
-            src={getOptimizedUrl(wideSrc, 'full')}
-            alt={alt}
-            fill
-            priority={priority}
-            sizes="(min-width: 768px) 100vw, 0px"
-            className="object-cover"
-            unoptimized={wideSrc.includes('cloudinary')}
-            onLoad={() => setIsLoaded(true)}
-            onError={() => setIsLoaded(true)}
-          />
-        </div>
-      )}
-      {!wideSrc && <div className={cn("relative", desktopAspectClassName)} />}
-      {children ? <div className="absolute inset-0 z-10">{children}</div> : null}
+        </picture>
+
+        {children ? <div className="absolute inset-0 z-10">{children}</div> : null}
+      </div>
     </div>
   );
 }
