@@ -36,7 +36,8 @@ export const publicConfig = {
   useCloudinary: false,
 
   // Site URLs
-  siteUrl: "http://lincolnlandexteriors.com",
+  // Used for canonical URLs and social share previews (Safari share sheet, OG tags)
+  siteUrl: "https://lincolnlandexteriors.com",
   defaultDomain: "lincolnlandexteriors.com",
 
   // Social media
