@@ -79,6 +79,7 @@ export function ServicesGrid({
           <div className="space-y-6">
             {services.map((service) => {
               const primaryMedia = service.media && service.media.length > 0 ? service.media[0] : null;
+              const isFirst = services[0]?.id === service.id;
               return (
                 <div
                   key={service.id}
@@ -101,6 +102,8 @@ export function ServicesGrid({
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, 560px"
+                          // Load the first visible card image first; everything else lazy-loads as you scroll.
+                          priority={isFirst}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                       </div>
@@ -188,6 +191,7 @@ export function ServicesGrid({
               const boxShadow = isCenter
                 ? "0 25px 60px -15px rgba(0,0,0,0.4)"
                 : "0 10px 30px -10px rgba(0,0,0,0.2)";
+              const eagerLoadImage = isCenter && index === 0;
 
               return (
                 <motion.div
@@ -266,7 +270,9 @@ export function ServicesGrid({
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                          priority={i === 0}
+                          // Only eagerly load the first card image in the deck.
+                          // Subsequent cards should load as the user navigates.
+                          priority={eagerLoadImage}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                       </div>
