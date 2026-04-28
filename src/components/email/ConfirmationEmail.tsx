@@ -67,13 +67,13 @@ export const ConfirmationEmail: React.FC<Readonly<ConfirmationEmailProps>> = ({
       </div>
 
       <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#4A4A4A", marginBottom: "20px" }}>
-        In the meantime, if you have any questions, feel free to reach out to us at <a href="mailto:Info@alpineoutdoorlivingllc.com" style={{ color: "#1B4332", textDecoration: "underline" }}>Info@alpineoutdoorlivingllc.com</a> or give us a call at <a href="tel:2178991784" style={{ color: "#1B4332", textDecoration: "underline" }}>217-899-1784</a>.
+        In the meantime, if you have any questions, feel free to reach out to us at <a href="mailto:Info@alpineoutdoorlivingllc.com" style={{ color: "#1B4332", textDecoration: "underline" }}>Info@alpineoutdoorlivingllc.com</a> or give us a call at <a href="tel:2177473774" style={{ color: "#1B4332", textDecoration: "underline" }}>217-747-3774</a>.
       </p>
     </div>
 
     <div style={{ textAlign: "center", marginTop: "30px", fontSize: "12px", color: "#A0A0A0" }}>
       <p>© {new Date().getFullYear()} Alpine Outdoor Living. All rights reserved.</p>
-      <p>Springfield, IL | 217-899-1784</p>
+      <p>Springfield, IL | 217-747-3774</p>
     </div>
   </div>
 );

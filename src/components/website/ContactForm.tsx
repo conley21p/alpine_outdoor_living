@@ -230,7 +230,7 @@ export function ContactForm({ initialService }: ContactFormProps) {
           <Input 
             value={form.phone} 
             onChange={(event) => onChange("phone", event.target.value)} 
-            placeholder="(217) 899-1784"
+            placeholder="(217) 747-3774"
             maxLength={14}
             required
           />

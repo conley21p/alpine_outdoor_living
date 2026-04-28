@@ -7,7 +7,7 @@ export const publicConfig = {
   businessName: "Alpine Outdoor Living LLC",
   businessDescription: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
   businessTagline: "Custom Water Features, Fire Pits, Patios & Outdoor Spaces — Designed and Built in Springfield, IL",
-  businessPhone: "(217) 899-1784",
+  businessPhone: "(217) 747-3774",
   businessEmail: "Info@alpineoutdoorlivingllc.com",
   industry: "Landscape Design & Construction",
   servicesOffered: [
