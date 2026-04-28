@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { siteImageSlots, type SiteImageSlot } from "@/lib/site-images";
 import { getOptimizedUrl } from "@/lib/media-utils";
@@ -43,19 +43,11 @@ export function ResponsiveSlotImage({
   children,
 }: ResponsiveSlotImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement | null>(null);
 
   const slotConfig = slot ? siteImageSlots[slot] : null;
   const wideSrc = overrideWide || slotConfig?.desktopSrc || "";
   const vertSrc = overrideVert || slotConfig?.mobileSrc || wideSrc;
-
-  if (!wideSrc && !vertSrc) {
-    return (
-      <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
-        <div className={cn("relative", desktopAspectClassName)} />
-        {children ? <div className="absolute inset-0 z-10">{children}</div> : null}
-      </div>
-    );
-  }
 
   const wideUrl = wideSrc ? getOptimizedUrl(wideSrc, "full") : "";
   const vertUrl = vertSrc ? getOptimizedUrl(vertSrc, "full") : wideUrl;
@@ -71,6 +63,25 @@ export function ResponsiveSlotImage({
   const vertAvif = swapExt(vertUrl, "avif");
   const vertWebp = swapExt(vertUrl, "webp");
   const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
+
+  // If the image is already in cache (often due to preload), the `load` event
+  // may fire before React attaches handlers. Handle that by checking `complete`
+  // on mount and whenever the URL changes.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img?.complete) {
+      setIsLoaded(true);
+    }
+  }, [wideUrl, vertUrl]);
+
+  if (!wideSrc && !vertSrc) {
+    return (
+      <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
+        <div className={cn("relative", desktopAspectClassName)} />
+        {children ? <div className="absolute inset-0 z-10">{children}</div> : null}
+      </div>
+    );
+  }
 
   return (
     <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
@@ -102,6 +113,7 @@ export function ResponsiveSlotImage({
           {isLocal(vertUrl) && <source type="image/avif" srcSet={vertAvif} />}
           {isLocal(vertUrl) && <source type="image/webp" srcSet={vertWebp} />}
           <img
+            ref={imgRef}
             src={vertUrl || fallbackUrl}
             alt={alt}
             className="absolute inset-0 h-full w-full object-cover"
