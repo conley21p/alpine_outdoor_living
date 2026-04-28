@@ -16,27 +16,27 @@ export default async function Home() {
     getStaticServices(),
   ]);
 
-  const heroWideAvif = heroPair.wide ? heroPair.wide.replace(/\.[^.]+$/, ".avif") : null;
-  const heroVertAvif = heroPair.vert ? heroPair.vert.replace(/\.[^.]+$/, ".avif") : null;
+  const heroWideWebp = heroPair.wide ? heroPair.wide.replace(/\.[^.]+$/, ".webp") : null;
+  const heroVertWebp = heroPair.vert ? heroPair.vert.replace(/\.[^.]+$/, ".webp") : null;
 
   return (
     <>
-      {heroWideAvif ? (
+      {heroWideWebp ? (
         <link
           rel="preload"
           as="image"
-          type="image/avif"
-          href={heroWideAvif}
+          type="image/webp"
+          href={heroWideWebp}
           media="(min-width: 768px)"
           fetchPriority="high"
         />
       ) : null}
-      {heroVertAvif ? (
+      {heroVertWebp ? (
         <link
           rel="preload"
           as="image"
-          type="image/avif"
-          href={heroVertAvif}
+          type="image/webp"
+          href={heroVertWebp}
           media="(max-width: 767px)"
           fetchPriority="high"
         />

@@ -58,9 +58,7 @@ export function ResponsiveSlotImage({
     const dot = url.lastIndexOf(".");
     return dot > 0 ? `${url.slice(0, dot)}.${ext}` : url;
   };
-  const wideAvif = swapExt(wideUrl, "avif");
   const wideWebp = swapExt(wideUrl, "webp");
-  const vertAvif = swapExt(vertUrl, "avif");
   const vertWebp = swapExt(vertUrl, "webp");
   const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
 
@@ -104,13 +102,9 @@ export function ResponsiveSlotImage({
 
         <picture>
           {isLocal(wideUrl) && (
-            <source media="(min-width: 768px)" type="image/avif" srcSet={wideAvif} />
-          )}
-          {isLocal(wideUrl) && (
             <source media="(min-width: 768px)" type="image/webp" srcSet={wideWebp} />
           )}
           <source media="(min-width: 768px)" srcSet={wideUrl || vertUrl} />
-          {isLocal(vertUrl) && <source type="image/avif" srcSet={vertAvif} />}
           {isLocal(vertUrl) && <source type="image/webp" srcSet={vertWebp} />}
           <img
             ref={imgRef}
