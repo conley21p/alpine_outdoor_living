@@ -57,11 +57,8 @@ export function ResponsiveSlotImage({
     );
   }
 
-  const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
-  const toWebUrl = (u: string) => (isLocal(u) ? encodeURI(u) : u);
-
-  const wideUrl = toWebUrl(wideSrc ? getOptimizedUrl(wideSrc, "full") : "");
-  const vertUrl = toWebUrl(vertSrc ? getOptimizedUrl(vertSrc, "full") : wideUrl);
+  const wideUrl = wideSrc ? getOptimizedUrl(wideSrc, "full") : "";
+  const vertUrl = vertSrc ? getOptimizedUrl(vertSrc, "full") : wideUrl;
   const fallbackUrl = wideUrl || vertUrl;
 
   const swapExt = (url: string, ext: string) => {
@@ -73,6 +70,7 @@ export function ResponsiveSlotImage({
   const wideWebp = swapExt(wideUrl, "webp");
   const vertAvif = swapExt(vertUrl, "avif");
   const vertWebp = swapExt(vertUrl, "webp");
+  const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
 
   return (
     <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
