@@ -79,7 +79,9 @@ export function ResponsiveSlotImage({
     <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
       <div
         className={cn(
-          "relative w-full",
+          // Cap desktop hero height so ultra-wide viewports don't create a
+          // banner taller than the visible window.
+          "relative w-full md:max-h-[calc(100vh-80px)] md:max-h-[calc(100dvh-80px)]",
           mobileAspectClassName,
           // Swap the aspect ratio at the md breakpoint without rendering a
           // second image element. The matching desktop class is built up by
