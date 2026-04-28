@@ -43,8 +43,10 @@ export function PicturePhoto({
   sizes,
   noDrag = false,
 }: PicturePhotoProps) {
-  const lastDot = src.lastIndexOf(".");
-  const stem = lastDot >= 0 ? src.slice(0, lastDot) : src;
+  // Ensure local paths with spaces / '&' are valid URLs in the browser.
+  const normalizedSrc = /^(https?:|data:)/i.test(src) ? src : encodeURI(src);
+  const lastDot = normalizedSrc.lastIndexOf(".");
+  const stem = lastDot >= 0 ? normalizedSrc.slice(0, lastDot) : normalizedSrc;
   const avifSrc = `${stem}.avif`;
   const webpSrc = `${stem}.webp`;
 
@@ -63,7 +65,7 @@ export function PicturePhoto({
       <source type="image/avif" srcSet={avifSrc} sizes={sizes} />
       <source type="image/webp" srcSet={webpSrc} sizes={sizes} />
       <img
-        src={src}
+        src={normalizedSrc}
         alt={alt}
         className={className}
         style={imgStyle}

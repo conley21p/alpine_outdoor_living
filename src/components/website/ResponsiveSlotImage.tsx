@@ -39,7 +39,7 @@ export function ResponsiveSlotImage({
   priority = false,
   className,
   mobileAspectClassName = "aspect-[3/4]",
-  desktopAspectClassName = "aspect-[21/9]",
+  desktopAspectClassName = "md:aspect-[21/9]",
   children,
 }: ResponsiveSlotImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -57,8 +57,11 @@ export function ResponsiveSlotImage({
     );
   }
 
-  const wideUrl = wideSrc ? getOptimizedUrl(wideSrc, "full") : "";
-  const vertUrl = vertSrc ? getOptimizedUrl(vertSrc, "full") : wideUrl;
+  const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
+  const toWebUrl = (u: string) => (isLocal(u) ? encodeURI(u) : u);
+
+  const wideUrl = toWebUrl(wideSrc ? getOptimizedUrl(wideSrc, "full") : "");
+  const vertUrl = toWebUrl(vertSrc ? getOptimizedUrl(vertSrc, "full") : wideUrl);
   const fallbackUrl = wideUrl || vertUrl;
 
   const swapExt = (url: string, ext: string) => {
@@ -70,7 +73,6 @@ export function ResponsiveSlotImage({
   const wideWebp = swapExt(wideUrl, "webp");
   const vertAvif = swapExt(vertUrl, "avif");
   const vertWebp = swapExt(vertUrl, "webp");
-  const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
 
   return (
     <div className={cn("relative overflow-hidden bg-brand-bgLight", className)}>
@@ -78,10 +80,9 @@ export function ResponsiveSlotImage({
         className={cn(
           "relative w-full",
           mobileAspectClassName,
+          // NOTE: keep responsive classnames static so Tailwind generates them.
+          // Pass `md:`/`lg:` variants explicitly via props.
           desktopAspectClassName
-            .split(" ")
-            .map((cls) => (cls.startsWith("md:") ? cls : `md:${cls}`))
-            .join(" ")
         )}
       >
         <div
