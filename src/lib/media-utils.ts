@@ -3,7 +3,14 @@
  * types: 'thumb' (optimized for grid) or 'full' (high definition)
  */
 export const getOptimizedUrl = (url: string, type: 'thumb' | 'full' = 'thumb') => {
-  if (!url || !url.includes('cloudinary.com')) return url;
+  if (!url) return url;
+
+  // For local/public paths we must URL-encode spaces and other characters
+  // before handing the URL to <img srcset> / next/image. Otherwise browsers
+  // can fail to parse `srcset` and drop candidates.
+  if (!url.includes("cloudinary.com")) {
+    return /^(https?:|data:)/i.test(url) ? url : encodeURI(url);
+  }
   
   const width = type === 'thumb' ? 800 : 1800;
   const quality = type === 'thumb' ? 'q_auto:eco' : 'q_auto:best';
