@@ -61,7 +61,7 @@ export function ResponsiveSlotImage({
   const vertUrl = vertSrc ? getOptimizedUrl(vertSrc, "full") : wideUrl;
   const fallbackUrl = wideUrl || vertUrl;
 
-  // Derive optimized format URLs (AVIF + WebP) by swapping the extension on
+  // Derive optimized format URLs (WebP) by swapping the extension on
   // local paths. We only attempt this for paths that look like local image
   // files — Cloudinary and other URLs flow through unchanged.
   const swapExt = (url: string, ext: string) => {
@@ -69,9 +69,7 @@ export function ResponsiveSlotImage({
     const dot = url.lastIndexOf(".");
     return dot > 0 ? `${url.slice(0, dot)}.${ext}` : url;
   };
-  const wideAvif = swapExt(wideUrl, "avif");
   const wideWebp = swapExt(wideUrl, "webp");
-  const vertAvif = swapExt(vertUrl, "avif");
   const vertWebp = swapExt(vertUrl, "webp");
   const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
 
@@ -105,21 +103,15 @@ export function ResponsiveSlotImage({
           {/*
            * Browser walks <source> top to bottom and uses the first one
            * whose media query AND type are supported. Order matters:
-           *   1. Desktop AVIF
-           *   2. Desktop WebP
-           *   3. Desktop JPEG (covers ancient browsers)
-           *   4. Mobile AVIF
-           *   5. Mobile WebP
-           *   6. Mobile JPEG fallback via <img src>
+           *   1. Desktop WebP
+           *   2. Desktop JPEG (covers ancient browsers)
+           *   3. Mobile WebP
+           *   4. Mobile JPEG fallback via <img src>
            */}
-          {isLocal(wideUrl) && (
-            <source media="(min-width: 768px)" type="image/avif" srcSet={wideAvif} />
-          )}
           {isLocal(wideUrl) && (
             <source media="(min-width: 768px)" type="image/webp" srcSet={wideWebp} />
           )}
           <source media="(min-width: 768px)" srcSet={wideUrl || vertUrl} />
-          {isLocal(vertUrl) && <source type="image/avif" srcSet={vertAvif} />}
           {isLocal(vertUrl) && <source type="image/webp" srcSet={vertWebp} />}
           <img
             src={vertUrl || fallbackUrl}

@@ -17,40 +17,40 @@ export default async function Home() {
     getExteriorServices(),
   ]);
 
-  // Preload-link targets for the hero. We preload the AVIF variant only —
-  // browsers that don't support AVIF skip the preload (because of the
-  // `type` attribute) and still load the WebP/JPEG via the <picture> in
+  // Preload-link targets for the hero. We preload the WebP variant only —
+  // browsers that don't support WebP skip the preload (because of the
+  // `type` attribute) and still load the JPEG via the <picture> in
   // HeroSection. The `media` attribute keeps mobile devices from preloading
   // the desktop image and vice versa.
-  const heroWideAvif = heroPair.wide ? heroPair.wide.replace(/\.[^.]+$/, ".avif") : null;
-  const heroVertAvif = heroPair.vert ? heroPair.vert.replace(/\.[^.]+$/, ".avif") : null;
+  const heroWideWebp = heroPair.wide ? heroPair.wide.replace(/\.[^.]+$/, ".webp") : null;
+  const heroVertWebp = heroPair.vert ? heroPair.vert.replace(/\.[^.]+$/, ".webp") : null;
 
   return (
     <>
       {/*
-       * LCP preloads for the hero image (AVIF only; per-viewport).
+       * LCP preloads for the hero image (WebP only; per-viewport).
        * Placed outside <SiteShell> so they aren't rendered inside <main>.
        * Modern browsers scan the entire HTML for preload hints before
-       * parsing, so position in <body> is fine. `type="image/avif"` makes
+       * parsing, so position in <body> is fine. `type="image/webp"` makes
        * non-supporting browsers skip the preload (they'll still get the
-       * WebP/JPEG via the hero's <picture> element).
+       * JPEG via the hero's <picture> element).
        */}
-      {heroWideAvif ? (
+      {heroWideWebp ? (
         <link
           rel="preload"
           as="image"
-          type="image/avif"
-          href={heroWideAvif}
+          type="image/webp"
+          href={heroWideWebp}
           media="(min-width: 768px)"
           fetchPriority="high"
         />
       ) : null}
-      {heroVertAvif ? (
+      {heroVertWebp ? (
         <link
           rel="preload"
           as="image"
-          type="image/avif"
-          href={heroVertAvif}
+          type="image/webp"
+          href={heroVertWebp}
           media="(max-width: 767px)"
           fetchPriority="high"
         />

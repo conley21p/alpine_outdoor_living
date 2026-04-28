@@ -21,18 +21,18 @@ interface PicturePhotoProps {
 }
 
 /**
- * A small `<picture>` wrapper that serves AVIF + WebP + JPEG variants.
+ * A small `<picture>` wrapper that serves WebP + JPEG variants.
  *
  * Why a custom wrapper:
  * - The site uses `next/image` with `unoptimized: true` (static export to
  *   Cloudflare Pages), so Next.js can't generate or pick formats at request
  *   time. We have to ship pre-encoded variants and let the browser choose.
  * - Browsers walk `<source>` elements top-down and use the first one whose
- *   `type` they support. So AVIF first (smallest), then WebP, then a final
- *   `<img>` that any browser can fall back to.
+ *   `type` they support. We prefer WebP, then a final `<img>` that any
+ *   browser can fall back to.
  *
  * The `src` should point at the JPEG (or .JPG) file. We derive the
- * sibling `.webp` / `.avif` URLs by stripping the extension.
+ * sibling `.webp` URL by stripping the extension.
  */
 export function PicturePhoto({
   src,
@@ -45,7 +45,6 @@ export function PicturePhoto({
 }: PicturePhotoProps) {
   const lastDot = src.lastIndexOf(".");
   const stem = lastDot >= 0 ? src.slice(0, lastDot) : src;
-  const avifSrc = `${stem}.avif`;
   const webpSrc = `${stem}.webp`;
 
   const imgStyle: CSSProperties = noDrag
@@ -60,7 +59,6 @@ export function PicturePhoto({
 
   return (
     <picture>
-      <source type="image/avif" srcSet={avifSrc} sizes={sizes} />
       <source type="image/webp" srcSet={webpSrc} sizes={sizes} />
       <img
         src={src}
