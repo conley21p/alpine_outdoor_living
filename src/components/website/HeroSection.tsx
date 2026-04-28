@@ -20,8 +20,8 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           overrideVert={heroPair?.vert}
           alt={`${publicConfig.businessName} hero image`}
           priority
-          mobileAspectClassName="aspect-[4/5]"
-          desktopAspectClassName="aspect-[21/9]"
+          mobileAspectClassName="aspect-[8/9]"
+          desktopAspectClassName="aspect-[13/5]"
           className="w-full"
         >
           {/* Overlay for legibility */}
