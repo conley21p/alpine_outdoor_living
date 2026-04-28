@@ -31,7 +31,7 @@ export function ResponsiveSlotImage({
   priority = false,
   className,
   mobileAspectClassName = "aspect-[3/4]",
-  desktopAspectClassName = "aspect-[21/9]",
+  desktopAspectClassName = "md:aspect-[21/9]",
   children,
 }: ResponsiveSlotImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -70,10 +70,9 @@ export function ResponsiveSlotImage({
         className={cn(
           "relative w-full",
           mobileAspectClassName,
+          // NOTE: keep these class names static so Tailwind generates them.
+          // Pass responsive variants explicitly (e.g. "md:aspect-[21/9]").
           desktopAspectClassName
-            .split(" ")
-            .map((cls) => (cls.startsWith("md:") ? cls : `md:${cls}`))
-            .join(" ")
         )}
       >
         <div

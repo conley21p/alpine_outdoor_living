@@ -17,7 +17,7 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           alt={`${publicConfig.businessName} hero image`}
           priority
           mobileAspectClassName="aspect-[4/5]"
-          desktopAspectClassName="aspect-[21/9]"
+          desktopAspectClassName="md:aspect-[21/9]"
           className="w-full"
         >
           {/* Overlay for legibility */}
