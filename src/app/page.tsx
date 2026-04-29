@@ -142,7 +142,7 @@ export default async function Home() {
 
                   <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl glass-card-green shadow-xl">
                     <h3 className="text-2xl font-bold text-brand-textDark mb-1">Austin Schiff</h3>
-                    <p className="text-brand-textDark/80 font-medium">Founder & Landscape Designer</p>
+                    <p className="text-brand-textDark/80 font-medium">Founder & Landscape Designer Specialist</p>
                   </div>
                 </div>
               </div>
@@ -158,6 +158,7 @@ export default async function Home() {
                     <strong>Alpine Outdoor Living, LLC</strong> was founded by Austin Schiff during his final year at the
                     University of Illinois Urbana-Champaign. While earning his degree in <strong>Landscape Architecture</strong>,
                     Austin combined his technical expertise with a lifelong passion for the outdoors.
+                    He is especially known for creating ultra-realistic 3D renderings that allow clients to fully experience and visualize their outdoor space before it’s ever built.
                   </p>
                   <p className="text-lg lg:text-xl text-brand-textDark/70 leading-relaxed">
                     His entrepreneurship started at the young age of 11 when he started his own mowing business to
