@@ -1,19 +1,35 @@
 /**
  * publicConfig: Publicly accessible site configuration and branding.
  * These values are used on the client-side and server-side.
+ *
+ * TODO(owner): the contact block below uses placeholders. Replace the phone,
+ * email, and site URL with the real business details before going live — they
+ * render as live tel:/mailto: links and as the lead-form destination.
  */
 export const publicConfig = {
   // Business identity
-  businessName: "KML Seamless Gutters LLC",
-  businessDescription: "Locally owned and operated exterior contractor offering seamless gutters, soffit, fascia, and siding installation and repair services in Springfield, IL and surrounding areas.",
-  businessTagline: "Expert Gutter, Soffit, Fascia & Siding Solutions — Precision Built in Central Illinois",
-  businessPhone: "(217) 843-7265",
-  businessEmail: "kmlseamlessguttersil@gmail.com",
-  industry: "Exterior Construction & Gutter Services",
+  businessName: "Springfield Home Remodels",
+  businessDescription: "Senior-safe bathroom remodels in Springfield, IL — grab bars, walk-in showers, curbless entries, and full universal design retrofits, with a free in-home safety assessment.",
+  businessTagline: "Senior-Safe Bathroom Remodels — Built for Staying Home Safely",
+  businessPhone: "(217) 555-0142", // TODO(owner): replace with the real business number
+  businessEmail: "info@springfieldhomeremodels.com", // TODO(owner): replace with the real inbox
+  industry: "Bathroom Remodeling & Accessibility Retrofits",
+  serviceArea: "Springfield, Chatham, Rochester, Sherman & Central Illinois",
+  /** Package names shown in the hero band. */
+  heroHighlights: [
+    "Safety Essentials",
+    "Fast-Track Shower Conversion",
+    "Custom Accessible Remodel",
+    "Full Universal Design Retrofit",
+  ] as const,
+  /** Options in the contact form's "service needed" dropdown. */
   servicesOffered: [
-    "Seamless Gutters",
-    "Soffit & Fascia",
-    "Siding Installation"
+    "Free In-Home Safety Assessment",
+    "Safety Essentials",
+    "Fast-Track Shower Conversion",
+    "Custom Accessible Remodel",
+    "Full Universal Design Retrofit",
+    "Something Else",
   ] as const,
 
   // Branding
@@ -25,14 +41,17 @@ export const publicConfig = {
 
   // Integrations
   useCloudinary: false,
+  /**
+   * Web3Forms access key for the contact form. Empty until the business
+   * creates its own key at https://web3forms.com — the form surfaces a
+   * "call us instead" message rather than silently dropping leads.
+   * TODO(owner): paste the access key issued for the business inbox above.
+   */
+  web3formsAccessKey: "",
 
   // Site URLs
-  siteUrl: "http://kmlSeamlessGutters.com",
-  defaultDomain: "kmlSeamlessGutters.com",
-
-  // Social media
-  facebookUrl: "https://www.facebook.com/p/KML-seamless-gutters-LLC-61573112742583/",
-  facebookHandle: "KML Seamless Gutters LLC",
+  siteUrl: "https://www.springfieldhomeremodels.com", // TODO(owner): replace with the real domain
+  defaultDomain: "www.springfieldhomeremodels.com",
 
   // Optional integrations (empty if not used)
   googleAnalyticsId: "",
@@ -57,7 +76,7 @@ export const getServerConfig = () => {
     cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
 
     // Optional settings
-    adminEmail: "kmlseamlessguttersil@gmail.com",
+    adminEmail: publicConfig.businessEmail,
     nextAuthSecret: process.env.NEXTAUTH_SECRET || "",
     nextAuthUrl: publicConfig.siteUrl,
   };

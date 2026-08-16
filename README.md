@@ -1,34 +1,52 @@
-# KML Seamless Gutters - Static Website
+# Springfield Home Remodels — Static Website
 
-A premium, static Next.js website for KML Seamless Gutters, showcasing expert gutter, soffit, fascia, and siding solutions.
+A static Next.js website for Springfield Home Remodels, covering senior-safe
+bathroom remodel services and pricing in Springfield, IL.
 
 ## Features
 
-- **Responsive Design**: Mobile-first layout optimized for all devices.
-- **Dynamic Hero Images**: Automatic switching between vertical and wide hero images based on screen size.
-- **Service Showcase**: Detailed grid of services and outdoor offerings.
-- **Gallery**: Photo gallery populated from local static assets.
-- **Contact Form**: Integrated with **Web3Forms** for direct email notifications without a backend database.
+- **Single-page layout**: hero, about, free in-home safety assessment, a swipeable
+  package deck, full packages & pricing, and a lead form.
+- **Package data in one place**: all four remodel packages (price, timeline,
+  inclusions, "best for") live in `src/lib/public-data.ts`.
+- **Photo-optional**: the hero and service cards fall back to brand-gradient and
+  text-only treatments until real project photography is added, so nothing ships
+  with placeholder imagery.
+- **Contact Form**: integrated with **Web3Forms** for direct email notifications
+  without a backend database.
+
+## Before going live
+
+These are stubbed and must be filled in — all of them live in `src/lib/config.ts`
+unless noted:
+
+- `businessPhone`, `businessEmail` — currently reserved-for-fiction placeholders
+  that render as live `tel:`/`mailto:` links.
+- `siteUrl` / `defaultDomain` — the real domain.
+- `web3formsAccessKey` — create a key at https://web3forms.com for the business
+  inbox. While it's empty the form tells visitors to call instead of silently
+  dropping their request.
+- Logo artwork — `public/` has no logo; the navbar renders a text wordmark and
+  `src/app/layout.tsx` has no favicon or OG image wired up.
+- Project photos — add hero images under `public/fallback/Website/Hero/` and point
+  `getHeroPair()` at them; add per-package photos to each package's `media` array.
 
 ## Technology Stack
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 14 (App Router), static export (`output: 'export'`)
 - **Styling**: Tailwind CSS
-- **Submission**: Web3Forms (Public Key Integration)
-- **Host**: Vercel (Recommended)
+- **Submission**: Web3Forms (public key integration)
 
 ## Project Structure
 
 ```text
 .
-├── public/                 # Static assets (images, icons)
-│   └── images/
-│       ├── hero/           # Hero images (wide/vert folders)
-│       └── gallery/        # Gallery source images
+├── public/                 # Static assets
+│   └── fallback/Website/   # Hero and project photography
 └── src/
     ├── app/                # Next.js pages and layouts
     ├── components/         # Reusable UI components
-    └── lib/                # Shared utilities and site config
+    └── lib/                # Site config, package data, utilities
 ```
 
 ## Quick Start
@@ -38,25 +56,24 @@ A premium, static Next.js website for KML Seamless Gutters, showcasing expert gu
    npm install
    ```
 
-2. **Configure Environment**:
-   Create a `.env.local` file with your site metadata:
-   ```text
-   NEXT_PUBLIC_BUSINESS_NAME="KML Seamless Gutters"
-   NEXT_PUBLIC_SITE_URL="your-site-url.com"
-   ```
-
-3. **Development Mode**:
+2. **Development Mode**:
    ```bash
    npm run dev
    ```
 
-4. **Build for Production**:
+3. **Build for Production**:
    ```bash
-   npm run build
+   npm run build     # emits the static site to out/
+   npx serve out     # "next start" does not work with output: 'export'
    ```
 
 ## Development Guidelines
 
-- **Adding Hero Images**: Place vertical versions in `public/images/hero/vert/` and wide versions in `public/images/hero/wide/`.
-- **Updating Gallery**: Simply add or remove images from `public/images/gallery/`. The page will update automatically on next build.
-- **Branding**: Colors and fonts are managed via tailwind.config.js and CSS variables in `src/app/globals.css`.
+- **Editing packages**: change `REMODEL_PACKAGES` in `src/lib/public-data.ts`. The
+  service deck, the pricing grid, and the contact form dropdown all read from it
+  (the dropdown list is `servicesOffered` in `src/lib/config.ts`).
+- **Adding Hero Images**: drop wide and vertical variants under
+  `public/fallback/Website/Hero/` and return their paths from `getHeroPair()`. The
+  hero automatically switches from the gradient fallback to the photo treatment.
+- **Branding**: colors are managed via `tailwind.config.js` and the CSS variables
+  emitted from `publicConfig` in `src/app/layout.tsx`.

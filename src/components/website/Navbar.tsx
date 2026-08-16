@@ -1,13 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { publicConfig } from "@/lib/config";
 import { Menu, X } from "lucide-react";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/#services", label: "Services" },
+  { href: "/#assessment", label: "Free Assessment" },
+  { href: "/#packages", label: "Packages & Pricing" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -16,7 +16,6 @@ const businessPhone = publicConfig.businessPhone;
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const [logoError, setLogoError] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -35,24 +34,16 @@ export function Navbar() {
         }`}
       >
         <div className="mx-auto flex max-w-[90rem] items-center justify-between px-6 py-3 lg:px-12">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="flex items-center gap-4 group -ml-2 px-2 py-1 rounded-lg transition-opacity hover:opacity-70"
           >
-            {!logoError ? (
-              <div className="relative w-10 h-10 overflow-hidden rounded-lg">
-                <Image
-                  src="/Logo.png"
-                  alt={`${businessName} logo`}
-                  fill
-                  className="object-contain"
-                  onError={() => setLogoError(true)}
-                  priority
-                />
-              </div>
-            ) : null}
+            {/* TODO(owner): swap this wordmark for the logo once artwork exists. */}
+            <span className="text-[15px] font-bold tracking-tight text-brand-primary lg:text-[17px]">
+              {businessName}
+            </span>
           </Link>
-          <nav className="hidden items-center gap-10 md:flex">
+          <nav className="hidden items-center gap-8 md:flex">
             {links.map((link) => (
               <Link
                 key={link.href}

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, type PanInfo, useReducedMotion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import type { ServiceData } from "@/lib/public-data";
 import { getOptimizedUrl } from "@/lib/media-utils";
 import { PicturePhoto } from "@/components/website/PicturePhoto";
@@ -187,12 +187,34 @@ export function ServicesGrid({
                     )}
 
                     <div className="flex flex-col gap-3 flex-grow pointer-events-auto">
+                      {service.label ? (
+                        <p className="text-xs lg:text-sm font-bold uppercase tracking-widest text-brand-primary">
+                          {service.label}
+                        </p>
+                      ) : null}
                       <h3 className="text-3xl lg:text-4xl font-bold text-brand-textDark leading-tight tracking-tight">
                         {service.title}
                       </h3>
+                      {service.meta ? (
+                        <p className="text-base lg:text-lg font-bold text-brand-primary">
+                          {service.meta}
+                        </p>
+                      ) : null}
                       <p className="text-sm lg:text-lg text-brand-textDark/80 leading-relaxed font-medium">
                         {service.description}
                       </p>
+                      {service.highlights && service.highlights.length > 0 ? (
+                        <ul className="mt-2 space-y-2.5 border-t border-brand-textDark/10 pt-4">
+                          {service.highlights.map((highlight) => (
+                            <li key={highlight} className="flex items-start gap-2.5">
+                              <Check className="mt-1 h-4 w-4 flex-shrink-0 text-brand-secondary" />
+                              <span className="text-sm lg:text-base leading-relaxed text-brand-textDark/70">
+                                {highlight}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </div>
 
                     <div

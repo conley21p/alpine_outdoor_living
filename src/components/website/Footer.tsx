@@ -3,7 +3,8 @@ import { publicConfig } from "@/lib/config";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/#services", label: "Services" },
+  { href: "/#assessment", label: "Free Assessment" },
+  { href: "/#packages", label: "Packages & Pricing" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -41,18 +42,11 @@ export function Footer() {
           </div>
           <div>
             <h4 className="text-[13px] font-medium text-brand-textDark/60">
-              Social
+              Service Area
             </h4>
-            <div className="mt-3">
-              <a
-                href={publicConfig.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-[14px] text-brand-textDark transition-opacity hover:opacity-60"
-              >
-                Facebook
-              </a>
-            </div>
+            <p className="mt-3 text-[14px] leading-relaxed text-brand-textDark">
+              {publicConfig.serviceArea}
+            </p>
           </div>
           <div className="lg:col-span-1">
             <h4 className="text-[13px] font-medium text-brand-textDark/60">

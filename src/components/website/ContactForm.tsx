@@ -120,6 +120,13 @@ export function ContactForm({ initialService }: ContactFormProps) {
       return;
     }
 
+    if (!publicConfig.web3formsAccessKey) {
+      setError(
+        `Online submissions aren't switched on yet. Please call ${publicConfig.businessPhone} or email ${publicConfig.businessEmail} and we'll get you scheduled.`
+      );
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -129,15 +136,15 @@ export function ContactForm({ initialService }: ContactFormProps) {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          access_key: "d26b5a1d-c58c-4ca1-a6e9-f0733127e6f3",
+          access_key: publicConfig.web3formsAccessKey,
           to: publicConfig.businessEmail,
           name: `${form.firstName} ${form.lastName}`.trim(),
           email: form.email,
           phone: form.phone,
           service: form.serviceNeeded,
           message: form.message,
-          subject: `New Gutter Request: ${form.serviceNeeded} from ${form.firstName}`,
-          from_name: "KML Seamless Gutters",
+          subject: `New Assessment Request: ${form.serviceNeeded} from ${form.firstName}`,
+          from_name: publicConfig.businessName,
         }),
       });
 
@@ -166,20 +173,22 @@ export function ContactForm({ initialService }: ContactFormProps) {
         </div>
         <h3 className="text-3xl font-bold text-brand-textDark mb-6">Thank you for reaching out!</h3>
         <p className="text-lg leading-relaxed text-brand-textDark/80 mb-8">
-          We&rsquo;ve received your request and are excited to help with your project. Kale or a 
-          member of the KML Team will review your details and get back with you within 24-48 hours 
-          to discuss your gutter, soffit, or siding needs.
+          We&rsquo;ve received your request. A member of our team will review the
+          details and get back to you within 24&ndash;48 hours to schedule the free
+          in-home safety assessment. If there&rsquo;s a hospital discharge or another
+          hard date coming up, call us at {publicConfig.businessPhone} and we&rsquo;ll
+          work around it.
         </p>
         <div className="space-y-4">
           <p className="text-base text-brand-textDark/60 italic">
-            In the meantime, feel free to browse The Portfolio for more inspiration
+            In the meantime, you can compare what each package includes
           </p>
-          <a 
-            href="#services" 
+          <a
+            href="#packages"
             className="inline-block text-brand-primary font-bold border-b border-brand-primary pb-1 hover:text-brand-primary-dark hover:border-brand-primary-dark transition-all"
-            onClick={() => setSuccess(false)} // Optional: allow them to reset if they want
+            onClick={() => setSuccess(false)}
           >
-            Explore Our Services &rarr;
+            See Packages &amp; Pricing &rarr;
           </a>
         </div>
       </div>
@@ -212,7 +221,7 @@ export function ContactForm({ initialService }: ContactFormProps) {
           <Input 
             value={form.phone} 
             onChange={(event) => onChange("phone", event.target.value)} 
-            placeholder="(217) 843-7265"
+            placeholder="(217) 555-0123"
             maxLength={14}
             required
           />

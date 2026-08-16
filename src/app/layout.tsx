@@ -20,11 +20,8 @@ export const metadata: Metadata = {
     description: publicConfig.businessDescription,
     url: siteUrl.toString(),
     siteName: publicConfig.businessName,
-    images: [new URL("/Logo.png", siteUrl).toString()],
   },
-  icons: {
-    icon: "/Logo.png",
-  },
+  // TODO(owner): drop a logo in public/ and wire up `icons` + an OG image here.
 };
 
 export const viewport: Viewport = {

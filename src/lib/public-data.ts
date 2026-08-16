@@ -1,5 +1,3 @@
-import { publicConfig } from "@/lib/config";
-
 export interface GalleryImage {
   name: string;
   url: string;
@@ -22,67 +20,142 @@ export interface ServiceData {
   description: string;
   media: GalleryImage[];
   folder: string;
+  /** Card eyebrow, e.g. "Package 2". */
+  label?: string;
+  /** Price and timeline line rendered under the title. */
+  meta?: string;
+  /** A few headline inclusions, shown when there's no photography. */
+  highlights?: string[];
 }
 
 /**
- * Gallery images — served from static public/fallback/ assets.
- * Add more entries here as KML uploads project photos.
+ * A priced remodel package. `media` is intentionally empty until the business
+ * supplies real project photography — the service cards and hero degrade to a
+ * clean text-only treatment rather than showing another company's work.
  */
-export const getGalleryImages = async (): Promise<GalleryImage[]> => {
-  return [
-    { name: "Seamless Gutters Installation", url: "/fallback/Website/Services/Seamless-Gutters/Project.png", type: "image" },
-    { name: "Soffit & Fascia Installation", url: "/fallback/Website/Services/Soffit & Fasica/Project.png", type: "image" },
-    { name: "Siding Installation", url: "/fallback/Website/Services/Siding/Project.png", type: "image" },
-  ];
-};
+export interface RemodelPackage {
+  id: string;
+  label: string;
+  title: string;
+  price: string;
+  timeline: string;
+  summary: string;
+  features: string[];
+  bestFor: string;
+  featured?: boolean;
+}
 
 /**
- * Hero images — served from static public/fallback/ assets.
+ * Hero images — no photography on file yet, so the hero renders its overlay
+ * over the brand background. Drop wide/vertical files in
+ * `public/fallback/Website/Hero/` and point these at them.
  */
 export const getHeroPair = async () => {
   return {
-    wide: "/fallback/Website/Hero/Wide/Hero.png",
-    vert: "/fallback/Website/Hero/Vertical/Hero.png",
+    wide: null as string | null,
+    vert: null as string | null,
   };
 };
 
-/**
- * Static service definitions for KML Seamless Gutters.
- */
-const STATIC_SERVICES: Array<{ title: string; description: string; folder: string; media: GalleryImage[] }> = [
+export const REMODEL_PACKAGES: RemodelPackage[] = [
   {
-    title: "Seamless Gutters",
-    description: "Our premier seamless gutter systems are custom-formed on-site for a perfect fit, providing ultimate protection against water damage and foundation issues.",
-    folder: "Seamless Gutters",
-    media: [
-      { name: "Seamless Gutter Installation", url: "/fallback/Website/Services/Seamless-Gutters/Project.png", type: "image" },
+    id: "safety-essentials",
+    label: "Package 1",
+    title: "Safety Essentials",
+    price: "$650 – $1,800+",
+    timeline: "Completed in 1 day",
+    summary:
+      "For clients who just need the highest-risk hazards fixed now, without a full remodel.",
+    features: [
+      "3–4 grab bars, professionally anchored into blocking (not just drywall anchors)",
+      "Comfort-height toilet swap (17–19”)",
+      "Handheld showerhead on a sliding bar",
+      "Non-slip flooring treatment or slip-resistant bath mat",
+      "Improved lighting (motion-sensor night light or brighter fixture)",
     ],
+    bestFor:
+      "Adult children who want their parent safer this week, or a pre-hospital-discharge fix.",
   },
   {
-    title: "Soffit & Fascia",
-    description: "Expertly installed soffit and fascia systems that provide critical attic ventilation and structural integrity while creating a clean, finished appearance for your home's exterior.",
-    folder: "Soffit & Fasica",
-    media: [
-      { name: "Soffit & Fascia Installation", url: "/fallback/Website/Services/Soffit & Fasica/Project.png", type: "image" },
+    id: "fast-track-shower-conversion",
+    label: "Package 2",
+    title: "Fast-Track Shower Conversion",
+    price: "$6,500 – $10,500+",
+    timeline: "Completed in 3–5 days",
+    summary:
+      "The most requested package: removes the fall hazard of climbing over a tub edge.",
+    features: [
+      "Full tub removal and disposal",
+      "Prefab or acrylic walk-in shower base and wall surround",
+      "Comfort-height toilet",
+      "Lever-handle faucet (easier grip than knobs)",
+      "Slip-resistant flooring",
+      "2–3 ADA grab bars",
+      "Licensed plumber for drain/valve relocation as needed",
     ],
+    bestFor:
+      "Clients who want a quick, contained project and don’t need custom tile.",
+    featured: true,
   },
   {
-    title: "Siding Installation",
-    description: "Professional siding solutions featuring premium materials that improve energy efficiency and curb appeal while providing a robust weather-resistant barrier.",
-    folder: "Siding",
-    media: [
-      { name: "Siding Installation", url: "/fallback/Website/Services/Siding/Project.png", type: "image" },
+    id: "custom-accessible-remodel",
+    label: "Package 3",
+    title: "Custom Accessible Remodel",
+    price: "$11,000 – $18,000+",
+    timeline: "Completed in 2–3 weeks",
+    summary:
+      "A fully personalized bathroom that still looks like a nice bathroom, not a medical fixture.",
+    features: [
+      "Curbless (zero-threshold) shower entry with linear drain",
+      "Custom tile walls and floor, homeowner’s choice of style",
+      "Fold-down bench (17–18” height)",
+      "ADA grab bars at entry, wall, and bench",
+      "Comfort-height toilet and accessible vanity with knee clearance",
+      "Upgraded lighting and ventilation",
+      "Thermostatic shower valve (prevents scalding)",
     ],
+    bestFor:
+      "Clients planning to stay in the home long-term who want it to look updated, not “medicalized.”",
+  },
+  {
+    id: "full-universal-design-retrofit",
+    label: "Package 4",
+    title: "Full Universal Design Retrofit",
+    price: "$19,000 – $28,000+",
+    timeline: "Completed in 3–4 weeks",
+    summary:
+      "For wheelchair access or significant mobility needs, built to last through future stages of aging.",
+    features: [
+      "Doorway widened to 32”+ for walker/wheelchair clearance",
+      "60”x60” curbless roll-in shower",
+      "Reinforced walls for future grab bar placement anywhere needed",
+      "Custom tile, vanity, and fixtures",
+      "Structural, electrical, and plumbing coordination as required",
+      "Optional: heated flooring, smart lighting",
+    ],
+    bestFor:
+      "Clients with a diagnosed mobility condition, or planning ahead for a spouse or parent moving in.",
   },
 ];
 
+export const getRemodelPackages = async (): Promise<RemodelPackage[]> => {
+  return REMODEL_PACKAGES;
+};
+
+/**
+ * The swipeable service cards on the home page are the same four packages,
+ * summarised with their price and timeline.
+ */
 export const getStaticServices = async (): Promise<ServiceData[]> => {
-  return STATIC_SERVICES.map((service) => ({
-    id: service.title.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-"),
-    title: service.title,
-    description: service.description,
-    media: service.media,
-    folder: service.folder,
+  return REMODEL_PACKAGES.map((pkg) => ({
+    id: pkg.id,
+    title: pkg.title,
+    description: pkg.summary,
+    media: [],
+    folder: pkg.id,
+    label: pkg.label,
+    meta: `${pkg.price} · ${pkg.timeline}`,
+    highlights: pkg.features.slice(0, 4),
   }));
 };
 
@@ -91,46 +164,15 @@ export const getServiceBySlug = async (slug: string): Promise<ServiceData | null
   return all.find((s) => s.id === slug) || null;
 };
 
-export async function getWhoWeArePhoto(): Promise<string> {
-  return "/fallback/Website/WhoWeAre/Kale.png";
-}
-
 export const getServiceProjects = async (folder: string): Promise<GalleryImage[]> => {
-  const service = STATIC_SERVICES.find((s) => s.folder === folder);
+  const service = await getServiceBySlug(folder);
   return service?.media || [];
 };
 
+/**
+ * No published customer reviews on file yet. The reviews section renders
+ * nothing while this is empty rather than showing placeholder testimonials.
+ */
 export const getPublishedReviews = async (): Promise<Review[]> => {
-  return [
-    {
-      id: "mock-1",
-      customer_name: "Lauren Baxter",
-      rating: 5,
-      quote: "Kale did a fantastic job on our gutters! He is very knowledgeable, reliable & does great work! 10/10 recommend",
-      review_date: new Date().toISOString(),
-      published: true,
-    },
-    {
-      id: "mock-2",
-      customer_name: "Kaylee Shomidie",
-      rating: 5,
-      quote: "KML took pride in delivering exceptional soffit, fascia, and gutter services. The finish was perfect. Thank you!",
-      review_date: new Date().toISOString(),
-      published: true,
-    },
-  ];
-};
-
-export interface FacebookPost {
-  thumbnailUrl: string;
-  postUrl: string;
-  authorName: string;
-}
-
-export const getFacebookFeaturedPost = async (): Promise<FacebookPost | null> => {
-  return {
-    thumbnailUrl: "/fallback/Website/Hero/Wide/Hero.png",
-    postUrl: publicConfig.facebookUrl,
-    authorName: publicConfig.facebookHandle,
-  };
+  return [];
 };

@@ -2,18 +2,22 @@ import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ServicesGridLazy } from "@/components/website/ServicesGridLazy";
 import { ContactFormLazy } from "@/components/website/ContactFormLazy";
+import { AssessmentSection } from "@/components/website/AssessmentSection";
+import { PackagesSection } from "@/components/website/PackagesSection";
 import { publicConfig } from "@/lib/config";
 import {
   getHeroPair,
+  getRemodelPackages,
   getStaticServices,
 } from "@/lib/public-data";
 
 export const revalidate = 300; // Cache the page for 5 minutes
 
 export default async function Home() {
-  const [heroPair, services] = await Promise.all([
+  const [heroPair, services, packages] = await Promise.all([
     getHeroPair(),
     getStaticServices(),
+    getRemodelPackages(),
   ]);
 
   const heroWideWebp = heroPair.wide ? heroPair.wide.replace(/\.[^.]+$/, ".webp") : null;
@@ -74,50 +78,65 @@ export default async function Home() {
                 <div className="lg:col-span-12 space-y-10">
                   <div className="space-y-6">
                     <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
-                      Built on Precision.<br />Backed by Trust.
+                      Safer Bathrooms.<br />Same Home.
                     </h2>
                     <div className="h-1.5 w-24 bg-brand-secondary rounded-full" />
                   </div>
 
                   <div className="space-y-6 text-xl lg:text-2xl text-brand-textDark/80 leading-relaxed font-medium">
                     <p>
-                      <strong>KML Seamless Gutters LLC</strong> is more than just an exterior contractor. Founded by Kale Lash, we are a locally owned operation driven by a simple philosophy: protect your home with honesty and expert craftsmanship.
+                      <strong>{publicConfig.businessName}</strong> remodels bathrooms for
+                      people who intend to stay in the home they already love. Most falls
+                      happen in the bathroom, and most of them are preventable with the
+                      right grab bar, the right shower entry, and the right lighting.
                     </p>
                     <p className="text-lg lg:text-xl text-brand-textDark/60 font-normal">
-                      Servicing <strong>Central Illinois</strong>, we take immense pride in delivering exceptional results across Springfield, Chatham, and the surrounding region. From 6-inch seamless gutters to precision siding, we ensure every detail is built to last.
+                      Serving <strong>{publicConfig.serviceArea}</strong>, we work at four
+                      levels — from a one-day safety install to a full wheelchair-accessible
+                      retrofit. Every job starts with a free in-home assessment, so nobody
+                      pays for more bathroom than they actually need.
                     </p>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-4 border-t border-brand-textDark/5">
                     <div className="flex items-center gap-2 text-brand-primary font-bold">
                       <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                      <span>Locally Owned</span>
+                      <span>Free Safety Assessment</span>
                     </div>
                     <div className="flex items-center gap-2 text-brand-primary font-bold">
                       <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                      <span>Central Illinois</span>
+                      <span>ADA &amp; Universal Design</span>
                     </div>
                     <div className="flex items-center gap-2 text-brand-primary font-bold">
                       <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                      <span>Licensed & Insured</span>
+                      <span>Licensed &amp; Insured</span>
                     </div>
                   </div>
                 </div>
               </div>
             </section>
 
-            <ServicesGridLazy services={services} />
+            <AssessmentSection />
 
-            <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent">
+            <ServicesGridLazy
+              services={services}
+              title="Four Ways In"
+              subtitle="Swipe to compare our senior-safe remodel packages"
+            />
+
+            <PackagesSection packages={packages} />
+
+            <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent scroll-mt-24">
               <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
                 <div className="sm:col-span-2 flex flex-col">
                   <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter text-brand-textDark leading-tight mb-6">
-                    Ready to Protect <br className="hidden lg:block" /> Your Exterior?
+                    Book Your Free <br className="hidden lg:block" /> Safety Assessment
                   </h2>
                   <p className="mt-4 text-lg lg:text-xl leading-relaxed text-brand-textDark/70 mb-8">
-                    Don&apos;t let worn-out gutters or soffit compromise your home. Whether you need 5-inch
-                    residential gutters, 6-inch commercial drainage, or a complete siding refresh,
-                    KML is here to deliver professional results with local care.
+                    Tell us a little about the bathroom and who it&rsquo;s for. We&rsquo;ll
+                    follow up to schedule the in-home visit — usually within 24&ndash;48
+                    hours. If it&rsquo;s urgent, like a hospital discharge coming up, call
+                    and say so and we&rsquo;ll work around that date.
                   </p>
 
                   <div className="sm:mt-auto mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
@@ -147,6 +166,20 @@ export default async function Home() {
                         </a>
                       </div>
                     </div>
+                    <div className="flex items-start gap-4 pt-4 border-t border-black/5">
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Service Area</p>
+                        <p className="mt-1 text-lg font-bold text-brand-textDark/80">
+                          {publicConfig.serviceArea}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="sm:col-span-3">
@@ -158,35 +191,6 @@ export default async function Home() {
             </section>
           </div>
         </div>
-
-        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-green-50 px-8 py-12 lg:px-16 lg:py-16">
-            <div className="mx-auto max-w-4xl">
-              <div className="text-center">
-                <div className="mb-6 text-5xl">👍</div>
-                <h2 className="text-3xl font-bold tracking-tight text-brand-textDark sm:text-4xl">
-                  Follow Us on Facebook
-                </h2>
-                <p className="mt-4 text-lg text-gray-600">
-                  See our latest projects and high-quality results from the field
-                </p>
-              </div>
-              <div className="mt-8 text-center">
-                <a
-                  href={publicConfig.facebookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary px-8 py-4 text-lg font-semibold text-white transition-all hover:shadow-lg"
-                >
-                  <span>Visit Our Page</span>
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
       </SiteShell>
     </>
   );
