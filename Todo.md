@@ -1,15 +1,14 @@
-# Go-Live Checklist — Springfield Home Remodels
+# Go-Live Checklist — Springfield Bathroom Remodel
 
 Everything below is stubbed in the code and needs the real value before launch.
 
 ## Business details (`src/lib/config.ts`)
 - [ ] `businessPhone` — replace the placeholder `(217) 555-0142`; it renders as a live `tel:` link
-- [ ] `businessEmail` — replace `info@springfieldhomeremodels.com`
-- [ ] `siteUrl` / `defaultDomain` — point at the real domain
+- [ ] `siteUrl` / `defaultDomain` — confirm `springfieldbathremodel.com` is live
 - [ ] `serviceArea` — confirm the towns listed are the ones actually served
 
 ## Lead capture
-- [ ] Create a Web3Forms key for the business inbox and set `web3formsAccessKey`
+- [ ] Create a Web3Forms key for Kirk@springfieldbathremodel.com and set `web3formsAccessKey`
       (until then the form asks visitors to call instead of dropping the lead)
 - [ ] Send a test submission and confirm it lands in the inbox
 

@@ -8,11 +8,11 @@
  */
 export const publicConfig = {
   // Business identity
-  businessName: "Springfield Home Remodels",
+  businessName: "Springfield Bathroom Remodel",
   businessDescription: "Senior-safe bathroom remodels in Springfield, IL — grab bars, walk-in showers, curbless entries, and full universal design retrofits, with a free in-home safety assessment.",
   businessTagline: "Senior-Safe Bathroom Remodels — Built for Staying Home Safely",
   businessPhone: "(217) 555-0142", // TODO(owner): replace with the real business number
-  businessEmail: "info@springfieldhomeremodels.com", // TODO(owner): replace with the real inbox
+  businessEmail: "Kirk@springfieldbathremodel.com",
   industry: "Bathroom Remodeling & Accessibility Retrofits",
   serviceArea: "Springfield, Chatham, Rochester, Sherman & Central Illinois",
   /** Package names shown in the hero band. */
@@ -50,8 +50,8 @@ export const publicConfig = {
   web3formsAccessKey: "",
 
   // Site URLs
-  siteUrl: "https://www.springfieldhomeremodels.com", // TODO(owner): replace with the real domain
-  defaultDomain: "www.springfieldhomeremodels.com",
+  siteUrl: "https://www.springfieldbathremodel.com", // TODO(owner): confirm this is the live domain
+  defaultDomain: "www.springfieldbathremodel.com",
 
   // Optional integrations (empty if not used)
   googleAnalyticsId: "",

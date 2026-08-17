@@ -1,6 +1,6 @@
-# Springfield Home Remodels — Static Website
+# Springfield Bathroom Remodel — Static Website
 
-A static Next.js website for Springfield Home Remodels, covering senior-safe
+A static Next.js website for Springfield Bathroom Remodel, covering senior-safe
 bathroom remodel services and pricing in Springfield, IL.
 
 ## Features
@@ -20,9 +20,10 @@ bathroom remodel services and pricing in Springfield, IL.
 These are stubbed and must be filled in — all of them live in `src/lib/config.ts`
 unless noted:
 
-- `businessPhone`, `businessEmail` — currently reserved-for-fiction placeholders
-  that render as live `tel:`/`mailto:` links.
-- `siteUrl` / `defaultDomain` — the real domain.
+- `businessPhone` — currently a reserved-for-fiction placeholder that renders as
+  a live `tel:` link. (`businessEmail` is set to the real inbox.)
+- `siteUrl` / `defaultDomain` — confirm `springfieldbathremodel.com` is the live
+  domain.
 - `web3formsAccessKey` — create a key at https://web3forms.com for the business
   inbox. While it's empty the form tells visitors to call instead of silently
   dropping their request.
