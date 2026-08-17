@@ -2,16 +2,15 @@
  * publicConfig: Publicly accessible site configuration and branding.
  * These values are used on the client-side and server-side.
  *
- * TODO(owner): the contact block below uses placeholders. Replace the phone,
- * email, and site URL with the real business details before going live — they
- * render as live tel:/mailto: links and as the lead-form destination.
+ * The phone, email, and Web3Forms key below are live production values — they
+ * render as real tel:/mailto: links and route lead-form submissions.
  */
 export const publicConfig = {
   // Business identity
   businessName: "Springfield Bathroom Remodel",
   businessDescription: "Senior-safe bathroom remodels in Springfield, IL — grab bars, walk-in showers, curbless entries, and full universal design retrofits, with a free in-home safety assessment.",
   businessTagline: "Senior-Safe Bathroom Remodels — Built for Staying Home Safely",
-  businessPhone: "(217) 555-0142", // TODO(owner): replace with the real business number
+  businessPhone: "(217) 899-5627",
   businessEmail: "Kirk@springfieldbathremodel.com",
   industry: "Bathroom Remodeling & Accessibility Retrofits",
   serviceArea: "Springfield, Chatham, Rochester, Sherman & Central Illinois",
@@ -42,12 +41,11 @@ export const publicConfig = {
   // Integrations
   useCloudinary: false,
   /**
-   * Web3Forms access key for the contact form. Empty until the business
-   * creates its own key at https://web3forms.com — the form surfaces a
-   * "call us instead" message rather than silently dropping leads.
-   * TODO(owner): paste the access key issued for the business inbox above.
+   * Web3Forms access key for the contact form. Submissions are delivered to
+   * `businessEmail`. If this is ever cleared, the form surfaces a "call us
+   * instead" message rather than silently dropping leads.
    */
-  web3formsAccessKey: "",
+  web3formsAccessKey: "49e9d2a3-f8c8-4b4b-9069-1621cf77793c",
 
   // Site URLs
   siteUrl: "https://www.springfieldbathremodel.com", // TODO(owner): confirm this is the live domain

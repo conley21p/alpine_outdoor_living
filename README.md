@@ -17,16 +17,12 @@ bathroom remodel services and pricing in Springfield, IL.
 
 ## Before going live
 
-These are stubbed and must be filled in — all of them live in `src/lib/config.ts`
-unless noted:
+Business contact details, the phone number, and the Web3Forms key are all set in
+`src/lib/config.ts`. Still outstanding:
 
-- `businessPhone` — currently a reserved-for-fiction placeholder that renders as
-  a live `tel:` link. (`businessEmail` is set to the real inbox.)
 - `siteUrl` / `defaultDomain` — confirm `springfieldbathremodel.com` is the live
   domain.
-- `web3formsAccessKey` — create a key at https://web3forms.com for the business
-  inbox. While it's empty the form tells visitors to call instead of silently
-  dropping their request.
+- Send a test form submission and confirm it reaches the inbox.
 - Logo artwork — `public/` has no logo; the navbar renders a text wordmark and
   `src/app/layout.tsx` has no favicon or OG image wired up.
 - Project photos — add hero images under `public/fallback/Website/Hero/` and point
