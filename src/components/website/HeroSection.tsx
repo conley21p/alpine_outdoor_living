@@ -33,13 +33,24 @@ function HeroContent() {
         </div>
       </div>
 
-      <div className="mx-auto flex flex-col sm:flex-row items-center gap-4">
-        <Link
-          href="#assessment"
-          className="btn-primary inline-flex min-w-[240px] items-center justify-center bg-white px-10 py-5 text-lg font-bold text-brand-primary shadow-2xl hover:bg-white/90 hover:scale-105"
-        >
-          Free Safety Assessment
-        </Link>
+      <div className="mx-auto flex flex-col items-center gap-5">
+        {/*
+         * The assessment CTA reads as a sentence rather than a button: the
+         * visit is free and low-commitment, and a plain worded link says that
+         * more honestly than a hard-sell button does. It points at #contact —
+         * the booking form — rather than #assessment, which only explains what
+         * the visit covers.
+         */}
+        <p className="max-w-4xl text-base md:text-lg leading-relaxed text-white/90">
+          Not sure where to start?{" "}
+          <Link
+            href="#contact"
+            className="font-bold text-white underline decoration-white/50 decoration-2 underline-offset-[6px] transition-colors hover:decoration-white"
+          >
+            Book your free in-home safety assessment
+          </Link>
+          {" \u2014 no cost, no obligation."}
+        </p>
         <a
           href={`tel:${publicConfig.businessPhone.replace(/\D/g, "")}`}
           className="inline-flex min-w-[200px] items-center justify-center rounded-full border border-white/40 px-10 py-5 text-lg font-bold text-white transition-all hover:bg-white/10"
@@ -93,16 +104,17 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           alt={`${publicConfig.businessName} hero image`}
           priority
           // The overlay content is absolutely positioned inside this box, so a
-          // fixed 4/5 ratio clips the CTAs on narrow screens once the highlight
-          // list wraps. A min-height lets the hero grow instead; the 21/9 ratio
-          // still governs from md up, where the content always fits.
-          mobileAspectClassName="min-h-[38rem] md:min-h-0"
+          // fixed ratio clips the CTAs as soon as the copy wraps — 4/5 did it on
+          // mobile once the highlight list wrapped, and 21/9 did it on desktop
+          // once the assessment line went to two lines. Min-heights let the hero
+          // grow instead; 21/9 still governs on wide screens, where it is taller.
+          mobileAspectClassName="min-h-[50rem] md:min-h-[45rem]"
           desktopAspectClassName="md:aspect-[21/9]"
           hasWebp={heroPair?.hasWebp ?? false}
           className="w-full"
         >
           <div className="absolute inset-0 bg-black/45" />
-          <div className="absolute inset-0 flex flex-col justify-between pt-8 md:pt-20 pb-20 md:pb-36 px-6 text-center z-10">
+          <div className="absolute inset-0 flex flex-col justify-between pt-8 md:pt-12 pb-40 md:pb-48 px-6 text-center z-10">
             <HeroContent />
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-brand-bgLight via-brand-bgLight/40 to-transparent z-0" />
