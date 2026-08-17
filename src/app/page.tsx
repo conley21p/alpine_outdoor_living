@@ -1,22 +1,17 @@
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
-import { ServicesGridLazy } from "@/components/website/ServicesGridLazy";
 import { ContactFormLazy } from "@/components/website/ContactFormLazy";
+import { CallOrTextBanner } from "@/components/website/CallOrTextBanner";
 import { AssessmentSection } from "@/components/website/AssessmentSection";
 import { PackagesSection } from "@/components/website/PackagesSection";
 import { publicConfig } from "@/lib/config";
-import {
-  getHeroPair,
-  getRemodelPackages,
-  getStaticServices,
-} from "@/lib/public-data";
+import { getHeroPair, getRemodelPackages } from "@/lib/public-data";
 
 export const revalidate = 300; // Cache the page for 5 minutes
 
 export default async function Home() {
-  const [heroPair, services, packages] = await Promise.all([
+  const [heroPair, packages] = await Promise.all([
     getHeroPair(),
-    getStaticServices(),
     getRemodelPackages(),
   ]);
 
@@ -73,58 +68,11 @@ export default async function Home() {
           <div className="relative w-full">
             <HeroSection heroPair={heroPair} />
 
-            <section className="relative mx-auto max-w-7xl px-6 py-20 lg:py-32">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-                <div className="lg:col-span-12 space-y-10">
-                  <div className="space-y-6">
-                    <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-brand-textDark leading-[1.05]">
-                      Safer Bathrooms.<br />Same Home.
-                    </h2>
-                    <div className="h-1.5 w-24 bg-brand-secondary rounded-full" />
-                  </div>
-
-                  <div className="space-y-6 text-xl lg:text-2xl text-brand-textDark/80 leading-relaxed font-medium">
-                    <p>
-                      <strong>{publicConfig.businessName}</strong> remodels bathrooms for
-                      people who intend to stay in the home they already love. Most falls
-                      happen in the bathroom, and most of them are preventable with the
-                      right grab bar, the right shower entry, and the right lighting.
-                    </p>
-                    <p className="text-lg lg:text-xl text-brand-textDark/60 font-normal">
-                      Serving <strong>{publicConfig.serviceArea}</strong>, we work at four
-                      levels — from a one-day safety install to a full wheelchair-accessible
-                      retrofit. Every job starts with a free in-home assessment, so nobody
-                      pays for more bathroom than they actually need.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-4 border-t border-brand-textDark/5">
-                    <div className="flex items-center gap-2 text-brand-primary font-bold">
-                      <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                      <span>Free Safety Assessment</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-brand-primary font-bold">
-                      <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                      <span>ADA &amp; Universal Design</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-brand-primary font-bold">
-                      <div className="w-2 h-2 rounded-full bg-brand-secondary" />
-                      <span>Licensed &amp; Insured</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
             <AssessmentSection />
 
-            <ServicesGridLazy
-              services={services}
-              title="Four Ways In"
-              subtitle="Swipe to compare our senior-safe remodel packages"
-            />
-
             <PackagesSection packages={packages} />
+
+            <CallOrTextBanner />
 
             <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent scroll-mt-24">
               <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">

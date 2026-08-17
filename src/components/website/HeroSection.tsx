@@ -2,6 +2,9 @@ import Link from "next/link";
 import { publicConfig } from "@/lib/config";
 import { ResponsiveSlotImage } from "@/components/website/ResponsiveSlotImage";
 
+/** Stand-in artwork until real project photography exists. */
+const HERO_ILLUSTRATION = "/hero/accessible-bathroom.svg";
+
 interface HeroSectionProps {
   heroPair?: { wide: string | null; vert: string | null };
 }
@@ -59,6 +62,18 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
     return (
       <section className="relative w-full overflow-hidden bg-brand-bgLight">
         <div className="relative w-full bg-[linear-gradient(135deg,var(--brand-primary)_0%,#152F72_55%,#0E1F4B_100%)]">
+          {/*
+           * Original illustration standing in for photography. Swap it out by
+           * returning real image paths from `getHeroPair()` — that switches the
+           * hero to the photo treatment below and this branch stops rendering.
+           */}
+          <img
+            src={HERO_ILLUSTRATION}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover opacity-90"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,22,54,0.72)_0%,rgba(9,22,54,0.55)_45%,rgba(9,22,54,0.78)_100%)]" />
           <div className="relative z-10 flex flex-col justify-between gap-12 px-6 pt-16 pb-24 text-center md:min-h-[36rem] md:pt-24 md:pb-32">
             <HeroContent />
           </div>

@@ -93,9 +93,13 @@ export function PackagesSection({ packages, sectionId = "packages" }: PackagesSe
       </div>
 
       <p className="mt-10 max-w-3xl text-sm lg:text-base leading-relaxed text-brand-textDark/50">
-        Pricing shown is an estimate range. Final cost depends on existing plumbing,
-        structural conditions, fixture selections, and any permits required. Every
-        quote is written and itemized before work begins.
+        Pricing shown is an estimate range and timelines are typical durations, not
+        guarantees. Both depend on existing plumbing, structural conditions, fixture
+        selections, permitting, and material availability. Every quote is written and
+        itemized before work begins. Grab bars and fixtures are installed to ADA
+        dimensional specifications where the space allows; ADA itself governs public
+        accommodations rather than private homes, so a residential bathroom is not
+        certified as ADA-compliant.
       </p>
     </section>
   );

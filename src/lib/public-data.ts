@@ -63,7 +63,7 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
     label: "Package 1",
     title: "Safety Essentials",
     price: "$650 – $1,800+",
-    timeline: "Completed in 1 day",
+    timeline: "Typically 1 day",
     summary:
       "For clients who just need the highest-risk hazards fixed now, without a full remodel.",
     features: [
@@ -81,7 +81,7 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
     label: "Package 2",
     title: "Fast-Track Shower Conversion",
     price: "$6,500 – $10,500+",
-    timeline: "Completed in 3–5 days",
+    timeline: "Typically 3–5 days",
     summary:
       "The most requested package: removes the fall hazard of climbing over a tub edge.",
     features: [
@@ -90,7 +90,7 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
       "Comfort-height toilet",
       "Lever-handle faucet (easier grip than knobs)",
       "Slip-resistant flooring",
-      "2–3 ADA grab bars",
+      "2–3 grab bars meeting ADA dimensional specs",
       "Licensed plumber for drain/valve relocation as needed",
     ],
     bestFor:
@@ -102,17 +102,17 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
     label: "Package 3",
     title: "Custom Accessible Remodel",
     price: "$11,000 – $18,000+",
-    timeline: "Completed in 2–3 weeks",
+    timeline: "Typically 2–3 weeks",
     summary:
       "A fully personalized bathroom that still looks like a nice bathroom, not a medical fixture.",
     features: [
       "Curbless (zero-threshold) shower entry with linear drain",
       "Custom tile walls and floor, homeowner’s choice of style",
       "Fold-down bench (17–18” height)",
-      "ADA grab bars at entry, wall, and bench",
+      "Grab bars meeting ADA dimensional specs at entry, wall, and bench",
       "Comfort-height toilet and accessible vanity with knee clearance",
       "Upgraded lighting and ventilation",
-      "Thermostatic shower valve (prevents scalding)",
+      "Thermostatic shower valve (holds a set temperature to reduce scald risk)",
     ],
     bestFor:
       "Clients planning to stay in the home long-term who want it to look updated, not “medicalized.”",
@@ -122,13 +122,13 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
     label: "Package 4",
     title: "Full Universal Design Retrofit",
     price: "$19,000 – $28,000+",
-    timeline: "Completed in 3–4 weeks",
+    timeline: "Typically 3–4 weeks",
     summary:
       "For wheelchair access or significant mobility needs, built to last through future stages of aging.",
     features: [
       "Doorway widened to 32”+ for walker/wheelchair clearance",
       "60”x60” curbless roll-in shower",
-      "Reinforced walls for future grab bar placement anywhere needed",
+      "Reinforced walls so grab bars can be added later throughout the shower and toilet areas",
       "Custom tile, vanity, and fixtures",
       "Structural, electrical, and plumbing coordination as required",
       "Optional: heated flooring, smart lighting",

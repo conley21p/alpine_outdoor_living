@@ -13,7 +13,7 @@ export const publicConfig = {
   businessPhone: "(217) 899-5627",
   businessEmail: "Kirk@springfieldbathremodel.com",
   industry: "Bathroom Remodeling & Accessibility Retrofits",
-  serviceArea: "Springfield, Chatham, Rochester, Sherman & Central Illinois",
+  serviceArea: "Springfield, IL and surrounding communities", // TODO(owner): list specific towns only if you actually cover them
   /** Package names shown in the hero band. */
   heroHighlights: [
     "Safety Essentials",

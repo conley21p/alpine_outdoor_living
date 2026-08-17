@@ -6,7 +6,7 @@ const assessmentPoints = [
   "Walk the bathroom to identify fall risks — tub entry, flooring, lighting, and reach points",
   "Measure the space so pricing reflects your actual bathroom, not a generic estimate",
   "Recommend the package that fits the need and the budget, with no pressure to size up",
-  "Talk through the wider senior transition services if you want more than the bathroom",
+  "Point out other fall risks we notice elsewhere in the home, whether or not we do that work",
 ];
 
 export function AssessmentSection() {
@@ -26,10 +26,9 @@ export function AssessmentSection() {
             </h2>
             <p className="text-lg lg:text-xl leading-relaxed text-brand-textDark/75">
               A no-cost, no-obligation visit to evaluate fall risks, measure the
-              bathroom, and recommend the right package. It&rsquo;s also the entry
-              point into our broader senior transition services — downsizing help,
-              whole-home safety, and legacy planning — if you need more than the
-              bathroom.
+              bathroom, and recommend the right package. If the bathroom turns out
+              not to be the only concern, we&rsquo;ll say so and help you figure out
+              what to tackle first.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
