@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { publicConfig } from "@/lib/config";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -30,6 +31,7 @@ const initialFormState = (services: readonly string[], defaultService?: string):
 });
 
 export function ContactForm({ initialService }: ContactFormProps) {
+  const searchParams = useSearchParams();
   const services = useMemo(() => [...publicConfig.servicesOffered], []);
   const [form, setForm] = useState<ContactFormState>(initialFormState(services, initialService));
   const [loading, setLoading] = useState(false);
@@ -37,21 +39,22 @@ export function ContactForm({ initialService }: ContactFormProps) {
   const [error, setError] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
+  // Read via useSearchParams (not window.location) so that clicking
+  // "Ask about this package" further up the same page re-selects the service.
+  // Those are client-side navigations: the URL changes but this component never
+  // remounts, so a mount-only read of window.location would miss them.
+  const serviceQuery = searchParams.get("service");
+
   useEffect(() => {
-    // If we have an initialService prop, use it immediately
     if (initialService) {
-      setForm(prev => ({ ...prev, serviceNeeded: initialService }));
+      setForm((prev) => ({ ...prev, serviceNeeded: initialService }));
       return;
     }
 
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const serviceQuery = params.get("service");
-      if (serviceQuery && (services as string[]).includes(serviceQuery)) {
-        setForm((prev) => ({ ...prev, serviceNeeded: serviceQuery }));
-      }
+    if (serviceQuery && (services as string[]).includes(serviceQuery)) {
+      setForm((prev) => ({ ...prev, serviceNeeded: serviceQuery }));
     }
-  }, [services, initialService]);
+  }, [services, initialService, serviceQuery]);
 
   const formatPhoneNumber = (value: string) => {
     const phoneNumber = value.replace(/\D/g, "");
