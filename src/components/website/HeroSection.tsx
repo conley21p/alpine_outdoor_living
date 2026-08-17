@@ -6,7 +6,7 @@ import { ResponsiveSlotImage } from "@/components/website/ResponsiveSlotImage";
 const HERO_ILLUSTRATION = "/hero/accessible-bathroom.svg";
 
 interface HeroSectionProps {
-  heroPair?: { wide: string | null; vert: string | null };
+  heroPair?: { wide: string | null; vert: string | null; hasWebp?: boolean };
 }
 
 function HeroContent() {
@@ -94,6 +94,7 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           priority
           mobileAspectClassName="aspect-[4/5]"
           desktopAspectClassName="md:aspect-[21/9]"
+          hasWebp={heroPair?.hasWebp ?? false}
           className="w-full"
         >
           <div className="absolute inset-0 bg-black/45" />

@@ -45,18 +45,6 @@ export interface RemodelPackage {
   featured?: boolean;
 }
 
-/**
- * Hero images — no photography on file yet, so the hero renders its overlay
- * over the brand background. Drop wide/vertical files in
- * `public/fallback/Website/Hero/` and point these at them.
- */
-export const getHeroPair = async () => {
-  return {
-    wide: null as string | null,
-    vert: null as string | null,
-  };
-};
-
 export const REMODEL_PACKAGES: RemodelPackage[] = [
   {
     id: "safety-essentials",

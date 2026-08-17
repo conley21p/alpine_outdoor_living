@@ -14,6 +14,13 @@ interface ResponsiveSlotImageProps {
   className?: string;
   mobileAspectClassName?: string;
   desktopAspectClassName?: string;
+  /**
+   * Whether pre-encoded `.webp` siblings exist next to the source files. A
+   * `<source type="image/webp">` pointing at a missing file is not recoverable —
+   * the browser commits to the first matching source and shows a broken image —
+   * so callers must opt in.
+   */
+  hasWebp?: boolean;
   children?: ReactNode;
 }
 
@@ -40,6 +47,7 @@ export function ResponsiveSlotImage({
   className,
   mobileAspectClassName = "aspect-[3/4]",
   desktopAspectClassName = "md:aspect-[21/9]",
+  hasWebp = true,
   children,
 }: ResponsiveSlotImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -60,7 +68,7 @@ export function ResponsiveSlotImage({
   };
   const wideWebp = swapExt(wideUrl, "webp");
   const vertWebp = swapExt(vertUrl, "webp");
-  const isLocal = (u: string) => u && !/^(https?:|data:)/i.test(u);
+  const isLocal = (u: string) => hasWebp && u && !/^(https?:|data:)/i.test(u);
 
   // If the image is already in cache (often due to preload), the `load` event
   // may fire before React attaches handlers. Handle that by checking `complete`

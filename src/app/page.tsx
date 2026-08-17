@@ -5,7 +5,8 @@ import { CallOrTextBanner } from "@/components/website/CallOrTextBanner";
 import { AssessmentSection } from "@/components/website/AssessmentSection";
 import { PackagesSection } from "@/components/website/PackagesSection";
 import { publicConfig } from "@/lib/config";
-import { getHeroPair, getRemodelPackages } from "@/lib/public-data";
+import { getHeroPair } from "@/lib/hero-media";
+import { getRemodelPackages } from "@/lib/public-data";
 
 export const revalidate = 300; // Cache the page for 5 minutes
 
@@ -15,8 +16,10 @@ export default async function Home() {
     getRemodelPackages(),
   ]);
 
-  const heroWideWebp = heroPair.wide ? heroPair.wide.replace(/\.[^.]+$/, ".webp") : null;
-  const heroVertWebp = heroPair.vert ? heroPair.vert.replace(/\.[^.]+$/, ".webp") : null;
+  // Only preload the webp variants when they actually exist on disk; otherwise
+  // the preload 404s and the browser still has to fetch the real file.
+  const heroWideWebp = heroPair.hasWebp && heroPair.wide ? heroPair.wide.replace(/\.[^.]+$/, ".webp") : null;
+  const heroVertWebp = heroPair.hasWebp && heroPair.vert ? heroPair.vert.replace(/\.[^.]+$/, ".webp") : null;
 
   return (
     <>
