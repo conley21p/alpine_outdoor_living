@@ -91,7 +91,7 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
       "Lever-handle faucet (easier grip than knobs)",
       "Slip-resistant flooring",
       "2–3 grab bars meeting ADA dimensional specs",
-      "Licensed plumber for drain/valve relocation as needed",
+      "Drain and valve relocation as needed",
     ],
     bestFor:
       "Clients who want a quick, contained project and don’t need custom tile.",
