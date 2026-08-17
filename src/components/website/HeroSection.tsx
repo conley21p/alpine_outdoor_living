@@ -92,7 +92,11 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           overrideVert={heroPair?.vert}
           alt={`${publicConfig.businessName} hero image`}
           priority
-          mobileAspectClassName="aspect-[4/5]"
+          // The overlay content is absolutely positioned inside this box, so a
+          // fixed 4/5 ratio clips the CTAs on narrow screens once the highlight
+          // list wraps. A min-height lets the hero grow instead; the 21/9 ratio
+          // still governs from md up, where the content always fits.
+          mobileAspectClassName="min-h-[38rem] md:min-h-0"
           desktopAspectClassName="md:aspect-[21/9]"
           hasWebp={heroPair?.hasWebp ?? false}
           className="w-full"
