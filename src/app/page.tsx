@@ -4,16 +4,21 @@ import { ContactFormLazy } from "@/components/website/ContactFormLazy";
 import { CallOrTextBanner } from "@/components/website/CallOrTextBanner";
 import { AssessmentSection } from "@/components/website/AssessmentSection";
 import { PackagesSection } from "@/components/website/PackagesSection";
+import { BeforeAfterSection } from "@/components/website/BeforeAfterSection";
+import { ProjectVideosSection } from "@/components/website/ProjectVideosSection";
 import { publicConfig } from "@/lib/config";
 import { getHeroPair } from "@/lib/hero-media";
 import { getRemodelPackages } from "@/lib/public-data";
+import { getBeforeAfterImages, getProjectVideos } from "@/lib/project-media";
 
 export const revalidate = 300; // Cache the page for 5 minutes
 
 export default async function Home() {
-  const [heroPair, packages] = await Promise.all([
+  const [heroPair, packages, beforeAfter, videos] = await Promise.all([
     getHeroPair(),
     getRemodelPackages(),
+    getBeforeAfterImages(),
+    getProjectVideos(),
   ]);
 
   // Only preload the webp variants when they actually exist on disk; otherwise
@@ -72,6 +77,10 @@ export default async function Home() {
             <HeroSection heroPair={heroPair} />
 
             <AssessmentSection />
+
+            <BeforeAfterSection images={beforeAfter} />
+
+            <ProjectVideosSection videos={videos} />
 
             <PackagesSection packages={packages} />
 
