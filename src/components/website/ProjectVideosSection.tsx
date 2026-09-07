@@ -37,20 +37,28 @@ export function ProjectVideosSection({ videos, sectionId = "videos" }: ProjectVi
             key={video.src}
             className="overflow-hidden rounded-[32px] border border-white/70 bg-white/85 p-3 shadow-xl lg:p-4"
           >
-            <video
-              controls
-              playsInline
-              preload="metadata"
-              poster={video.poster ?? undefined}
-              className="w-full rounded-[24px] bg-black"
-            >
-              <source src={video.src} type={video.type} />
-              Your browser can&rsquo;t play this video.{" "}
-              <a href={video.src} className="underline">
-                Download it instead
-              </a>
-              .
-            </video>
+            {/*
+             * Phone footage arrives in both orientations — a landscape walkthrough
+             * next to a portrait one would make the grid rows wildly uneven. A
+             * fixed 16:9 frame with object-contain keeps every card the same size
+             * and pillarboxes portrait clips against the black backing.
+             */}
+            <div className="relative aspect-video w-full overflow-hidden rounded-[24px] bg-black">
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster={video.poster ?? undefined}
+                className="absolute inset-0 h-full w-full object-contain"
+              >
+                <source src={video.src} type={video.type} />
+                Your browser can&rsquo;t play this video.{" "}
+                <a href={video.src} className="underline">
+                  Download it instead
+                </a>
+                .
+              </video>
+            </div>
             {video.caption ? (
               <figcaption className="px-3 pb-2 pt-5 text-base lg:text-lg font-medium text-brand-textDark/70">
                 {video.caption}
