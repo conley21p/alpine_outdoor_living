@@ -18,9 +18,8 @@ export function PackagesSection({ packages, sectionId = "packages" }: PackagesSe
         </h2>
         <div className="h-1.5 w-24 rounded-full bg-brand-secondary" />
         <p className="text-lg lg:text-xl leading-relaxed text-brand-textDark/70">
-          Four levels of work, priced by scope. These ranges are starting points —
-          your written quote comes out of the free in-home assessment, so the
-          number reflects your bathroom instead of an average one.
+          Four levels of work, priced by scope. Your written quote comes from the
+          free in-home assessment.
         </p>
       </div>
 
@@ -73,17 +72,9 @@ export function PackagesSection({ packages, sectionId = "packages" }: PackagesSe
             </ul>
 
             <div className="mt-auto pt-8">
-              <div className="rounded-2xl bg-brand-bgLight p-5">
-                <p className="text-xs font-bold uppercase tracking-widest text-brand-textDark/50">
-                  Best for
-                </p>
-                <p className="mt-2 text-base lg:text-lg leading-relaxed text-brand-textDark/80">
-                  {pkg.bestFor}
-                </p>
-              </div>
               <Link
                 href={`/?service=${encodeURIComponent(pkg.title)}#contact`}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-primary py-4 px-4 text-base lg:text-lg font-bold text-white shadow-xl shadow-brand-primary/20 transition-all hover:bg-brand-primary-dark active:scale-95"
+                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-primary py-4 px-4 text-base lg:text-lg font-bold text-white shadow-xl shadow-brand-primary/20 transition-all hover:bg-brand-primary-dark active:scale-95"
               >
                 Ask about this package <span aria-hidden>→</span>
               </Link>
@@ -93,13 +84,11 @@ export function PackagesSection({ packages, sectionId = "packages" }: PackagesSe
       </div>
 
       <p className="mt-10 max-w-3xl text-sm lg:text-base leading-relaxed text-brand-textDark/50">
-        Pricing shown is an estimate range and timelines are typical durations, not
-        guarantees. Both depend on existing plumbing, structural conditions, fixture
-        selections, permitting, and material availability. Every quote is written and
-        itemized before work begins. Grab bars and fixtures are installed to ADA
-        dimensional specifications where the space allows; ADA itself governs public
-        accommodations rather than private homes, so a residential bathroom is not
-        certified as ADA-compliant.
+        Prices are estimate ranges and timelines are typical, not guaranteed; both
+        depend on existing plumbing, structure, fixtures, permits, and materials.
+        Every quote is written and itemized before work begins. Grab bars and
+        fixtures follow ADA dimensional specs where the space allows, but ADA covers
+        public buildings, so a home bathroom is not certified ADA-compliant.
       </p>
     </section>
   );

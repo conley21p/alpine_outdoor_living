@@ -1,6 +1,6 @@
 # Hero photography
 
-Drop hero images here and rebuild — `getHeroPair()` in `src/lib/hero-media.ts`
+Drop hero images here and rebuild. `getHeroPair()` in `src/lib/hero-media.ts`
 finds them automatically, no code change required.
 
     Wide/Hero.jpg        desktop / landscape  (used at md and up)
@@ -9,7 +9,7 @@ finds them automatically, no code change required.
 Accepted extensions, in priority order: `.webp`, `.jpg`, `.jpeg`, `.png`.
 The filename must be exactly `Hero.<ext>`.
 
-Supplying only one of the two is fine — it's used for both orientations, but it
+Supplying only one of the two is fine: it's used for both orientations, but it
 will crop on the other one.
 
 Until a file exists here, the hero renders the illustrated fallback at

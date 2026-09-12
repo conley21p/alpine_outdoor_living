@@ -48,7 +48,7 @@ export function ReviewsSection({ reviews = [], previewOnly = false }: ReviewsSec
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-lg font-normal text-brand-textDark/70 sm:text-xl lg:text-2xl">
           {reviews.length === 0 
-            ? "Sample testimonials—live reviews coming soon"
+            ? "Sample testimonials. Live reviews coming soon."
             : "Real feedback from our valued customers"
           }
         </p>

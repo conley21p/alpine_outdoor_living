@@ -47,7 +47,7 @@ function hasWebpSibling(url: string | null): boolean {
 /**
  * Hero photography, picked up automatically from
  * `public/fallback/Website/Hero/Wide/Hero.*` and `.../Vertical/Hero.*`.
- * Drop the files in and rebuild — no code change needed.
+ * Drop the files in and rebuild. No code change needed.
  *
  * Supplying only one of the two is fine: it is used for both orientations,
  * though it will crop on the other one.

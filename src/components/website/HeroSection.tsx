@@ -37,8 +37,8 @@ function HeroContent() {
         {/*
          * The assessment CTA reads as a sentence rather than a button: the
          * visit is free and low-commitment, and a plain worded link says that
-         * more honestly than a hard-sell button does. It points at #contact —
-         * the booking form — rather than #assessment, which only explains what
+         * more honestly than a hard-sell button does. It points at #contact
+         * (the booking form) rather than #assessment, which only explains what
          * the visit covers.
          */}
         <p className="max-w-4xl text-base md:text-lg leading-relaxed text-white/90">
@@ -49,7 +49,7 @@ function HeroContent() {
           >
             Book your free in-home safety assessment
           </Link>
-          {" \u2014 no cost, no obligation."}
+          {". No cost, no obligation."}
         </p>
         <a
           href={`tel:${publicConfig.businessPhone.replace(/\D/g, "")}`}
@@ -75,7 +75,7 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
         <div className="relative w-full bg-[linear-gradient(135deg,var(--brand-primary)_0%,#152F72_55%,#0E1F4B_100%)]">
           {/*
            * Original illustration standing in for photography. Swap it out by
-           * returning real image paths from `getHeroPair()` — that switches the
+           * returning real image paths from `getHeroPair()`; that switches the
            * hero to the photo treatment below and this branch stops rendering.
            */}
           <img
@@ -104,7 +104,7 @@ export function HeroSection({ heroPair }: HeroSectionProps) {
           alt={`${publicConfig.businessName} hero image`}
           priority
           // The overlay content is absolutely positioned inside this box, so a
-          // fixed ratio clips the CTAs as soon as the copy wraps — 4/5 did it on
+          // fixed ratio clips the CTAs as soon as the copy wraps: 4/5 did it on
           // mobile once the highlight list wrapped, and 21/9 did it on desktop
           // once the assessment line went to two lines. Min-heights let the hero
           // grow instead; 21/9 still governs on wide screens, where it is taller.

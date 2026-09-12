@@ -8,7 +8,7 @@ import path from "node:path";
  * only. Files are picked up from `public/` at build time, which works with
  * `output: 'export'` because the build runs in Node before anything is emitted.
  *
- * The point is that adding project media requires no code change — drop a file
+ * The point is that adding project media requires no code change: drop a file
  * in the right folder and rebuild. Nothing renders while a folder is empty, so
  * the page never ships an empty gallery frame.
  */
@@ -18,6 +18,11 @@ export interface ProjectImage {
   src: string;
   /** Human-readable label derived from the filename, or null. */
   caption: string | null;
+}
+
+export interface GalleryPhoto extends ProjectImage {
+  /** Smaller copy for the grid tile; falls back to `src` when none exists. */
+  thumb: string;
 }
 
 export interface ProjectVideo {
@@ -30,6 +35,8 @@ export interface ProjectVideo {
 }
 
 const BEFORE_AFTER_DIR = "projects/before-after";
+const GALLERY_DIR = "projects/gallery";
+const GALLERY_THUMB_DIR = "projects/gallery/thumbs";
 const VIDEO_DIR = "projects/videos";
 
 const IMAGE_EXTENSIONS = [".webp", ".jpg", ".jpeg", ".png"];
@@ -78,6 +85,21 @@ export const getBeforeAfterImages = async (): Promise<ProjectImage[]> =>
     src: `/${BEFORE_AFTER_DIR}/${name}`,
     caption: captionFromFilename(name),
   }));
+
+/**
+ * Gallery photos from `public/projects/gallery/`, ordered by filename. A file
+ * with the same name in `gallery/thumbs/` is used for the grid tile so the
+ * page doesn't download full-size photos until one is opened.
+ */
+export const getGalleryImages = async (): Promise<GalleryPhoto[]> => {
+  const thumbs = new Set(listFiles(GALLERY_THUMB_DIR, IMAGE_EXTENSIONS));
+
+  return listFiles(GALLERY_DIR, IMAGE_EXTENSIONS).map((name) => ({
+    src: `/${GALLERY_DIR}/${name}`,
+    thumb: thumbs.has(name) ? `/${GALLERY_THUMB_DIR}/${name}` : `/${GALLERY_DIR}/${name}`,
+    caption: captionFromFilename(name),
+  }));
+};
 
 /**
  * Project videos from `public/projects/videos/`. An image sharing a video's

@@ -49,7 +49,7 @@
   }
 
   /*
-   * Glass card variants — `backdrop-filter: blur()` is expensive on mobile.
+   * Glass card variants: `backdrop-filter: blur()` is expensive on mobile.
    * Gate blur behind `lg:` and use slightly more opaque gradients on small screens.
    */
   .glass-card {

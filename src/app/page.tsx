@@ -1,23 +1,23 @@
 import { SiteShell } from "@/components/website/SiteShell";
 import { HeroSection } from "@/components/website/HeroSection";
 import { ContactFormLazy } from "@/components/website/ContactFormLazy";
-import { CallOrTextBanner } from "@/components/website/CallOrTextBanner";
 import { AssessmentSection } from "@/components/website/AssessmentSection";
 import { PackagesSection } from "@/components/website/PackagesSection";
 import { BeforeAfterSection } from "@/components/website/BeforeAfterSection";
-import { ProjectVideosSection } from "@/components/website/ProjectVideosSection";
+import { GallerySection } from "@/components/website/GallerySection";
 import { publicConfig } from "@/lib/config";
 import { getHeroPair } from "@/lib/hero-media";
 import { getRemodelPackages } from "@/lib/public-data";
-import { getBeforeAfterImages, getProjectVideos } from "@/lib/project-media";
+import { getBeforeAfterImages, getGalleryImages, getProjectVideos } from "@/lib/project-media";
 
 export const revalidate = 300; // Cache the page for 5 minutes
 
 export default async function Home() {
-  const [heroPair, packages, beforeAfter, videos] = await Promise.all([
+  const [heroPair, packages, beforeAfter, gallery, videos] = await Promise.all([
     getHeroPair(),
     getRemodelPackages(),
     getBeforeAfterImages(),
+    getGalleryImages(),
     getProjectVideos(),
   ]);
 
@@ -80,11 +80,9 @@ export default async function Home() {
 
             <BeforeAfterSection images={beforeAfter} />
 
-            <ProjectVideosSection videos={videos} />
+            <GallerySection photos={gallery} videos={videos} />
 
             <PackagesSection packages={packages} />
-
-            <CallOrTextBanner />
 
             <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent scroll-mt-24">
               <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-5 z-10">
@@ -93,10 +91,9 @@ export default async function Home() {
                     Book Your Free <br className="hidden lg:block" /> Safety Assessment
                   </h2>
                   <p className="mt-4 text-lg lg:text-xl leading-relaxed text-brand-textDark/70 mb-8">
-                    Tell us a little about the bathroom and who it&rsquo;s for. We&rsquo;ll
-                    follow up to schedule the in-home visit — usually within 24&ndash;48
-                    hours. If it&rsquo;s urgent, like a hospital discharge coming up, call
-                    and say so and we&rsquo;ll work around that date.
+                    Tell us about the bathroom and who it&rsquo;s for, and we&rsquo;ll
+                    follow up within 24&ndash;48 hours. Rather skip the form? Call or
+                    text us. If a hospital discharge is coming up, tell us and we&rsquo;ll plan around it.
                   </p>
 
                   <div className="sm:mt-auto mt-8 space-y-4 rounded-3xl p-8 glass-card-green">
@@ -107,7 +104,7 @@ export default async function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Phone</p>
+                        <p className="text-sm font-semibold uppercase tracking-wider text-brand-textDark/60">Call or Text</p>
                         <a href={`tel:${publicConfig.businessPhone.replace(/\D/g, '')}`} className="mt-1 block text-lg font-bold text-brand-primary hover:text-brand-secondary transition-colors">
                           {publicConfig.businessPhone}
                         </a>

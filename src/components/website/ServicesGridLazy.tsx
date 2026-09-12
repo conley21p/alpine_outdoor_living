@@ -10,7 +10,7 @@ import type { ServicesGridProps } from "@/components/website/ServicesGrid";
  * the page). Wrapping it in `next/dynamic` puts that code in its own JS
  * chunk that's loaded after the initial bundle. The default `ssr: true`
  * keeps the deck pre-rendered into the static HTML, so users still see the
- * cards instantly — only the interactive (drag/animation) layer is
+ * cards instantly; only the interactive (drag/animation) layer is
  * deferred. While the chunk is loading the static HTML stays visible.
  */
 const ServicesGrid = dynamic(

@@ -45,7 +45,7 @@ export function BeforeAfterSection({ images, sectionId = "before-after" }: Befor
               src={image.src}
               alt={
                 image.caption
-                  ? `${image.caption} — bathroom remodel before and after`
+                  ? `${image.caption}: bathroom remodel before and after`
                   : "Bathroom remodel before and after"
               }
               loading="lazy"

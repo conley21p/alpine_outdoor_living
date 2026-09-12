@@ -2,14 +2,14 @@
  * publicConfig: Publicly accessible site configuration and branding.
  * These values are used on the client-side and server-side.
  *
- * The phone, email, and Web3Forms key below are live production values — they
+ * The phone, email, and Web3Forms key below are live production values; they
  * render as real tel:/mailto: links and route lead-form submissions.
  */
 export const publicConfig = {
   // Business identity
   businessName: "Springfield Bathroom Remodel",
-  businessDescription: "Senior-safe bathroom remodels in Springfield, IL — grab bars, walk-in showers, curbless entries, and full universal design retrofits, with a free in-home safety assessment.",
-  businessTagline: "Senior-Safe Bathroom Remodels — Built for Staying Home Safely",
+  businessDescription: "Senior-safe bathroom remodels in Springfield, IL: grab bars, walk-in showers, curbless entries, and full universal design retrofits, with a free in-home safety assessment.",
+  businessTagline: "Senior-Safe Bathroom Remodels, Built for Staying Home Safely",
   businessPhone: "(217) 899-5627",
   businessEmail: "Kirk@springfieldbathremodel.com",
   industry: "Bathroom Remodeling & Accessibility Retrofits",

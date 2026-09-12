@@ -3,10 +3,10 @@ import { Check, Phone, ShieldCheck } from "lucide-react";
 import { publicConfig } from "@/lib/config";
 
 const assessmentPoints = [
-  "Walk the bathroom to identify fall risks — tub entry, flooring, lighting, and reach points",
-  "Measure the space so pricing reflects your actual bathroom, not a generic estimate",
-  "Recommend the package that fits the need and the budget, with no pressure to size up",
-  "Point out other fall risks we notice elsewhere in the home, whether or not we do that work",
+  "Check tub entry, flooring, lighting, and reach points for fall risks",
+  "Measure the space so your quote fits your actual bathroom",
+  "Recommend the package that fits the need and budget, with no upsell",
+  "Flag other fall risks we notice in the home",
 ];
 
 export function AssessmentSection() {
@@ -25,10 +25,8 @@ export function AssessmentSection() {
               Free In-Home Safety Assessment
             </h2>
             <p className="text-lg lg:text-xl leading-relaxed text-brand-textDark/75">
-              A no-cost, no-obligation visit to evaluate fall risks, measure the
-              bathroom, and recommend the right package. If the bathroom turns out
-              not to be the only concern, we&rsquo;ll say so and help you figure out
-              what to tackle first.
+              A no-cost, no-obligation visit to spot fall risks and recommend the
+              right package.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a

@@ -16,8 +16,8 @@ interface ResponsiveSlotImageProps {
   desktopAspectClassName?: string;
   /**
    * Whether pre-encoded `.webp` siblings exist next to the source files. A
-   * `<source type="image/webp">` pointing at a missing file is not recoverable —
-   * the browser commits to the first matching source and shows a broken image —
+   * `<source type="image/webp">` pointing at a missing file is not recoverable:
+   * the browser commits to the first matching source and shows a broken image,
    * so callers must opt in.
    */
   hasWebp?: boolean;

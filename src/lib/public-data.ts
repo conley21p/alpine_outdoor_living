@@ -30,7 +30,7 @@ export interface ServiceData {
 
 /**
  * A priced remodel package. `media` is intentionally empty until the business
- * supplies real project photography — the service cards and hero degrade to a
+ * supplies real project photography; the service cards and hero degrade to a
  * clean text-only treatment rather than showing another company's work.
  */
 export interface RemodelPackage {
@@ -41,7 +41,6 @@ export interface RemodelPackage {
   timeline: string;
   summary: string;
   features: string[];
-  bestFor: string;
   featured?: boolean;
 }
 
@@ -61,8 +60,6 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
       "Non-slip flooring treatment or slip-resistant bath mat",
       "Improved lighting (motion-sensor night light or brighter fixture)",
     ],
-    bestFor:
-      "Adult children who want their parent safer this week, or a pre-hospital-discharge fix.",
   },
   {
     id: "fast-track-shower-conversion",
@@ -81,8 +78,6 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
       "2–3 grab bars meeting ADA dimensional specs",
       "Drain and valve relocation as needed",
     ],
-    bestFor:
-      "Clients who want a quick, contained project and don’t need custom tile.",
     featured: true,
   },
   {
@@ -102,8 +97,6 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
       "Upgraded lighting and ventilation",
       "Thermostatic shower valve (holds a set temperature to reduce scald risk)",
     ],
-    bestFor:
-      "Clients planning to stay in the home long-term who want it to look updated, not “medicalized.”",
   },
   {
     id: "full-universal-design-retrofit",
@@ -121,8 +114,6 @@ export const REMODEL_PACKAGES: RemodelPackage[] = [
       "Structural, electrical, and plumbing coordination as required",
       "Optional: heated flooring, smart lighting",
     ],
-    bestFor:
-      "Clients with a diagnosed mobility condition, or planning ahead for a spouse or parent moving in.",
   },
 ];
 
