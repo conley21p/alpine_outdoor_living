@@ -40,6 +40,9 @@ export function GallerySection({ photos, videos, sectionId = "gallery" }: Galler
           <h3 className="text-2xl lg:text-3xl font-bold tracking-tight text-brand-textDark">
             Walkthrough Videos
           </h3>
+          <p className="mt-3 text-base lg:text-lg text-brand-textDark/60">
+            These clips have no sound.
+          </p>
           <div className="mt-6 grid gap-8 lg:grid-cols-2">
             {videos.map((video) => (
               <figure

@@ -80,8 +80,6 @@ export default async function Home() {
 
             <BeforeAfterSection images={beforeAfter} />
 
-            <GallerySection photos={gallery} videos={videos} />
-
             <PackagesSection packages={packages} />
 
             <section id="contact" className="relative mx-auto max-w-full px-6 py-20 lg:px-12 lg:py-32 bg-transparent scroll-mt-24">
@@ -146,6 +144,8 @@ export default async function Home() {
                 </div>
               </div>
             </section>
+
+            <GallerySection photos={gallery} videos={videos} />
           </div>
         </div>
       </SiteShell>
